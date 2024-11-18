@@ -51,5 +51,10 @@ spec:
     enabled: true
   accessPolicy:
     outbound:
+      rules:
+        - application: nav-dekoratoren
+          namespace: personbruker
       external:
         - host: "cdn.nav.no"
+        - host: www.nav.no
+        - host: dekoratoren.ekstern.dev.nav.no
