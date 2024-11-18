@@ -1,14 +1,16 @@
+import '@navikt/ds-css';
+import 'styles/globals.css';
+
 import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import Script from 'next/script';
 import { getEnvironment } from 'utils/environments';
 
-import '../styles/globals.css';
-
 export const metadata: Metadata = {
   title: 'AAP Meldekort',
   description: 'Innbyggerflate for å sende inn meldekort',
+
 };
 
 export default async function RootLayout({
