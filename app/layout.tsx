@@ -1,6 +1,10 @@
+import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import Script from 'next/script';
+import { getEnvironment } from 'utils/environments';
+
+import '../styles/globals.css';
 
 export const metadata: Metadata = {
   title: 'AAP Meldekort',
@@ -10,11 +14,9 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
-  const Decorator = await fetchDecoratorReact({
-    env: 'dev',
-  });
+  const Decorator = await fetchDecoratorReact({ env: getEnvironment() });
 
   return (
     <html lang="nb">
