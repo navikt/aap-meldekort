@@ -1,7 +1,3 @@
 export default function Home() {
-  return (
-    <div>
-      Hello Pello Meldekort!
-    </div>
-  );
+  return <div>Hello Pello Meldekort!</div>;
 }
