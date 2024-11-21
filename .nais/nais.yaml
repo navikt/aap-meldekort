@@ -28,16 +28,15 @@ spec:
       memory: 512Mi
     limits:
       memory: 512Mi
-  azure:
-    application:
-      enabled: true
-      allowAllUsers: true
-    sidecar:
-      enabled: true
-      autoLogin: true
   observability:
     tracing:
       enabled: true
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
+      autoLogin: true
+      level: Level4
   ingresses:
   {{#each ingresses as |url|}}
     - {{url}}
