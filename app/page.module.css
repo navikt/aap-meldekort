@@ -1,16 +1,16 @@
-.main {
-  padding: var(--a-spacing-16);
+.rapporteringheader {
+  margin: var(--a-spacing-4) auto;
+  border-bottom: 5px solid var(--a-green-400);
 }
 
-.grønnlinje {
-  width: 100%;
-  height: 5px;
-  background-color: var(--a-green-400);
+.innhold {
+  max-width: 768px;
+  padding: var(--a-spacing-4);
+  margin: 0 auto;
 }
 
-.heading {
-  display: flex;
-  flex-direction: column;
-  gap: var(--a-spacing-6);
-  margin-bottom: var(--a-spacing-4);
+.rapporteringcontainer {
+  max-width: 768px;
+  padding: var(--a-spacing-4);
+  margin: var(--a-spacing-8) auto var(--a-spacing-18);
 }

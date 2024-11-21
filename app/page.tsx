@@ -1,18 +1,20 @@
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { Heading } from '@navikt/ds-react';
 
 import styles from './page.module.css';
+import { Introduksjon } from 'components/steg/introduksjon/Introduksjon';
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.heading}>
-        <Heading level={'1'} size={'large'}>
-          Meldekort - AAP
-        </Heading>
-        <div className={styles.grønnlinje} />
+    <main>
+      <div className={styles.rapporteringheader}>
+        <div className={styles.innhold}>
+          <Heading level={'1'} size={'xlarge'}>
+            Meldekort - AAP
+          </Heading>
+        </div>
       </div>
-      <div>
-        <BodyShort>Her kommer det innhold..</BodyShort>
+      <div className={styles.rapporteringcontainer}>
+        <Introduksjon />
       </div>
     </main>
   );
