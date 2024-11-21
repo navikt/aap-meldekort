@@ -1,5 +1,3 @@
-'use client';
-
 import { BodyShort, Button, Heading, Link } from '@navikt/ds-react';
 
 import styles from 'components/steg/introduksjon/Introduksjon.module.css';
@@ -23,7 +21,7 @@ export const Introduksjon = () => {
   });
 
   return (
-    <div className={'flex-column'}>
+    <section className={'flex-column'}>
       <div>
         <BodyShort size={'large'} spacing>
           For å motta AAP må du sende meldekort hver 14. dag.
@@ -49,6 +47,6 @@ export const Introduksjon = () => {
           Neste
         </Button>
       </form>
-    </div>
+    </section>
   );
 };

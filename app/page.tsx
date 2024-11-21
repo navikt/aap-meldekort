@@ -1,7 +1,7 @@
 import { Heading } from '@navikt/ds-react';
 
 import styles from './page.module.css';
-import { Introduksjon } from 'components/steg/introduksjon/Introduksjon';
+import { Steg } from 'components/steg/Steg';
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.rapporteringcontainer}>
-        <Introduksjon />
+        <Steg />
       </div>
     </main>
   );
