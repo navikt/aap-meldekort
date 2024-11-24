@@ -1,0 +1,23 @@
+.rad {
+  display: flex;
+  flex-direction: column;
+  gap: var(--a-spacing-2);
+  padding-bottom: var(--a-spacing-2);
+  border-bottom: 1px solid var(--a-gray-300);
+}
+
+.ukeheading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--a-spacing-2);
+  justify-content: space-between;
+  border-bottom: 1px solid var(--a-gray-300);
+}
+
+.inputtimer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--a-spacing-4);
+}
