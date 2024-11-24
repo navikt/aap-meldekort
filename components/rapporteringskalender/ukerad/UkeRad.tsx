@@ -8,11 +8,10 @@ import styles from './UkeRad.module.css';
 
 interface Props {
   felterIUken: FieldArrayWithId<MeldepliktFormFields>[];
-  skalViseDag: boolean;
   form: UseFormReturn<MeldepliktFormFields>;
 }
 
-export const UkeRad = ({ felterIUken, form, skalViseDag }: Props) => {
+export const UkeRad = ({ felterIUken, form }: Props) => {
   return (
     <div className={styles.rad}>
       <div className={styles.ukeheading}>

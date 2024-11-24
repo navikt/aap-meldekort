@@ -77,7 +77,7 @@ export const Rapporteringskalender = ({ periode }: Props) => {
       <div className={styles.kalender}>
         <UkeHeader />
         {Object.entries(grupperteFelter).map(([ukeStart, felterIUken], ukeIndex) => (
-          <UkeRad key={ukeStart} felterIUken={felterIUken} form={form} skalViseDag={ukeIndex === 0} />
+          <UkeRad key={ukeStart} felterIUken={felterIUken} form={form} />
         ))}
       </div>
     </div>
