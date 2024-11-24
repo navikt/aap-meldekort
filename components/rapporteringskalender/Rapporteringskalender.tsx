@@ -24,9 +24,12 @@ export interface MeldepliktFormFields {
 
 interface Dag {
   dag: string;
-  index: number;
   timer?: string;
 }
+
+export type FieldArrayWithWithIndex = FieldArrayWithId<MeldepliktFormFields> & {
+  index: number;
+};
 
 export const Rapporteringskalender = ({ periode }: Props) => {
   const fraDato = new Date(periode.periode.fraDato);
@@ -39,7 +42,6 @@ export const Rapporteringskalender = ({ periode }: Props) => {
         return {
           dag: date.toString(),
           timer: '',
-          index: 0, // TODO Finn på noe her slik at vi ikke setter index i defaultValue
         };
       }),
     },
@@ -53,7 +55,7 @@ export const Rapporteringskalender = ({ periode }: Props) => {
   const fraDatoUkenummer = getISOWeek(fraDato);
   const tilDatoUkenummer = getISOWeek(tilDato);
 
-  const grupperteFelter: Record<string, FieldArrayWithId<MeldepliktFormFields>[]> = {};
+  const grupperteFelter: Record<string, FieldArrayWithWithIndex[]> = {};
 
   fields.forEach((field, index) => {
     const ukeStart = format(startOfWeek(new Date(field.dag), { weekStartsOn: 1 }), 'yyyy-MM-dd');
@@ -76,7 +78,7 @@ export const Rapporteringskalender = ({ periode }: Props) => {
       </div>
       <div className={styles.kalender}>
         <UkeHeader />
-        {Object.entries(grupperteFelter).map(([ukeStart, felterIUken], ukeIndex) => (
+        {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
           <UkeRad key={ukeStart} felterIUken={felterIUken} form={form} />
         ))}
       </div>
