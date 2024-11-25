@@ -2,7 +2,7 @@
 
 import { eachDayOfInterval, format, getISOWeek, startOfWeek } from 'date-fns';
 import { BodyShort, Heading } from '@navikt/ds-react';
-import { formaterDatoForFrontend } from 'app/lib/utils/date';
+import { formaterDatoForFrontend } from 'lib/utils/date';
 import { useConfigForm } from '@navikt/aap-felles-react';
 import { FieldArrayWithId, useFieldArray } from 'react-hook-form';
 
