@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "test": "vitest --run",
+    "test:watch": "vitest --watch",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
