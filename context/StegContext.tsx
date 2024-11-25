@@ -9,7 +9,7 @@ interface EtEllerannet {
 
 type Steg = 'INTRO' | 'UTFYLLING' | 'PERIODE' | 'OPPSUMMERING';
 
-export const StegContext = createContext<EtEllerannet>(undefined as unknown as EtEllerannet);
+export const StegContext = createContext<EtEllerannet | null>(null);
 
 interface Props {
   children: ReactNode;
