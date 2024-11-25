@@ -32,6 +32,14 @@ describe('Form generelt', () => {
     expect(screen.getByRole('button', { name: 'Tilbake' })).not.toHaveAttribute('type', 'submit');
     expect(screen.getByRole('button', { name: 'Tilbake' })).toHaveAttribute('type', 'button');
   });
+
+  test('skal vise default tekst på neste knapp dersom nesteStegKnappTekst ikke er satt', () => {
+    expect(screen.getByText('Neste'));
+  });
+
+  test('skal vise default tekst på tilbake knapp dersom forrigeStegKnappTekst ikke er satt', () => {
+    expect(screen.getByText('Tilbake'));
+  });
 });
 
 describe('varianter', () => {
@@ -43,5 +51,23 @@ describe('varianter', () => {
     );
 
     expect(screen.queryByRole('button', { name: 'Tilbake' })).not.toBeInTheDocument();
+  });
+
+  test('skal vise korrekt tekst på neste knapp dersom nesteStegKnappTekst er satt', () => {
+    renderWithStegContext(
+      <Form nesteSteg={'INTRO'} nesteStegKnappTekst={'Neste steg'}>
+        <div>Noe greier</div>
+      </Form>
+    );
+    expect(screen.getByRole('button', { name: 'Neste steg' })).toBeVisible();
+  });
+
+  test('skal vise korrekt tekst på tilbake knapp dersom forrigeStegKnappTekst er satt', () => {
+    renderWithStegContext(
+      <Form nesteSteg={'INTRO'} forrigeSteg={'INTRO'} forrigeStegKnappTekst={'Endre'}>
+        <div>Noe greier</div>
+      </Form>
+    );
+    expect(screen.getByRole('button', { name: 'Endre' })).toBeVisible();
   });
 });

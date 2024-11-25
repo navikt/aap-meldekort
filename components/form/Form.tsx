@@ -10,9 +10,17 @@ interface Props {
   children: ReactNode;
   nesteSteg: Steg;
   forrigeSteg?: Steg;
+  nesteStegKnappTekst?: string;
+  forrigeStegKnappTekst?: string;
 }
 
-export const Form = ({ children, nesteSteg, forrigeSteg }: Props) => {
+export const Form = ({
+  children,
+  nesteSteg,
+  forrigeSteg,
+  nesteStegKnappTekst = 'Neste',
+  forrigeStegKnappTekst = 'Tilbake',
+}: Props) => {
   const { setSteg } = useSteg();
 
   return (
@@ -31,11 +39,11 @@ export const Form = ({ children, nesteSteg, forrigeSteg }: Props) => {
             icon={<ArrowLeftIcon />}
             iconPosition={'left'}
           >
-            Tilbake
+            {forrigeStegKnappTekst}
           </Button>
         )}
         <Button variant={'primary'} onClick={() => setSteg(nesteSteg)} icon={<ArrowRightIcon />} iconPosition={'right'}>
-          Neste
+          {nesteStegKnappTekst}
         </Button>
       </div>
     </form>
