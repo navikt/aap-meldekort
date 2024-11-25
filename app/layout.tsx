@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import Script from 'next/script';
-import { getEnvironment } from 'utils/environments';
+import { getEnvironment } from 'app/lib/utils/environments';
 
 export const metadata: Metadata = {
   title: 'AAP Meldekort',

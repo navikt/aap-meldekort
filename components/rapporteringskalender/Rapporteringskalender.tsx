@@ -2,7 +2,7 @@
 
 import { eachDayOfInterval, format, getISOWeek, startOfWeek } from 'date-fns';
 import { BodyShort, Heading } from '@navikt/ds-react';
-import { formaterDatoForFrontend } from 'utils/date';
+import { formaterDatoForFrontend } from 'app/lib/utils/date';
 import { useConfigForm } from '@navikt/aap-felles-react';
 import { FieldArrayWithId, useFieldArray } from 'react-hook-form';
 
@@ -27,7 +27,7 @@ interface Dag {
   timer?: string;
 }
 
-export type FieldArrayWithWithIndex = FieldArrayWithId<MeldepliktFormFields> & {
+export type FieldArrayWithIndex = FieldArrayWithId<MeldepliktFormFields> & {
   index: number;
 };
 
@@ -55,7 +55,7 @@ export const Rapporteringskalender = ({ periode }: Props) => {
   const fraDatoUkenummer = getISOWeek(fraDato);
   const tilDatoUkenummer = getISOWeek(tilDato);
 
-  const grupperteFelter: Record<string, FieldArrayWithWithIndex[]> = {};
+  const grupperteFelter: Record<string, FieldArrayWithIndex[]> = {};
 
   fields.forEach((field, index) => {
     const ukeStart = format(startOfWeek(new Date(field.dag), { weekStartsOn: 1 }), 'yyyy-MM-dd');

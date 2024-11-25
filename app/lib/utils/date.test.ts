@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formaterDatoForBackend, parseDatoFraDatePicker, sorterEtterNyesteDato, stringToDate } from 'utils/date';
+import { formaterDatoForBackend, parseDatoFraDatePicker, sorterEtterNyesteDato, stringToDate } from 'app/lib/utils/date';
 
 describe('formaterDatoForBackend', () => {
   it('skal returnere dato på korrekt format', () => {

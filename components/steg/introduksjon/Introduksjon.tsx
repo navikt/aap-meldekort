@@ -1,7 +1,7 @@
 import { BodyShort, Button, Heading, Link } from '@navikt/ds-react';
 
 import styles from 'components/steg/introduksjon/Introduksjon.module.css';
-import { JaEllerNei } from 'utils/form';
+import { JaEllerNei } from 'app/lib/utils/form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { ArrowRightIcon } from '@navikt/aksel-icons';
 

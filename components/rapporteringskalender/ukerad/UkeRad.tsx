@@ -1,13 +1,13 @@
 import { TimerInput } from 'components/rapporteringskalender/timerinput/TimerInput';
 import { UseFormReturn } from 'react-hook-form';
-import { FieldArrayWithWithIndex, MeldepliktFormFields } from 'components/rapporteringskalender/Rapporteringskalender';
+import { FieldArrayWithIndex, MeldepliktFormFields } from 'components/rapporteringskalender/Rapporteringskalender';
 import { format } from 'date-fns';
 import { BodyShort } from '@navikt/ds-react';
 
 import styles from './UkeRad.module.css';
 
 interface Props {
-  felterIUken: FieldArrayWithWithIndex[];
+  felterIUken: FieldArrayWithIndex[];
   form: UseFormReturn<MeldepliktFormFields>;
 }
 
