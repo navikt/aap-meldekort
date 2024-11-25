@@ -1,14 +1,13 @@
 import styles from 'components/rapporteringskalender/timerinput/TimerInput.module.css';
-import { UseFormReturn } from 'react-hook-form';
-import { MeldepliktFormFields } from 'components/rapporteringskalender/Rapporteringskalender';
 import { TextFieldWrapper } from '@navikt/aap-felles-react';
+import { useFormContext } from 'react-hook-form';
 
 interface Props {
   index: number;
-  form: UseFormReturn<MeldepliktFormFields>;
 }
 
-export const TimerInput = ({ index, form }: Props) => {
+export const TimerInput = ({ index }: Props) => {
+  const form = useFormContext();
   const textfieldClassName = form.watch(`dager.${index}.timer`) ? styles.inputmedverdi : styles.inpututenverdi;
 
   return (
