@@ -49,7 +49,7 @@ export const Rapporteringskalender = ({ periode, readOnly }: Props) => {
   });
 
   return (
-    <div className={`${styles.rapporteringskalender} ${!readOnly ? styles.erredigerbar : ''}`}>
+    <div className={`${styles.rapporteringskalender} ${readOnly ? styles.readonly : ''}`}>
       <div className={styles.heading}>
         <Heading size={'medium'} level={'3'}>
           Uke {fraDatoUkenummer} - {tilDatoUkenummer}

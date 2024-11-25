@@ -23,12 +23,12 @@ export const UkeRad = ({ felterIUken, readOnly }: Props) => {
           );
         })}
       </div>
-      <div className={readOnly ? styles.timerinput : styles.timertekst}>
+      <div className={readOnly ? styles.timertekst : styles.timerinput}>
         {felterIUken.map((field) =>
           readOnly ? (
-            <TimerInput key={field.id} index={field.index} />
-          ) : (
             <BodyShort key={field.id}>{field.timer ? field.timer : 0}</BodyShort>
+          ) : (
+            <TimerInput key={field.id} index={field.index} />
           )
         )}
       </div>
