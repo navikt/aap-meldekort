@@ -1,5 +1,5 @@
 import { Button } from '@navikt/ds-react';
-import { ReactNode } from 'react';
+import { FormEvent, ReactNode } from 'react';
 import { Steg } from 'context/StegContext';
 import { useSteg } from 'hooks/StegHook';
 
@@ -8,7 +8,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
 
 interface Props {
   children: ReactNode;
-  nesteSteg: Steg;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   forrigeSteg?: Steg;
   nesteStegKnappTekst?: string;
   forrigeStegKnappTekst?: string;
@@ -16,7 +16,7 @@ interface Props {
 
 export const Form = ({
   children,
-  nesteSteg,
+  onSubmit,
   forrigeSteg,
   nesteStegKnappTekst = 'Neste',
   forrigeStegKnappTekst = 'Tilbake',
@@ -24,7 +24,7 @@ export const Form = ({
   const { setSteg } = useSteg();
 
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       {children}
       <div className={styles.knapper}>
         {forrigeSteg && (
@@ -42,7 +42,7 @@ export const Form = ({
             {forrigeStegKnappTekst}
           </Button>
         )}
-        <Button variant={'primary'} onClick={() => setSteg(nesteSteg)} icon={<ArrowRightIcon />} iconPosition={'right'}>
+        <Button variant={'primary'} icon={<ArrowRightIcon />} iconPosition={'right'}>
           {nesteStegKnappTekst}
         </Button>
       </div>
