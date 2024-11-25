@@ -1,17 +1,20 @@
 'use client';
 
 import { Introduksjon } from 'components/steg/introduksjon/Introduksjon';
-import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
+import { useSteg } from 'hooks/StegHook';
+import { Oppsummering } from 'components/steg/oppsummering/Oppsummering';
+import { Periode } from 'components/steg/periode/Periode';
+import { Utfylling } from 'components/steg/utfylling/Utfylling';
 
 export const Steg = () => {
+  const { steg } = useSteg();
+
   return (
     <div>
-      <Introduksjon />
-      <Rapporteringskalender
-        periode={{
-          periode: { fraDato: '2024-11-18', tilDato: '2024-12-01' },
-        }}
-      />
+      {steg === 'INTRO' && <Introduksjon />}
+      {steg === 'PERIODE' && <Periode />}
+      {steg === 'UTFYLLING' && <Utfylling />}
+      {steg === 'OPPSUMMERING' && <Oppsummering />}
     </div>
   );
 };

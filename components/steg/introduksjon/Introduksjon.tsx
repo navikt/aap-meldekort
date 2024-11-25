@@ -4,6 +4,7 @@ import styles from 'components/steg/introduksjon/Introduksjon.module.css';
 import { JaEllerNei } from 'lib/utils/form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { ArrowRightIcon } from '@navikt/aksel-icons';
+import { useSteg } from 'hooks/StegHook';
 
 interface FormFields {
   godkjent: JaEllerNei;
@@ -19,6 +20,8 @@ export const Introduksjon = () => {
       rules: { required: 'Du må bekrefte at du vil fylle ut meldekortet så riktig du kan' },
     },
   });
+
+  const { setSteg } = useSteg();
 
   return (
     <section className={'flex-column'}>
@@ -41,7 +44,7 @@ export const Introduksjon = () => {
         </BodyShort>
       </div>
 
-      <form onSubmit={form.handleSubmit((data) => console.log(data))} className={'flex-column'}>
+      <form onSubmit={form.handleSubmit((data) => setSteg('PERIODE'))} className={'flex-column'}>
         <FormField form={form} formField={formFields.godkjent} size={'medium'} />
         <Button icon={<ArrowRightIcon />} iconPosition={'right'} className={styles.button}>
           Neste
