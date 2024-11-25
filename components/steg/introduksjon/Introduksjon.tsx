@@ -1,31 +1,23 @@
-import { BodyShort, Button, Heading, Link } from '@navikt/ds-react';
-
-import styles from 'components/steg/introduksjon/Introduksjon.module.css';
-import { JaEllerNei } from 'lib/utils/form';
-import { FormField, useConfigForm } from '@navikt/aap-felles-react';
-import { ArrowRightIcon } from '@navikt/aksel-icons';
-import { useSteg } from 'hooks/StegHook';
+import { BodyShort, Heading, Link } from '@navikt/ds-react';
 import { Form } from 'components/form/Form';
 
-interface FormFields {
-  godkjent: JaEllerNei;
-}
+// interface FormFields {
+//   godkjent: JaEllerNei;
+// }
 
 export const Introduksjon = () => {
-  const { form, formFields } = useConfigForm<FormFields>({
-    godkjent: {
-      type: 'checkbox',
-      label: 'Er du enig?',
-      hideLabel: true,
-      options: [{ label: 'Jeg bekrefter at jeg vil fylle ut meldekortet så riktig jeg kan', value: JaEllerNei.Ja }],
-      rules: { required: 'Du må bekrefte at du vil fylle ut meldekortet så riktig du kan' },
-    },
-  });
-
-  const { setSteg } = useSteg();
+  // const { form, formFields } = useConfigForm<FormFields>({
+  //   godkjent: {
+  //     type: 'checkbox',
+  //     label: 'Er du enig?',
+  //     hideLabel: true,
+  //     options: [{ label: 'Jeg bekrefter at jeg vil fylle ut meldekortet så riktig jeg kan', value: JaEllerNei.Ja }],
+  //     rules: { required: 'Du må bekrefte at du vil fylle ut meldekortet så riktig du kan' },
+  //   },
+  // });
 
   return (
-    <Form nesteSteg={'PERIODE'} forrigeSteg={'INTRO'}>
+    <Form nesteSteg={'PERIODE'}>
       <section className={'flex-column'}>
         <div>
           <BodyShort size={'large'} spacing>

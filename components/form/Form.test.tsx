@@ -1,19 +1,17 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { beforeEach, describe, expect, test } from 'vitest';
 import { Form } from 'components/form/Form';
-import { render, screen } from '@testing-library/react';
-import { ReactNode } from 'react';
-import { StegContext } from 'context/StegContext';
+import { screen } from '@testing-library/react';
+import { renderWithStegContext } from 'lib/utils/TestUtil';
 
-describe('Form', () => {
+describe('Form generelt', () => {
   beforeEach(() => {
-    render(
-      <StegContextWrapper>
-        <Form nesteSteg={'INTRO'} forrigeSteg={'INTRO'}>
-          <div>Noe greier</div>
-        </Form>
-      </StegContextWrapper>
+    renderWithStegContext(
+      <Form nesteSteg={'INTRO'} forrigeSteg={'INTRO'}>
+        <div>Noe greier</div>
+      </Form>
     );
   });
+
   test('rendrer innhold', () => {
     expect(screen.getByText('Noe greier')).toBeVisible();
   });
@@ -22,7 +20,7 @@ describe('Form', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeVisible();
   });
 
-  test('skal ha en knapp for å gå tilbake til forrige steg', () => {
+  test('skal ha en knapp for å gå tilbake til forrige steg dersom forrigeSteg er satt', () => {
     expect(screen.getByRole('button', { name: 'Tilbake' })).toBeVisible();
   });
 
@@ -36,6 +34,14 @@ describe('Form', () => {
   });
 });
 
-const StegContextWrapper = ({ children }: { children: ReactNode }) => {
-  return <StegContext.Provider value={{ steg: 'INTRO', setSteg: vi.fn() }}>{children}</StegContext.Provider>;
-};
+describe('varianter', () => {
+  test('skal ikke vise knapp tilbake hvis forrigeSteg ikke er satt', () => {
+    renderWithStegContext(
+      <Form nesteSteg={'INTRO'}>
+        <div>Noe greier</div>
+      </Form>
+    );
+
+    expect(screen.queryByRole('button', { name: 'Tilbake' })).not.toBeInTheDocument();
+  });
+});
