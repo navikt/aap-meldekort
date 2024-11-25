@@ -3,7 +3,7 @@ import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { JaEllerNeiOptions } from 'lib/utils/form';
 import { PeriodeType } from 'components/rapporteringskalender/Rapporteringskalender';
 import { useSteg } from 'hooks/StegHook';
-import { BodyShort, Heading, ReadMore } from '@navikt/ds-react';
+import { BodyShort, Heading, HGrid, ReadMore } from '@navikt/ds-react';
 import { getISOWeek } from 'date-fns';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 
@@ -37,12 +37,14 @@ export const Periode = ({ periode }: Props) => {
       nesteStegKnappTekst={'Til utfylling'}
       onSubmit={form.handleSubmit(() => setSteg('UTFYLLING'))}
     >
-      <Heading level={'2'} size={'medium'}>
-        Nåværende periode
-      </Heading>
-      <BodyShort>{`Uke ${fraDatoUkenummer} - ${tilDatoUkenummer} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
-      <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det noe tekst</ReadMore>
-      <FormField form={form} formField={formFields.harArbeidet} />
+      <HGrid columns={1} gap={'4'}>
+        <Heading level={'2'} size={'medium'}>
+          Nåværende periode
+        </Heading>
+        <BodyShort>{`Uke ${fraDatoUkenummer} - ${tilDatoUkenummer} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
+        <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det noe tekst</ReadMore>
+        <FormField form={form} formField={formFields.harArbeidet} />
+      </HGrid>
     </Form>
   );
 };
