@@ -11,10 +11,10 @@ import { UkeRad } from 'components/rapporteringskalender/ukerad/UkeRad';
 import { UkeHeader } from './ukeheader/UkeHeader';
 
 interface Props {
-  periode: Periode;
+  periode: PeriodeType;
 }
 
-export interface Periode {
+export interface PeriodeType {
   periode: { fraDato: string; tilDato: string };
 }
 
