@@ -4,6 +4,7 @@ import { renderWithStegContext } from 'lib/utils/TestUtil';
 import { Utfylling } from 'components/steg/utfylling/Utfylling';
 import { userEvent } from '@testing-library/user-event';
 import { PeriodeType } from 'components/rapporteringskalender/Rapporteringskalender';
+import { eachDayOfInterval, format } from 'date-fns';
 
 const periode: PeriodeType = {
   periode: { fraDato: '2024-11-18', tilDato: '2024-12-01' },
@@ -11,8 +12,9 @@ const periode: PeriodeType = {
 
 const user = userEvent.setup();
 
-beforeEach(() => renderWithStegContext(<Utfylling periode={periode} />));
 describe('Utfylling', () => {
+  beforeEach(() => renderWithStegContext(<Utfylling periode={periode} readOnly={true} />));
+
   it('skal ha en heading', () => {
     const heading = screen.getByRole('heading', { name: 'Fyll ut meldekortet', level: 2 });
     expect(heading).toBeVisible();
@@ -62,16 +64,19 @@ describe('Utfylling', () => {
 
 describe('rapporteringskalender', () => {
   it('skal vise ukenummer på perioden', () => {
+    renderWithStegContext(<Utfylling periode={periode} readOnly={true} />);
     const ukenummer = screen.getByText('Uke 47 - 48');
     expect(ukenummer).toBeVisible();
   });
 
   it('skal vise fra dato og til dato for perioden', () => {
+    renderWithStegContext(<Utfylling periode={periode} readOnly={true} />);
     const datoerForPerioden = screen.getByText('18.11.2024 - 01.12.2024');
     expect(datoerForPerioden).toBeVisible();
   });
 
   it('skal vise dagene i uken som tekst', () => {
+    renderWithStegContext(<Utfylling periode={periode} readOnly={true} />);
     const mandag = screen.getByText('Man.');
     expect(mandag).toBeVisible();
 
@@ -92,5 +97,33 @@ describe('rapporteringskalender', () => {
 
     const søndag = screen.getByText('Søn.');
     expect(søndag).toBeVisible();
+  });
+
+  it('skal vise 14 felter for å føre inn timer', () => {
+    renderWithStegContext(<Utfylling periode={periode} readOnly={true} />);
+    for (let i = 0; i < 14; i++) {
+      const felt = screen.getByRole('textbox', { name: `dager.${i}.timer` });
+      expect(felt).toBeVisible();
+    }
+  });
+  it('skal vise datoen for de 14 feltene', () => {
+    renderWithStegContext(<Utfylling periode={periode} readOnly={true} />);
+    const datoer = eachDayOfInterval({
+      start: new Date(periode.periode.fraDato),
+      end: new Date(periode.periode.tilDato),
+    });
+    datoer.forEach((dato) => {
+      const datoNummer = format(dato, 'd');
+      const tekst = screen.getByText(`${datoNummer}.`);
+      expect(tekst).toBeVisible();
+    });
+  });
+
+  it('skal ikke ha noen input felt for føring av timer dersom det ikke er redigerbart', () => {
+    renderWithStegContext(<Utfylling periode={periode} readOnly={false} />);
+    for (let i = 0; i < 14; i++) {
+      const felt = screen.queryByRole('textbox', { name: `dager.${i}.timer` });
+      expect(felt).not.toBeInTheDocument();
+    }
   });
 });

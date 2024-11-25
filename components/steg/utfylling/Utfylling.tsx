@@ -9,6 +9,7 @@ import { useSteg } from 'hooks/StegHook';
 
 interface Props {
   periode: PeriodeType;
+  readOnly: boolean;
 }
 
 export interface MeldepliktFormFields {
@@ -21,7 +22,7 @@ interface Dag {
   timer?: string;
 }
 
-export const Utfylling = ({ periode }: Props) => {
+export const Utfylling = ({ periode, readOnly }: Props) => {
   const { setSteg } = useSteg();
   const fraDato = new Date(periode.periode.fraDato);
   const tilDato = new Date(periode.periode.tilDato);
@@ -60,7 +61,7 @@ export const Utfylling = ({ periode }: Props) => {
           = 7,5 timer. 15 min = 0,25 timer
         </BodyLong>
         <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det informasjon</ReadMore>
-        <Rapporteringskalender periode={periode} />
+        <Rapporteringskalender periode={periode} readOnly={readOnly} />
         <div>Sammenlagt for perioden</div>
 
         <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />

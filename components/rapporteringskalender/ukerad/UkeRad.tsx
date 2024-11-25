@@ -7,12 +7,13 @@ import styles from './UkeRad.module.css';
 
 interface Props {
   felterIUken: FieldArrayWithIndex[];
+  readOnly: boolean;
 }
 
-export const UkeRad = ({ felterIUken }: Props) => {
+export const UkeRad = ({ felterIUken, readOnly }: Props) => {
   return (
     <div className={styles.rad}>
-      <div className={styles.ukeheading}>
+      <div className={styles.dagnummer}>
         {felterIUken.map((field, index) => {
           const dagINummer = format(new Date(field.dag), 'd');
           return (
@@ -22,10 +23,14 @@ export const UkeRad = ({ felterIUken }: Props) => {
           );
         })}
       </div>
-      <div className={styles.inputtimer}>
-        {felterIUken.map((field) => (
-          <TimerInput key={field.id} index={field.index} />
-        ))}
+      <div className={readOnly ? styles.timerinput : styles.timertekst}>
+        {felterIUken.map((field) =>
+          readOnly ? (
+            <TimerInput key={field.id} index={field.index} />
+          ) : (
+            <BodyShort key={field.id}>{field.timer ? field.timer : 0}</BodyShort>
+          )
+        )}
       </div>
     </div>
   );
