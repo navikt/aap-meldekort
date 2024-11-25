@@ -15,7 +15,7 @@ describe('generelt', () => {
 });
 
 describe('skjema', () => {
-  it.skip('skal ha et felt for å bekrefte at bruker vil fylle ut meldekortet riktig', () => {
+  it('skal ha et felt for å bekrefte at bruker vil fylle ut meldekortet riktig', () => {
     renderWithStegContext(<Introduksjon />);
     const checkbox = screen.getByRole('checkbox', {
       name: 'Jeg bekrefter at jeg vil fylle ut meldekortet så riktig jeg kan',
@@ -29,7 +29,7 @@ describe('skjema', () => {
     expect(button).toBeVisible();
   });
 
-  it.skip('skal vise en feilmelding dersom man ikke bekrefter', async () => {
+  it('skal vise en feilmelding dersom man ikke bekrefter', async () => {
     renderWithStegContext(<Introduksjon />);
     const button = screen.getByRole('button', { name: 'Neste' });
     await user.click(button);

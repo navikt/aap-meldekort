@@ -1,14 +1,14 @@
 'use client';
 
-import { eachDayOfInterval, format, getISOWeek, startOfWeek } from 'date-fns';
+import { format, getISOWeek, startOfWeek } from 'date-fns';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { formaterDatoForFrontend } from 'lib/utils/date';
-import { useConfigForm } from '@navikt/aap-felles-react';
-import { FieldArrayWithId, useFieldArray } from 'react-hook-form';
+import { FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form';
 
 import styles from './Rapporteringskalender.module.css';
 import { UkeRad } from 'components/rapporteringskalender/ukerad/UkeRad';
 import { UkeHeader } from './ukeheader/UkeHeader';
+import { MeldepliktFormFields } from 'components/steg/utfylling/Utfylling';
 
 interface Props {
   periode: PeriodeType;
@@ -16,15 +16,6 @@ interface Props {
 
 export interface PeriodeType {
   periode: { fraDato: string; tilDato: string };
-}
-
-export interface MeldepliktFormFields {
-  dager: Dag[];
-}
-
-interface Dag {
-  dag: string;
-  timer?: string;
 }
 
 export type FieldArrayWithIndex = FieldArrayWithId<MeldepliktFormFields> & {
@@ -35,17 +26,7 @@ export const Rapporteringskalender = ({ periode }: Props) => {
   const fraDato = new Date(periode.periode.fraDato);
   const tilDato = new Date(periode.periode.tilDato);
 
-  const { form } = useConfigForm<MeldepliktFormFields>({
-    dager: {
-      type: 'fieldArray',
-      defaultValue: eachDayOfInterval({ start: fraDato, end: tilDato }).map((date) => {
-        return {
-          dag: date.toString(),
-          timer: '',
-        };
-      }),
-    },
-  });
+  const form = useFormContext<MeldepliktFormFields>();
 
   const { fields } = useFieldArray({
     control: form.control,
@@ -69,7 +50,7 @@ export const Rapporteringskalender = ({ periode }: Props) => {
   return (
     <div className={styles.rapporteringskalender}>
       <div className={styles.heading}>
-        <Heading size={'medium'}>
+        <Heading size={'medium'} level={'3'}>
           Uke {fraDatoUkenummer} - {tilDatoUkenummer}
         </Heading>
         <BodyShort>
@@ -79,7 +60,7 @@ export const Rapporteringskalender = ({ periode }: Props) => {
       <div className={styles.kalender}>
         <UkeHeader />
         {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
-          <UkeRad key={ukeStart} felterIUken={felterIUken} form={form} />
+          <UkeRad key={ukeStart} felterIUken={felterIUken} />
         ))}
       </div>
     </div>

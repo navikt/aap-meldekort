@@ -18,7 +18,7 @@ export const Steg = () => {
     <div>
       {steg === 'INTRO' && <Introduksjon />}
       {steg === 'PERIODE' && <Periode periode={periode} />}
-      {steg === 'UTFYLLING' && <Utfylling />}
+      {steg === 'UTFYLLING' && <Utfylling periode={periode} />}
       {steg === 'OPPSUMMERING' && <Oppsummering />}
     </div>
   );
