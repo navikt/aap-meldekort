@@ -7,7 +7,7 @@ interface EtEllerannet {
   setSteg: Dispatch<Steg>;
 }
 
-type Steg = 'INTRO' | 'UTFYLLING' | 'PERIODE' | 'OPPSUMMERING';
+export type Steg = 'INTRO' | 'UTFYLLING' | 'PERIODE' | 'OPPSUMMERING';
 
 export const StegContext = createContext<EtEllerannet | null>(null);
 

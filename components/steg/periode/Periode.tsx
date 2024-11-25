@@ -1,3 +1,9 @@
+import { Form } from 'components/form/Form';
+
 export const Periode = () => {
-  return <div>Periode</div>;
+  return (
+    <Form forrigeSteg={'INTRO'} nesteSteg={'UTFYLLING'}>
+      Periode
+    </Form>
+  );
 };

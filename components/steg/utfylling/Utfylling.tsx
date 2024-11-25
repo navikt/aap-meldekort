@@ -1,3 +1,9 @@
+import { Form } from 'components/form/Form';
+
 export const Utfylling = () => {
-  return <div>Utfylling</div>;
+  return (
+    <Form forrigeSteg={'PERIODE'} nesteSteg={'OPPSUMMERING'}>
+      Utfylling
+    </Form>
+  );
 };
