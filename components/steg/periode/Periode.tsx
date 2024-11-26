@@ -31,6 +31,7 @@ export const Periode = ({ periode }: Props) => {
 
   const fraDatoUkenummer = getISOWeek(fraDato);
   const tilDatoUkenummer = getISOWeek(tilDato);
+
   return (
     <Form
       forrigeSteg={'INTRO'}
@@ -43,7 +44,7 @@ export const Periode = ({ periode }: Props) => {
         </Heading>
         <BodyShort>{`Uke ${fraDatoUkenummer} - ${tilDatoUkenummer} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
         <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det noe tekst</ReadMore>
-        <FormField form={form} formField={formFields.harArbeidet} />
+        <FormField form={form} formField={formFields.harArbeidet} size={'medium'} />
       </HGrid>
     </Form>
   );
