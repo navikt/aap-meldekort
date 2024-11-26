@@ -9,6 +9,7 @@ import styles from './Rapporteringskalender.module.css';
 import { UkeRad } from 'components/rapporteringskalender/ukerad/UkeRad';
 import { UkeHeader } from './ukeheader/UkeHeader';
 import { MeldepliktFormFields } from 'components/steg/utfylling/Utfylling';
+import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 
 interface Props {
   periode: PeriodeType;
@@ -63,6 +64,9 @@ export const Rapporteringskalender = ({ periode }: Props) => {
         {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
           <UkeRad key={ukeStart} felterIUken={felterIUken} />
         ))}
+      </div>
+      <div className={styles.oppsummering}>
+        <OppsummeringTimer timer={form.watch('dager').reduce((acc, curr) => acc + Number(curr.timer), 0)} />
       </div>
     </div>
   );
