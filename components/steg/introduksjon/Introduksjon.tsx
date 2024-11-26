@@ -3,7 +3,6 @@ import { Form } from 'components/form/Form';
 import { JaEllerNei } from 'lib/utils/form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { useSteg } from 'hooks/StegHook';
-import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 
 interface FormFields {
   godkjent: JaEllerNei;
@@ -45,11 +44,6 @@ export const Introduksjon = () => {
 
         <FormField form={form} formField={formFields.godkjent} size={'medium'} />
       </section>
-      <OppsummeringKalender
-        periode={{
-          periode: { fraDato: '2024-11-18', tilDato: '2024-12-01' },
-        }}
-      />
     </Form>
   );
 };
