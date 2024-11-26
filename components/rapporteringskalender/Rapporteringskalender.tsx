@@ -8,11 +8,12 @@ import { FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form
 import styles from './Rapporteringskalender.module.css';
 import { UkeRad } from 'components/rapporteringskalender/ukerad/UkeRad';
 import { UkeHeader } from './ukeheader/UkeHeader';
-import { MeldepliktFormFields } from 'components/steg/utfylling/Utfylling';
+import { MeldepliktError, MeldepliktFormFields } from 'components/steg/utfylling/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 
 interface Props {
   periode: PeriodeType;
+  errors: MeldepliktError[];
 }
 
 export interface PeriodeType {
@@ -24,7 +25,7 @@ export type FieldArrayWithIndex = FieldArrayWithId<MeldepliktFormFields> & {
   index: number;
 };
 
-export const Rapporteringskalender = ({ periode }: Props) => {
+export const Rapporteringskalender = ({ periode, errors }: Props) => {
   const fraDato = new Date(periode.fraDato);
   const tilDato = new Date(periode.tilDato);
 
@@ -62,7 +63,7 @@ export const Rapporteringskalender = ({ periode }: Props) => {
       <div className={styles.kalender}>
         <UkeHeader />
         {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
-          <UkeRad key={ukeStart} felterIUken={felterIUken} />
+          <UkeRad key={ukeStart} felterIUken={felterIUken} errors={errors} />
         ))}
       </div>
       <div className={styles.oppsummering}>

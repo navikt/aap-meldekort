@@ -4,12 +4,14 @@ import { format } from 'date-fns';
 import { BodyShort } from '@navikt/ds-react';
 
 import styles from './UkeRad.module.css';
+import { MeldepliktError } from 'components/steg/utfylling/Utfylling';
 
 interface Props {
   felterIUken: FieldArrayWithIndex[];
+  errors: MeldepliktError[];
 }
 
-export const UkeRad = ({ felterIUken }: Props) => {
+export const UkeRad = ({ felterIUken, errors }: Props) => {
   return (
     <div className={styles.rad}>
       <div className={styles.dagnummer}>
@@ -24,7 +26,11 @@ export const UkeRad = ({ felterIUken }: Props) => {
       </div>
       <div className={styles.timerinput}>
         {felterIUken.map((field) => (
-          <TimerInput key={field.id} index={field.index} />
+          <TimerInput
+            key={field.id}
+            index={field.index}
+            harError={Boolean(errors.find((error) => error.index === field.index)?.harError)}
+          />
         ))}
       </div>
     </div>

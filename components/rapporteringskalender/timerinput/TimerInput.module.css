@@ -9,3 +9,7 @@
 .inputmedverdi {
   --ac-textfield-bg: var(--a-blue-200);
 }
+
+.error {
+  --ac-textfield-error-border: var(--a-red-500);
+}
