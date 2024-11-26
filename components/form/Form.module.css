@@ -3,5 +3,4 @@
   display: flex;
   flex-direction: row;
   gap: var(--a-spacing-4);
-  justify-content: space-around;
 }
