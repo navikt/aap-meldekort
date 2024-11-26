@@ -15,7 +15,8 @@ export const Oppsummering = () => {
           <Accordion.Content>
             <OppsummeringKalender
               periode={{
-                periode: { fraDato: '2024-11-18', tilDato: '2024-12-01' },
+                fraDato: '2024-11-18',
+                tilDato: '2024-12-01',
               }}
             />
           </Accordion.Content>

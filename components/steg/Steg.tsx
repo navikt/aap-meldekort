@@ -8,7 +8,8 @@ import { Utfylling } from 'components/steg/utfylling/Utfylling';
 import { PeriodeType } from 'components/rapporteringskalender/Rapporteringskalender';
 
 const periode: PeriodeType = {
-  periode: { fraDato: '2024-11-18', tilDato: '2024-12-01' },
+  fraDato: '2024-11-18',
+  tilDato: '2024-12-01',
 };
 
 export const Steg = () => {

@@ -6,7 +6,8 @@ import { PeriodeType } from 'components/rapporteringskalender/Rapporteringskalen
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 
 const periode: PeriodeType = {
-  periode: { fraDato: '2024-11-18', tilDato: '2024-12-01' },
+  fraDato: '2024-11-18',
+  tilDato: '2024-12-01',
 };
 
 describe('oppsummering kalender', () => {
@@ -56,8 +57,8 @@ describe('oppsummering kalender', () => {
   it('skal vise datoen for de 14 feltene', () => {
     renderWithStegContext(<OppsummeringKalender periode={periode} />);
     const datoer = eachDayOfInterval({
-      start: new Date(periode.periode.fraDato),
-      end: new Date(periode.periode.tilDato),
+      start: new Date(periode.fraDato),
+      end: new Date(periode.tilDato),
     });
     datoer.forEach((dato) => {
       const datoNummer = format(dato, 'd');

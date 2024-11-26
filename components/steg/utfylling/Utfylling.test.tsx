@@ -7,7 +7,8 @@ import { PeriodeType } from 'components/rapporteringskalender/Rapporteringskalen
 import { eachDayOfInterval, format } from 'date-fns';
 
 const periode: PeriodeType = {
-  periode: { fraDato: '2024-11-18', tilDato: '2024-12-01' },
+  fraDato: '2024-11-18',
+  tilDato: '2024-12-01',
 };
 
 const user = userEvent.setup();
@@ -109,8 +110,8 @@ describe('rapporteringskalender', () => {
   it('skal vise datoen for de 14 feltene', () => {
     renderWithStegContext(<Utfylling periode={periode} />);
     const datoer = eachDayOfInterval({
-      start: new Date(periode.periode.fraDato),
-      end: new Date(periode.periode.tilDato),
+      start: new Date(periode.fraDato),
+      end: new Date(periode.tilDato),
     });
     datoer.forEach((dato) => {
       const datoNummer = format(dato, 'd');

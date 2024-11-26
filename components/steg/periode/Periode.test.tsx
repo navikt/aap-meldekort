@@ -6,7 +6,8 @@ import { screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 const periode: PeriodeType = {
-  periode: { fraDato: '2024-11-18', tilDato: '2024-12-01' },
+  fraDato: '2024-11-18',
+  tilDato: '2024-12-01',
 };
 
 const user = userEvent.setup();

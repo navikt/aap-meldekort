@@ -23,8 +23,8 @@ interface Dag {
 
 export const Utfylling = ({ periode }: Props) => {
   const { setSteg } = useSteg();
-  const fraDato = new Date(periode.periode.fraDato);
-  const tilDato = new Date(periode.periode.tilDato);
+  const fraDato = new Date(periode.fraDato);
+  const tilDato = new Date(periode.tilDato);
 
   const { form, formFields } = useConfigForm<MeldepliktFormFields>({
     dager: {

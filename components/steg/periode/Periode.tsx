@@ -26,8 +26,8 @@ export const Periode = ({ periode }: Props) => {
     },
   });
 
-  const fraDato = new Date(periode.periode.fraDato);
-  const tilDato = new Date(periode.periode.tilDato);
+  const fraDato = new Date(periode.fraDato);
+  const tilDato = new Date(periode.tilDato);
 
   const fraDatoUkenummer = getISOWeek(fraDato);
   const tilDatoUkenummer = getISOWeek(tilDato);
