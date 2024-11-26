@@ -51,22 +51,22 @@ export const Rapporteringskalender = ({ periode, errors }: Props) => {
   });
 
   return (
-    <div className={styles.rapporteringskalender}>
-      <div className={styles.heading}>
-        <Heading size={'medium'} level={'3'}>
-          Uke {fraDatoUkenummer} - {tilDatoUkenummer}
-        </Heading>
-        <BodyShort>
-          {formaterDatoForFrontend(periode.fraDato)} - {formaterDatoForFrontend(periode.tilDato)}
-        </BodyShort>
-      </div>
-      <div className={styles.kalender}>
-        <UkeHeader />
-        {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
-          <UkeRad key={ukeStart} felterIUken={felterIUken} errors={errors} />
-        ))}
-      </div>
-      <div className={styles.oppsummering}>
+    <div className={styles.wrapper}>
+      <div className={styles.rapporteringskalender}>
+        <div className={styles.heading}>
+          <Heading size={'medium'} level={'3'}>
+            Uke {fraDatoUkenummer} - {tilDatoUkenummer}
+          </Heading>
+          <BodyShort>
+            {formaterDatoForFrontend(periode.fraDato)} - {formaterDatoForFrontend(periode.tilDato)}
+          </BodyShort>
+        </div>
+        <div className={styles.kalender}>
+          <UkeHeader />
+          {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
+            <UkeRad key={ukeStart} felterIUken={felterIUken} errors={errors} />
+          ))}
+        </div>
         <OppsummeringTimer timer={form.watch('dager').reduce((acc, curr) => acc + Number(curr.timer), 0)} />
       </div>
     </div>
