@@ -23,7 +23,7 @@ describe('Utfylling', () => {
 
   it('skal ha en tekst som forklarer utfylling', () => {
     const tekst = screen.getByText(
-      'Fyll inn timene du har arbeidet i perioden. OppsummeringTimer skrives med desimal til nærmeste kvarter. 7 timer og 30 min = 7,5 timer. 15 min = 0,25 timer'
+      'Fyll inn timene du har arbeidet i perioden. Timer skrives med desimal til nærmeste kvarter. 7 timer og 30 min = 7,5 timer. 15 min = 0,25 timer'
     );
 
     expect(tekst).toBeVisible();

@@ -61,7 +61,6 @@ export const Utfylling = ({ periode }: Props) => {
         </BodyLong>
         <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det informasjon</ReadMore>
         <Rapporteringskalender periode={periode} />
-        <div>Sammenlagt for perioden</div>
 
         <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
       </Form>
