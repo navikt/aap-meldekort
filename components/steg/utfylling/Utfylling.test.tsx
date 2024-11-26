@@ -23,7 +23,7 @@ describe('Utfylling', () => {
 
   it('skal ha en tekst som forklarer utfylling', () => {
     const tekst = screen.getByText(
-      'Fyll inn timene du har arbeidet i perioden. Timer skrives med desimal til nærmeste kvarter. 7 timer og 30 min = 7,5 timer. 15 min = 0,25 timer'
+      'Fyll inn timene du har arbeidet i perioden. Timer skrives med desimal til nærmeste halvtime. 7 timer og 30 min = 7,5 timer. 30 min = 0,50 timer'
     );
 
     expect(tekst).toBeVisible();
@@ -118,5 +118,71 @@ describe('rapporteringskalender', () => {
       const tekst = screen.getByText(`${datoNummer}.`);
       expect(tekst).toBeVisible();
     });
+  });
+
+  it('skal vise en feilmelding dersom bruker skriver inn et desimaltall som ikke er en hel eller halv time', async () => {
+    renderWithStegContext(<Utfylling periode={periode} />);
+
+    const felt = screen.getByRole('textbox', { name: 'dager.0.timer' });
+    await user.type(felt, '2.3');
+
+    const checkbox = screen.getByRole('checkbox', {
+      name: 'Jeg bekrefter at disse opplysningene stemmer',
+    });
+
+    await user.click(checkbox);
+
+    const fullførKnapp = screen.getByRole('button', { name: 'Send inn' });
+    await user.click(fullførKnapp);
+
+    const feilmelding = screen.getByText(
+      'Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer'
+    );
+
+    expect(feilmelding).toBeVisible();
+  });
+
+  it('skal vise en feilmelding dersom bruker skriver inn et tall som er over 24 timer', async () => {
+    renderWithStegContext(<Utfylling periode={periode} />);
+
+    const felt = screen.getByRole('textbox', { name: 'dager.0.timer' });
+    await user.type(felt, '25');
+
+    const checkbox = screen.getByRole('checkbox', {
+      name: 'Jeg bekrefter at disse opplysningene stemmer',
+    });
+
+    await user.click(checkbox);
+
+    const fullførKnapp = screen.getByRole('button', { name: 'Send inn' });
+    await user.click(fullførKnapp);
+
+    const feilmelding = screen.getByText(
+      'Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer'
+    );
+
+    expect(feilmelding).toBeVisible();
+  });
+
+  it('skal vise en feilmelding dersom bruker skriver inn et tall som ikke er et tall', async () => {
+    renderWithStegContext(<Utfylling periode={periode} />);
+
+    const felt = screen.getByRole('textbox', { name: 'dager.0.timer' });
+    await user.type(felt, 'attentimerogtredveminutter');
+
+    const checkbox = screen.getByRole('checkbox', {
+      name: 'Jeg bekrefter at disse opplysningene stemmer',
+    });
+
+    await user.click(checkbox);
+
+    const fullførKnapp = screen.getByRole('button', { name: 'Send inn' });
+    await user.click(fullførKnapp);
+
+    const feilmelding = screen.getByText(
+      'Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer'
+    );
+
+    expect(feilmelding).toBeVisible();
   });
 });
