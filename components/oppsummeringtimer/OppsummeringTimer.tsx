@@ -12,8 +12,10 @@ export const OppsummeringTimer = ({ timer }: Props) => {
   const antallTimerIProsent = Math.round((timer / antallTimerIMeldepliktPerioden) * 100);
 
   return (
-    <div>
-      <Label size={'small'}>Sammenlagt for perioden</Label>
+    <div className={styles.oppsummeringtimer}>
+      <BodyShort size={'small'} className={styles.heading}>
+        Sammenlagt for perioden
+      </BodyShort>
       <div className={styles.timer}>
         <Label size={'medium'}>Jobb</Label>
         <BodyShort size={'medium'}>
