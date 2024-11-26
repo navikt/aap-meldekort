@@ -73,22 +73,24 @@ export const Utfylling = ({ periode }: Props) => {
           }
         })}
       >
-        <Heading size={'large'} level={'2'}>
-          Fyll ut meldekortet
-        </Heading>
-        <BodyLong>
-          Fyll inn timene du har arbeidet i perioden. Timer skrives med desimal til nærmeste halvtime. 7 timer og 30 min
-          = 7,5 timer. 30 min = 0,50 timer
-        </BodyLong>
-        <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det informasjon</ReadMore>
-        <Rapporteringskalender periode={periode} errors={errors} />
-        {errors.length > 0 && (
-          <Alert variant={'error'}>
-            Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer
-          </Alert>
-        )}
+        <div className={'flex-column'}>
+          <Heading size={'large'} level={'2'}>
+            Fyll ut meldekortet
+          </Heading>
+          <BodyLong>
+            Fyll inn timene du har arbeidet i perioden. Timer skrives med desimal til nærmeste halvtime. 7 timer og 30
+            min = 7,5 timer. 30 min = 0,50 timer
+          </BodyLong>
+          <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det informasjon</ReadMore>
+          <Rapporteringskalender periode={periode} errors={errors} />
+          {errors.length > 0 && (
+            <Alert variant={'error'}>
+              Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer
+            </Alert>
+          )}
 
-        <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
+          <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
+        </div>
       </Form>
     </FormProvider>
   );
