@@ -12,7 +12,6 @@ import { MeldepliktFormFields } from 'components/steg/utfylling/Utfylling';
 
 interface Props {
   periode: PeriodeType;
-  readOnly: boolean;
 }
 
 export interface PeriodeType {
@@ -23,7 +22,7 @@ export type FieldArrayWithIndex = FieldArrayWithId<MeldepliktFormFields> & {
   index: number;
 };
 
-export const Rapporteringskalender = ({ periode, readOnly }: Props) => {
+export const Rapporteringskalender = ({ periode }: Props) => {
   const fraDato = new Date(periode.periode.fraDato);
   const tilDato = new Date(periode.periode.tilDato);
 
@@ -49,7 +48,7 @@ export const Rapporteringskalender = ({ periode, readOnly }: Props) => {
   });
 
   return (
-    <div className={`${styles.rapporteringskalender} ${readOnly ? styles.readonly : ''}`}>
+    <div className={styles.rapporteringskalender}>
       <div className={styles.heading}>
         <Heading size={'medium'} level={'3'}>
           Uke {fraDatoUkenummer} - {tilDatoUkenummer}
@@ -61,7 +60,7 @@ export const Rapporteringskalender = ({ periode, readOnly }: Props) => {
       <div className={styles.kalender}>
         <UkeHeader />
         {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
-          <UkeRad key={ukeStart} felterIUken={felterIUken} readOnly={readOnly} />
+          <UkeRad key={ukeStart} felterIUken={felterIUken} />
         ))}
       </div>
     </div>

@@ -1,15 +1,14 @@
-import { TimerInput } from 'components/rapporteringskalender/timerinput/TimerInput';
-import { FieldArrayWithIndex } from 'components/rapporteringskalender/Rapporteringskalender';
 import { format } from 'date-fns';
 import { BodyShort } from '@navikt/ds-react';
+import { Dag } from 'components/oppsummeringkalender/OppsummeringKalender';
 
-import styles from './UkeRad.module.css';
+import styles from './OppsummeringUkeRad.module.css';
 
 interface Props {
-  felterIUken: FieldArrayWithIndex[];
+  felterIUken: Dag[];
 }
 
-export const UkeRad = ({ felterIUken }: Props) => {
+export const OppsummeringUkeRad = ({ felterIUken }: Props) => {
   return (
     <div className={styles.rad}>
       <div className={styles.dagnummer}>
@@ -22,9 +21,9 @@ export const UkeRad = ({ felterIUken }: Props) => {
           );
         })}
       </div>
-      <div className={styles.timerinput}>
-        {felterIUken.map((field) => (
-          <TimerInput key={field.id} index={field.index} />
+      <div className={styles.timertekst}>
+        {felterIUken.map((field, index) => (
+          <BodyShort key={index}>{field.timer}</BodyShort>
         ))}
       </div>
     </div>
