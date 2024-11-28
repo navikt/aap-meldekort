@@ -3,3 +3,4 @@ import { IntroduksjonMedDataFetching } from 'components/steg/introduksjon/Introd
 export default function Home() {
   return <IntroduksjonMedDataFetching />;
 }
+export const dynamic = 'force-dynamic';
