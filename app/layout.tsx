@@ -6,11 +6,12 @@ import type { Metadata } from 'next';
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import Script from 'next/script';
 import { getEnvironment } from 'lib/utils/environments';
+import styles from 'app/layout.module.css';
+import { Heading } from '@navikt/ds-react';
 
 export const metadata: Metadata = {
   title: 'AAP Meldekort',
   description: 'Innbyggerflate for å sende inn meldekort',
-
 };
 
 export default async function RootLayout({
@@ -27,7 +28,14 @@ export default async function RootLayout({
       </head>
       <body>
         <Decorator.Header />
-        {children}
+        <div className={styles.rapporteringheader}>
+          <div className={styles.innhold}>
+            <Heading level={'1'} size={'xlarge'}>
+              Meldekort - AAP
+            </Heading>
+          </div>
+        </div>
+        <main className={styles.rapporteringcontainer}>{children}</main>
         <Decorator.Footer />
         <Decorator.Scripts loader={Script} />
       </body>
