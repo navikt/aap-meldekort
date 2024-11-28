@@ -10,6 +10,7 @@ export async function POST(req: NextRequest, props: { params: Promise<{ referans
     // await oppdaterBruddPåAktivitetsplikten(params.saksnummer, body);
   } catch (err) {
     // logError(`/aktivitetsplikt/${params.referanse}/oppdater`, err);
+    console.log(err);
     return new Response(JSON.stringify({ message: 'Innsending feilet' }), { status: 500 });
   }
   return new Response(JSON.stringify({}), { status: 200 });
