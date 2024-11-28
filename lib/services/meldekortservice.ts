@@ -7,7 +7,7 @@ async function fetcher<ResponseBody>(url: string, method: 'GET' | 'POST', body?:
     const response = await fetch(url, { method: method, body: JSON.stringify(body) });
     return await response.json();
   } catch (error) {
-    throw new Error('Unable to fetch ' + url);
+    throw new Error('Unable to fetch ' + JSON.stringify(error));
   }
 }
 
