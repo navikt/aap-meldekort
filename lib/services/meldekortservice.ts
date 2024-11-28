@@ -3,8 +3,12 @@ import { InnsendingMeldeperiode, Meldeperiode } from 'lib/types';
 const meldeKortBaseUrl = process.env.BEHANDLING_API_BASE_URL;
 
 async function fetcher<ResponseBody>(url: string, method: 'GET' | 'POST', body?: Object): Promise<ResponseBody> {
-  const response = await fetch(url, { method: method, body: JSON.stringify(body) });
-  return await response.json();
+  try {
+    const response = await fetch(url, { method: method, body: JSON.stringify(body) });
+    return await response.json();
+  } catch (error) {
+    throw new Error('Unable to fetch ' + url);
+  }
 }
 
 export async function hentMeldeperioder(): Promise<Meldeperiode[]> {
