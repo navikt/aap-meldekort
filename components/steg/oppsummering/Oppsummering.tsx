@@ -2,8 +2,13 @@ import { Accordion, Alert, Button, HGrid } from '@navikt/ds-react';
 
 import styles from './Oppsummering.module.css';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
+import { Meldeperiode } from 'lib/types';
 
-export const Oppsummering = () => {
+interface Props {
+  meldeperiode: Meldeperiode;
+}
+
+export const Oppsummering = ({ meldeperiode }: Props) => {
   return (
     <HGrid columns={'1'} gap={'4'}>
       <Alert variant="success">
@@ -13,12 +18,7 @@ export const Oppsummering = () => {
         <Accordion.Item>
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
           <Accordion.Content>
-            <OppsummeringKalender
-              periode={{
-                fraDato: '2024-11-18',
-                tilDato: '2024-12-01',
-              }}
-            />
+            <OppsummeringKalender meldeperiode={meldeperiode} />
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>

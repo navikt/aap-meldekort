@@ -1,20 +1,24 @@
+'use client';
+
 import { Form } from 'components/form/Form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { JaEllerNeiOptions } from 'lib/utils/form';
-import { PeriodeType } from 'components/rapporteringskalender/Rapporteringskalender';
 import { BodyShort, Heading, HGrid, ReadMore } from '@navikt/ds-react';
 import { getISOWeek } from 'date-fns';
 import { formaterDatoForFrontend } from 'lib/utils/date';
+import { Meldeperiode } from 'lib/types';
+import { useRouter } from 'next/navigation';
 
 interface Props {
-  periode: PeriodeType;
+  meldeperiode: Meldeperiode;
 }
 
 interface FormFields {
   harArbeidet: string;
 }
 
-export const Periode = ({ periode }: Props) => {
+export const Periode = ({ meldeperiode }: Props) => {
+  const router = useRouter();
   const { form, formFields } = useConfigForm<FormFields>({
     harArbeidet: {
       type: 'radio',
@@ -24,8 +28,8 @@ export const Periode = ({ periode }: Props) => {
     },
   });
 
-  const fraDato = new Date(periode.fraDato);
-  const tilDato = new Date(periode.tilDato);
+  const fraDato = new Date(meldeperiode.periode.fom);
+  const tilDato = new Date(meldeperiode.periode.tom);
 
   const fraDatoUkenummer = getISOWeek(fraDato);
   const tilDatoUkenummer = getISOWeek(tilDato);
@@ -34,7 +38,7 @@ export const Periode = ({ periode }: Props) => {
     <Form
       forrigeSteg={'INTRO'}
       nesteStegKnappTekst={'Til utfylling'}
-      onSubmit={form.handleSubmit(() => console.log('hello'))}
+      onSubmit={form.handleSubmit(() => router.push(`/${meldeperiode.referanse}/UTFYLLING`))}
     >
       <HGrid columns={1} gap={'4'}>
         <Heading level={'2'} size={'medium'}>

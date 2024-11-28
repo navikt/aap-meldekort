@@ -1,18 +1,21 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { Periode } from 'components/steg/periode/Periode';
-import { PeriodeType } from 'components/rapporteringskalender/Rapporteringskalender';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { Meldeperiode } from 'lib/types';
 
-const periode: PeriodeType = {
-  fraDato: '2024-11-18',
-  tilDato: '2024-12-01',
+const periode: Meldeperiode = {
+  periode: {
+    fom: '2024-11-18',
+    tom: '2024-12-01',
+  },
+  referanse: 'hello-pello',
 };
 
 const user = userEvent.setup();
 
 describe('Periode', () => {
-  beforeEach(() => render(<Periode periode={periode} />));
+  beforeEach(() => render(<Periode meldeperiode={periode} />));
 
   it('Skal ha en heading', () => {
     const heading = screen.getByRole('heading', { name: 'Nåværende periode', level: 2 });

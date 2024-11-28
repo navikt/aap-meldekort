@@ -1,3 +1,6 @@
+import { PeriodeMedDataFetching } from 'components/steg/periode/PeriodeMedDataFetching';
+import { UtfyllingMedDataFetching } from 'components/steg/utfylling/UtfyllingMedDataFetching';
+
 interface Props {
   params: Promise<{
     referanse: string;
@@ -5,12 +8,16 @@ interface Props {
   }>;
 }
 
+type Steg = 'PERIODE' | 'UTFYLLING';
+
 const AktivtStegPage = async (props: Props) => {
   const params = await props.params;
+  const aktivtSteg = params.aktivtSteg as Steg;
 
   return (
     <div>
-      Aktivt steg {params.referanse} & {params.aktivtSteg}
+      {aktivtSteg === 'PERIODE' && <PeriodeMedDataFetching />}
+      {aktivtSteg === 'UTFYLLING' && <UtfyllingMedDataFetching />}
     </div>
   );
 };

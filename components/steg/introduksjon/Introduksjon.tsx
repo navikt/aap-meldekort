@@ -29,7 +29,7 @@ export const Introduksjon = ({ meldeperiode }: Props) => {
   });
 
   return (
-    <Form onSubmit={form.handleSubmit(() => router.push(`/${meldeperiode.referanse}/periode`))}>
+    <Form onSubmit={form.handleSubmit(() => router.push(`/${meldeperiode.referanse}/PERIODE`))}>
       <section className={'flex-column'}>
         <div>
           <BodyShort size={'large'} spacing>

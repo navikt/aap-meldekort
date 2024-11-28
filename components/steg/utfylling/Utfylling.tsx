@@ -1,14 +1,17 @@
+'use client';
+
 import { Form } from 'components/form/Form';
-import { PeriodeType, Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
+import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
 import { Alert, BodyLong, Heading, ReadMore } from '@navikt/ds-react';
 import { eachDayOfInterval } from 'date-fns';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
 import { JaEllerNei } from 'lib/utils/form';
 import { useState } from 'react';
+import { Meldeperiode } from 'lib/types';
 
 interface Props {
-  periode: PeriodeType;
+  meldeperiode: Meldeperiode;
 }
 
 export interface MeldepliktFormFields {
@@ -26,11 +29,11 @@ export interface MeldepliktError {
   harError: boolean;
 }
 
-export const Utfylling = ({ periode }: Props) => {
+export const Utfylling = ({ meldeperiode }: Props) => {
   const [errors, setErrors] = useState<MeldepliktError[]>([]);
 
-  const fraDato = new Date(periode.fraDato);
-  const tilDato = new Date(periode.tilDato);
+  const fraDato = new Date(meldeperiode.periode.fom);
+  const tilDato = new Date(meldeperiode.periode.tom);
 
   const { form, formFields } = useConfigForm<MeldepliktFormFields>({
     dager: {
@@ -80,7 +83,7 @@ export const Utfylling = ({ periode }: Props) => {
             min = 7,5 timer. 30 min = 0,50 timer
           </BodyLong>
           <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det informasjon</ReadMore>
-          <Rapporteringskalender periode={periode} errors={errors} />
+          <Rapporteringskalender meldeperiode={meldeperiode} errors={errors} />
           {errors.length > 0 && (
             <Alert variant={'error'}>
               Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer
