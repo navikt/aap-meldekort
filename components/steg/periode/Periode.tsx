@@ -36,7 +36,7 @@ export const Periode = ({ meldeperiode }: Props) => {
 
   return (
     <Form
-      forrigeSteg={'INTRO'}
+      forrigeStegUrl={`/`}
       nesteStegKnappTekst={'Til utfylling'}
       onSubmit={form.handleSubmit(() => router.push(`/${meldeperiode.referanse}/UTFYLLING`))}
     >

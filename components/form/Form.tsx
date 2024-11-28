@@ -3,11 +3,12 @@ import { FormEvent, ReactNode } from 'react';
 
 import styles from './Form.module.css';
 import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   children: ReactNode;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  forrigeSteg?: string;
+  forrigeStegUrl?: string;
   nesteStegKnappTekst?: string;
   forrigeStegKnappTekst?: string;
 }
@@ -15,21 +16,23 @@ interface Props {
 export const Form = ({
   children,
   onSubmit,
-  forrigeSteg,
+  forrigeStegUrl,
   nesteStegKnappTekst = 'Neste',
   forrigeStegKnappTekst = 'Tilbake',
 }: Props) => {
+  const router = useRouter();
+
   return (
     <form onSubmit={onSubmit}>
       {children}
       <div className={styles.knapper}>
-        {forrigeSteg && (
+        {forrigeStegUrl && (
           <Button
             variant={'secondary'}
             type={'button'}
             onClick={() => {
-              if (forrigeSteg) {
-                // TODO Her må vi håndtere at bruker kan gå tilbake til forrige steg
+              if (forrigeStegUrl) {
+                router.push(forrigeStegUrl);
               }
             }}
             icon={<ArrowLeftIcon />}

@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 describe('Form generelt', () => {
   beforeEach(() => {
     render(
-      <Form onSubmit={vitest.fn()} forrigeSteg={'INTRO'}>
+      <Form onSubmit={vitest.fn()} forrigeStegUrl={'INTRO'}>
         <div>Noe greier</div>
       </Form>
     );
@@ -63,7 +63,7 @@ describe('varianter', () => {
 
   test('skal vise korrekt tekst på tilbake knapp dersom forrigeStegKnappTekst er satt', () => {
     render(
-      <Form onSubmit={vitest.fn()} forrigeSteg={'INTRO'} forrigeStegKnappTekst={'Endre'}>
+      <Form onSubmit={vitest.fn()} forrigeStegUrl={'INTRO'} forrigeStegKnappTekst={'Endre'}>
         <div>Noe greier</div>
       </Form>
     );

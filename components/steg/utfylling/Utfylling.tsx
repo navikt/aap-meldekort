@@ -59,7 +59,7 @@ export const Utfylling = ({ meldeperiode }: Props) => {
   return (
     <FormProvider {...form}>
       <Form
-        forrigeSteg={'PERIODE'}
+        forrigeStegUrl={`/${meldeperiode.referanse}/PERIODE`}
         nesteStegKnappTekst={'Send inn'}
         onSubmit={form.handleSubmit((data) => {
           setErrors([]);
