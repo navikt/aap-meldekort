@@ -1,10 +1,7 @@
-'use client';
-
 import { Heading } from '@navikt/ds-react';
 
 import styles from './page.module.css';
-import { Steg } from 'components/steg/Steg';
-import { StegContextProvider } from 'context/StegContext';
+import { IntroduksjonMedDataFetching } from 'components/steg/introduksjon/IntroduksjonMedDataFetching';
 
 export default function Home() {
   return (
@@ -17,9 +14,11 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.rapporteringcontainer}>
-        <StegContextProvider>
-          <Steg />
-        </StegContextProvider>
+        <IntroduksjonMedDataFetching />
+
+        {/*<StegContextProvider>*/}
+        {/*  <Steg />*/}
+        {/*</StegContextProvider>*/}
       </div>
     </main>
   );

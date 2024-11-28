@@ -2,7 +2,6 @@ import { Form } from 'components/form/Form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { JaEllerNeiOptions } from 'lib/utils/form';
 import { PeriodeType } from 'components/rapporteringskalender/Rapporteringskalender';
-import { useSteg } from 'hooks/StegHook';
 import { BodyShort, Heading, HGrid, ReadMore } from '@navikt/ds-react';
 import { getISOWeek } from 'date-fns';
 import { formaterDatoForFrontend } from 'lib/utils/date';
@@ -16,7 +15,6 @@ interface FormFields {
 }
 
 export const Periode = ({ periode }: Props) => {
-  const { setSteg } = useSteg();
   const { form, formFields } = useConfigForm<FormFields>({
     harArbeidet: {
       type: 'radio',
@@ -36,7 +34,7 @@ export const Periode = ({ periode }: Props) => {
     <Form
       forrigeSteg={'INTRO'}
       nesteStegKnappTekst={'Til utfylling'}
-      onSubmit={form.handleSubmit(() => setSteg('UTFYLLING'))}
+      onSubmit={form.handleSubmit(() => console.log('hello'))}
     >
       <HGrid columns={1} gap={'4'}>
         <Heading level={'2'} size={'medium'}>

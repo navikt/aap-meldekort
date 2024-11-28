@@ -1,10 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { renderWithStegContext } from 'lib/utils/TestUtil';
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 
 beforeEach(() => {
-  renderWithStegContext(<OppsummeringTimer timer={26} />);
+  render(<OppsummeringTimer timer={26} />);
 });
 
 describe('timer', () => {

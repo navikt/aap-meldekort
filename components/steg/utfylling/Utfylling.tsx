@@ -5,7 +5,6 @@ import { eachDayOfInterval } from 'date-fns';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
 import { JaEllerNei } from 'lib/utils/form';
-import { useSteg } from 'hooks/StegHook';
 import { useState } from 'react';
 
 interface Props {
@@ -28,7 +27,6 @@ export interface MeldepliktError {
 }
 
 export const Utfylling = ({ periode }: Props) => {
-  const { setSteg } = useSteg();
   const [errors, setErrors] = useState<MeldepliktError[]>([]);
 
   const fraDato = new Date(periode.fraDato);
@@ -69,7 +67,7 @@ export const Utfylling = ({ periode }: Props) => {
           setErrors(errors);
 
           if (errors.length === 0) {
-            setSteg('OPPSUMMERING');
+            // TODO Gå videre til oppsummering
           }
         })}
       >

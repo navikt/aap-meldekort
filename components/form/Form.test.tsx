@@ -1,11 +1,10 @@
 import { beforeEach, describe, expect, test, vitest } from 'vitest';
 import { Form } from 'components/form/Form';
-import { screen } from '@testing-library/react';
-import { renderWithStegContext } from 'lib/utils/TestUtil';
+import { render, screen } from '@testing-library/react';
 
 describe('Form generelt', () => {
   beforeEach(() => {
-    renderWithStegContext(
+    render(
       <Form onSubmit={vitest.fn()} forrigeSteg={'INTRO'}>
         <div>Noe greier</div>
       </Form>
@@ -44,7 +43,7 @@ describe('Form generelt', () => {
 
 describe('varianter', () => {
   test('skal ikke vise knapp tilbake hvis forrigeSteg ikke er satt', () => {
-    renderWithStegContext(
+    render(
       <Form onSubmit={vitest.fn()}>
         <div>Noe greier</div>
       </Form>
@@ -54,7 +53,7 @@ describe('varianter', () => {
   });
 
   test('skal vise korrekt tekst på neste knapp dersom nesteStegKnappTekst er satt', () => {
-    renderWithStegContext(
+    render(
       <Form onSubmit={vitest.fn()} nesteStegKnappTekst={'Neste steg'}>
         <div>Noe greier</div>
       </Form>
@@ -63,7 +62,7 @@ describe('varianter', () => {
   });
 
   test('skal vise korrekt tekst på tilbake knapp dersom forrigeStegKnappTekst er satt', () => {
-    renderWithStegContext(
+    render(
       <Form onSubmit={vitest.fn()} forrigeSteg={'INTRO'} forrigeStegKnappTekst={'Endre'}>
         <div>Noe greier</div>
       </Form>

@@ -1,15 +1,15 @@
+'use client';
+
 import { BodyShort, Heading, Link } from '@navikt/ds-react';
 import { Form } from 'components/form/Form';
 import { JaEllerNei } from 'lib/utils/form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
-import { useSteg } from 'hooks/StegHook';
 
 interface FormFields {
   godkjent: JaEllerNei;
 }
 
 export const Introduksjon = () => {
-  const { setSteg } = useSteg();
   const { form, formFields } = useConfigForm<FormFields>({
     godkjent: {
       type: 'checkbox',
@@ -21,7 +21,7 @@ export const Introduksjon = () => {
   });
 
   return (
-    <Form onSubmit={form.handleSubmit(() => setSteg('PERIODE'))}>
+    <Form onSubmit={form.handleSubmit(() => console.log('hello'))}>
       <section className={'flex-column'}>
         <div>
           <BodyShort size={'large'} spacing>

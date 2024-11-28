@@ -1,7 +1,5 @@
 import { Button } from '@navikt/ds-react';
 import { FormEvent, ReactNode } from 'react';
-import { Steg } from 'context/StegContext';
-import { useSteg } from 'hooks/StegHook';
 
 import styles from './Form.module.css';
 import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
@@ -9,7 +7,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
 interface Props {
   children: ReactNode;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  forrigeSteg?: Steg;
+  forrigeSteg?: string;
   nesteStegKnappTekst?: string;
   forrigeStegKnappTekst?: string;
 }
@@ -21,8 +19,6 @@ export const Form = ({
   nesteStegKnappTekst = 'Neste',
   forrigeStegKnappTekst = 'Tilbake',
 }: Props) => {
-  const { setSteg } = useSteg();
-
   return (
     <form onSubmit={onSubmit}>
       {children}
@@ -33,7 +29,7 @@ export const Form = ({
             type={'button'}
             onClick={() => {
               if (forrigeSteg) {
-                setSteg(forrigeSteg);
+                // TODO Her må vi håndtere at bruker kan gå tilbake til forrige steg
               }
             }}
             icon={<ArrowLeftIcon />}

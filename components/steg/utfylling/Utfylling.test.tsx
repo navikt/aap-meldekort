@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { screen } from '@testing-library/react';
-import { renderWithStegContext } from 'lib/utils/TestUtil';
+import { render, screen } from '@testing-library/react';
 import { Utfylling } from 'components/steg/utfylling/Utfylling';
 import { userEvent } from '@testing-library/user-event';
 import { PeriodeType } from 'components/rapporteringskalender/Rapporteringskalender';
@@ -14,7 +13,7 @@ const periode: PeriodeType = {
 const user = userEvent.setup();
 
 describe('Utfylling', () => {
-  beforeEach(() => renderWithStegContext(<Utfylling periode={periode} />));
+  beforeEach(() => render(<Utfylling periode={periode} />));
 
   it('skal ha en heading', () => {
     const heading = screen.getByRole('heading', { name: 'Fyll ut meldekortet', level: 2 });
@@ -65,19 +64,19 @@ describe('Utfylling', () => {
 
 describe('rapporteringskalender', () => {
   it('skal vise ukenummer på perioden', () => {
-    renderWithStegContext(<Utfylling periode={periode} />);
+    render(<Utfylling periode={periode} />);
     const ukenummer = screen.getByText('Uke 47 - 48');
     expect(ukenummer).toBeVisible();
   });
 
   it('skal vise fra dato og til dato for perioden', () => {
-    renderWithStegContext(<Utfylling periode={periode} />);
+    render(<Utfylling periode={periode} />);
     const datoerForPerioden = screen.getByText('18.11.2024 - 01.12.2024');
     expect(datoerForPerioden).toBeVisible();
   });
 
   it('skal vise dagene i uken som tekst', () => {
-    renderWithStegContext(<Utfylling periode={periode} />);
+    render(<Utfylling periode={periode} />);
     const mandag = screen.getByText('Man.');
     expect(mandag).toBeVisible();
 
@@ -101,14 +100,14 @@ describe('rapporteringskalender', () => {
   });
 
   it('skal vise 14 felter for å føre inn timer', () => {
-    renderWithStegContext(<Utfylling periode={periode} />);
+    render(<Utfylling periode={periode} />);
     for (let i = 0; i < 14; i++) {
       const felt = screen.getByRole('textbox', { name: `dager.${i}.timer` });
       expect(felt).toBeVisible();
     }
   });
   it('skal vise datoen for de 14 feltene', () => {
-    renderWithStegContext(<Utfylling periode={periode} />);
+    render(<Utfylling periode={periode} />);
     const datoer = eachDayOfInterval({
       start: new Date(periode.fraDato),
       end: new Date(periode.tilDato),
@@ -121,7 +120,7 @@ describe('rapporteringskalender', () => {
   });
 
   it('skal vise en feilmelding dersom bruker skriver inn et desimaltall som ikke er en hel eller halv time', async () => {
-    renderWithStegContext(<Utfylling periode={periode} />);
+    render(<Utfylling periode={periode} />);
 
     const felt = screen.getByRole('textbox', { name: 'dager.0.timer' });
     await user.type(felt, '2.3');
@@ -143,7 +142,7 @@ describe('rapporteringskalender', () => {
   });
 
   it('skal vise en feilmelding dersom bruker skriver inn et tall som er over 24 timer', async () => {
-    renderWithStegContext(<Utfylling periode={periode} />);
+    render(<Utfylling periode={periode} />);
 
     const felt = screen.getByRole('textbox', { name: 'dager.0.timer' });
     await user.type(felt, '25');
@@ -165,7 +164,7 @@ describe('rapporteringskalender', () => {
   });
 
   it('skal vise en feilmelding dersom bruker skriver inn et tall som ikke er et tall', async () => {
-    renderWithStegContext(<Utfylling periode={periode} />);
+    render(<Utfylling periode={periode} />);
 
     const felt = screen.getByRole('textbox', { name: 'dager.0.timer' });
     await user.type(felt, 'attentimerogtredveminutter');

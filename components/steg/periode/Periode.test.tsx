@@ -1,8 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { renderWithStegContext } from 'lib/utils/TestUtil';
 import { Periode } from 'components/steg/periode/Periode';
 import { PeriodeType } from 'components/rapporteringskalender/Rapporteringskalender';
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 const periode: PeriodeType = {
@@ -13,7 +12,7 @@ const periode: PeriodeType = {
 const user = userEvent.setup();
 
 describe('Periode', () => {
-  beforeEach(() => renderWithStegContext(<Periode periode={periode} />));
+  beforeEach(() => render(<Periode periode={periode} />));
 
   it('Skal ha en heading', () => {
     const heading = screen.getByRole('heading', { name: 'Nåværende periode', level: 2 });
