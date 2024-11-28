@@ -1,3 +1,5 @@
+'use client';
+
 import { Accordion, Alert, Button, HGrid } from '@navikt/ds-react';
 
 import styles from './Oppsummering.module.css';

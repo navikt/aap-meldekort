@@ -1,3 +1,6 @@
+import { hentMeldeperiode } from 'lib/services/meldekortservice';
+import { Oppsummering } from 'components/steg/oppsummering/Oppsummering';
+
 interface Props {
   params: Promise<{
     referanse: string;
@@ -6,8 +9,11 @@ interface Props {
 
 const OppsummeringPage = async (props: Props) => {
   const params = await props.params;
+  console.log(params);
 
-  return <div>Oppsummering {params.referanse}</div>;
+  const meldeperiode = await hentMeldeperiode();
+
+  return <Oppsummering meldeperiode={meldeperiode} />;
 };
 
 export default OppsummeringPage;

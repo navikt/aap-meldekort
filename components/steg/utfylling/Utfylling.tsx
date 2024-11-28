@@ -9,6 +9,7 @@ import { FormProvider } from 'react-hook-form';
 import { JaEllerNei } from 'lib/utils/form';
 import { useState } from 'react';
 import { Meldeperiode } from 'lib/types';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   meldeperiode: Meldeperiode;
@@ -30,6 +31,7 @@ export interface MeldepliktError {
 }
 
 export const Utfylling = ({ meldeperiode }: Props) => {
+  const router = useRouter();
   const [errors, setErrors] = useState<MeldepliktError[]>([]);
 
   const fraDato = new Date(meldeperiode.periode.fom);
@@ -70,7 +72,7 @@ export const Utfylling = ({ meldeperiode }: Props) => {
           setErrors(errors);
 
           if (errors.length === 0) {
-            // TODO Gå videre til oppsummering
+            router.push(`/${meldeperiode.referanse}/oppsummering`);
           }
         })}
       >
