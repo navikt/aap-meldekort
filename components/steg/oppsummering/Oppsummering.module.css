@@ -1,3 +1,6 @@
 .knapperad {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: var(--a-spacing-2);
 }
