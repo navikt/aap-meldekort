@@ -5,7 +5,7 @@ import { Form } from 'components/form/Form';
 import { JaEllerNei } from 'lib/utils/form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { Meldeperiode } from 'lib/types';
-import {useRouter} from "next/navigation";
+import { useRouter } from 'next/navigation';
 
 interface Props {
   meldeperiode: Meldeperiode;
@@ -46,7 +46,9 @@ export const Introduksjon = ({ meldeperiode }: Props) => {
           </Heading>
           <BodyShort size={'large'} spacing>
             Det er viktig at du gir oss riktige opplysninger.
-            <Link href={'https://www.nav.no/endringer'}>Les mer om viktigheten av å gi riktige opplysninger</Link>
+            <Link href={'https://www.nav.no/endringer'} target={'_blank'}>
+              Les mer om viktigheten av å gi riktige opplysninger
+            </Link>
           </BodyShort>
         </div>
 
