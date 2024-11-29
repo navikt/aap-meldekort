@@ -35,8 +35,7 @@ export const OppsummeringKalender = ({ meldeperiode }: Props) => {
     grupperteFelter[ukeStart].push({ dag: field, timer: 0 });
   });
 
-  const timer = Object.entries(grupperteFelter)
-    .map(([_, dager]) => dager)
+  const timer = Object.values(grupperteFelter)
     .flat()
     .reduce((acc, curr) => acc + Number(curr.timer), 0);
 
@@ -56,7 +55,7 @@ export const OppsummeringKalender = ({ meldeperiode }: Props) => {
           <OppsummeringUkeRad key={ukeStart} felterIUken={felterIUken} />
         ))}
 
-        <OppsummeringTimer timer={timer} className={styles.oppsummering}/>
+        <OppsummeringTimer timer={timer} className={styles.oppsummering} />
       </div>
     </div>
   );
