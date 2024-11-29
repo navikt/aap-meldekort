@@ -17,5 +17,8 @@
 .kalender {
   display: flex;
   flex-direction: column;
-  margin: auto var(--a-spacing-6);
+}
+
+.oppsummering {
+  margin-top: var(--a-spacing-4);
 }

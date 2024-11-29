@@ -3,9 +3,10 @@ import { BodyShort, Heading } from '@navikt/ds-react';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 import { UkeHeader } from 'components/rapporteringskalender/ukeheader/UkeHeader';
 import { OppsummeringUkeRad } from 'components/oppsummeringkalender/oppsummeringukerad/OppsummeringUkeRad';
+import { Meldeperiode } from 'lib/types';
+import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 
 import styles from './OppsummeringKalender.module.css';
-import { Meldeperiode } from 'lib/types';
 
 interface Props {
   meldeperiode: Meldeperiode;
@@ -34,6 +35,11 @@ export const OppsummeringKalender = ({ meldeperiode }: Props) => {
     grupperteFelter[ukeStart].push({ dag: field, timer: 0 });
   });
 
+  const timer = Object.entries(grupperteFelter)
+    .map(([_, dager]) => dager)
+    .flat()
+    .reduce((acc, curr) => acc + Number(curr.timer), 0);
+
   return (
     <div className={styles.oppsummeringkalender}>
       <div className={styles.heading}>
@@ -49,6 +55,8 @@ export const OppsummeringKalender = ({ meldeperiode }: Props) => {
         {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
           <OppsummeringUkeRad key={ukeStart} felterIUken={felterIUken} />
         ))}
+
+        <OppsummeringTimer timer={timer} className={styles.oppsummering}/>
       </div>
     </div>
   );
