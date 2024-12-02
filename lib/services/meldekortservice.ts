@@ -7,7 +7,7 @@ const isLocal = () => process.env.NEXT_PUBLIC_ENVIRONMENT === 'localhost';
 const isDev = () => process.env.NEXT_PUBLIC_ENVIRONMENT === 'dev';
 
 export async function hentMeldeperioder(): Promise<Meldeperiode[]> {
-  if (isLocal() && isDev()) {
+  if (isLocal() || isDev()) {
     return [
       {
         referanse: 'hetf3-gekdt5-joeh6-jdjfk7',
@@ -20,7 +20,7 @@ export async function hentMeldeperioder(): Promise<Meldeperiode[]> {
 }
 
 export async function hentMeldeperiode(): Promise<Meldeperiode> {
-  if (isLocal() && isDev()) {
+  if (isLocal() || isDev()) {
     return {
       referanse: 'hetf3-gekdt5-joeh6-jdjfk7',
       periode: { fom: '2024-11-11', tom: '2024-11-24' },
