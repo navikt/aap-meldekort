@@ -6,7 +6,6 @@ import { JaEllerNei } from 'lib/utils/form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { Meldeperiode } from 'lib/types';
 import { useRouter } from 'next/navigation';
-import { logInfo } from '@navikt/aap-felles-utils';
 
 interface Props {
   meldeperiode: Meldeperiode;
@@ -19,7 +18,7 @@ interface FormFields {
 export const Introduksjon = ({ meldeperiode }: Props) => {
   const router = useRouter();
 
-  logInfo('meldeperiode er ' + JSON.stringify(meldeperiode));
+  console.log('meldeperiode er ' + JSON.stringify(meldeperiode));
   const { form, formFields } = useConfigForm<FormFields>({
     godkjent: {
       type: 'checkbox',
