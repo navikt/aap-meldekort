@@ -34,3 +34,22 @@ export async function sendInnMeldekort(meldeperiode: InnsendingMeldeperiode) {
   const url = `${meldeKortBaseUrl}/api/meldeperioder`;
   return fetcher(url, 'POST', meldeperiode);
 }
+
+/**
+ * Disse er fra backend
+ */
+
+// export function hentMeldekort(): Promise<MeldekortResponse> {
+//   const url = `${meldeKortBaseUrl}/api/arena/meldekort`;
+//   return fetcher(url, 'GET');
+// }
+//
+// export function gåTilNesteSteg(request: MeldekortRequest): Promise<MeldekortResponse> {
+//   const url = `${meldeKortBaseUrl}/api/arena/meldekort/neste-steg`;
+//   return fetcher(url, 'POST', request);
+// }
+//
+// export function lagreMeldekort(request: MeldekortRequest): Promise<MeldekortResponse> {
+//   const url = `${meldeKortBaseUrl}/api/arena/meldekort/neste-steg`;
+//   return fetcher(url, 'POST', request);
+// }

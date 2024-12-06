@@ -1,5 +1,6 @@
 import { components } from 'lib/types/schema';
 
-type meldekortRequest = components['schemas']['no.nav.aap.meldekort.arena.MeldekortRequest'];
-type meldekortResponse = components['schemas']['no.nav.aap.meldekort.arena.MeldekortResponse'];
-type meldekort = components['schemas']['no.nav.aap.meldekort.arena.MeldekortDto'];
+export type MeldekortRequest = components['schemas']['no.nav.aap.meldekort.arena.MeldekortRequest'];
+export type MeldekortResponse = components['schemas']['no.nav.aap.meldekort.arena.MeldekortResponse'];
+export type Meldekort = components['schemas']['no.nav.aap.meldekort.arena.MeldekortDto'];
+

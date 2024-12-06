@@ -1,6 +1,6 @@
 import { IntroduksjonMedDataFetching } from 'components/steg/introduksjon/IntroduksjonMedDataFetching';
 
-export default function Home() {
+export default async function Home() {
   return <IntroduksjonMedDataFetching />;
 }
 export const dynamic = 'force-dynamic';
