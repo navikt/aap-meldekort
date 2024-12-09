@@ -4,21 +4,22 @@ import { BodyShort, Heading, Link } from '@navikt/ds-react';
 import { Form } from 'components/form/Form';
 import { JaEllerNei } from 'lib/utils/form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
-import { Meldeperiode } from 'lib/types';
 import { useRouter } from 'next/navigation';
+import { MeldekortResponse } from 'lib/types/types';
 
 interface Props {
-  meldeperiode: Meldeperiode;
+  meldekort: MeldekortResponse;
 }
 
 interface FormFields {
   godkjent: JaEllerNei;
 }
 
-export const Introduksjon = ({ meldeperiode }: Props) => {
+export const Introduksjon = ({ meldekort }: Props) => {
   const router = useRouter();
 
-  console.log('meldeperiode er ' + JSON.stringify(meldeperiode));
+  console.log(meldekort);
+
   const { form, formFields } = useConfigForm<FormFields>({
     godkjent: {
       type: 'checkbox',
@@ -30,7 +31,7 @@ export const Introduksjon = ({ meldeperiode }: Props) => {
   });
 
   return (
-    <Form onSubmit={form.handleSubmit(() => router.push(`/${meldeperiode.referanse}/PERIODE`))}>
+    <Form onSubmit={form.handleSubmit(() => router.push(`/hehehe/PERIODE`))}>
       <section className={'flex-column'}>
         <div>
           <BodyShort size={'large'} spacing>

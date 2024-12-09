@@ -6,11 +6,11 @@ import { JaEllerNeiOptions } from 'lib/utils/form';
 import { BodyShort, Heading, HGrid, ReadMore } from '@navikt/ds-react';
 import { getISOWeek } from 'date-fns';
 import { formaterDatoForFrontend } from 'lib/utils/date';
-import { Meldeperiode } from 'lib/types';
 import { useRouter } from 'next/navigation';
+import { MeldekortResponse } from 'lib/types/types';
 
 interface Props {
-  meldeperiode: Meldeperiode;
+  meldeperiode: MeldekortResponse;
 }
 
 interface FormFields {
@@ -38,7 +38,7 @@ export const Periode = ({ meldeperiode }: Props) => {
     <Form
       forrigeStegUrl={`/`}
       nesteStegKnappTekst={'Til utfylling'}
-      onSubmit={form.handleSubmit(() => router.push(`/${meldeperiode.referanse}/UTFYLLING`))}
+      onSubmit={form.handleSubmit(() => router.push('et eller annet sted'))}
     >
       <HGrid columns={1} gap={'4'}>
         <Heading level={'2'} size={'medium'}>

@@ -10,10 +10,10 @@ import { UkeRad } from 'components/rapporteringskalender/ukerad/UkeRad';
 import { UkeHeader } from './ukeheader/UkeHeader';
 import { MeldepliktError, MeldepliktFormFields } from 'components/steg/utfylling/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
-import { Meldeperiode } from 'lib/types';
+import { MeldekortResponse } from 'lib/types/types';
 
 interface Props {
-  meldeperiode: Meldeperiode;
+  meldeperiode: MeldekortResponse;
   errors: MeldepliktError[];
 }
 

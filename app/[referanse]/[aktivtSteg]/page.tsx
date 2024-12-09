@@ -1,5 +1,8 @@
 import { PeriodeMedDataFetching } from 'components/steg/periode/PeriodeMedDataFetching';
 import { UtfyllingMedDataFetching } from 'components/steg/utfylling/UtfyllingMedDataFetching';
+import { Steg } from 'lib/types/types';
+import { IntroduksjonMedDataFetching } from 'components/steg/introduksjon/IntroduksjonMedDataFetching';
+import { OppsummeringMedDataFetching } from 'components/steg/oppsummering/OppsummeringMedDataFetching';
 
 interface Props {
   params: Promise<{
@@ -7,17 +10,17 @@ interface Props {
     aktivtSteg: string;
   }>;
 }
-
-type Steg = 'PERIODE' | 'UTFYLLING';
-
 const AktivtStegPage = async (props: Props) => {
   const params = await props.params;
-  const aktivtSteg = params.aktivtSteg as Steg;
+  const aktivtSteg = decodeURI(params.aktivtSteg) as Steg;
+  const referanse = params.referanse;
 
   return (
     <div>
-      {aktivtSteg === 'PERIODE' && <PeriodeMedDataFetching />}
-      {aktivtSteg === 'UTFYLLING' && <UtfyllingMedDataFetching />}
+      {aktivtSteg === 'BEKREFT_SVARER_ÆRLIG' && <IntroduksjonMedDataFetching referanse={referanse} />}
+      {aktivtSteg === 'JOBBET_I_MELDEPERIODEN' && <PeriodeMedDataFetching referanse={referanse} />}
+      {aktivtSteg === 'TIMER_ARBEIDET' && <UtfyllingMedDataFetching referanse={referanse} />}
+      {aktivtSteg === 'KVITTERING' && <OppsummeringMedDataFetching referanse={referanse} />}
     </div>
   );
 };

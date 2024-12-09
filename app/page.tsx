@@ -1,6 +1,13 @@
-import { IntroduksjonMedDataFetching } from 'components/steg/introduksjon/IntroduksjonMedDataFetching';
+import { hentMeldeperiode } from 'lib/services/meldekortservice';
+
+import { redirect } from 'next/navigation';
 
 export default async function Home() {
-  return <IntroduksjonMedDataFetching />;
+  const meldeperiode = await hentMeldeperiode();
+
+  if (!meldeperiode) {
+    return <div>Kunne ikke finne meldekort.</div>;
+  }
+
+  redirect(`/${meldeperiode.meldekortId}`);
 }
-export const dynamic = 'force-dynamic';

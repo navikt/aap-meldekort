@@ -2,14 +2,17 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { Periode } from 'components/steg/periode/Periode';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { Meldeperiode } from 'lib/types';
+import { MeldekortResponse } from 'lib/types/types';
 
-const periode: Meldeperiode = {
+const periode: MeldekortResponse = {
   periode: {
     fom: '2024-11-18',
     tom: '2024-12-01',
   },
-  referanse: 'hello-pello',
+  meldekort: {
+    timerArbeidet: [],
+  },
+  steg: 'JOBBET_I_MELDEPERIODEN',
 };
 
 const user = userEvent.setup();

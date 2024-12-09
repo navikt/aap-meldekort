@@ -8,11 +8,12 @@ import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
 import { JaEllerNei } from 'lib/utils/form';
 import { useState } from 'react';
-import { Meldeperiode } from 'lib/types';
 import { useRouter } from 'next/navigation';
+import { MeldekortResponse } from 'lib/types/types';
 
 interface Props {
-  meldeperiode: Meldeperiode;
+  meldeperiode: MeldekortResponse;
+  referanse: string;
 }
 
 export interface MeldepliktFormFields {
@@ -30,7 +31,7 @@ export interface MeldepliktError {
   harError: boolean;
 }
 
-export const Utfylling = ({ meldeperiode }: Props) => {
+export const Utfylling = ({ meldeperiode, referanse }: Props) => {
   const router = useRouter();
   const [errors, setErrors] = useState<MeldepliktError[]>([]);
 
@@ -59,7 +60,7 @@ export const Utfylling = ({ meldeperiode }: Props) => {
   return (
     <FormProvider {...form}>
       <Form
-        forrigeStegUrl={`/${meldeperiode.referanse}/PERIODE`}
+        forrigeStegUrl={`/${referanse}/PERIODE`}
         nesteStegKnappTekst={'Send inn'}
         onSubmit={form.handleSubmit((data) => {
           setErrors([]);
@@ -72,7 +73,7 @@ export const Utfylling = ({ meldeperiode }: Props) => {
           setErrors(errors);
 
           if (errors.length === 0) {
-            router.push(`/${meldeperiode.referanse}/oppsummering`);
+            router.push(`/${referanse}/oppsummering`);
           }
         })}
       >

@@ -3,13 +3,13 @@ import { BodyShort, Heading } from '@navikt/ds-react';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 import { UkeHeader } from 'components/rapporteringskalender/ukeheader/UkeHeader';
 import { OppsummeringUkeRad } from 'components/oppsummeringkalender/oppsummeringukerad/OppsummeringUkeRad';
-import { Meldeperiode } from 'lib/types';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 
 import styles from './OppsummeringKalender.module.css';
+import { MeldekortResponse } from 'lib/types/types';
 
 interface Props {
-  meldeperiode: Meldeperiode;
+  meldekort: MeldekortResponse;
 }
 
 export interface Dag {
@@ -17,9 +17,9 @@ export interface Dag {
   timer: number;
 }
 
-export const OppsummeringKalender = ({ meldeperiode }: Props) => {
-  const fraDato = new Date(meldeperiode.periode.fom);
-  const tilDato = new Date(meldeperiode.periode.tom);
+export const OppsummeringKalender = ({ meldekort }: Props) => {
+  const fraDato = new Date(meldekort.periode.fom);
+  const tilDato = new Date(meldekort.periode.tom);
 
   const fraDatoUkenummer = getISOWeek(fraDato);
   const tilDatoUkenummer = getISOWeek(tilDato);
@@ -46,7 +46,7 @@ export const OppsummeringKalender = ({ meldeperiode }: Props) => {
           Uke {fraDatoUkenummer} - {tilDatoUkenummer}
         </Heading>
         <BodyShort>
-          {formaterDatoForFrontend(meldeperiode.periode.fom)} - {formaterDatoForFrontend(meldeperiode.periode.tom)}
+          {formaterDatoForFrontend(meldekort.periode.fom)} - {formaterDatoForFrontend(meldekort.periode.tom)}
         </BodyShort>
       </div>
       <div className={styles.kalender}>

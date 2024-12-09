@@ -4,14 +4,14 @@ import { Accordion, Alert, Button, HGrid } from '@navikt/ds-react';
 
 import styles from './Oppsummering.module.css';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
-import { Meldeperiode } from 'lib/types';
 import { useRouter } from 'next/navigation';
+import { MeldekortResponse } from 'lib/types/types';
 
 interface Props {
-  meldeperiode: Meldeperiode;
+  meldekort: MeldekortResponse;
 }
 
-export const Oppsummering = ({ meldeperiode }: Props) => {
+export const Oppsummering = ({ meldekort }: Props) => {
   const router = useRouter();
   return (
     <HGrid columns={'1'} gap={'4'}>
@@ -22,7 +22,7 @@ export const Oppsummering = ({ meldeperiode }: Props) => {
         <Accordion.Item>
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
           <Accordion.Content>
-            <OppsummeringKalender meldeperiode={meldeperiode} />
+            <OppsummeringKalender meldekort={meldekort} />
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>

@@ -1,7 +1,11 @@
 import { Periode } from 'components/steg/periode/Periode';
-import { hentMeldeperiode } from 'lib/services/meldekortservice';
+import { hentMeldekort } from 'lib/services/meldekortservice';
 
-export const PeriodeMedDataFetching = async () => {
-  const periode = await hentMeldeperiode();
+interface Props {
+  referanse: string;
+}
+
+export const PeriodeMedDataFetching = async ({ referanse }: Props) => {
+  const periode = await hentMeldekort(referanse);
   return <Periode meldeperiode={periode} />;
 };

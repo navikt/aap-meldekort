@@ -1,10 +1,12 @@
-import { hentMeldeperiode } from 'lib/services/meldekortservice';
+import { hentMeldekort } from 'lib/services/meldekortservice';
 import { Utfylling } from 'components/steg/utfylling/Utfylling';
 
-export const UtfyllingMedDataFetching = async () => {
-  const meldeperiode = await hentMeldeperiode();
+interface Props {
+  referanse: string;
+}
 
-  // TODO Her må vi skille mellom to komponenter avhengig av om bruker har arbeidet eller ikke
+export const UtfyllingMedDataFetching = async ({ referanse }: Props) => {
+  const meldekort = await hentMeldekort(referanse);
 
-  return <Utfylling meldeperiode={meldeperiode} />;
+  return <Utfylling meldeperiode={meldekort} referanse={referanse} />;
 };
