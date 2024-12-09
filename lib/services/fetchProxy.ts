@@ -1,4 +1,4 @@
-import { getAccessTokenOrRedirectToLogin } from '@navikt/aap-felles-utils';
+import { getAccessTokenOrRedirectToLogin, logError, logInfo } from '@navikt/aap-felles-utils';
 import { requestTokenxOboToken, validateToken } from '@navikt/oasis';
 import { headers } from 'next/headers';
 
@@ -9,7 +9,8 @@ export async function fetcher<ResponseBody>(url: string, method: 'GET' | 'POST',
     throw new Error('AUDIENCE er ikke satt');
   }
 
-  const oboToken = await getOnBehalfOfToken(AUDIENCE);
+  const oboToken = await getOnBehalfOfToken(AUDIENCE, url);
+
   try {
     const response = await fetch(url, {
       method: method,
@@ -18,24 +19,28 @@ export async function fetcher<ResponseBody>(url: string, method: 'GET' | 'POST',
     });
     return await response.json();
   } catch (error) {
+    logError(`Klarte ikke å hente ${url}:` + JSON.stringify(error));
     throw new Error('Unable to fetch ' + JSON.stringify(error));
   }
 }
 
-async function getOnBehalfOfToken(audience: string) {
+async function getOnBehalfOfToken(audience: string, url: string) {
   const token = getAccessTokenOrRedirectToLogin(await headers());
   if (!token) {
+    logError(`Token for ${url} er undefined`);
     throw new Error('Token is undefined');
   }
 
   const validation = await validateToken(token);
   if (!validation.ok) {
+    logError(`Token for ${url} validerte ikke`);
     throw new Error('Token didnt validate');
   }
 
   const oboToken = await requestTokenxOboToken(token, audience);
   if (!oboToken.ok) {
+    logError(`Henting av oboToken for ${url} feilet`, oboToken.error);
     throw new Error('Request oboToken failed');
   }
-  return oboToken.token;
+  return token;
 }
