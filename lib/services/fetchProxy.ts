@@ -15,7 +15,10 @@ export async function fetcher<ResponseBody>(url: string, method: 'GET' | 'POST',
     const response = await fetch(url, {
       method: method,
       body: JSON.stringify(body),
-      headers: { Authorization: `Bearer ${oboToken}` },
+      headers: {
+        Authorization: `Bearer ${oboToken}`,
+        'Content-Type': 'application/json',
+      },
     });
     const responseJson = await response.json();
     logInfo(`respons for ${url} er ` + JSON.stringify(responseJson));
@@ -44,5 +47,5 @@ async function getOnBehalfOfToken(audience: string, url: string) {
     logError(`Henting av oboToken for ${url} feilet`, oboToken.error);
     throw new Error('Request oboToken failed');
   }
-  return token;
+  return oboToken.token;
 }
