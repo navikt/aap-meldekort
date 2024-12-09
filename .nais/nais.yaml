@@ -51,6 +51,7 @@ spec:
   accessPolicy:
     outbound:
       rules:
+        - application: meldekort-backend
         - application: nav-dekoratoren
           namespace: personbruker
       external:
