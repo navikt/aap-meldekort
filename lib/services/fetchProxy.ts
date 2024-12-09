@@ -1,4 +1,4 @@
-import { getAccessTokenOrRedirectToLogin, logError } from '@navikt/aap-felles-utils';
+import { getAccessTokenOrRedirectToLogin, logError, logInfo } from '@navikt/aap-felles-utils';
 import { requestTokenxOboToken, validateToken } from '@navikt/oasis';
 import { headers } from 'next/headers';
 
@@ -17,7 +17,9 @@ export async function fetcher<ResponseBody>(url: string, method: 'GET' | 'POST',
       body: JSON.stringify(body),
       headers: { Authorization: `Bearer ${oboToken}` },
     });
-    return await response.json();
+    const responseJson = await response.json();
+    logInfo(`respons for ${url} er ` + JSON.stringify(responseJson));
+    return responseJson;
   } catch (error) {
     logError(`Klarte ikke å hente ${url}:` + JSON.stringify(error));
     throw new Error('Unable to fetch ' + JSON.stringify(error));
