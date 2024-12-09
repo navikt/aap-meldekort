@@ -1,4 +1,4 @@
-import { getAccessTokenOrRedirectToLogin, logError, logInfo } from '@navikt/aap-felles-utils';
+import { getAccessTokenOrRedirectToLogin, logError } from '@navikt/aap-felles-utils';
 import { requestTokenxOboToken, validateToken } from '@navikt/oasis';
 import { headers } from 'next/headers';
 
