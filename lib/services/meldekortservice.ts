@@ -8,9 +8,9 @@ const isLocal = () => process.env.NEXT_PUBLIC_ENVIRONMENT === 'localhost';
 /**
  * Disse er fra backend
  */
-export async function hentMeldeperiode(): Promise<Meldeperiode> {
+export async function hentMeldeperiode(): Promise<Meldeperiode[]> {
   const url = `${meldeKortBaseUrl}/api/arena/meldeperiode`;
-  return await fetcher<Meldeperiode>(url, 'GET');
+  return await fetcher<Meldeperiode[]>(url, 'GET');
 }
 
 export async function hentMeldekort(referanse: string): Promise<MeldekortResponse> {
