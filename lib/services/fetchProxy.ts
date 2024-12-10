@@ -1,5 +1,5 @@
 import { getAccessTokenOrRedirectToLogin, logError, logInfo } from '@navikt/aap-felles-utils';
-import { requestTokenxOboToken, validateToken } from '@navikt/oasis';
+import { requestOboToken, validateToken } from '@navikt/oasis';
 import { headers } from 'next/headers';
 
 const AUDIENCE = process.env.MELDEKORT_AUDIENCE;
@@ -42,7 +42,7 @@ async function getOnBehalfOfToken(audience: string, url: string) {
     throw new Error('Token didnt validate');
   }
 
-  const oboToken = await requestTokenxOboToken(token, audience);
+  const oboToken = await requestOboToken(token, audience);
   if (!oboToken.ok) {
     logError(`Henting av oboToken for ${url} feilet`, oboToken.error);
     throw new Error('Request oboToken failed');
