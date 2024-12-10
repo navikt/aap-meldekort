@@ -20,8 +20,9 @@ export async function fetcher<ResponseBody>(url: string, method: 'GET' | 'POST',
         'Content-Type': 'application/json',
       },
     });
+
     const responseJson = await response.json();
-    logInfo(`respons for ${url} er ` + JSON.stringify(responseJson));
+    logInfo(`respons for ${url} med statuskode ${response.status}} er ` + JSON.stringify(responseJson));
     return responseJson;
   } catch (error) {
     logError(`Klarte ikke å hente ${url}:` + JSON.stringify(error));
