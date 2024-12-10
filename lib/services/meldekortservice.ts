@@ -1,7 +1,7 @@
 import { fetcher } from 'lib/services/fetchProxy';
 import { MeldekortRequest, MeldekortResponse, Meldeperiode } from 'lib/types/types';
 
-const meldeKortBaseUrl = process.env.BEHANDLING_API_BASE_URL;
+const meldeKortBaseUrl = process.env.MELDEKORT_API_BASE_URL;
 
 const isLocal = () => process.env.NEXT_PUBLIC_ENVIRONMENT === 'localhost';
 
@@ -9,16 +9,6 @@ const isLocal = () => process.env.NEXT_PUBLIC_ENVIRONMENT === 'localhost';
  * Disse er fra backend
  */
 export async function hentMeldeperiode(): Promise<Meldeperiode> {
-  // const meldeperiode: Meldeperiode = {
-  //   meldekortId: 1,
-  //   periode: { fom: '2024-11-11', tom: '2024-11-24' },
-  //   status: 'KLAR_FOR_INNSENDING',
-  // };
-  //
-  // if (isLocal()) {
-  //   return meldeperiode;
-  // }
-
   const url = `${meldeKortBaseUrl}/api/arena/meldeperiode`;
   return await fetcher<Meldeperiode>(url, 'GET');
 }
