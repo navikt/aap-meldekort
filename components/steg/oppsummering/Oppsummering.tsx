@@ -6,12 +6,14 @@ import styles from './Oppsummering.module.css';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useRouter } from 'next/navigation';
 import { MeldekortResponse } from 'lib/types/types';
+import { lagreMeldekort } from 'lib/client/clientApi';
 
 interface Props {
   meldekort: MeldekortResponse;
+  referanse: string;
 }
 
-export const Oppsummering = ({ meldekort }: Props) => {
+export const Oppsummering = ({ referanse, meldekort }: Props) => {
   const router = useRouter();
   return (
     <HGrid columns={'1'} gap={'4'}>
@@ -30,7 +32,15 @@ export const Oppsummering = ({ meldekort }: Props) => {
         <Button variant="primary" type="button" as={'a'}>
           Gå til Mine AAP
         </Button>
-        <Button variant="primary" type="button" as={'a'} onClick={() => router.push('/')}>
+        <Button
+          variant="primary"
+          type="button"
+          as={'a'}
+          onClick={async () => {
+            await lagreMeldekort(referanse, { meldekort: meldekort.meldekort, nåværendeSteg: 'KVITTERING' });
+            router.push('/');
+          }}
+        >
           Send inn et nytt meldekort
         </Button>
       </div>

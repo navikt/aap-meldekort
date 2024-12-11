@@ -13,19 +13,19 @@ const meldeperiode: MeldekortResponse = {
 
 describe('Oppsummering', () => {
   it('viser en suksess-melding', () => {
-    render(<Oppsummering meldekort={meldeperiode} />);
+    render(<Oppsummering meldekort={meldeperiode} referanse={'1234'} />);
     expect(
       screen.getByText('Meldekortet ditt er sendt til Nav, du får beskjed hvis vi trenger noe mer fra deg.')
     ).toBeVisible();
   });
 
   it('har en accordion for å se hva som ble sendt inn', () => {
-    render(<Oppsummering meldekort={meldeperiode} />);
+    render(<Oppsummering meldekort={meldeperiode} referanse={'1234'} />);
     expect(screen.getByText('Se hva du sendte inn')).toBeVisible();
   });
 
   it('har en knapp som tar deg til "Mine aap"', () => {
-    render(<Oppsummering meldekort={meldeperiode} />);
+    render(<Oppsummering meldekort={meldeperiode} referanse={'1234'} />);
     expect(screen.getByRole('button', { name: 'Gå til Mine AAP' })).toBeVisible();
   });
 });

@@ -1,6 +1,6 @@
 import { fetcher } from 'lib/services/fetchProxy';
 import { MeldekortRequest, MeldekortResponse, Meldeperiode } from 'lib/types/types';
-import { hentMeldekortMock, hentMeldeperioderMock, mockNesteSteg } from 'databasemock/meldekort';
+import { hentMeldekortMock, hentMeldeperioderMock, mockNesteSteg, slettMock } from 'databasemock/meldekort';
 
 const meldeKortBaseUrl = process.env.MELDEKORT_API_BASE_URL;
 
@@ -28,6 +28,7 @@ export async function gåTilNesteSteg(
   meldekortId: string,
   meldekortRequest: MeldekortRequest
 ): Promise<MeldekortResponse> {
+  console.log('hva er verdien inne i meldekortservice dah?', meldekortId);
   if (isLocal()) {
     await mockNesteSteg(meldekortRequest);
     return await hentMeldekortMock();
@@ -37,10 +38,15 @@ export async function gåTilNesteSteg(
   return fetcher(url, 'POST', meldekortRequest);
 }
 
-export function lagreMeldekort(meldekortId: string, meldekortRequest: MeldekortRequest): Promise<MeldekortResponse> {
+export async function lagreMeldekort(
+  meldekortId: string,
+  meldekortRequest: MeldekortRequest
+): Promise<MeldekortResponse | undefined> {
   if (isLocal()) {
-    //TODO Do something
+    await slettMock();
+    return undefined;
   }
+
   const url = `${meldeKortBaseUrl}/api/arena/meldekort/${meldekortId}/neste-steg`;
   return fetcher(url, 'POST', meldekortRequest);
 }

@@ -17,11 +17,6 @@ export async function hentMeldeperioderMock(): Promise<Meldeperiode[]> {
         periode: { fom: '2024-11-04', tom: '2024-11-17' },
         status: 'KLAR_FOR_INNSENDING',
       },
-      {
-        meldekortId: 123456789,
-        periode: { fom: '2024-11-18', tom: '2024-12-01' },
-        status: 'KLAR_FOR_INNSENDING',
-      },
     ];
 
     await fs.writeFile('.meldeperioder.cache', JSON.stringify(meldeperioder));
@@ -56,10 +51,10 @@ export async function hentMeldekortMock(): Promise<MeldekortResponse> {
   }
 }
 
-export const slettMeldekort = async () => {
+export async function slettMock() {
+  await fs.unlink('.meldeperioder.cache');
   await fs.unlink('.meldekort.cache');
-  return;
-};
+}
 
 function hentNesteSteg(nåværendeSteg: Steg): Steg {
   switch (nåværendeSteg) {

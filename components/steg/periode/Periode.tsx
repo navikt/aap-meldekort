@@ -42,7 +42,7 @@ export const Periode = ({ meldekort, referanse }: Props) => {
       referanse={referanse}
       nesteStegKnappTekst={'Til utfylling'}
       onSubmit={form.handleSubmit(async (data) => {
-        const meldekortResponse = await gåTilNesteStegClient('hei', {
+        const meldekortResponse = await gåTilNesteStegClient(referanse, {
           meldekort: { ...meldekort.meldekort, harDuJobbet: data.harArbeidet === JaEllerNei.Ja, timerArbeidet: [] },
           nåværendeSteg: 'JOBBET_I_MELDEPERIODEN',
         });
