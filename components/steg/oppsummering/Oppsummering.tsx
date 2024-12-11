@@ -6,7 +6,7 @@ import styles from './Oppsummering.module.css';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useRouter } from 'next/navigation';
 import { MeldekortResponse } from 'lib/types/types';
-import { lagreMeldekort } from 'lib/client/clientApi';
+import { lagreMeldekortClient } from 'lib/client/clientApi';
 
 interface Props {
   meldekort: MeldekortResponse;
@@ -37,7 +37,7 @@ export const Oppsummering = ({ referanse, meldekort }: Props) => {
           type="button"
           as={'a'}
           onClick={async () => {
-            await lagreMeldekort(referanse, { meldekort: meldekort.meldekort, nåværendeSteg: 'KVITTERING' });
+            await lagreMeldekortClient(referanse, { meldekort: meldekort.meldekort, nåværendeSteg: 'KVITTERING' });
             router.push('/');
           }}
         >

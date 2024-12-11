@@ -31,7 +31,7 @@ export async function gåTilNesteStegClient(
   return await fetchProxy<MeldekortResponse>(`/api/arena/meldekort/${referanse}/neste-steg`, 'POST', meldekortRequest);
 }
 
-export async function lagreMeldekort(
+export async function lagreMeldekortClient(
   referanse: string,
   meldekortRequest: MeldekortRequest
 ): Promise<MeldekortResponse | undefined> {
