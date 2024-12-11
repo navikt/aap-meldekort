@@ -34,7 +34,7 @@ export const Introduksjon = ({ meldekort, referanse }: Props) => {
     <Form
       referanse={referanse}
       onSubmit={form.handleSubmit(async (data) => {
-        const meldekortResponse = await gåTilNesteStegClient('hei', {
+        const meldekortResponse = await gåTilNesteStegClient(referanse, {
           meldekort: { ...meldekort.meldekort, svarerDuSant: data.godkjent.includes(JaEllerNei.Ja), timerArbeidet: [] },
           nåværendeSteg: 'BEKREFT_SVARER_ÆRLIG',
         });
