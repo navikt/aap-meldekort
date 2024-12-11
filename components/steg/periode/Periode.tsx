@@ -2,22 +2,24 @@
 
 import { Form } from 'components/form/Form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
-import { JaEllerNeiOptions } from 'lib/utils/form';
+import { JaEllerNei, JaEllerNeiOptions } from 'lib/utils/form';
 import { BodyShort, Heading, HGrid, ReadMore } from '@navikt/ds-react';
 import { getISOWeek } from 'date-fns';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 import { useRouter } from 'next/navigation';
 import { MeldekortResponse } from 'lib/types/types';
+import { gåTilNesteStegClient } from 'lib/client/clientApi';
 
 interface Props {
-  meldeperiode: MeldekortResponse;
+  meldekort: MeldekortResponse;
+  referanse: string;
 }
 
 interface FormFields {
   harArbeidet: string;
 }
 
-export const Periode = ({ meldeperiode }: Props) => {
+export const Periode = ({ meldekort, referanse }: Props) => {
   const router = useRouter();
   const { form, formFields } = useConfigForm<FormFields>({
     harArbeidet: {
@@ -28,17 +30,29 @@ export const Periode = ({ meldeperiode }: Props) => {
     },
   });
 
-  const fraDato = new Date(meldeperiode.periode.fom);
-  const tilDato = new Date(meldeperiode.periode.tom);
+  const fraDato = new Date(meldekort.periode.fom);
+  const tilDato = new Date(meldekort.periode.tom);
 
   const fraDatoUkenummer = getISOWeek(fraDato);
   const tilDatoUkenummer = getISOWeek(tilDato);
 
   return (
     <Form
-      forrigeStegUrl={`/`}
+      forrigeSteg={'BEKREFT_SVARER_ÆRLIG'}
+      referanse={referanse}
       nesteStegKnappTekst={'Til utfylling'}
-      onSubmit={form.handleSubmit(() => router.push('et eller annet sted'))}
+      onSubmit={form.handleSubmit(async (data) => {
+        const meldekortResponse = await gåTilNesteStegClient('hei', {
+          meldekort: { ...meldekort.meldekort, harDuJobbet: data.harArbeidet === JaEllerNei.Ja, timerArbeidet: [] },
+          nåværendeSteg: 'JOBBET_I_MELDEPERIODEN',
+        });
+
+        if (meldekortResponse) {
+          router.push(`/${referanse}/${meldekortResponse.steg}`);
+        } else {
+          // Håndtere error
+        }
+      })}
     >
       <HGrid columns={1} gap={'4'}>
         <Heading level={'2'} size={'medium'}>

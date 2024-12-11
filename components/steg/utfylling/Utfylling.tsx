@@ -10,9 +10,10 @@ import { JaEllerNei } from 'lib/utils/form';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { MeldekortResponse } from 'lib/types/types';
+import { gåTilNesteStegClient } from 'lib/client/clientApi';
 
 interface Props {
-  meldeperiode: MeldekortResponse;
+  meldekort: MeldekortResponse;
   referanse: string;
 }
 
@@ -31,12 +32,12 @@ export interface MeldepliktError {
   harError: boolean;
 }
 
-export const Utfylling = ({ meldeperiode, referanse }: Props) => {
+export const Utfylling = ({ meldekort, referanse }: Props) => {
   const router = useRouter();
   const [errors, setErrors] = useState<MeldepliktError[]>([]);
 
-  const fraDato = new Date(meldeperiode.periode.fom);
-  const tilDato = new Date(meldeperiode.periode.tom);
+  const fraDato = new Date(meldekort.periode.fom);
+  const tilDato = new Date(meldekort.periode.tom);
 
   const { form, formFields } = useConfigForm<MeldepliktFormFields>({
     dager: {
@@ -60,9 +61,10 @@ export const Utfylling = ({ meldeperiode, referanse }: Props) => {
   return (
     <FormProvider {...form}>
       <Form
-        forrigeStegUrl={`/${referanse}/PERIODE`}
+        referanse={referanse}
+        forrigeSteg={'JOBBET_I_MELDEPERIODEN'}
         nesteStegKnappTekst={'Send inn'}
-        onSubmit={form.handleSubmit((data) => {
+        onSubmit={form.handleSubmit(async (data) => {
           setErrors([]);
           const errors: MeldepliktError[] = [];
           data.dager.map((dag, index) => {
@@ -73,7 +75,17 @@ export const Utfylling = ({ meldeperiode, referanse }: Props) => {
           setErrors(errors);
 
           if (errors.length === 0) {
-            router.push(`/${referanse}/oppsummering`);
+            const meldekortResponse = await gåTilNesteStegClient(referanse, {
+              meldekort: {
+                ...meldekort.meldekort,
+                timerArbeidet: data.dager.map((dag) => (dag.timer ? Number(dag.timer) : 0)),
+              },
+              nåværendeSteg: 'TIMER_ARBEIDET',
+            });
+
+            if (meldekortResponse) {
+              router.push(`/${referanse}/${meldekortResponse.steg}`);
+            }
           }
         })}
       >
@@ -86,7 +98,7 @@ export const Utfylling = ({ meldeperiode, referanse }: Props) => {
             min = 7,5 timer. 30 min = 0,50 timer
           </BodyLong>
           <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det informasjon</ReadMore>
-          <Rapporteringskalender meldeperiode={meldeperiode} errors={errors} />
+          <Rapporteringskalender meldeperiode={meldekort} errors={errors} />
           {errors.length > 0 && (
             <Alert variant={'error'}>
               Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer

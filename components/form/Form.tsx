@@ -4,11 +4,13 @@ import { FormEvent, ReactNode } from 'react';
 import styles from './Form.module.css';
 import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
 import { useRouter } from 'next/navigation';
+import { Steg } from 'lib/types/types';
 
 interface Props {
   children: ReactNode;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  forrigeStegUrl?: string;
+  referanse: string;
+  forrigeSteg?: Steg;
   nesteStegKnappTekst?: string;
   forrigeStegKnappTekst?: string;
 }
@@ -16,7 +18,8 @@ interface Props {
 export const Form = ({
   children,
   onSubmit,
-  forrigeStegUrl,
+  forrigeSteg,
+  referanse,
   nesteStegKnappTekst = 'Neste',
   forrigeStegKnappTekst = 'Tilbake',
 }: Props) => {
@@ -26,13 +29,13 @@ export const Form = ({
     <form onSubmit={onSubmit}>
       {children}
       <div className={styles.knapper}>
-        {forrigeStegUrl && (
+        {forrigeSteg && (
           <Button
             variant={'secondary'}
             type={'button'}
             onClick={() => {
-              if (forrigeStegUrl) {
-                router.push(forrigeStegUrl);
+              if (forrigeSteg) {
+                router.push(`/${referanse}/${forrigeSteg}`);
               }
             }}
             icon={<ArrowLeftIcon />}

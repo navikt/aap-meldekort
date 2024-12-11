@@ -21,6 +21,8 @@
 /build
 
 # misc
+.meldeperioder.cache
+.meldekort.cache
 .DS_Store
 *.pem
 

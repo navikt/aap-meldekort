@@ -6,19 +6,19 @@ import { JaEllerNei } from 'lib/utils/form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { useRouter } from 'next/navigation';
 import { MeldekortResponse } from 'lib/types/types';
+import { gåTilNesteStegClient } from 'lib/client/clientApi';
 
 interface Props {
   meldekort: MeldekortResponse;
+  referanse: string;
 }
 
 interface FormFields {
-  godkjent: JaEllerNei;
+  godkjent: JaEllerNei[];
 }
 
-export const Introduksjon = ({ meldekort }: Props) => {
+export const Introduksjon = ({ meldekort, referanse }: Props) => {
   const router = useRouter();
-
-  console.log(meldekort);
 
   const { form, formFields } = useConfigForm<FormFields>({
     godkjent: {
@@ -31,7 +31,21 @@ export const Introduksjon = ({ meldekort }: Props) => {
   });
 
   return (
-    <Form onSubmit={form.handleSubmit(() => router.push(`/hehehe/PERIODE`))}>
+    <Form
+      referanse={referanse}
+      onSubmit={form.handleSubmit(async (data) => {
+        const meldekortResponse = await gåTilNesteStegClient('hei', {
+          meldekort: { ...meldekort.meldekort, svarerDuSant: data.godkjent.includes(JaEllerNei.Ja), timerArbeidet: [] },
+          nåværendeSteg: 'BEKREFT_SVARER_ÆRLIG',
+        });
+
+        if (meldekortResponse) {
+          router.push(`/${referanse}/${meldekortResponse.steg}`);
+        } else {
+          // Håndtere error
+        }
+      })}
+    >
       <section className={'flex-column'}>
         <div>
           <BodyShort size={'large'} spacing>

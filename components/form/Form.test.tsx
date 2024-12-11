@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 describe('Form generelt', () => {
   beforeEach(() => {
     render(
-      <Form onSubmit={vitest.fn()} forrigeStegUrl={'INTRO'}>
+      <Form onSubmit={vitest.fn()} forrigeSteg={'BEKREFT_SVARER_ÆRLIG'} referanse={'123'}>
         <div>Noe greier</div>
       </Form>
     );
@@ -44,7 +44,7 @@ describe('Form generelt', () => {
 describe('varianter', () => {
   test('skal ikke vise knapp tilbake hvis forrigeSteg ikke er satt', () => {
     render(
-      <Form onSubmit={vitest.fn()}>
+      <Form onSubmit={vitest.fn()} referanse={'123'}>
         <div>Noe greier</div>
       </Form>
     );
@@ -54,7 +54,7 @@ describe('varianter', () => {
 
   test('skal vise korrekt tekst på neste knapp dersom nesteStegKnappTekst er satt', () => {
     render(
-      <Form onSubmit={vitest.fn()} nesteStegKnappTekst={'Neste steg'}>
+      <Form onSubmit={vitest.fn()} referanse={'123'} nesteStegKnappTekst={'Neste steg'}>
         <div>Noe greier</div>
       </Form>
     );
@@ -63,7 +63,12 @@ describe('varianter', () => {
 
   test('skal vise korrekt tekst på tilbake knapp dersom forrigeStegKnappTekst er satt', () => {
     render(
-      <Form onSubmit={vitest.fn()} forrigeStegUrl={'INTRO'} forrigeStegKnappTekst={'Endre'}>
+      <Form
+        onSubmit={vitest.fn()}
+        forrigeSteg={'BEKREFT_SVARER_ÆRLIG'}
+        referanse={'123'}
+        forrigeStegKnappTekst={'Endre'}
+      >
         <div>Noe greier</div>
       </Form>
     );

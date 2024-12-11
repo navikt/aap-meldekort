@@ -18,7 +18,7 @@ const periode: MeldekortResponse = {
 const user = userEvent.setup();
 
 describe('Periode', () => {
-  beforeEach(() => render(<Periode meldeperiode={periode} />));
+  beforeEach(() => render(<Periode meldekort={periode} referanse={'1234'} />));
 
   it('Skal ha en heading', () => {
     const heading = screen.getByRole('heading', { name: 'Nåværende periode', level: 2 });
