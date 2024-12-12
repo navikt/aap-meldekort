@@ -15,7 +15,8 @@ export async function POST(req: NextRequest, props: { params: Promise<{ meldekor
   }
 
   try {
-    await gåTilNesteSteg(params.meldekortid, meldekortRequest);
+    const meldekort = await gåTilNesteSteg(params.meldekortid, meldekortRequest);
+    return new Response(JSON.stringify(meldekort), { status: 500 });
   } catch (err) {
     logError(`/arena/meldekort/${params.meldekortid}/neste-steg`, err);
     return new Response(JSON.stringify({ message: 'Innsending av steg gikk dårlig' }), { status: 500 });
