@@ -11,7 +11,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { MeldekortResponse } from 'lib/types/types';
 import { gåTilNesteStegClient } from 'lib/client/clientApi';
-import { logInfo } from '@navikt/aap-felles-utils';
 
 interface Props {
   meldekort: MeldekortResponse;
@@ -36,8 +35,6 @@ export interface MeldepliktError {
 export const Utfylling = ({ meldekort, referanse }: Props) => {
   const router = useRouter();
   const [errors, setErrors] = useState<MeldepliktError[]>([]);
-
-  logInfo(`${JSON.stringify(meldekort.periode)}for referanse ${referanse}`);
 
   const fraDato = new Date(meldekort.periode.fom);
   const tilDato = new Date(meldekort.periode.tom);
