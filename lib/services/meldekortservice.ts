@@ -28,7 +28,6 @@ export async function gåTilNesteSteg(
   meldekortId: string,
   meldekortRequest: MeldekortRequest
 ): Promise<MeldekortResponse> {
-  console.log('hva er verdien inne i meldekortservice dah?', meldekortId);
   if (isLocal()) {
     await mockNesteSteg(meldekortRequest);
     return await hentMeldekortMock();
