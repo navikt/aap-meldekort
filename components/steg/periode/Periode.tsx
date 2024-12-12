@@ -2,7 +2,7 @@
 
 import { Form } from 'components/form/Form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
-import { JaEllerNei, JaEllerNeiOptions } from 'lib/utils/form';
+import { getJaNeiEllerUndefined, JaEllerNei, JaEllerNeiOptions } from 'lib/utils/form';
 import { BodyShort, Heading, HGrid, ReadMore } from '@navikt/ds-react';
 import { getISOWeek } from 'date-fns';
 import { formaterDatoForFrontend } from 'lib/utils/date';
@@ -25,6 +25,7 @@ export const Periode = ({ meldekort, referanse }: Props) => {
     harArbeidet: {
       type: 'radio',
       options: JaEllerNeiOptions,
+      defaultValue: getJaNeiEllerUndefined(meldekort.meldekort.harDuJobbet),
       label: 'Har du arbeidet i perioden?',
       rules: { required: 'Du må svare på om du har arbeidet i perioden' },
     },
@@ -43,7 +44,7 @@ export const Periode = ({ meldekort, referanse }: Props) => {
       nesteStegKnappTekst={'Til utfylling'}
       onSubmit={form.handleSubmit(async (data) => {
         const meldekortResponse = await gåTilNesteStegClient(referanse, {
-          meldekort: { ...meldekort.meldekort, harDuJobbet: data.harArbeidet === JaEllerNei.Ja, timerArbeidet: [] },
+          meldekort: { ...meldekort.meldekort, harDuJobbet: data.harArbeidet === JaEllerNei.Ja },
           nåværendeSteg: 'JOBBET_I_MELDEPERIODEN',
         });
 

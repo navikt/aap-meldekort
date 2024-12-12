@@ -41,7 +41,7 @@ export async function hentMeldekortMock(): Promise<MeldekortResponse> {
   } catch (err) {
     const meldekort: MeldekortResponse = {
       meldekort: {
-        timerArbeidet: [],
+        timerArbeidet: [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
       },
       steg: 'BEKREFT_SVARER_ÆRLIG',
       periode: { fom: '2024-11-04', tom: '2024-11-17' },

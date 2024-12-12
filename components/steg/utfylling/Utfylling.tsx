@@ -24,7 +24,7 @@ export interface MeldepliktFormFields {
 
 interface Dag {
   dag: string;
-  timer?: string;
+  timer: string | null;
 }
 
 export interface MeldepliktError {
@@ -42,12 +42,10 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
   const { form, formFields } = useConfigForm<MeldepliktFormFields>({
     dager: {
       type: 'fieldArray',
-      defaultValue: eachDayOfInterval({ start: fraDato, end: tilDato }).map((date) => {
-        return {
-          dag: date.toString(),
-          timer: '',
-        };
-      }),
+      defaultValue: eachDayOfInterval({ start: fraDato, end: tilDato }).map((date, index) => ({
+        dag: date.toString(),
+        timer: meldekort.meldekort.timerArbeidet[index]?.toString() || '',
+      })),
     },
     opplysningerStemmer: {
       type: 'checkbox',
@@ -78,7 +76,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
             const meldekortResponse = await gåTilNesteStegClient(referanse, {
               meldekort: {
                 ...meldekort.meldekort,
-                timerArbeidet: data.dager.map((dag) => (dag.timer ? Number(dag.timer) : 0)),
+                timerArbeidet: data.dager.map((dag) => (dag.timer !== '' ? Number(dag.timer) : null)),
               },
               nåværendeSteg: 'TIMER_ARBEIDET',
             });
@@ -112,7 +110,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
   );
 };
 
-function erGyldigTimer(value?: string): boolean {
+function erGyldigTimer(value: string | null): boolean {
   if (!value || value === '') {
     return true;
   }
