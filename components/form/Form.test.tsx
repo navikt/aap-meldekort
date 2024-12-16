@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 describe('Form generelt', () => {
   beforeEach(() => {
     render(
-      <Form onSubmit={vitest.fn()} forrigeSteg={'BEKREFT_SVARER_ÆRLIG'} referanse={'123'}>
+      <Form onSubmit={vitest.fn()} forrigeSteg={'BEKREFT_SVARER_ÆRLIG'} referanse={'123'} isLoading={false}>
         <div>Noe greier</div>
       </Form>
     );
@@ -44,7 +44,7 @@ describe('Form generelt', () => {
 describe('varianter', () => {
   test('skal ikke vise knapp tilbake hvis forrigeSteg ikke er satt', () => {
     render(
-      <Form onSubmit={vitest.fn()} referanse={'123'}>
+      <Form onSubmit={vitest.fn()} referanse={'123'} isLoading={false}>
         <div>Noe greier</div>
       </Form>
     );
@@ -54,7 +54,7 @@ describe('varianter', () => {
 
   test('skal vise korrekt tekst på neste knapp dersom nesteStegKnappTekst er satt', () => {
     render(
-      <Form onSubmit={vitest.fn()} referanse={'123'} nesteStegKnappTekst={'Neste steg'}>
+      <Form onSubmit={vitest.fn()} referanse={'123'} isLoading={false} nesteStegKnappTekst={'Neste steg'}>
         <div>Noe greier</div>
       </Form>
     );
@@ -67,11 +67,30 @@ describe('varianter', () => {
         onSubmit={vitest.fn()}
         forrigeSteg={'BEKREFT_SVARER_ÆRLIG'}
         referanse={'123'}
+        isLoading={false}
         forrigeStegKnappTekst={'Endre'}
       >
         <div>Noe greier</div>
       </Form>
     );
     expect(screen.getByRole('button', { name: 'Endre' })).toBeVisible();
+  });
+
+  test('skal vise feilmelding dersom det er satt', () => {
+    render(
+      <Form
+        onSubmit={vitest.fn()}
+        forrigeSteg={'BEKREFT_SVARER_ÆRLIG'}
+        referanse={'123'}
+        isLoading={false}
+        errorMessage={'Noe gikk galt.'}
+        forrigeStegKnappTekst={'Endre'}
+      >
+        <div>Noe greier</div>
+      </Form>
+    );
+
+    const feilmelding = screen.getByText('Noe gikk galt.');
+    expect(feilmelding).toBeVisible();
   });
 });

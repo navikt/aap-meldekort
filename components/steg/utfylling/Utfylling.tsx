@@ -8,9 +8,8 @@ import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
 import { JaEllerNei } from 'lib/utils/form';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { MeldekortResponse } from 'lib/types/types';
-import { gåTilNesteStegClient } from 'lib/client/clientApi';
+import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 
 interface Props {
   meldekort: MeldekortResponse;
@@ -33,7 +32,7 @@ export interface MeldepliktError {
 }
 
 export const Utfylling = ({ meldekort, referanse }: Props) => {
-  const router = useRouter();
+  const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const [errors, setErrors] = useState<MeldepliktError[]>([]);
 
   const fraDato = new Date(meldekort.periode.fom);
@@ -73,7 +72,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
           setErrors(errors);
 
           if (errors.length === 0) {
-            const meldekortResponse = await gåTilNesteStegClient(referanse, {
+            løsStegOgGåTilNeste({
               meldekort: {
                 ...meldekort.meldekort,
                 stemmerOpplysningene: data.opplysningerStemmer === JaEllerNei.Ja,
@@ -81,12 +80,10 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
               },
               nåværendeSteg: 'TIMER_ARBEIDET',
             });
-
-            if (meldekortResponse) {
-              router.push(`/${referanse}/${meldekortResponse.steg}`);
-            }
           }
         })}
+        isLoading={isLoading}
+        errorMessage={errorMessage}
       >
         <div className={'flex-column'}>
           <Heading size={'large'} level={'2'}>
@@ -120,11 +117,7 @@ function erGyldigTimer(value: string | null): boolean {
 
   if (isNaN(valueAsNumber) || valueAsNumber < 0 || valueAsNumber > 24) {
     return false;
-  } else if ((valueAsNumber * 10) % 5 !== 0) {
-    return false;
-  } else {
-    return true;
-  }
+  } else return (valueAsNumber * 10) % 5 === 0;
 }
 
 function replaceCommasWithDots(input: string): string {

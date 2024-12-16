@@ -6,9 +6,8 @@ import { getJaNeiEllerUndefined, JaEllerNei, JaEllerNeiOptions } from 'lib/utils
 import { BodyShort, Heading, HGrid, ReadMore } from '@navikt/ds-react';
 import { getISOWeek } from 'date-fns';
 import { formaterDatoForFrontend } from 'lib/utils/date';
-import { useRouter } from 'next/navigation';
 import { MeldekortResponse } from 'lib/types/types';
-import { gåTilNesteStegClient } from 'lib/client/clientApi';
+import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 
 interface Props {
   meldekort: MeldekortResponse;
@@ -20,7 +19,8 @@ interface FormFields {
 }
 
 export const Periode = ({ meldekort, referanse }: Props) => {
-  const router = useRouter();
+  const { isLoading, løsStegOgGåTilNeste, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
+
   const { form, formFields } = useConfigForm<FormFields>({
     harArbeidet: {
       type: 'radio',
@@ -43,20 +43,13 @@ export const Periode = ({ meldekort, referanse }: Props) => {
       referanse={referanse}
       nesteStegKnappTekst={'Til utfylling'}
       onSubmit={form.handleSubmit(async (data) => {
-        const meldekortResponse = await gåTilNesteStegClient(referanse, {
+        løsStegOgGåTilNeste({
           meldekort: { ...meldekort.meldekort, harDuJobbet: data.harArbeidet === JaEllerNei.Ja },
           nåværendeSteg: 'JOBBET_I_MELDEPERIODEN',
         });
-
-        console.log(`meldekortResponse etter innsending på JOBBET I MELDEPERIODEN`, meldekortResponse);
-
-        if (meldekortResponse) {
-          console.log('kommer inn her og gjør en router push');
-          router.push(`/${referanse}/${meldekortResponse.steg}`);
-        } else {
-          // Håndtere error
-        }
       })}
+      isLoading={isLoading}
+      errorMessage={errorMessage}
     >
       <HGrid columns={1} gap={'4'}>
         <Heading level={'2'} size={'medium'}>

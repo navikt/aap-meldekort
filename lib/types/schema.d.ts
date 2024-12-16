@@ -4,271 +4,324 @@
  */
 
 export interface paths {
-    "/api/arena/meldeperiode": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["no.nav.aap.meldekort.arena.MeldeperiodeDto"][];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  '/api/arena/meldeperiode': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/arena/meldekort/meldekortId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['no.nav.aap.meldekort.arena.MeldeperiodeDto'][];
+          };
         };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["no.nav.aap.meldekort.arena.MeldekortResponse"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+      };
     };
-    "/api/arena/meldekort/meldekortId}/neste-steg": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["no.nav.aap.meldekort.arena.MeldekortRequest"];
-                };
-            };
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["no.nav.aap.meldekort.arena.MeldekortResponse"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/arena/meldekort/{meldekortId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/arena/meldekort/meldekortId}/lagre": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description meldekortId */
+          meldekortId: number;
         };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["no.nav.aap.meldekort.arena.MeldekortRequest"];
-                };
-            };
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["no.nav.aap.meldekort.arena.MeldekortResponse"];
-                    };
-                };
-            };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['no.nav.aap.meldekort.arena.MeldekortResponse'];
+          };
         };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+      };
     };
-    "/test/proxy/meldegrupper": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["kotlin.Any"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/arena/meldekort/{meldekortId}/neste-steg': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/test/proxy/meldekort": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    get?: never;
+    put?: never;
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description meldekortId */
+          meldekortId: number;
         };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["kotlin.Any"];
-                    };
-                };
-            };
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          'application/json': components['schemas']['no.nav.aap.meldekort.arena.MeldekortRequest'];
         };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+      };
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['no.nav.aap.meldekort.arena.MeldekortResponse'];
+          };
+        };
+      };
     };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/arena/meldekort/{meldekortId}/lagre': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description meldekortId */
+          meldekortId: number;
+        };
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          'application/json': components['schemas']['no.nav.aap.meldekort.arena.MeldekortRequest'];
+        };
+      };
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['no.nav.aap.meldekort.arena.MeldekortResponse'];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/test/proxy/meldegrupper': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['kotlin.Any'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/test/proxy/meldekort': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['kotlin.Any'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/test/proxy/historiskemeldekort': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['kotlin.Any'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: {
-        "kotlin.Any": Record<string, never>;
-        "no.nav.aap.meldekort.arena.MeldekortDto": {
-            harDuJobbet?: boolean | null;
-            stemmerOpplysningene?: boolean | null;
-            svarerDuSant?: boolean | null;
-            timerArbeidet: (number | null)[];
-        };
-        "no.nav.aap.meldekort.arena.MeldekortRequest": {
-            meldekort: components["schemas"]["no.nav.aap.meldekort.arena.MeldekortDto"];
-            /** @enum {string} */
-            "n\u00E5v\u00E6rendeSteg": "BEKREFT_SVARER_ÆRLIG" | "JOBBET_I_MELDEPERIODEN" | "TIMER_ARBEIDET" | "KVITTERING";
-        };
-        "no.nav.aap.meldekort.arena.MeldekortResponse": {
-            meldekort: components["schemas"]["no.nav.aap.meldekort.arena.MeldekortDto"];
-            periode: components["schemas"]["no.nav.aap.meldekort.arena.PeriodeDto"];
-            /** @enum {string} */
-            steg: "BEKREFT_SVARER_ÆRLIG" | "JOBBET_I_MELDEPERIODEN" | "TIMER_ARBEIDET" | "KVITTERING";
-        };
-        "no.nav.aap.meldekort.arena.MeldeperiodeDto": {
-            /** Format: int64 */
-            meldekortId: number;
-            periode: components["schemas"]["no.nav.aap.meldekort.arena.PeriodeDto"];
-            /** @enum {string} */
-            status: "KLAR_FOR_INNSENDING";
-        };
-        "no.nav.aap.meldekort.arena.PeriodeDto": {
-            /**
-             * Format: date
-             * @example 2024-12-09
-             */
-            fom: string;
-            /**
-             * Format: date
-             * @example 2024-12-09
-             */
-            tom: string;
-        };
+  schemas: {
+    'kotlin.Any': Record<string, never>;
+    'no.nav.aap.meldekort.arena.ArenaService.InnsendingFeil': {
+      kode: string;
+      params?: string[] | null;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    'no.nav.aap.meldekort.arena.Feil': components['schemas']['no.nav.aap.meldekort.arena.InnsendingFeil'];
+    'no.nav.aap.meldekort.arena.InnsendingFeil': {
+      innsendingFeil: components['schemas']['no.nav.aap.meldekort.arena.ArenaService.InnsendingFeil'][];
+    };
+    'no.nav.aap.meldekort.arena.MeldekortDto': {
+      harDuJobbet?: boolean | null;
+      stemmerOpplysningene?: boolean | null;
+      svarerDuSant?: boolean | null;
+      timerArbeidet: (number | null)[];
+    };
+    'no.nav.aap.meldekort.arena.MeldekortRequest': {
+      meldekort: components['schemas']['no.nav.aap.meldekort.arena.MeldekortDto'];
+      /** @enum {string} */
+      'n\u00E5v\u00E6rendeSteg': 'BEKREFT_SVARER_ÆRLIG' | 'JOBBET_I_MELDEPERIODEN' | 'TIMER_ARBEIDET' | 'KVITTERING';
+    };
+    'no.nav.aap.meldekort.arena.MeldekortResponse': {
+      feil?: components['schemas']['no.nav.aap.meldekort.arena.Feil'];
+      meldekort: components['schemas']['no.nav.aap.meldekort.arena.MeldekortDto'];
+      periode: components['schemas']['no.nav.aap.meldekort.arena.PeriodeDto'];
+      /** @enum {string} */
+      steg: 'BEKREFT_SVARER_ÆRLIG' | 'JOBBET_I_MELDEPERIODEN' | 'TIMER_ARBEIDET' | 'KVITTERING';
+    };
+    'no.nav.aap.meldekort.arena.MeldeperiodeDto': {
+      /** Format: int64 */
+      meldekortId: number;
+      periode: components['schemas']['no.nav.aap.meldekort.arena.PeriodeDto'];
+      /** @enum {string} */
+      status: 'KLAR_FOR_INNSENDING';
+    };
+    'no.nav.aap.meldekort.arena.PeriodeDto': {
+      /**
+       * Format: date
+       * @example 2024-12-16
+       */
+      fom: string;
+      /**
+       * Format: date
+       * @example 2024-12-16
+       */
+      tom: string;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;

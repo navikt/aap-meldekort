@@ -1,4 +1,4 @@
-import { Button } from '@navikt/ds-react';
+import { Alert, Button } from '@navikt/ds-react';
 import { FormEvent, ReactNode } from 'react';
 
 import styles from './Form.module.css';
@@ -10,6 +10,8 @@ interface Props {
   children: ReactNode;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   referanse: string;
+  isLoading: boolean;
+  errorMessage?: string;
   forrigeSteg?: Steg;
   nesteStegKnappTekst?: string;
   forrigeStegKnappTekst?: string;
@@ -20,6 +22,8 @@ export const Form = ({
   onSubmit,
   forrigeSteg,
   referanse,
+  isLoading,
+  errorMessage,
   nesteStegKnappTekst = 'Neste',
   forrigeStegKnappTekst = 'Tilbake',
 }: Props) => {
@@ -28,6 +32,7 @@ export const Form = ({
   return (
     <form onSubmit={onSubmit}>
       {children}
+      {errorMessage && <Alert variant={'error'}>{errorMessage}</Alert>}
       <div className={styles.knapper}>
         {forrigeSteg && (
           <Button
@@ -44,7 +49,7 @@ export const Form = ({
             {forrigeStegKnappTekst}
           </Button>
         )}
-        <Button variant={'primary'} icon={<ArrowRightIcon />} iconPosition={'right'}>
+        <Button variant={'primary'} icon={<ArrowRightIcon />} iconPosition={'right'} loading={isLoading}>
           {nesteStegKnappTekst}
         </Button>
       </div>

@@ -4,9 +4,8 @@ import { BodyShort, Heading, Link } from '@navikt/ds-react';
 import { Form } from 'components/form/Form';
 import { JaEllerNei } from 'lib/utils/form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
-import { useRouter } from 'next/navigation';
 import { MeldekortResponse } from 'lib/types/types';
-import { gåTilNesteStegClient } from 'lib/client/clientApi';
+import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 
 interface Props {
   meldekort: MeldekortResponse;
@@ -18,7 +17,7 @@ interface FormFields {
 }
 
 export const Introduksjon = ({ meldekort, referanse }: Props) => {
-  const router = useRouter();
+  const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
 
   const { form, formFields } = useConfigForm<FormFields>({
     godkjent: {
@@ -34,17 +33,13 @@ export const Introduksjon = ({ meldekort, referanse }: Props) => {
     <Form
       referanse={referanse}
       onSubmit={form.handleSubmit(async (data) => {
-        const meldekortResponse = await gåTilNesteStegClient(referanse, {
+        løsStegOgGåTilNeste({
           meldekort: { ...meldekort.meldekort, svarerDuSant: data.godkjent.includes(JaEllerNei.Ja) },
           nåværendeSteg: 'BEKREFT_SVARER_ÆRLIG',
         });
-
-        if (meldekortResponse) {
-          router.push(`/${referanse}/${meldekortResponse.steg}`);
-        } else {
-          // Håndtere error
-        }
       })}
+      isLoading={isLoading}
+      errorMessage={errorMessage}
     >
       <section className={'flex-column'}>
         <div>
