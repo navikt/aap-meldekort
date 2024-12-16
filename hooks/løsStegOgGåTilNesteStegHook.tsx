@@ -19,6 +19,7 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
     if (!meldekortResponse || meldekortResponse?.feil) {
       setErrorMessage('Kunne ikke gå videre på grunn av: ' + JSON.stringify(meldekortResponse?.feil?.innsendingFeil));
     } else {
+      console.log('hva skjer her?', meldekortResponse);
       router.push(`/${referanse}/${meldekortResponse?.steg}`);
     }
   };
