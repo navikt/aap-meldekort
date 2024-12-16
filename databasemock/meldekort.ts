@@ -49,6 +49,7 @@ export async function hentMeldekortMock(): Promise<MeldekortResponse> {
           { dato: '2024-11-06' },
           { dato: '2024-11-07' },
           { dato: '2024-11-08' },
+          { dato: '2024-11-09' },
           { dato: '2024-11-10' },
           { dato: '2024-11-11' },
           { dato: '2024-11-12' },
