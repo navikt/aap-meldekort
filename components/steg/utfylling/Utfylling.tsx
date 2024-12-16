@@ -74,7 +74,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
                 stemmerOpplysningene: true,
                 timerArbeidet: data.dager.map((dag) => ({
                   dato: dag.dag,
-                  timer: dag.timer !== '' ? Number(dag.timer) : null,
+                  timer: dag.timer !== null ? Number(dag.timer) : null,
                 })),
               },
               nåværendeSteg: 'TIMER_ARBEIDET',
