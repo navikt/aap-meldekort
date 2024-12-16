@@ -279,30 +279,32 @@ export interface components {
     'no.nav.aap.meldekort.arena.InnsendingFeil': {
       innsendingFeil: components['schemas']['no.nav.aap.meldekort.arena.ArenaService.InnsendingFeil'][];
     };
-    'no.nav.aap.meldekort.arena.MeldekortDto': {
-      harDuJobbet?: boolean | null;
-      stemmerOpplysningene?: boolean | null;
-      svarerDuSant?: boolean | null;
-      timerArbeidet: (number | null)[];
-    };
     'no.nav.aap.meldekort.arena.MeldekortRequest': {
-      meldekort: components['schemas']['no.nav.aap.meldekort.arena.MeldekortDto'];
+      meldekort: components['schemas']['no.nav.aap.meldekort.arena.MeldekortSkjemaDto'];
       /** @enum {string} */
       'n\u00E5v\u00E6rendeSteg': 'BEKREFT_SVARER_ÆRLIG' | 'JOBBET_I_MELDEPERIODEN' | 'TIMER_ARBEIDET' | 'KVITTERING';
     };
     'no.nav.aap.meldekort.arena.MeldekortResponse': {
       feil?: components['schemas']['no.nav.aap.meldekort.arena.Feil'];
-      meldekort: components['schemas']['no.nav.aap.meldekort.arena.MeldekortDto'];
+      meldekort: components['schemas']['no.nav.aap.meldekort.arena.MeldekortSkjemaDto'];
       periode: components['schemas']['no.nav.aap.meldekort.arena.PeriodeDto'];
       /** @enum {string} */
       steg: 'BEKREFT_SVARER_ÆRLIG' | 'JOBBET_I_MELDEPERIODEN' | 'TIMER_ARBEIDET' | 'KVITTERING';
     };
+    'no.nav.aap.meldekort.arena.MeldekortSkjemaDto': {
+      harDuJobbet?: boolean | null;
+      stemmerOpplysningene?: boolean | null;
+      svarerDuSant?: boolean | null;
+      timerArbeidet: components['schemas']['no.nav.aap.meldekort.arena.TimerArbeidetDto'][];
+    };
     'no.nav.aap.meldekort.arena.MeldeperiodeDto': {
+      kanEndres: boolean;
+      klarForInnsending: boolean;
       /** Format: int64 */
       meldekortId: number;
       periode: components['schemas']['no.nav.aap.meldekort.arena.PeriodeDto'];
       /** @enum {string} */
-      status: 'KLAR_FOR_INNSENDING';
+      type: 'ORDINÆRT' | 'ETTERREGISTRERT';
     };
     'no.nav.aap.meldekort.arena.PeriodeDto': {
       /**
@@ -315,6 +317,15 @@ export interface components {
        * @example 2024-12-16
        */
       tom: string;
+    };
+    'no.nav.aap.meldekort.arena.TimerArbeidetDto': {
+      /**
+       * Format: date
+       * @example 2024-12-16
+       */
+      dato: string;
+      /** Format: double */
+      timer?: number | null;
     };
   };
   responses: never;

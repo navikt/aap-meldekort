@@ -13,9 +13,11 @@ export async function hentMeldeperioderMock(): Promise<Meldeperiode[]> {
   } catch (err) {
     const meldeperioder: Meldeperiode[] = [
       {
+        type: 'ORDINÆRT',
+        kanEndres: true,
+        klarForInnsending: true,
         meldekortId: 123456789,
         periode: { fom: '2024-11-04', tom: '2024-11-17' },
-        status: 'KLAR_FOR_INNSENDING',
       },
     ];
 
@@ -41,7 +43,21 @@ export async function hentMeldekortMock(): Promise<MeldekortResponse> {
   } catch (err) {
     const meldekort: MeldekortResponse = {
       meldekort: {
-        timerArbeidet: [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+        timerArbeidet: [
+          { dato: '2024-11-04' },
+          { dato: '2024-11-05' },
+          { dato: '2024-11-06' },
+          { dato: '2024-11-07' },
+          { dato: '2024-11-08' },
+          { dato: '2024-11-10' },
+          { dato: '2024-11-11' },
+          { dato: '2024-11-12' },
+          { dato: '2024-11-13' },
+          { dato: '2024-11-14' },
+          { dato: '2024-11-15' },
+          { dato: '2024-11-16' },
+          { dato: '2024-11-17' },
+        ],
       },
       steg: 'BEKREFT_SVARER_ÆRLIG',
       periode: { fom: '2024-11-04', tom: '2024-11-17' },

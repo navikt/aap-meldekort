@@ -3,7 +3,6 @@
 import { Form } from 'components/form/Form';
 import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
 import { Alert, BodyLong, Heading, ReadMore } from '@navikt/ds-react';
-import { eachDayOfInterval } from 'date-fns';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
 import { JaEllerNei } from 'lib/utils/form';
@@ -35,15 +34,12 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const [errors, setErrors] = useState<MeldepliktError[]>([]);
 
-  const fraDato = new Date(meldekort.periode.fom);
-  const tilDato = new Date(meldekort.periode.tom);
-
   const { form, formFields } = useConfigForm<MeldepliktFormFields>({
     dager: {
       type: 'fieldArray',
-      defaultValue: eachDayOfInterval({ start: fraDato, end: tilDato }).map((date, index) => ({
-        dag: date.toString(),
-        timer: meldekort.meldekort.timerArbeidet[index]?.toString() || '',
+      defaultValue: meldekort.meldekort.timerArbeidet.map((timerArbeidet) => ({
+        dag: timerArbeidet.dato.toString(),
+        timer: timerArbeidet.timer?.toString() || '',
       })),
     },
     opplysningerStemmer: {
@@ -76,7 +72,10 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
               meldekort: {
                 ...meldekort.meldekort,
                 stemmerOpplysningene: true,
-                timerArbeidet: data.dager.map((dag) => (dag.timer !== '' ? Number(dag.timer) : null)),
+                timerArbeidet: data.dager.map((dag) => ({
+                  dato: dag.dag,
+                  timer: dag.timer !== '' ? Number(dag.timer) : null,
+                })),
               },
               nåværendeSteg: 'TIMER_ARBEIDET',
             });

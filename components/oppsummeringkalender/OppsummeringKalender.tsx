@@ -1,4 +1,4 @@
-import { eachDayOfInterval, format, getISOWeek, startOfWeek } from 'date-fns';
+import { format, getISOWeek, startOfWeek } from 'date-fns';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 import { UkeHeader } from 'components/rapporteringskalender/ukeheader/UkeHeader';
@@ -26,13 +26,13 @@ export const OppsummeringKalender = ({ meldekort }: Props) => {
 
   const grupperteFelter: Record<string, Dag[]> = {};
 
-  eachDayOfInterval({ start: fraDato, end: tilDato }).forEach((field, index) => {
-    const ukeStart = format(startOfWeek(field, { weekStartsOn: 1 }), 'yyyy-MM-dd');
-
-    if (!grupperteFelter[ukeStart]) {
-      grupperteFelter[ukeStart] = [];
+  meldekort.meldekort.timerArbeidet.forEach((timerArbeidet) => {
+    const ukestart = format(startOfWeek(timerArbeidet.dato, { weekStartsOn: 1 }), 'yyyy-MM-dd');
+    if (!grupperteFelter[ukestart]) {
+      grupperteFelter[ukestart] = [];
     }
-    grupperteFelter[ukeStart].push({ dag: field, timer: meldekort.meldekort.timerArbeidet[index] ?? 0 });
+
+    grupperteFelter[ukestart].push({ dag: new Date(timerArbeidet.dato), timer: timerArbeidet.timer ?? 0 });
   });
 
   const timer = Object.values(grupperteFelter)

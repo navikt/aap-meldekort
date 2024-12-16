@@ -10,7 +10,7 @@ export default async function Home() {
   }
 
   const meldeperioder = meldeperiode
-    .filter((meldeperiode) => meldeperiode.status === 'KLAR_FOR_INNSENDING')
+    .filter((meldeperiode) => meldeperiode.klarForInnsending)
     .sort((a, b) => new Date(a.periode.fom).getTime() - new Date(b.periode.fom).getTime());
 
   redirect(`/${meldeperioder[0].meldekortId}`);

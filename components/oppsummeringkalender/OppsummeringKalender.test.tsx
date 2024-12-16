@@ -8,7 +8,22 @@ import { MeldekortResponse } from 'lib/types/types';
 const meldekort: MeldekortResponse = {
   periode: { fom: '2024-11-18', tom: '2024-12-01' },
   meldekort: {
-    timerArbeidet: [],
+    timerArbeidet: [
+      { dato: '2024-11-18' },
+      { dato: '2024-11-19' },
+      { dato: '2024-11-20' },
+      { dato: '2024-11-21' },
+      { dato: '2024-11-22' },
+      { dato: '2024-11-23' },
+      { dato: '2024-11-24' },
+      { dato: '2024-11-25' },
+      { dato: '2024-11-26' },
+      { dato: '2024-11-27' },
+      { dato: '2024-11-28' },
+      { dato: '2024-11-29' },
+      { dato: '2024-11-30' },
+      { dato: '2024-12-01' },
+    ],
   },
   steg: 'TIMER_ARBEIDET',
 };
