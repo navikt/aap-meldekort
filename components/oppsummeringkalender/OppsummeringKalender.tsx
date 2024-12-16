@@ -26,13 +26,13 @@ export const OppsummeringKalender = ({ meldekort }: Props) => {
 
   const grupperteFelter: Record<string, Dag[]> = {};
 
-  eachDayOfInterval({ start: fraDato, end: tilDato }).forEach((field) => {
+  eachDayOfInterval({ start: fraDato, end: tilDato }).forEach((field, index) => {
     const ukeStart = format(startOfWeek(field, { weekStartsOn: 1 }), 'yyyy-MM-dd');
 
     if (!grupperteFelter[ukeStart]) {
       grupperteFelter[ukeStart] = [];
     }
-    grupperteFelter[ukeStart].push({ dag: field, timer: 0 });
+    grupperteFelter[ukeStart].push({ dag: field, timer: meldekort.meldekort.timerArbeidet[index] ?? 0 });
   });
 
   const timer = Object.values(grupperteFelter)

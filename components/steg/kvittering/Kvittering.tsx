@@ -2,7 +2,7 @@
 
 import { Accordion, Alert, Button, HGrid } from '@navikt/ds-react';
 
-import styles from './Oppsummering.module.css';
+import styles from 'components/steg/kvittering/Kvittering.module.css';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useRouter } from 'next/navigation';
 import { MeldekortResponse } from 'lib/types/types';
@@ -13,8 +13,9 @@ interface Props {
   referanse: string;
 }
 
-export const Oppsummering = ({ referanse, meldekort }: Props) => {
+export const Kvittering = ({ referanse, meldekort }: Props) => {
   const router = useRouter();
+
   return (
     <HGrid columns={'1'} gap={'4'}>
       <Alert variant="success">
