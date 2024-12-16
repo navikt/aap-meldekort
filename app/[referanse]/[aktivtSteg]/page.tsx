@@ -3,6 +3,7 @@ import { UtfyllingMedDataFetching } from 'components/steg/utfylling/UtfyllingMed
 import { Steg } from 'lib/types/types';
 import { IntroduksjonMedDataFetching } from 'components/steg/introduksjon/IntroduksjonMedDataFetching';
 import { OppsummeringMedDataFetching } from 'components/steg/oppsummering/OppsummeringMedDataFetching';
+import { Alert } from '@navikt/ds-react';
 
 interface Props {
   params: Promise<{
@@ -17,6 +18,9 @@ const AktivtStegPage = async (props: Props) => {
 
   return (
     <div>
+      <Alert variant={'warning'} style={{ marginBottom: '1rem' }}>
+        AAP-meldekort er under utvikling og den vil til tider være utilgjengelig for testing.
+      </Alert>
       {aktivtSteg === 'BEKREFT_SVARER_ÆRLIG' && <IntroduksjonMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'JOBBET_I_MELDEPERIODEN' && <PeriodeMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'TIMER_ARBEIDET' && <UtfyllingMedDataFetching referanse={referanse} />}
