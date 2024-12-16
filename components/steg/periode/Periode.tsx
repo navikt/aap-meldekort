@@ -51,6 +51,7 @@ export const Periode = ({ meldekort, referanse }: Props) => {
         console.log(`meldekortResponse etter innsending på JOBBET I MELDEPERIODEN`, meldekortResponse);
 
         if (meldekortResponse) {
+          console.log('kommer inn her og gjør en router push');
           router.push(`/${referanse}/${meldekortResponse.steg}`);
         } else {
           // Håndtere error
