@@ -6,8 +6,12 @@ export default async function Home() {
   const meldeperiode = await hentMeldeperiode();
 
   if (!meldeperiode || meldeperiode.length === 0) {
-    return <div>Kunne ikke finne meldekort.</div>;
+    return <div>Kunne ikke finne meldeperioder.</div>;
   }
 
-  redirect(`/${meldeperiode[0].meldekortId}`);
+  const meldeperioder = meldeperiode
+    .filter((meldeperiode) => meldeperiode.status === 'KLAR_FOR_INNSENDING')
+    .sort((a, b) => new Date(a.periode.fom).getTime() - new Date(b.periode.fom).getTime());
+
+  redirect(`/${meldeperioder[0].meldekortId}`);
 }
