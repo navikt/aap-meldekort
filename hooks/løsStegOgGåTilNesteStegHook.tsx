@@ -16,10 +16,10 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
     setIsLoading(true);
     const meldekortResponse = await gåTilNesteStegClient(referanse, meldekort);
 
-    if (meldekortResponse) {
-      router.push(`/${referanse}/${meldekortResponse.steg}`);
+    if (!meldekortResponse || meldekortResponse?.feil) {
+      setErrorMessage('Kunne ikke gå videre på grunn av: ' + JSON.stringify(meldekortResponse?.feil?.innsendingFeil));
     } else {
-      setErrorMessage('Kunne ikke gå videre til neste steg. Prøv igjen.');
+      router.push(`/${referanse}/${meldekortResponse?.steg}`);
     }
   };
 
