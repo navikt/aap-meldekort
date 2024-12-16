@@ -18,7 +18,7 @@ interface Props {
 
 export interface MeldepliktFormFields {
   dager: Dag[];
-  opplysningerStemmer: string;
+  opplysningerStemmer: JaEllerNei[];
 }
 
 interface Dag {
@@ -75,7 +75,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
             løsStegOgGåTilNeste({
               meldekort: {
                 ...meldekort.meldekort,
-                stemmerOpplysningene: data.opplysningerStemmer === JaEllerNei.Ja,
+                stemmerOpplysningene: true,
                 timerArbeidet: data.dager.map((dag) => (dag.timer !== '' ? Number(dag.timer) : null)),
               },
               nåværendeSteg: 'TIMER_ARBEIDET',

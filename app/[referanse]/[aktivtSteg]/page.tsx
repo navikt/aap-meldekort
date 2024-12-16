@@ -18,7 +18,7 @@ const AktivtStegPage = async (props: Props) => {
 
   return (
     <div>
-      <Alert variant={'warning'} style={{ marginBottom: '1rem' }}>
+      <Alert variant={'info'} style={{ marginBottom: '1rem' }}>
         AAP-meldekort er under utvikling og den vil til tider være utilgjengelig for testing.
       </Alert>
       {aktivtSteg === 'BEKREFT_SVARER_ÆRLIG' && <IntroduksjonMedDataFetching referanse={referanse} />}
