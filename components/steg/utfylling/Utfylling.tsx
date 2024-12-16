@@ -38,7 +38,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
     dager: {
       type: 'fieldArray',
       defaultValue: meldekort.meldekort.timerArbeidet.map((timerArbeidet) => ({
-        dag: timerArbeidet.dato.toString(),
+        dag: timerArbeidet.dato,
         timer: timerArbeidet.timer?.toString() || '',
       })),
     },
