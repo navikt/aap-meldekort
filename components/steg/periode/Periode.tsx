@@ -48,6 +48,8 @@ export const Periode = ({ meldekort, referanse }: Props) => {
           nåværendeSteg: 'JOBBET_I_MELDEPERIODEN',
         });
 
+        console.log(`meldekortResponse etter innsending på JOBBET I MELDEPERIODEN`, meldekortResponse);
+
         if (meldekortResponse) {
           router.push(`/${referanse}/${meldekortResponse.steg}`);
         } else {
