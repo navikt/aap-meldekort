@@ -7,5 +7,5 @@ interface Props {
 
 export const KvitteringMedDataFetching = async ({ referanse }: Props) => {
   const meldekort = await hentMeldekort(referanse);
-  return <Kvittering meldekort={meldekort} referanse={referanse} />;
+  return <Kvittering meldekort={meldekort} />;
 };

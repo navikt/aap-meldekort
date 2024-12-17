@@ -37,3 +37,7 @@ export async function lagreMeldekortClient(
 ): Promise<MeldekortResponse | undefined> {
   return await fetchProxy<MeldekortResponse>(`/api/arena/meldekort/${referanse}/lagre`, 'POST', meldekortRequest);
 }
+
+export async function slettMockClient() {
+  await fetchProxy('/api/mock/slett', 'GET');
+}

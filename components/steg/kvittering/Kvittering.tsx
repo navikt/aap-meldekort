@@ -6,14 +6,13 @@ import styles from 'components/steg/kvittering/Kvittering.module.css';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useRouter } from 'next/navigation';
 import { MeldekortResponse } from 'lib/types/types';
-import { lagreMeldekortClient } from 'lib/client/clientApi';
+import { slettMockClient } from 'lib/client/clientApi';
 
 interface Props {
   meldekort: MeldekortResponse;
-  referanse: string;
 }
 
-export const Kvittering = ({ referanse, meldekort }: Props) => {
+export const Kvittering = ({ meldekort }: Props) => {
   const router = useRouter();
 
   return (
@@ -38,7 +37,7 @@ export const Kvittering = ({ referanse, meldekort }: Props) => {
           type="button"
           as={'a'}
           onClick={async () => {
-            await lagreMeldekortClient(referanse, { meldekort: meldekort.meldekort, nåværendeSteg: 'KVITTERING' });
+            await slettMockClient();
             router.push('/');
           }}
         >
