@@ -8,6 +8,7 @@ import Script from 'next/script';
 import { getEnvironment } from 'lib/utils/environments';
 import styles from 'app/[lang]/layout.module.css';
 import { Heading } from '@navikt/ds-react';
+import { Språkvelger } from 'components/språkvelger/Språkvelger';
 
 export const metadata: Metadata = {
   title: 'AAP Meldekort',
@@ -30,6 +31,7 @@ export default async function RootLayout({
         <Decorator.Header />
         <div className={styles.rapporteringheader}>
           <div className={styles.innhold}>
+            <Språkvelger />
             <Heading level={'1'} size={'xlarge'}>
               Meldekort - AAP
             </Heading>
