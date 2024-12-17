@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-const locales = ['nb', 'nn'];
+import { availableLanguages } from 'lib/locale/locale';
 
 function getLocale() {
   // Bruker default nb dersom locale ikke er satt
@@ -10,7 +9,9 @@ function getLocale() {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const pathnameHasLocale = locales.some((locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`);
+  const pathnameHasLocale = availableLanguages.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
 
   if (pathnameHasLocale) return;
 
