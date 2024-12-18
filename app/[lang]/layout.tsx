@@ -9,6 +9,8 @@ import { getEnvironment } from 'lib/utils/environments';
 import styles from 'app/[lang]/layout.module.css';
 import { Heading } from '@navikt/ds-react';
 import { Språkvelger } from 'components/språkvelger/Språkvelger';
+import { SlettMockButton } from 'components/slettmockbutton/SlettMockButton';
+import { isLocal } from 'lib/services/meldekortservice';
 
 export const metadata: Metadata = {
   title: 'AAP Meldekort',
@@ -31,10 +33,11 @@ export default async function RootLayout({
         <Decorator.Header />
         <div className={styles.rapporteringheader}>
           <div className={styles.innhold}>
-            <Språkvelger />
             <Heading level={'1'} size={'xlarge'}>
               Meldekort - AAP
             </Heading>
+            {isLocal() && <SlettMockButton />}
+            <Språkvelger />
           </div>
         </div>
         <main className={styles.rapporteringcontainer}>{children}</main>
