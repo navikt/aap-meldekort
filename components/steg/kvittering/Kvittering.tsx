@@ -5,14 +5,15 @@ import { Accordion, Alert, Button, HGrid } from '@navikt/ds-react';
 import styles from 'components/steg/kvittering/Kvittering.module.css';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useRouter } from 'next/navigation';
-import { MeldekortResponse } from 'lib/types/types';
-import { slettMockClient } from 'lib/client/clientApi';
+import { MeldekortResponse, Meldeperiode } from 'lib/types/types';
+import { formaterDatoForFrontend } from 'lib/utils/date';
 
 interface Props {
   meldekort: MeldekortResponse;
+  ubesvartMeldeperiode?: Meldeperiode;
 }
 
-export const Kvittering = ({ meldekort }: Props) => {
+export const Kvittering = ({ meldekort, ubesvartMeldeperiode }: Props) => {
   const router = useRouter();
 
   return (
@@ -32,17 +33,19 @@ export const Kvittering = ({ meldekort }: Props) => {
         <Button variant="primary" type="button" as={'a'}>
           Gå til Mine AAP
         </Button>
-        <Button
-          variant="primary"
-          type="button"
-          as={'a'}
-          onClick={async () => {
-            await slettMockClient();
-            router.push('/');
-          }}
-        >
-          Send inn et nytt meldekort
-        </Button>
+
+        {ubesvartMeldeperiode && (
+          <Button
+            variant="primary"
+            type="button"
+            as={'a'}
+            onClick={async () => {
+              router.push(`/${ubesvartMeldeperiode?.meldekortId}`);
+            }}
+          >
+            {`Send inn neste periode ${formaterDatoForFrontend(ubesvartMeldeperiode.periode.fom)} - ${formaterDatoForFrontend(ubesvartMeldeperiode.periode.tom)}`}
+          </Button>
+        )}
       </div>
     </HGrid>
   );

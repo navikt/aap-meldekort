@@ -6,7 +6,7 @@ const meldeKortBaseUrl = process.env.MELDEKORT_API_BASE_URL;
 
 export const isLocal = () => process.env.NEXT_PUBLIC_ENVIRONMENT === 'localhost';
 
-export async function hentMeldeperiode(): Promise<Meldeperiode[]> {
+export async function hentMeldeperioder(): Promise<Meldeperiode[]> {
   if (isLocal()) {
     return hentMeldeperioderMock();
   }
