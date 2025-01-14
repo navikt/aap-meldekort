@@ -4,6 +4,8 @@ import { Steg } from 'lib/types/types';
 import { IntroduksjonMedDataFetching } from 'components/steg/introduksjon/IntroduksjonMedDataFetching';
 import { KvitteringMedDataFetching } from 'components/steg/kvittering/KvitteringMedDataFetching';
 import { Alert } from '@navikt/ds-react';
+import { redirect } from 'next/navigation';
+import { hentMeldekort } from 'lib/services/meldekortservice';
 
 interface Props {
   params: Promise<{
@@ -15,6 +17,20 @@ const AktivtStegPage = async (props: Props) => {
   const params = await props.params;
   const aktivtSteg = decodeURI(params.aktivtSteg) as Steg;
   const referanse = params.referanse;
+  const meldeperiode = await hentMeldekort(referanse);
+
+  function skalRedirecteTilAktivtSteg() {
+    const steg: Steg[] = ['BEKREFT_SVARER_ÆRLIG', 'JOBBET_I_MELDEPERIODEN', 'TIMER_ARBEIDET', 'KVITTERING'];
+
+    const aktivtStegIndex = steg.indexOf(aktivtSteg);
+    const backendStegIndex = steg.indexOf(meldeperiode.steg);
+
+    return aktivtStegIndex === -1 || aktivtStegIndex > backendStegIndex;
+  }
+
+  if (skalRedirecteTilAktivtSteg()) {
+    redirect(`/arena/${referanse}/${meldeperiode.steg}`);
+  }
 
   return (
     <div>

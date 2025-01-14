@@ -7,7 +7,7 @@ interface Props {
   }>;
 }
 
-const AktivtStegPage = async (props: Props) => {
+export default async function (props: Props) {
   const params = await props.params;
 
   const referanse = params.referanse;
@@ -15,6 +15,4 @@ const AktivtStegPage = async (props: Props) => {
   const meldePeriode = await hentMeldekort(referanse);
 
   redirect(`/kelvin/${referanse}/${meldePeriode.steg}`);
-};
-
-export default AktivtStegPage;
+}
