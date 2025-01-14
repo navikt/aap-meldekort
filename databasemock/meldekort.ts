@@ -13,7 +13,7 @@ export async function hentMeldeperioderMock(): Promise<Meldeperiode[]> {
   } catch (err) {
     const meldeperioder: Meldeperiode[] = [
       {
-        type: 'ORDINÆRT',
+        type: 'VANLIG',
         kanEndres: true,
         klarForInnsending: true,
         meldekortId: 123456789,
