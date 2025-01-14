@@ -271,13 +271,13 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     'kotlin.Any': Record<string, never>;
-    'no.nav.aap.meldekort.arena.ArenaService.InnsendingFeil': {
+    'no.nav.aap.meldekort.arena.ArenaInnsendingFeiletException.InnsendingFeil': {
       kode: string;
       params?: string[] | null;
     };
     'no.nav.aap.meldekort.arena.Feil': components['schemas']['no.nav.aap.meldekort.arena.InnsendingFeil'];
     'no.nav.aap.meldekort.arena.InnsendingFeil': {
-      innsendingFeil: components['schemas']['no.nav.aap.meldekort.arena.ArenaService.InnsendingFeil'][];
+      innsendingFeil: components['schemas']['no.nav.aap.meldekort.arena.ArenaInnsendingFeiletException.InnsendingFeil'][];
     };
     'no.nav.aap.meldekort.arena.MeldekortRequest': {
       meldekort: components['schemas']['no.nav.aap.meldekort.arena.MeldekortSkjemaDto'];
@@ -304,24 +304,24 @@ export interface components {
       meldekortId: number;
       periode: components['schemas']['no.nav.aap.meldekort.arena.PeriodeDto'];
       /** @enum {string} */
-      type: 'ORDINÆRT' | 'ETTERREGISTRERT';
+      type: 'VANLIG' | 'ETTERREGISTRERING' | 'KORRIGERING' | 'UKJENT';
     };
     'no.nav.aap.meldekort.arena.PeriodeDto': {
       /**
        * Format: date
-       * @example 2024-12-16
+       * @example 2025-01-14
        */
       fom: string;
       /**
        * Format: date
-       * @example 2024-12-16
+       * @example 2025-01-14
        */
       tom: string;
     };
     'no.nav.aap.meldekort.arena.TimerArbeidetDto': {
       /**
        * Format: date
-       * @example 2024-12-16
+       * @example 2025-01-14
        */
       dato: string;
       /** Format: double */
