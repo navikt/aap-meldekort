@@ -1,15 +1,18 @@
-import { hentMeldeperioder } from 'lib/services/meldekortservice';
-import { Oversikt } from 'components/oversikt/Oversikt';
-import { redirect } from 'next/navigation';
-import { hentEldsteUbesvarteMeldeperiode } from 'lib/utils/meldeperioder';
+'use client';
 
-export default async function Home() {
-  const meldeperioder = await hentMeldeperioder();
-  const eldsteUbesvarteMeldeperiode = await hentEldsteUbesvarteMeldeperiode(meldeperioder);
+import { Button, Heading } from '@navikt/ds-react';
+import { useRouter } from 'next/navigation';
 
-  if (eldsteUbesvarteMeldeperiode) {
-    redirect(`/${eldsteUbesvarteMeldeperiode.meldekortId}`);
-  } else {
-    return <Oversikt meldeperioder={meldeperioder} />;
-  }
+export default function Home() {
+  const router = useRouter();
+
+  return (
+    <div className={'flex-column'}>
+      <Heading size={'large'}>Hva ønsker du å teste?</Heading>
+      <div className={'flex-row'}>
+        <Button onClick={() => router.push('/arena')}>Arena-meldekort</Button>
+        <Button onClick={() => router.push('/kelvin')}>Kelvin-meldekort</Button>
+      </div>
+    </div>
+  );
 }

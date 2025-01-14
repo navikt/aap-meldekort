@@ -12,6 +12,8 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>();
 
+  const isArenaMeldekort = window.location.href.includes('arena');
+
   const løsStegOgGåTilNeste = async (meldekort: MeldekortRequest) => {
     setIsLoading(true);
     const meldekortResponse = await gåTilNesteStegClient(referanse, meldekort);
@@ -21,7 +23,7 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
       setIsLoading(false);
     } else {
       console.log('hva skjer her?', meldekortResponse);
-      router.push(`/${referanse}/${meldekortResponse?.steg}`);
+      router.push(`/${isArenaMeldekort ? 'arena' : 'kelvin'}/${referanse}/${meldekortResponse?.steg}`);
     }
   };
 

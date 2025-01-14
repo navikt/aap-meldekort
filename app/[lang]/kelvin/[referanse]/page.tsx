@@ -14,7 +14,7 @@ const AktivtStegPage = async (props: Props) => {
 
   const meldePeriode = await hentMeldekort(referanse);
 
-  redirect(`/arena/${referanse}/${meldePeriode.steg}`);
+  redirect(`/kelvin/${referanse}/${meldePeriode.steg}`);
 };
 
 export default AktivtStegPage;

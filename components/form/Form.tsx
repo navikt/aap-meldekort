@@ -28,6 +28,7 @@ export const Form = ({
   forrigeStegKnappTekst = 'Tilbake',
 }: Props) => {
   const router = useRouter();
+  const isArenaMeldekort = window.location.href.includes('arena');
 
   return (
     <form onSubmit={onSubmit}>
@@ -40,7 +41,7 @@ export const Form = ({
             type={'button'}
             onClick={() => {
               if (forrigeSteg) {
-                router.push(`/${referanse}/${forrigeSteg}`);
+                router.push(`/${isArenaMeldekort ? 'arena' : 'kelvin'}/${referanse}/${forrigeSteg}`);
               }
             }}
             icon={<ArrowLeftIcon />}
