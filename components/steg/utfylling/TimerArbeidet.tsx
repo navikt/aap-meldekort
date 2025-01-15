@@ -6,7 +6,7 @@ import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { JaEllerNei } from 'lib/utils/form';
 import { FormProvider } from 'react-hook-form';
 import { Form } from 'components/form/Form';
-import { Alert, BodyShort, Heading } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 
 interface Props {
@@ -50,7 +50,7 @@ export const TimerArbeidet = ({ referanse, meldekort }: Props) => {
         isLoading={isLoading}
         errorMessage={errorMessage}
       >
-        <div className={'flex-column'}>
+        <VStack gap={'4'}>
           <Heading size={'large'} level={'2'} spacing>
             Se over før du sender inn
           </Heading>
@@ -59,7 +59,7 @@ export const TimerArbeidet = ({ referanse, meldekort }: Props) => {
           <BodyShort spacing>Se over meldekortet ditt og pass på at alt er riktig før du sender inn.</BodyShort>
           <OppsummeringKalender meldekort={meldekort} />
           <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
-        </div>
+        </VStack>
       </Form>
     </FormProvider>
   );

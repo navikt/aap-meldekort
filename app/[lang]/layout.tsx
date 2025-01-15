@@ -7,7 +7,7 @@ import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import Script from 'next/script';
 import { getEnvironment } from 'lib/utils/environments';
 import styles from 'app/[lang]/layout.module.css';
-import { Heading } from '@navikt/ds-react';
+import {Heading, VStack} from '@navikt/ds-react';
 import { Språkvelger } from 'components/språkvelger/Språkvelger';
 import { SlettMockButton } from 'components/slettmockbutton/SlettMockButton';
 import { isLocal } from 'lib/services/meldekortservice';
@@ -42,10 +42,10 @@ export default async function RootLayout({
           </div>
         </div>
         <main className={styles.rapporteringcontainer}>
-          <div className={'flex-column'}>
+          <VStack gap={'4'}>
             <HjemKnapp />
             {children}
-          </div>
+          </VStack>
         </main>
         <Decorator.Footer />
         <Decorator.Scripts loader={Script} />

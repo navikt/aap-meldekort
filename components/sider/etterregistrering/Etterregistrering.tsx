@@ -1,6 +1,6 @@
 'use client';
 
-import { Accordion, Alert, BodyShort, Heading } from '@navikt/ds-react';
+import { Accordion, Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { Meldeperiode } from 'lib/types/types';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 export const Etterregistrering = ({ ettersendinger }: Props) => {
   return (
-    <div className={'flex-column'}>
+    <VStack gap={'4'}>
       <Heading size={'medium'} level={'2'} spacing>
         Etterregistrering av meldekort
       </Heading>
@@ -34,6 +34,6 @@ export const Etterregistrering = ({ ettersendinger }: Props) => {
       ) : (
         <Alert variant={'info'}>Du har ingen tilgjengelige meldekort</Alert>
       )}
-    </div>
+    </VStack>
   );
 };

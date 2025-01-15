@@ -2,7 +2,7 @@
 
 import { Form } from 'components/form/Form';
 import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
-import { Alert, BodyLong, Heading, ReadMore } from '@navikt/ds-react';
+import { Alert, BodyLong, Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
 import { JaEllerNei } from 'lib/utils/form';
@@ -84,7 +84,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
         isLoading={isLoading}
         errorMessage={errorMessage}
       >
-        <div className={'flex-column'}>
+        <VStack gap={'4'}>
           <Heading size={'large'} level={'2'}>
             Fyll ut meldekortet
           </Heading>
@@ -101,7 +101,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
           )}
 
           <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
-        </div>
+        </VStack>
       </Form>
     </FormProvider>
   );
