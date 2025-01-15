@@ -1,3 +1,5 @@
+'use client'
+
 import { Accordion, Alert, BodyShort, Heading } from '@navikt/ds-react';
 import { Meldeperiode } from 'lib/types/types';
 
