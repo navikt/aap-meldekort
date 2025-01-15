@@ -19,6 +19,13 @@ export async function hentMeldeperioderMock(): Promise<Meldeperiode[]> {
         meldekortId: 123456789,
         periode: { fom: '2024-11-04', tom: '2024-11-17' },
       },
+      {
+        type: 'ETTERREGISTRERING',
+        kanEndres: true,
+        klarForInnsending: false,
+        meldekortId: 987654321,
+        periode: { fom: '2024-10-21', tom: '2024-11-03' },
+      },
     ];
 
     await fs.writeFile('.meldeperioder.cache', JSON.stringify(meldeperioder));
