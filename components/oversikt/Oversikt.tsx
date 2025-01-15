@@ -1,7 +1,7 @@
 'use client';
 
 import { Meldeperiode } from 'lib/types/types';
-import { Accordion, Alert, BodyShort, Heading, Label, LinkPanel } from '@navikt/ds-react';
+import { Alert, Label } from '@navikt/ds-react';
 import { meldeperioderSomKanEtterregistreres, nåværendeMeldeperiode } from 'lib/utils/meldeperioder';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 import { useParams, useRouter } from 'next/navigation';
@@ -18,8 +18,6 @@ export const Oversikt = ({ meldeperioder }: Props) => {
   if (!meldeperioder) {
     return <div>Kunne ikke finne noen meldeperioder</div>;
   }
-
-  const meldeperioderSomKanEndres = meldeperioder?.filter((meldeperiode) => meldeperiode.kanEndres);
 
   const meldeperiodeTilEtterregistrering = meldeperioderSomKanEtterregistreres(meldeperioder);
   const nåværendePeriode = nåværendeMeldeperiode(meldeperioder);
