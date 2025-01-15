@@ -6,10 +6,14 @@ export function hentEldsteUbesvarteMeldeperiode(meldeperioder: Meldeperiode[]): 
     ?.find((meldeperiode) => meldeperiode.type === 'VANLIG' && meldeperiode.klarForInnsending);
 }
 
-export function hentNåværendeMeldeperiode(meldeperioder: Meldeperiode[]): Meldeperiode | undefined {
-  return meldeperioder.find((meldeperiode) => meldeperiode.type === 'VANLIG');
+export function nåværendeMeldeperiode(meldeperioder: Meldeperiode[]): Meldeperiode | undefined {
+  return meldeperioder.find((meldeperiode) => meldeperiode.type === 'VANLIG' && meldeperiode.kanEndres);
 }
 
-export function hentMeldeperioderSomKanEtterregistreres(meldeperioder: Meldeperiode[]): Meldeperiode | undefined {
-  return meldeperioder.find((meldeperiode) => meldeperiode.type === 'ETTERREGISTRERING');
+export function meldeperioderSomKanEtterregistreres(meldeperioder: Meldeperiode[]): Meldeperiode[] | undefined {
+  return meldeperioder.filter((meldeperiode) => meldeperiode.type === 'ETTERREGISTRERING');
+}
+
+export function hentInnsendteMeldeperioder(meldeperioder: Meldeperiode[]): Meldeperiode[] | undefined {
+  return meldeperioder.filter((meldeperiode) => meldeperiode.type === 'VANLIG');
 }
