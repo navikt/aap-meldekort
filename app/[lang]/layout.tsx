@@ -11,6 +11,7 @@ import { Heading } from '@navikt/ds-react';
 import { Språkvelger } from 'components/språkvelger/Språkvelger';
 import { SlettMockButton } from 'components/slettmockbutton/SlettMockButton';
 import { isLocal } from 'lib/services/meldekortservice';
+import { HjemKnapp } from 'components/hjemknapp/HjemKnapp';
 
 export const metadata: Metadata = {
   title: 'AAP Meldekort',
@@ -40,7 +41,12 @@ export default async function RootLayout({
             <Språkvelger />
           </div>
         </div>
-        <main className={styles.rapporteringcontainer}>{children}</main>
+        <main className={styles.rapporteringcontainer}>
+          <div className={'flex-column'}>
+            <HjemKnapp />
+            {children}
+          </div>
+        </main>
         <Decorator.Footer />
         <Decorator.Scripts loader={Script} />
       </body>

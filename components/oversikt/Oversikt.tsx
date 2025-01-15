@@ -1,7 +1,7 @@
 'use client';
 
 import { Meldeperiode } from 'lib/types/types';
-import { Alert, Label } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading } from '@navikt/ds-react';
 import { meldeperioderSomKanEtterregistreres, nåværendeMeldeperiode } from 'lib/utils/meldeperioder';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 import { useParams, useRouter } from 'next/navigation';
@@ -24,23 +24,24 @@ export const Oversikt = ({ meldeperioder }: Props) => {
 
   return (
     <div className={'flex-column'}>
-      <div>
-        {nåværendePeriode ? (
-          <div>
-            <Label>Du har et meldekort klart for innsending</Label>
-            <LinkButton
-              onClick={() => router.push(`/${params.system}/${nåværendePeriode?.meldekortId}`)}
-              title={`Send meldekort for denne perioden (${formaterDatoForFrontend(nåværendePeriode.periode.fom)} - ${formaterDatoForFrontend(nåværendePeriode.periode.tom)})`}
-            />
-          </div>
-        ) : (
-          <Alert variant={'info'}>Du har ingen meldekort som må sendes inn.</Alert>
-        )}
-      </div>
+      <Heading level={'2'} size={'medium'}>
+        Velg hva du vil gjøre
+      </Heading>
+      {nåværendePeriode ? (
+        <div className={'flex-column'}>
+          <BodyShort size={'large'}>Du har et meldekort klart for innsending</BodyShort>
+          <LinkButton
+            onClick={() => router.push(`/${params.system}/${nåværendePeriode?.meldekortId}`)}
+            title={`Send meldekort for denne perioden (${formaterDatoForFrontend(nåværendePeriode.periode.fom)} - ${formaterDatoForFrontend(nåværendePeriode.periode.tom)})`}
+          />
+        </div>
+      ) : (
+        <Alert variant={'info'}>Du har ingen meldekort som må sendes inn.</Alert>
+      )}
 
       {meldeperiodeTilEtterregistrering && (
-        <div>
-          <Label>Du har et eller flere tidligere meldekort som ikke er sendt inn</Label>
+        <div className={'flex-column'}>
+          <BodyShort size={'large'}>Du har et eller flere tidligere meldekort som ikke er sendt inn</BodyShort>
           <LinkButton
             title={`Etterregistrer meldekort (${meldeperiodeTilEtterregistrering.length})`}
             onClick={() => router.push(`/${params.system}/etterregistrering`)}
@@ -49,8 +50,8 @@ export const Oversikt = ({ meldeperioder }: Props) => {
       )}
 
       {meldeperiodeTilEtterregistrering && (
-        <div>
-          <Label>Se eller endre tidligere innsendte meldekort</Label>
+        <div className={'flex-column'}>
+          <BodyShort size={'large'}>Se eller endre tidligere innsendte meldekort</BodyShort>
           <LinkButton title={'Gå til innsendte meldekort'} onClick={() => router.push(`/${params.system}/innsendt`)} />
         </div>
       )}
