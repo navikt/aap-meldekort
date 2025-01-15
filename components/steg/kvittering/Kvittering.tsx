@@ -4,7 +4,7 @@ import { Accordion, Alert, Button, HGrid } from '@navikt/ds-react';
 
 import styles from 'components/steg/kvittering/Kvittering.module.css';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { MeldekortResponse, Meldeperiode } from 'lib/types/types';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 
@@ -15,6 +15,7 @@ interface Props {
 
 export const Kvittering = ({ meldekort, ubesvartMeldeperiode }: Props) => {
   const router = useRouter();
+  const params = useParams<{ system: string }>();
 
   return (
     <HGrid columns={'1'} gap={'4'}>
@@ -40,10 +41,10 @@ export const Kvittering = ({ meldekort, ubesvartMeldeperiode }: Props) => {
             type="button"
             as={'a'}
             onClick={async () => {
-              router.push(`/${ubesvartMeldeperiode?.meldekortId}`);
+              router.push(`/${params.system}`);
             }}
           >
-            {`Send inn neste periode ${formaterDatoForFrontend(ubesvartMeldeperiode.periode.fom)} - ${formaterDatoForFrontend(ubesvartMeldeperiode.periode.tom)}`}
+            Gå tilbake til oversikt
           </Button>
         )}
       </div>

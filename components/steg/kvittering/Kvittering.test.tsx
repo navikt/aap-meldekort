@@ -29,7 +29,7 @@ describe('Kvittering', () => {
     expect(screen.getByRole('button', { name: 'Gå til Mine AAP' })).toBeVisible();
   });
 
-  it('skal ha en knapp for å kunne sende fylle ut et nytt meldekort dersom det finnes en ubesvart meldeperiode', () => {
+  it('skal ha en knapp for å gå tilbake til oversikt siden', () => {
     const meldeperiode: Meldeperiode = {
       kanEndres: false,
       klarForInnsending: true,
@@ -42,7 +42,7 @@ describe('Kvittering', () => {
     };
     render(<Kvittering meldekort={meldekort} ubesvartMeldeperiode={meldeperiode} />);
 
-    const knapp = screen.getByRole('button', { name: 'Send inn neste periode 18.11.2024 - 01.12.2024' });
+    const knapp = screen.getByRole('button', { name: 'Gå tilbake til oversikt' });
     expect(knapp).toBeVisible();
   });
 });
