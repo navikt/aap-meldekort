@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { MeldekortRequest } from 'lib/types/types';
 import { gåTilNesteStegClient } from 'lib/client/clientApi';
 
@@ -9,10 +9,9 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
   errorMessage?: string;
 } {
   const router = useRouter();
+  const params = useParams<{ system: string }>();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>();
-
-  const isArenaMeldekort = window.location.href.includes('arena');
 
   const løsStegOgGåTilNeste = async (meldekort: MeldekortRequest) => {
     setIsLoading(true);
@@ -23,7 +22,7 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
       setIsLoading(false);
     } else {
       console.log('hva skjer her?', meldekortResponse);
-      router.push(`/${isArenaMeldekort ? 'arena' : 'kelvin'}/${referanse}/${meldekortResponse?.steg}`);
+      router.push(`/${params.system}/${referanse}/${meldekortResponse?.steg}`);
     }
   };
 

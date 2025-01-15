@@ -3,7 +3,7 @@ import { FormEvent, ReactNode } from 'react';
 
 import styles from './Form.module.css';
 import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Steg } from 'lib/types/types';
 
 interface Props {
@@ -28,7 +28,7 @@ export const Form = ({
   forrigeStegKnappTekst = 'Tilbake',
 }: Props) => {
   const router = useRouter();
-  const isArenaMeldekort = window.location.href.includes('arena');
+  const params = useParams<{ system: string }>();
 
   return (
     <form onSubmit={onSubmit}>
@@ -41,7 +41,7 @@ export const Form = ({
             type={'button'}
             onClick={() => {
               if (forrigeSteg) {
-                router.push(`/${isArenaMeldekort ? 'arena' : 'kelvin'}/${referanse}/${forrigeSteg}`);
+                router.push(`/${params.system}/${referanse}/${forrigeSteg}`);
               }
             }}
             icon={<ArrowLeftIcon />}
