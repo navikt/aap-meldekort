@@ -7,7 +7,7 @@ export function hentEldsteUbesvarteMeldeperiode(meldeperioder: Meldeperiode[]): 
 }
 
 export function nåværendeMeldeperiode(meldeperioder: Meldeperiode[]): Meldeperiode | undefined {
-  return meldeperioder.find((meldeperiode) => meldeperiode.type === 'VANLIG' && meldeperiode.kanEndres);
+  return meldeperioder.find((meldeperiode) => meldeperiode.type === 'VANLIG' && meldeperiode.klarForInnsending);
 }
 
 export function meldeperioderSomKanEtterregistreres(meldeperioder: Meldeperiode[]): Meldeperiode[] | undefined {

@@ -6,7 +6,6 @@ import styles from 'components/steg/kvittering/Kvittering.module.css';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useParams, useRouter } from 'next/navigation';
 import { MeldekortResponse, Meldeperiode } from 'lib/types/types';
-import { formaterDatoForFrontend } from 'lib/utils/date';
 
 interface Props {
   meldekort: MeldekortResponse;
