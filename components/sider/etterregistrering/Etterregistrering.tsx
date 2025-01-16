@@ -1,13 +1,19 @@
 'use client';
 
-import { Accordion, Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { Meldeperiode } from 'lib/types/types';
+import { LinkButton } from 'components/linkbutton/LinkButton';
+import { useParams, useRouter } from 'next/navigation';
+import { formaterDatoForFrontend } from 'lib/utils/date';
 
 interface Props {
   ettersendinger?: Meldeperiode[];
 }
 
 export const Etterregistrering = ({ ettersendinger }: Props) => {
+  const router = useRouter();
+  const params = useParams();
+
   return (
     <VStack gap={'4'}>
       <Heading size={'medium'} level={'2'} spacing>
@@ -22,12 +28,11 @@ export const Etterregistrering = ({ ettersendinger }: Props) => {
         <div>
           {ettersendinger.map((meldeperiode) => {
             return (
-              <Accordion key={meldeperiode.meldekortId}>
-                <Accordion.Item>
-                  <Accordion.Header>{meldeperiode.meldekortId}</Accordion.Header>
-                  <Accordion.Content>{JSON.stringify(meldeperiode)}</Accordion.Content>
-                </Accordion.Item>
-              </Accordion>
+              <LinkButton
+                key={meldeperiode.meldekortId}
+                title={`Send meldekort for perioden (${formaterDatoForFrontend(meldeperiode.periode.fom)} - ${formaterDatoForFrontend(meldeperiode.periode.tom)})`}
+                onClick={() => router.push(`/${params.system}/${meldeperiode.meldekortId}`)}
+              />
             );
           })}
         </div>
