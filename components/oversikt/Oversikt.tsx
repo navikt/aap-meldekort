@@ -4,15 +4,14 @@ import { Meldeperiode } from 'lib/types/types';
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { meldeperioderSomKanEtterregistreres, nåværendeMeldeperiode } from 'lib/utils/meldeperioder';
 import { formaterDatoForFrontend } from 'lib/utils/date';
-import { useParams, useRouter } from 'next/navigation';
-import { LinkButton } from 'components/linkbutton/LinkButton';
+import { useParams } from 'next/navigation';
+import { LinkPanel } from 'components/linkpanel/LinkPanel';
 
 interface Props {
   meldeperioder?: Meldeperiode[];
 }
 
 export const Oversikt = ({ meldeperioder }: Props) => {
-  const router = useRouter();
   const params = useParams<{ system: string }>();
 
   if (!meldeperioder) {
@@ -30,8 +29,8 @@ export const Oversikt = ({ meldeperioder }: Props) => {
       {nåværendePeriode ? (
         <VStack gap={'4'}>
           <BodyShort size={'large'}>Du har et meldekort klart for innsending</BodyShort>
-          <LinkButton
-            onClick={() => router.push(`/${params.system}/${nåværendePeriode?.meldekortId}`)}
+          <LinkPanel
+            href={`/${params.system}/${nåværendePeriode?.meldekortId}`}
             title={`Send meldekort for denne perioden (${formaterDatoForFrontend(nåværendePeriode.periode.fom)} - ${formaterDatoForFrontend(nåværendePeriode.periode.tom)})`}
           />
         </VStack>
@@ -42,9 +41,9 @@ export const Oversikt = ({ meldeperioder }: Props) => {
       {meldeperiodeTilEtterregistrering && (
         <VStack gap={'4'}>
           <BodyShort size={'large'}>Du har et eller flere tidligere meldekort som ikke er sendt inn</BodyShort>
-          <LinkButton
+          <LinkPanel
             title={`Etterregistrer meldekort (${meldeperiodeTilEtterregistrering.length})`}
-            onClick={() => router.push(`/${params.system}/etterregistrering`)}
+            href={`/${params.system}/etterregistrering`}
           />
         </VStack>
       )}
@@ -52,7 +51,7 @@ export const Oversikt = ({ meldeperioder }: Props) => {
       {meldeperiodeTilEtterregistrering && (
         <VStack gap={'4'}>
           <BodyShort size={'large'}>Se eller endre tidligere innsendte meldekort</BodyShort>
-          <LinkButton title={'Gå til innsendte meldekort'} onClick={() => router.push(`/${params.system}/innsendt`)} />
+          <LinkPanel title={'Gå til innsendte meldekort'} href={`/${params.system}/innsendt`} />
         </VStack>
       )}
     </VStack>

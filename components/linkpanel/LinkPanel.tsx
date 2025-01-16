@@ -1,19 +1,19 @@
-import styles from './LinkButton.module.css';
+import styles from 'components/linkpanel/LinkPanel.module.css';
 import { ChevronRightIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
 
 interface Props {
   title: string;
-  onClick: () => void;
+  href: string;
 }
 
-export const LinkButton = ({ title, onClick }: Props) => {
+export const LinkPanel = ({ title, href }: Props) => {
   return (
-    <button onClick={onClick} className={styles.linkbutton}>
+    <a href={href} className={styles.link}>
       <BodyShort size={'large'} style={{ fontWeight: 'bold' }}>
         {title}
       </BodyShort>
       <ChevronRightIcon fontSize={'1.6rem'} />
-    </button>
+    </a>
   );
 };

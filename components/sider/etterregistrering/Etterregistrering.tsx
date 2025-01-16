@@ -2,8 +2,8 @@
 
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { Meldeperiode } from 'lib/types/types';
-import { LinkButton } from 'components/linkbutton/LinkButton';
-import { useParams, useRouter } from 'next/navigation';
+import { LinkPanel } from 'components/linkpanel/LinkPanel';
+import { useParams } from 'next/navigation';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 
 interface Props {
@@ -11,7 +11,6 @@ interface Props {
 }
 
 export const Etterregistrering = ({ ettersendinger }: Props) => {
-  const router = useRouter();
   const params = useParams();
 
   return (
@@ -28,10 +27,10 @@ export const Etterregistrering = ({ ettersendinger }: Props) => {
         <div>
           {ettersendinger.map((meldeperiode) => {
             return (
-              <LinkButton
+              <LinkPanel
                 key={meldeperiode.meldekortId}
                 title={`Send meldekort for perioden (${formaterDatoForFrontend(meldeperiode.periode.fom)} - ${formaterDatoForFrontend(meldeperiode.periode.tom)})`}
-                onClick={() => router.push(`/${params.system}/${meldeperiode.meldekortId}`)}
+                href={`/${params.system}/${meldeperiode.meldekortId}`}
               />
             );
           })}
