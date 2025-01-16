@@ -5,7 +5,7 @@ import { cleanup } from '@testing-library/react';
 beforeAll(() => {
   vi.mock('next/navigation', () => ({
     useRouter: vi.fn(),
-    useParams: vi.fn(),
+    useParams: vi.fn(() => ({ system: 'arena' })),
   }));
 });
 

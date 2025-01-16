@@ -24,11 +24,6 @@ describe('Kvittering', () => {
     expect(screen.getByText('Se hva du sendte inn')).toBeVisible();
   });
 
-  it('har en knapp som tar deg til "Mine aap"', () => {
-    render(<Kvittering meldekort={meldekort} />);
-    expect(screen.getByRole('button', { name: 'Gå til Mine AAP' })).toBeVisible();
-  });
-
   it('skal ha en knapp for å gå tilbake til oversikt siden', () => {
     const meldeperiode: Meldeperiode = {
       kanEndres: false,
@@ -42,7 +37,7 @@ describe('Kvittering', () => {
     };
     render(<Kvittering meldekort={meldekort} ubesvartMeldeperiode={meldeperiode} />);
 
-    const knapp = screen.getByRole('button', { name: 'Gå tilbake til oversikt' });
+    const knapp = screen.getByRole('link', { name: 'Gå tilbake til oversikt' });
     expect(knapp).toBeVisible();
   });
 });
