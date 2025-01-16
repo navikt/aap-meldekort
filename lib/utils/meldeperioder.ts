@@ -11,7 +11,9 @@ export function nåværendeMeldeperiode(meldeperioder: Meldeperiode[]): Meldeper
 }
 
 export function meldeperioderSomKanEtterregistreres(meldeperioder: Meldeperiode[]): Meldeperiode[] | undefined {
-  return meldeperioder.filter((meldeperiode) => meldeperiode.type === 'ETTERREGISTRERING');
+  return meldeperioder.filter(
+    (meldeperiode) => meldeperiode.type === 'ETTERREGISTRERING' && meldeperiode.klarForInnsending
+  );
 }
 
 export function hentInnsendteMeldeperioder(meldeperioder: Meldeperiode[]): Meldeperiode[] | undefined {
