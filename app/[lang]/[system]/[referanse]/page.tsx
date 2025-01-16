@@ -13,7 +13,7 @@ export default async function Page(props: Props) {
 
   const referanse = params.referanse;
 
-  const meldePeriode = await hentMeldekort(referanse);
+  const meldekort = await hentMeldekort(referanse);
 
-  redirect(`/${params.system}/${referanse}/${meldePeriode.steg}`);
+  redirect(`/${params.system}/${referanse}/${meldekort.steg}`);
 }

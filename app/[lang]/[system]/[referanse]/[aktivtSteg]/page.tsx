@@ -18,19 +18,19 @@ const AktivtStegPage = async (props: Props) => {
   const params = await props.params;
   const aktivtSteg = decodeURI(params.aktivtSteg) as Steg;
   const referanse = params.referanse;
-  const meldeperiode = await hentMeldekort(referanse);
+  const meldekort = await hentMeldekort(referanse);
 
   function skalRedirecteTilAktivtSteg() {
     const steg: Steg[] = ['BEKREFT_SVARER_ÆRLIG', 'JOBBET_I_MELDEPERIODEN', 'TIMER_ARBEIDET', 'KVITTERING'];
 
     const aktivtStegIndex = steg.indexOf(aktivtSteg);
-    const backendStegIndex = steg.indexOf(meldeperiode.steg);
+    const backendStegIndex = steg.indexOf(meldekort.steg);
 
     return aktivtStegIndex === -1 || aktivtStegIndex > backendStegIndex;
   }
 
   if (skalRedirecteTilAktivtSteg()) {
-    redirect(`/${params.system}/${referanse}/${meldeperiode.steg}`);
+    redirect(`/${params.system}/${referanse}/${meldekort.steg}`);
   }
 
   return (

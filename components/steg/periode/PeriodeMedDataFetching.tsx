@@ -6,6 +6,6 @@ interface Props {
 }
 
 export const PeriodeMedDataFetching = async ({ referanse }: Props) => {
-  const periode = await hentMeldekort(referanse);
-  return <Periode meldekort={periode} referanse={referanse} />;
+  const meldekort = await hentMeldekort(referanse);
+  return <Periode meldekort={meldekort} referanse={referanse} />;
 };
