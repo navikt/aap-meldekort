@@ -2,7 +2,7 @@
 
 import { Meldeperiode } from 'lib/types/types';
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
-import { meldeperioderSomKanEtterregistreres, nåværendeMeldeperiode } from 'lib/utils/meldeperioder';
+import { hentUbesvarteMeldeperioder } from 'lib/utils/meldeperioder';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 import { useParams } from 'next/navigation';
 import { LinkPanel } from 'components/linkpanel/LinkPanel';
@@ -18,42 +18,31 @@ export const Oversikt = ({ meldeperioder }: Props) => {
     return <div>Kunne ikke finne noen meldeperioder</div>;
   }
 
-  const meldeperiodeTilEtterregistrering = meldeperioderSomKanEtterregistreres(meldeperioder);
-  const nåværendePeriode = nåværendeMeldeperiode(meldeperioder);
+  const ubesvarteMeldeperioder = hentUbesvarteMeldeperioder(meldeperioder);
 
   return (
     <VStack gap={'4'}>
       <Heading level={'2'} size={'medium'}>
         Velg hva du vil gjøre
       </Heading>
-      {nåværendePeriode ? (
+      {ubesvarteMeldeperioder ? (
         <VStack gap={'4'}>
-          <BodyShort size={'large'}>Du har et meldekort klart for innsending</BodyShort>
+          <BodyShort
+            size={'large'}
+          >{`Du har ${ubesvarteMeldeperioder.antallUbesvarteMeldeperioder}  meldekort klart for innsending. Du må fylle ut den eldste først.`}</BodyShort>
           <LinkPanel
-            href={`/${params.system}/${nåværendePeriode?.meldekortId}`}
-            title={`Send meldekort for denne perioden (${formaterDatoForFrontend(nåværendePeriode.periode.fom)} - ${formaterDatoForFrontend(nåværendePeriode.periode.tom)})`}
+            href={`/${params.system}/${ubesvarteMeldeperioder.eldsteUbesvarteMeldeperiode.meldekortId}`}
+            title={`Send meldekort for perioden (${formaterDatoForFrontend(ubesvarteMeldeperioder.eldsteUbesvarteMeldeperiode.periode.fom)} - ${formaterDatoForFrontend(ubesvarteMeldeperioder.eldsteUbesvarteMeldeperiode.periode.tom)})`}
           />
         </VStack>
       ) : (
         <Alert variant={'info'}>Du har ingen meldekort som må sendes inn.</Alert>
       )}
 
-      {meldeperiodeTilEtterregistrering && (
-        <VStack gap={'4'}>
-          <BodyShort size={'large'}>Du har et eller flere tidligere meldekort som ikke er sendt inn</BodyShort>
-          <LinkPanel
-            title={`Etterregistrer meldekort (${meldeperiodeTilEtterregistrering.length})`}
-            href={`/${params.system}/etterregistrering`}
-          />
-        </VStack>
-      )}
-
-      {meldeperiodeTilEtterregistrering && (
-        <VStack gap={'4'}>
-          <BodyShort size={'large'}>Se eller endre tidligere innsendte meldekort</BodyShort>
-          <LinkPanel title={'Gå til innsendte meldekort'} href={`/${params.system}/innsendt`} />
-        </VStack>
-      )}
+      <VStack gap={'4'}>
+        <BodyShort size={'large'}>Se eller endre tidligere innsendte meldekort</BodyShort>
+        <LinkPanel title={'Gå til innsendte meldekort'} href={`/${params.system}/innsendt`} />
+      </VStack>
     </VStack>
   );
 };

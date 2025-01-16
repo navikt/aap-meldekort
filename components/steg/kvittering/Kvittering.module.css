@@ -1,6 +1,12 @@
 .knapperad {
-  display: flex;
-  flex-direction: row;
+  display: inline-flex;
+  flex-direction: column;
   justify-content: center;
-  gap: var(--a-spacing-2);
+  gap: var(--a-spacing-4);
+  margin: 0 auto;
+}
+
+.link{
+  display: flex;
+  justify-content: center;
 }

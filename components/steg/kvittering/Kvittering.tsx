@@ -1,6 +1,6 @@
 'use client';
 
-import { Accordion, Alert, Button, HGrid } from '@navikt/ds-react';
+import { Accordion, Alert, Button, HGrid, Link } from '@navikt/ds-react';
 
 import styles from 'components/steg/kvittering/Kvittering.module.css';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
@@ -30,22 +30,21 @@ export const Kvittering = ({ meldekort, ubesvartMeldeperiode }: Props) => {
         </Accordion.Item>
       </Accordion>
       <div className={styles.knapperad}>
-        <Button variant="primary" type="button" as={'a'}>
-          Gå til Mine AAP
-        </Button>
-
         {ubesvartMeldeperiode && (
           <Button
             variant="primary"
             type="button"
             as={'a'}
             onClick={async () => {
-              router.push(`/${params.system}`);
+              router.push(`/${params.system}/${ubesvartMeldeperiode.meldekortId}`);
             }}
           >
-            Gå tilbake til oversikt
+            Gå til neste meldekort
           </Button>
         )}
+        <Link href={`/${params.system}`} className={styles.link}>
+          Gå tilbake til oversikt
+        </Link>
       </div>
     </HGrid>
   );
