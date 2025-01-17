@@ -3,7 +3,6 @@ import { UtfyllingMedDataFetching } from 'components/steg/utfylling/UtfyllingMed
 import { Steg } from 'lib/types/types';
 import { IntroduksjonMedDataFetching } from 'components/steg/introduksjon/IntroduksjonMedDataFetching';
 import { KvitteringMedDataFetching } from 'components/steg/kvittering/KvitteringMedDataFetching';
-import { Alert } from '@navikt/ds-react';
 import { hentMeldekort } from 'lib/services/meldekortservice';
 import { redirect } from 'next/navigation';
 
@@ -34,15 +33,12 @@ const AktivtStegPage = async (props: Props) => {
   }
 
   return (
-    <div>
-      <Alert variant={'info'} style={{ marginBottom: '1rem' }}>
-        AAP-meldekort er under utvikling og den vil til tider være utilgjengelig for testing.
-      </Alert>
+    <>
       {aktivtSteg === 'BEKREFT_SVARER_ÆRLIG' && <IntroduksjonMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'JOBBET_I_MELDEPERIODEN' && <PeriodeMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'TIMER_ARBEIDET' && <UtfyllingMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'KVITTERING' && <KvitteringMedDataFetching referanse={referanse} />}
-    </div>
+    </>
   );
 };
 
