@@ -22,3 +22,16 @@
   padding-right: var(--a-spacing-2);
   gap: var(--a-spacing-12);
 }
+
+.harTimer {
+  background-color: var(--a-blue-200);
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+}

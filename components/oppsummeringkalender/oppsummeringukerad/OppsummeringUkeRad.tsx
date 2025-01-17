@@ -23,7 +23,9 @@ export const OppsummeringUkeRad = ({ felterIUken }: Props) => {
       </div>
       <div className={styles.timertekst}>
         {felterIUken.map((field, index) => (
-          <BodyShort key={index}>{field.timer}</BodyShort>
+          <div className={`${styles.timer} ${field.timer > 0 && styles.harTimer}`} key={index}>
+            <BodyShort>{field.timer}</BodyShort>
+          </div>
         ))}
       </div>
     </div>
