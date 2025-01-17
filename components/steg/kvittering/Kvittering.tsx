@@ -1,11 +1,11 @@
 'use client';
 
 import { Accordion, Alert, Button, HGrid, Link } from '@navikt/ds-react';
-
-import styles from 'components/steg/kvittering/Kvittering.module.css';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useParams, useRouter } from 'next/navigation';
 import { MeldekortResponse, Meldeperiode } from 'lib/types/types';
+
+import styles from 'components/steg/kvittering/Kvittering.module.css';
 
 interface Props {
   meldekort: MeldekortResponse;
@@ -21,7 +21,7 @@ export const Kvittering = ({ meldekort, ubesvartMeldeperiode }: Props) => {
       <Alert variant="success">
         Meldekortet ditt er sendt til Nav, du får beskjed hvis vi trenger noe mer fra deg.
       </Alert>
-      <Accordion>
+      <Accordion className={styles.accordion}>
         <Accordion.Item>
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
           <Accordion.Content>

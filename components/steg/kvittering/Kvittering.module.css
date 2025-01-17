@@ -6,7 +6,11 @@
   margin: 0 auto;
 }
 
-.link{
+.link {
   display: flex;
   justify-content: center;
+}
+
+.accordion {
+  background-color: var(--a-gray-100);
 }
