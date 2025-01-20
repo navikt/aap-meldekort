@@ -3,8 +3,9 @@
   flex-direction: row;
   justify-content: space-between;
   text-decoration: none;
-  padding: var(--a-spacing-5);
-  border: 1px solid var(--a-gray-400);
+  padding: var(--a-spacing-6);
+  border-radius: 10px;
+  background-color: var(--a-blue-100);
   width: 100%;
   color: inherit;
 }
