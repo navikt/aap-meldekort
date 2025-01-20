@@ -1,6 +1,6 @@
 'use client';
 
-import { Accordion, Alert, BodyShort, Heading, HGrid, Label, Link, VStack } from '@navikt/ds-react';
+import { Accordion, Alert, BodyShort, Heading, HGrid, Link } from '@navikt/ds-react';
 import { MeldekortResponse, Meldeperiode } from 'lib/types/types';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useParams } from 'next/navigation';
