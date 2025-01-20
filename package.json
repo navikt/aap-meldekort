@@ -24,7 +24,7 @@
     "@navikt/oasis": "^3.6.0",
     "csp-header": "^6.0.0",
     "html-react-parser": "^5.2.2",
-    "next": "15.1.4",
+    "next": "15.1.5",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-hook-form": "^7.54.2"
