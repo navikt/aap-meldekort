@@ -1,7 +1,7 @@
 'use client';
 
 import { Accordion, Alert, BodyShort, Heading, HGrid, Link } from '@navikt/ds-react';
-import { MeldekortResponse, Meldeperiode } from 'lib/types/types';
+import { MeldekortResponse } from 'lib/types/types';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useParams } from 'next/navigation';
 
@@ -10,7 +10,7 @@ import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date
 
 export interface InnsendteMeldekortType {
   meldekort: MeldekortResponse;
-  meldeperiode: Meldeperiode;
+  meldekortId: string;
 }
 
 interface Props {
@@ -31,10 +31,10 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
       </BodyShort>
 
       {innsendteMeldeperioder.length > 0 ? (
-        <div>
+        <>
           {innsendteMeldeperioder.map((innsendtMeldekort) => {
             return (
-              <Accordion key={innsendtMeldekort.meldeperiode.meldekortId} className={styles.accordion}>
+              <Accordion key={innsendtMeldekort.meldekortId} className={styles.accordion}>
                 <Accordion.Item>
                   <Accordion.Header>
                     <div>
@@ -60,7 +60,7 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
               </Accordion>
             );
           })}
-        </div>
+        </>
       ) : (
         <Alert variant={'info'}>Du har ingen innsendte meldekort</Alert>
       )}

@@ -24,13 +24,7 @@ export default async function InnsendtPage() {
       },
       steg: 'TIMER_ARBEIDET',
     },
-    meldeperiode: {
-      kanEndres: false,
-      klarForInnsending: false,
-      meldekortId: 1234567,
-      periode: { fom: '2024-11-18', tom: '2024-12-01' },
-      type: 'VANLIG',
-    },
+    meldekortId: '123456789',
   };
 
   return <InnsendteMeldekort innsendteMeldeperioder={[innsendteMeldekort]} />;
