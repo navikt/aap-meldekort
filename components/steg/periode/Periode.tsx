@@ -4,8 +4,7 @@ import { Form } from 'components/form/Form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { getJaNeiEllerUndefined, JaEllerNei, JaEllerNeiOptions } from 'lib/utils/form';
 import { BodyShort, Heading, HGrid, ReadMore } from '@navikt/ds-react';
-import { getISOWeek } from 'date-fns';
-import { formaterDatoForFrontend } from 'lib/utils/date';
+import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { MeldekortResponse } from 'lib/types/types';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 
@@ -34,9 +33,6 @@ export const Periode = ({ meldekort, referanse }: Props) => {
   const fraDato = new Date(meldekort.periode.fom);
   const tilDato = new Date(meldekort.periode.tom);
 
-  const fraDatoUkenummer = getISOWeek(fraDato);
-  const tilDatoUkenummer = getISOWeek(tilDato);
-
   return (
     <Form
       forrigeSteg={'BEKREFT_SVARER_ÆRLIG'}
@@ -55,7 +51,7 @@ export const Periode = ({ meldekort, referanse }: Props) => {
         <Heading level={'2'} size={'medium'}>
           Nåværende periode
         </Heading>
-        <BodyShort>{`Uke ${fraDatoUkenummer} - ${tilDatoUkenummer} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
+        <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
         <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det noe tekst</ReadMore>
         <FormField form={form} formField={formFields.harArbeidet} size={'medium'} />
       </HGrid>

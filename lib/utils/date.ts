@@ -1,4 +1,4 @@
-import { format, isValid, parse } from 'date-fns';
+import { format, getISOWeek, isValid, parse } from 'date-fns';
 import { nb } from 'date-fns/locale';
 
 export const DATO_FORMATER = {
@@ -42,3 +42,10 @@ export const parseDatoFraDatePicker = (value?: string | Date): Date | undefined 
   }
   return stringToDate(value, 'dd.MM.yyyy');
 };
+
+export function hentUkeNummerForPeriode(fraDato: Date, tilDato: Date): string {
+  const fraDatoUkenummer = getISOWeek(fraDato);
+  const tilDatoUkenummer = getISOWeek(tilDato);
+
+  return `${fraDatoUkenummer} - ${tilDatoUkenummer}`;
+}

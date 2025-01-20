@@ -1,11 +1,12 @@
 'use client';
 
-import { Accordion, Alert, BodyShort, Heading, HGrid, Link } from '@navikt/ds-react';
+import { Accordion, Alert, BodyShort, Heading, HGrid, Label, Link, VStack } from '@navikt/ds-react';
 import { MeldekortResponse, Meldeperiode } from 'lib/types/types';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useParams } from 'next/navigation';
 
 import styles from './InnsendteMeldekort.module.css';
+import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 
 export interface InnsendteMeldekortType {
   meldekort: MeldekortResponse;
@@ -35,9 +36,22 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
             return (
               <Accordion key={innsendtMeldekort.meldeperiode.meldekortId} className={styles.accordion}>
                 <Accordion.Item>
-                  <Accordion.Header>{innsendtMeldekort.meldeperiode.meldekortId}</Accordion.Header>
+                  <Accordion.Header>
+                    <div>
+                      <Heading size={'medium'}>
+                        {`Uke
+                        ${hentUkeNummerForPeriode(
+                          new Date(innsendtMeldekort.meldekort.periode.fom),
+                          new Date(innsendtMeldekort.meldekort.periode.tom)
+                        )}`}
+                      </Heading>
+                      <BodyShort>
+                        {`${formaterDatoForFrontend(new Date(innsendtMeldekort.meldekort.periode.fom))} - ${formaterDatoForFrontend(new Date(innsendtMeldekort.meldekort.periode.tom))}`}
+                      </BodyShort>
+                    </div>
+                  </Accordion.Header>
                   <Accordion.Content>
-                    <OppsummeringKalender meldekort={innsendtMeldekort.meldekort} />
+                    <OppsummeringKalender meldekort={innsendtMeldekort.meldekort} visPeriode={false} />
                     <Link href={`/${params.system}`} className={styles.link}>
                       Endre meldekort
                     </Link>

@@ -10,6 +10,7 @@ import { MeldekortResponse } from 'lib/types/types';
 
 interface Props {
   meldekort: MeldekortResponse;
+  visPeriode?: boolean;
 }
 
 export interface Dag {
@@ -17,7 +18,7 @@ export interface Dag {
   timer: number;
 }
 
-export const OppsummeringKalender = ({ meldekort }: Props) => {
+export const OppsummeringKalender = ({ meldekort, visPeriode = true }: Props) => {
   const fraDato = new Date(meldekort.periode.fom);
   const tilDato = new Date(meldekort.periode.tom);
 
@@ -41,14 +42,16 @@ export const OppsummeringKalender = ({ meldekort }: Props) => {
 
   return (
     <div className={styles.oppsummeringkalender}>
-      <div className={styles.heading}>
-        <Heading size={'medium'} level={'3'}>
-          Uke {fraDatoUkenummer} - {tilDatoUkenummer}
-        </Heading>
-        <BodyShort>
-          {formaterDatoForFrontend(meldekort.periode.fom)} - {formaterDatoForFrontend(meldekort.periode.tom)}
-        </BodyShort>
-      </div>
+      {visPeriode && (
+        <div className={styles.heading}>
+          <Heading size={'medium'} level={'3'}>
+            Uke {fraDatoUkenummer} - {tilDatoUkenummer}
+          </Heading>
+          <BodyShort>
+            {formaterDatoForFrontend(meldekort.periode.fom)} - {formaterDatoForFrontend(meldekort.periode.tom)}
+          </BodyShort>
+        </div>
+      )}
       <div className={styles.kalender}>
         <UkeHeader />
         {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
