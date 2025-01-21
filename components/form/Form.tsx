@@ -44,13 +44,18 @@ export const Form = ({
                 router.push(`/${params.system}/${referanse}/${forrigeSteg}`);
               }
             }}
-            icon={<ArrowLeftIcon />}
+            icon={<ArrowLeftIcon aria-hidden={'true'} />}
             iconPosition={'left'}
           >
             {forrigeStegKnappTekst}
           </Button>
         )}
-        <Button variant={'primary'} icon={<ArrowRightIcon />} iconPosition={'right'} loading={isLoading}>
+        <Button
+          variant={'primary'}
+          icon={<ArrowRightIcon aria-hidden={'true'} />}
+          iconPosition={'right'}
+          loading={isLoading}
+        >
           {nesteStegKnappTekst}
         </Button>
       </div>
