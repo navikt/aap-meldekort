@@ -31,17 +31,3 @@ interface Meldeperioder {
   antallUbesvarteMeldeperioder: number;
   eldsteUbesvarteMeldeperiode: Meldeperiode;
 }
-
-export function nåværendeMeldeperiode(meldeperioder: Meldeperiode[]): Meldeperiode | undefined {
-  return meldeperioder.find((meldeperiode) => meldeperiode.type === 'VANLIG' && meldeperiode.klarForInnsending);
-}
-
-export function meldeperioderSomKanEtterregistreres(meldeperioder: Meldeperiode[]): Meldeperiode[] | undefined {
-  return meldeperioder.filter(
-    (meldeperiode) => meldeperiode.type === 'ETTERREGISTRERING' && meldeperiode.klarForInnsending
-  );
-}
-
-export function hentInnsendteMeldeperioder(meldeperioder: Meldeperiode[]): Meldeperiode[] | undefined {
-  return meldeperioder.filter((meldeperiode) => meldeperiode.type === 'VANLIG');
-}
