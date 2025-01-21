@@ -309,19 +309,19 @@ export interface components {
     'no.nav.aap.meldekort.arena.PeriodeDto': {
       /**
        * Format: date
-       * @example 2025-01-14
+       * @example 2025-01-21
        */
       fom: string;
       /**
        * Format: date
-       * @example 2025-01-14
+       * @example 2025-01-21
        */
       tom: string;
     };
     'no.nav.aap.meldekort.arena.TimerArbeidetDto': {
       /**
        * Format: date
-       * @example 2025-01-14
+       * @example 2025-01-21
        */
       dato: string;
       /** Format: double */
