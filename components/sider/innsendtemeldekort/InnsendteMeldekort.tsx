@@ -1,12 +1,10 @@
 'use client';
 
-import { Accordion, Alert, BodyShort, Heading, HGrid, Link } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, HGrid } from '@navikt/ds-react';
 import { MeldekortResponse } from 'lib/types/types';
-import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useParams } from 'next/navigation';
-
-import styles from './InnsendteMeldekort.module.css';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { LinkPanelMeldekort } from 'components/linkpanel/meldekort/LinkPanelMeldekort';
 
 export interface InnsendteMeldekortType {
   meldekort: MeldekortResponse;
@@ -34,30 +32,16 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
         <>
           {innsendteMeldeperioder.map((innsendtMeldekort) => {
             return (
-              <Accordion key={innsendtMeldekort.meldekortId} className={styles.accordion}>
-                <Accordion.Item>
-                  <Accordion.Header>
-                    <div>
-                      <Heading size={'medium'}>
-                        {`Uke
-                        ${hentUkeNummerForPeriode(
-                          new Date(innsendtMeldekort.meldekort.periode.fom),
-                          new Date(innsendtMeldekort.meldekort.periode.tom)
-                        )}`}
-                      </Heading>
-                      <BodyShort>
-                        {`${formaterDatoForFrontend(new Date(innsendtMeldekort.meldekort.periode.fom))} - ${formaterDatoForFrontend(new Date(innsendtMeldekort.meldekort.periode.tom))}`}
-                      </BodyShort>
-                    </div>
-                  </Accordion.Header>
-                  <Accordion.Content>
-                    <OppsummeringKalender meldekort={innsendtMeldekort.meldekort} visPeriode={false} />
-                    <Link href={`/${params.system}`} className={styles.link}>
-                      Endre meldekort
-                    </Link>
-                  </Accordion.Content>
-                </Accordion.Item>
-              </Accordion>
+              <LinkPanelMeldekort
+                key={innsendtMeldekort.meldekortId}
+                title={`${formaterDatoForFrontend(innsendtMeldekort.meldekort.periode.fom)} - ${formaterDatoForFrontend(innsendtMeldekort.meldekort.periode.tom)}`}
+                href={`/${params.system}/innsendt/${innsendtMeldekort.meldekortId}`}
+                description={`Uke ${hentUkeNummerForPeriode(
+                  new Date(innsendtMeldekort.meldekort.periode.fom),
+                  new Date(innsendtMeldekort.meldekort.periode.tom)
+                )}`}
+                status={'hellopello'}
+              />
             );
           })}
         </>
