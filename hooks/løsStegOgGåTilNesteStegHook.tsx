@@ -21,7 +21,6 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
       setErrorMessage('Kunne ikke gå videre på grunn av: ' + JSON.stringify(meldekortResponse?.feil?.innsendingFeil));
       setIsLoading(false);
     } else {
-      console.log('hva skjer her?', meldekortResponse);
       router.push(`/${params.system}/${referanse}/${meldekortResponse?.steg}`);
     }
   };
