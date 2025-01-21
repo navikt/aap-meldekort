@@ -13,7 +13,7 @@ export const LinkPanel = ({ title, href }: Props) => {
       <BodyShort size={'large'} style={{ fontWeight: 'bold' }}>
         {title}
       </BodyShort>
-      <ChevronRightIcon fontSize={'1.6rem'} />
+      <ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />
     </a>
   );
 };
