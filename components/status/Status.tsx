@@ -6,10 +6,10 @@ interface Props {
   status: 'INNSENDT';
 }
 
-export const Status = ({}: Props) => {
+export const Status = ({ status }: Props) => {
   return (
     <div className={styles.status}>
-      <BodyShort>Innsendt</BodyShort>
+      <BodyShort>{status}</BodyShort>
     </div>
   );
 };

@@ -11,7 +11,7 @@ interface Props {
   status?: string;
 }
 
-export const LinkPanelMeldekort = ({ title, href, description, status }: Props) => {
+export const LinkPanelMeldekort = ({ title, href, description }: Props) => {
   return (
     <a href={href} className={styles.link}>
       <div className={styles.top}>

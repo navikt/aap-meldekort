@@ -1,11 +1,10 @@
 'use client';
 
 import { MeldekortResponse } from 'lib/types/types';
-import { BodyShort, Button, Checkbox, CheckboxGroup, Heading, HStack, ReadMore, VStack } from '@navikt/ds-react';
+import { BodyShort, Button, Checkbox, CheckboxGroup, Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useState } from 'react';
 import { JaEllerNei } from 'lib/utils/form';
-import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
 
 interface Props {
   meldekort: MeldekortResponse;
