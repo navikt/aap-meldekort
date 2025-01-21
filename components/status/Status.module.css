@@ -1,0 +1,5 @@
+.status {
+  background-color: var(--a-blue-100);
+  border-radius: var(--a-border-radius-large);
+  padding: var(--a-space-8);
+}
