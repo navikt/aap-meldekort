@@ -10,10 +10,10 @@ import { UkeRad } from 'components/rapporteringskalender/ukerad/UkeRad';
 import { UkeHeader } from './ukeheader/UkeHeader';
 import { MeldepliktError, MeldepliktFormFields } from 'components/steg/utfylling/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
-import { MeldekortResponse } from 'lib/types/types';
+import { MeldekortResponse, Periode } from 'lib/types/types';
 
 interface Props {
-  meldeperiode: MeldekortResponse;
+  periode: Periode;
   errors: MeldepliktError[];
 }
 
@@ -21,9 +21,9 @@ export type FieldArrayWithIndex = FieldArrayWithId<MeldepliktFormFields> & {
   index: number;
 };
 
-export const Rapporteringskalender = ({ meldeperiode, errors }: Props) => {
-  const fraDato = new Date(meldeperiode.periode.fom);
-  const tilDato = new Date(meldeperiode.periode.tom);
+export const Rapporteringskalender = ({ errors, periode }: Props) => {
+  const fraDato = new Date(periode.fom);
+  const tilDato = new Date(periode.tom);
 
   const form = useFormContext<MeldepliktFormFields>();
 
@@ -54,7 +54,7 @@ export const Rapporteringskalender = ({ meldeperiode, errors }: Props) => {
             Uke {fraDatoUkenummer} - {tilDatoUkenummer}
           </Heading>
           <BodyShort>
-            {formaterDatoForFrontend(meldeperiode.periode.fom)} - {formaterDatoForFrontend(meldeperiode.periode.tom)}
+            {formaterDatoForFrontend(periode.fom)} - {formaterDatoForFrontend(periode.tom)}
           </BodyShort>
         </div>
         <div className={styles.kalender}>
