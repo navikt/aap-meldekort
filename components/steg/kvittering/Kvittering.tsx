@@ -3,17 +3,17 @@
 import { Accordion, Alert, Button, HGrid, Link } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useParams } from 'next/navigation';
-import { MeldekortResponse, Meldeperiode } from 'lib/types/types';
+import { KommendeMeldekortDto, MeldekortResponse } from 'lib/types/types';
 import NextLink from 'next/link';
 
 import styles from 'components/steg/kvittering/Kvittering.module.css';
 
 interface Props {
   meldekort: MeldekortResponse;
-  ubesvartMeldeperiode?: Meldeperiode;
+  kommendeMeldekort?: KommendeMeldekortDto;
 }
 
-export const Kvittering = ({ meldekort, ubesvartMeldeperiode }: Props) => {
+export const Kvittering = ({ meldekort, kommendeMeldekort }: Props) => {
   const params = useParams<{ system: string }>();
 
   return (
@@ -25,13 +25,13 @@ export const Kvittering = ({ meldekort, ubesvartMeldeperiode }: Props) => {
         <Accordion.Item>
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
           <Accordion.Content>
-            <OppsummeringKalender meldekort={meldekort} />
+            <OppsummeringKalender timerArbeidet={meldekort.meldekort.timerArbeidet} periode={meldekort.periode} />
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
       <div className={styles.knapperad}>
-        {ubesvartMeldeperiode && (
-          <NextLink href={`/${params.system}/${ubesvartMeldeperiode.meldekortId}`} passHref legacyBehavior>
+        {kommendeMeldekort?.nesteMeldekort && (
+          <NextLink href={`/${params.system}/${kommendeMeldekort.nesteMeldekort.meldekortId}`} passHref legacyBehavior>
             <Button variant="primary" type="button" as={'a'}>
               Gå til neste meldekort
             </Button>

@@ -1,35 +1,35 @@
 import fs from 'fs/promises';
 
-import { MeldekortRequest, MeldekortResponse, Meldeperiode, Steg } from 'lib/types/types';
+import {
+  HistoriskMeldekortDetaljerDto,
+  HistoriskMeldekortDto,
+  KommendeMeldekortDto,
+  MeldekortRequest,
+  MeldekortResponse,
+  Steg,
+} from 'lib/types/types';
 
 /*
  * meldeperioder
  * meldekort
  */
 
-export async function hentMeldeperioderMock(): Promise<Meldeperiode[]> {
+export async function hentKommendeMeldekortMock(): Promise<KommendeMeldekortDto> {
   try {
-    return JSON.parse(await fs.readFile('.meldeperioder.cache', 'utf8')) as unknown as Meldeperiode[];
+    return JSON.parse(await fs.readFile('.kommendeMeldekort.cache', 'utf8')) as unknown as KommendeMeldekortDto;
   } catch (err) {
-    const meldeperioder: Meldeperiode[] = [
-      {
-        type: 'VANLIG',
-        kanEndres: true,
-        klarForInnsending: true,
-        meldekortId: 123456789,
-        periode: { fom: '2024-11-04', tom: '2024-11-17' },
+    const kommendeMeldekort: KommendeMeldekortDto = {
+      nesteMeldekort: {
+        meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' },
+        meldekortId: '123456',
+        tidligsteInnsendingsDato: '2024-11-05',
+        kanSendesInn: true,
       },
-      {
-        type: 'ETTERREGISTRERING',
-        kanEndres: true,
-        klarForInnsending: false,
-        meldekortId: 987654321,
-        periode: { fom: '2024-10-21', tom: '2024-11-03' },
-      },
-    ];
+      antallUbesvarteMeldekort: 1,
+    };
 
-    await fs.writeFile('.meldeperioder.cache', JSON.stringify(meldeperioder));
-    return meldeperioder;
+    await fs.writeFile('.kommendeMeldekort.cache', JSON.stringify(kommendeMeldekort));
+    return kommendeMeldekort;
   }
 }
 
@@ -75,8 +75,60 @@ export async function hentMeldekortMock(): Promise<MeldekortResponse> {
   }
 }
 
+export async function hentHistoriskMeldekortMock(): Promise<HistoriskMeldekortDto[]> {
+  try {
+    return JSON.parse(await fs.readFile('.historiskMeldekort.cache', 'utf8')) as unknown as HistoriskMeldekortDto[];
+  } catch (err) {
+    const meldekort: HistoriskMeldekortDto[] = [
+      { meldekortId: '123456789', meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' }, status: 'INNSENDT' },
+    ];
+
+    return (await fs.writeFile(
+      '.historiskMeldekort.cache',
+      JSON.stringify(meldekort)
+    )) as unknown as HistoriskMeldekortDto[];
+  }
+}
+
+export async function hentHistoriskMeldekortDetaljerMock(): Promise<HistoriskMeldekortDetaljerDto> {
+  try {
+    return JSON.parse(
+      await fs.readFile('.historiskMeldekortDetaljer.cache', 'utf8')
+    ) as unknown as HistoriskMeldekortDetaljerDto;
+  } catch (err) {
+    const meldekort: HistoriskMeldekortDetaljerDto = {
+      meldekortId: '123456789',
+      meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' },
+      status: 'INNSENDT',
+      innsendtDato: new Date().toString(),
+      kanEndres: false,
+      bruttoBeløp: 8745,
+      timerArbeidet: [
+        { dato: '2024-11-04' },
+        { dato: '2024-11-05' },
+        { dato: '2024-11-06' },
+        { dato: '2024-11-07' },
+        { dato: '2024-11-08' },
+        { dato: '2024-11-09' },
+        { dato: '2024-11-10' },
+        { dato: '2024-11-11' },
+        { dato: '2024-11-12' },
+        { dato: '2024-11-13' },
+        { dato: '2024-11-14' },
+        { dato: '2024-11-15' },
+        { dato: '2024-11-16' },
+        { dato: '2024-11-17' },
+      ],
+    };
+    return (await fs.writeFile(
+      '.historiskMeldekortDetaljer.cache',
+      JSON.stringify(meldekort)
+    )) as unknown as HistoriskMeldekortDetaljerDto;
+  }
+}
+
 export async function slettMock() {
-  await fs.unlink('.meldeperioder.cache');
+  await fs.unlink('.kommendeMeldekort.cache');
   await fs.unlink('.meldekort.cache');
 }
 

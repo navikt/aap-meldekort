@@ -1,8 +1,8 @@
-import { hentMeldeperioder } from 'lib/services/meldekortservice';
 import { Oversikt } from 'components/oversikt/Oversikt';
+import { hentKommendeMeldekort } from 'lib/services/meldekortservice';
 
 export default async function Page() {
-  const meldeperioder = await hentMeldeperioder();
+  const kommendeMeldekort = await hentKommendeMeldekort();
 
-  return <Oversikt meldeperioder={meldeperioder} />;
+  return <Oversikt kommendeMeldekort={kommendeMeldekort} />;
 }

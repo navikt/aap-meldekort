@@ -1,5 +1,5 @@
 import { EndreMeldekort } from 'components/sider/endremeldekort/EndreMeldekort';
-import { hentMeldekort } from 'lib/services/meldekortservice';
+import { hentInnsendtMeldekortDetjalert, hentMeldekort } from 'lib/services/meldekortservice';
 
 interface Props {
   params: Promise<{
@@ -9,7 +9,7 @@ interface Props {
 
 export default async function endreMeldekortPage(props: Props) {
   const params = await props.params;
-  const meldekort = await hentMeldekort(params.innsendtreferanse);
+  const innsendteMeldekort = await hentInnsendtMeldekortDetjalert(params.innsendtreferanse);
 
-  return <EndreMeldekort meldekort={meldekort} />;
+  return <EndreMeldekort meldekort={innsendteMeldekort} />;
 }

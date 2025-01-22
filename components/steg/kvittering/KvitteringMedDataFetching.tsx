@@ -1,6 +1,5 @@
 import { Kvittering } from 'components/steg/kvittering/Kvittering';
-import { hentMeldekort, hentMeldeperioder } from 'lib/services/meldekortservice';
-import { hentUbesvarteMeldeperioder } from 'lib/utils/meldeperioder';
+import { hentKommendeMeldekort, hentMeldekort } from 'lib/services/meldekortservice';
 
 interface Props {
   referanse: string;
@@ -8,11 +7,7 @@ interface Props {
 
 export const KvitteringMedDataFetching = async ({ referanse }: Props) => {
   const meldekort = await hentMeldekort(referanse);
-  const meldeperioder = await hentMeldeperioder();
+  const kommendeMeldekort = await hentKommendeMeldekort();
 
-  const ubesvarteMeldeperioder = hentUbesvarteMeldeperioder(meldeperioder);
-
-  return (
-    <Kvittering meldekort={meldekort} ubesvartMeldeperiode={ubesvarteMeldeperioder?.eldsteUbesvarteMeldeperiode} />
-  );
+  return <Kvittering meldekort={meldekort} kommendeMeldekort={kommendeMeldekort} />;
 };

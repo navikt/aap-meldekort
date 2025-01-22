@@ -57,7 +57,7 @@ export const TimerArbeidet = ({ referanse, meldekort }: Props) => {
 
           <Alert variant={'warning'}>Meldekortet er ikke sendt inn ennå</Alert>
           <BodyShort spacing>Se over meldekortet ditt og pass på at alt er riktig før du sender inn.</BodyShort>
-          <OppsummeringKalender meldekort={meldekort} />
+          <OppsummeringKalender timerArbeidet={meldekort.meldekort.timerArbeidet} periode={meldekort.periode} />
           <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
         </VStack>
       </Form>

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { Kvittering } from 'components/steg/kvittering/Kvittering';
 import { describe, expect, it } from 'vitest';
-import { MeldekortResponse, Meldeperiode } from 'lib/types/types';
+import { KommendeMeldekortDto, MeldekortResponse } from 'lib/types/types';
 
 const meldekort: MeldekortResponse = {
   periode: { fom: '2024-11-18', tom: '2024-12-01' },
@@ -25,17 +25,16 @@ describe('Kvittering', () => {
   });
 
   it('skal ha en knapp for å gå tilbake til oversikt siden', () => {
-    const meldeperiode: Meldeperiode = {
-      kanEndres: false,
-      klarForInnsending: true,
-      meldekortId: 0,
-      type: 'VANLIG',
-      periode: {
-        fom: '2024-11-18',
-        tom: '2024-12-01',
+    const kommendeMeldekort: KommendeMeldekortDto = {
+      nesteMeldekort: {
+        meldeperiode: { fom: '2024-12-15', tom: '2024-12-01' },
+        meldekortId: '987654321',
+        tidligsteInnsendingsDato: '',
+        kanSendesInn: true,
       },
+      antallUbesvarteMeldekort: 1,
     };
-    render(<Kvittering meldekort={meldekort} ubesvartMeldeperiode={meldeperiode} />);
+    render(<Kvittering meldekort={meldekort} kommendeMeldekort={kommendeMeldekort} />);
 
     const knapp = screen.getByRole('link', { name: 'Gå tilbake til oversikt' });
     expect(knapp).toBeVisible();

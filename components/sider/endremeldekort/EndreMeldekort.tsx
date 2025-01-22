@@ -1,13 +1,13 @@
 'use client';
 
-import { MeldekortResponse } from 'lib/types/types';
+import { HistoriskMeldekortDetaljerDto, MeldekortResponse } from 'lib/types/types';
 import { BodyShort, Button, Checkbox, CheckboxGroup, Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useState } from 'react';
 import { JaEllerNei } from 'lib/utils/form';
 
 interface Props {
-  meldekort: MeldekortResponse;
+  meldekort: HistoriskMeldekortDetaljerDto;
 }
 
 export const EndreMeldekort = ({ meldekort }: Props) => {
@@ -30,7 +30,11 @@ export const EndreMeldekort = ({ meldekort }: Props) => {
       >
         <Checkbox value={JaEllerNei.Ja}>Endre meldekort</Checkbox>
       </CheckboxGroup>
-      {endrer ? <div>Nå endrer jeg</div> : <OppsummeringKalender meldekort={meldekort} />}
+      {endrer ? (
+        <div>Nå endrer jeg</div>
+      ) : (
+        <OppsummeringKalender timerArbeidet={meldekort.timerArbeidet} periode={meldekort.meldeperiode} />
+      )}
       <div>
         <Button variant={'secondary'}>Tilbake</Button>
         <Button>Send inn</Button>

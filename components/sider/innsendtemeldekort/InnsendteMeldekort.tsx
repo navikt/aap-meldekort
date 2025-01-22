@@ -1,7 +1,7 @@
 'use client';
 
 import { Alert, BodyShort, Heading, HGrid } from '@navikt/ds-react';
-import { MeldekortResponse } from 'lib/types/types';
+import { HistoriskMeldekortDto, MeldekortResponse } from 'lib/types/types';
 import { useParams } from 'next/navigation';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { LinkPanelMeldekort } from 'components/linkpanel/meldekort/LinkPanelMeldekort';
@@ -12,7 +12,7 @@ export interface InnsendteMeldekortType {
 }
 
 interface Props {
-  innsendteMeldeperioder: InnsendteMeldekortType[];
+  innsendteMeldeperioder: HistoriskMeldekortDto[];
 }
 
 export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
@@ -34,11 +34,11 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
             return (
               <LinkPanelMeldekort
                 key={innsendtMeldekort.meldekortId}
-                title={`${formaterDatoForFrontend(innsendtMeldekort.meldekort.periode.fom)} - ${formaterDatoForFrontend(innsendtMeldekort.meldekort.periode.tom)}`}
+                title={`${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.tom)}`}
                 href={`/${params.system}/innsendt/${innsendtMeldekort.meldekortId}`}
                 description={`Uke ${hentUkeNummerForPeriode(
-                  new Date(innsendtMeldekort.meldekort.periode.fom),
-                  new Date(innsendtMeldekort.meldekort.periode.tom)
+                  new Date(innsendtMeldekort.meldeperiode.fom),
+                  new Date(innsendtMeldekort.meldeperiode.tom)
                 )}`}
                 status={'hellopello'}
               />

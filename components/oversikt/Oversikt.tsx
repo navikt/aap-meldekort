@@ -1,38 +1,35 @@
 'use client';
 
-import { Meldeperiode } from 'lib/types/types';
+import { KommendeMeldekortDto } from 'lib/types/types';
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
-import { hentUbesvarteMeldeperioder } from 'lib/utils/meldeperioder';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 import { useParams } from 'next/navigation';
 import { LinkPanel } from 'components/linkpanel/LinkPanel';
 
 interface Props {
-  meldeperioder?: Meldeperiode[];
+  kommendeMeldekort?: KommendeMeldekortDto;
 }
 
-export const Oversikt = ({ meldeperioder }: Props) => {
+export const Oversikt = ({ kommendeMeldekort }: Props) => {
   const params = useParams<{ system: string }>();
 
-  if (!meldeperioder) {
+  if (!kommendeMeldekort) {
     return <div>Kunne ikke finne noen meldeperioder</div>;
   }
-
-  const ubesvarteMeldeperioder = hentUbesvarteMeldeperioder(meldeperioder);
 
   return (
     <VStack gap={'4'}>
       <Heading level={'2'} size={'medium'}>
         Velg hva du vil gjøre
       </Heading>
-      {ubesvarteMeldeperioder ? (
+      {kommendeMeldekort ? (
         <VStack gap={'4'}>
           <BodyShort
             size={'large'}
-          >{`Du har ${ubesvarteMeldeperioder.antallUbesvarteMeldeperioder}  meldekort klart for innsending. Du må fylle ut den eldste først.`}</BodyShort>
+          >{`Du har ${kommendeMeldekort.antallUbesvarteMeldekort}  meldekort klart for innsending. Du må fylle ut den eldste først.`}</BodyShort>
           <LinkPanel
-            href={`/${params.system}/${ubesvarteMeldeperioder.eldsteUbesvarteMeldeperiode.meldekortId}`}
-            title={`Send meldekort for perioden (${formaterDatoForFrontend(ubesvarteMeldeperioder.eldsteUbesvarteMeldeperiode.periode.fom)} - ${formaterDatoForFrontend(ubesvarteMeldeperioder.eldsteUbesvarteMeldeperiode.periode.tom)})`}
+            href={`/${params.system}/${kommendeMeldekort.nesteMeldekort.meldekortId}`}
+            title={`Send meldekort for perioden (${formaterDatoForFrontend(kommendeMeldekort.nesteMeldekort.meldeperiode.fom)} - ${formaterDatoForFrontend(kommendeMeldekort.nesteMeldekort.meldeperiode.tom)})`}
           />
         </VStack>
       ) : (

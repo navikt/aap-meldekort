@@ -6,10 +6,11 @@ import { OppsummeringUkeRad } from 'components/oppsummeringkalender/oppsummering
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 
 import styles from './OppsummeringKalender.module.css';
-import { MeldekortResponse } from 'lib/types/types';
+import { Periode, Timer } from 'lib/types/types';
 
 interface Props {
-  meldekort: MeldekortResponse;
+  timerArbeidet: Timer;
+  periode: Periode;
   visPeriode?: boolean;
 }
 
@@ -18,22 +19,22 @@ export interface Dag {
   timer: number;
 }
 
-export const OppsummeringKalender = ({ meldekort, visPeriode = true }: Props) => {
-  const fraDato = new Date(meldekort.periode.fom);
-  const tilDato = new Date(meldekort.periode.tom);
+export const OppsummeringKalender = ({ periode, timerArbeidet, visPeriode = true }: Props) => {
+  const fraDato = new Date(periode.fom);
+  const tilDato = new Date(periode.tom);
 
   const fraDatoUkenummer = getISOWeek(fraDato);
   const tilDatoUkenummer = getISOWeek(tilDato);
 
   const grupperteFelter: Record<string, Dag[]> = {};
 
-  meldekort.meldekort.timerArbeidet.forEach((timerArbeidet) => {
-    const ukestart = format(startOfWeek(timerArbeidet.dato, { weekStartsOn: 1 }), 'yyyy-MM-dd');
+  timerArbeidet.forEach((timer) => {
+    const ukestart = format(startOfWeek(timer.dato, { weekStartsOn: 1 }), 'yyyy-MM-dd');
     if (!grupperteFelter[ukestart]) {
       grupperteFelter[ukestart] = [];
     }
 
-    grupperteFelter[ukestart].push({ dag: new Date(timerArbeidet.dato), timer: timerArbeidet.timer ?? 0 });
+    grupperteFelter[ukestart].push({ dag: new Date(timer.dato), timer: timer.timer ?? 0 });
   });
 
   const timer = Object.values(grupperteFelter)
@@ -48,7 +49,7 @@ export const OppsummeringKalender = ({ meldekort, visPeriode = true }: Props) =>
             Uke {fraDatoUkenummer} - {tilDatoUkenummer}
           </Heading>
           <BodyShort>
-            {formaterDatoForFrontend(meldekort.periode.fom)} - {formaterDatoForFrontend(meldekort.periode.tom)}
+            {formaterDatoForFrontend(periode.fom)} - {formaterDatoForFrontend(periode.tom)}
           </BodyShort>
         </div>
       )}
