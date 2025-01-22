@@ -21,6 +21,8 @@
 /build
 
 # misc
+.historiskMeldekort.cache
+.historiskMeldekortDetaljer.cache
 .kommendeMeldekort.cache
 .meldekort.cache
 .DS_Store
