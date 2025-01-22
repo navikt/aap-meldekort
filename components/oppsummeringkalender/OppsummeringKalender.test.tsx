@@ -3,46 +3,39 @@ import { render, screen } from '@testing-library/react';
 import { eachDayOfInterval, format } from 'date-fns';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 
-import { MeldekortResponse } from 'lib/types/types';
-
-const meldekort: MeldekortResponse = {
-  periode: { fom: '2024-11-18', tom: '2024-12-01' },
-  meldekort: {
-    timerArbeidet: [
-      { dato: '2024-11-18' },
-      { dato: '2024-11-19' },
-      { dato: '2024-11-20' },
-      { dato: '2024-11-21' },
-      { dato: '2024-11-22' },
-      { dato: '2024-11-23' },
-      { dato: '2024-11-24' },
-      { dato: '2024-11-25' },
-      { dato: '2024-11-26' },
-      { dato: '2024-11-27' },
-      { dato: '2024-11-28' },
-      { dato: '2024-11-29' },
-      { dato: '2024-11-30' },
-      { dato: '2024-12-01' },
-    ],
-  },
-  steg: 'TIMER_ARBEIDET',
-};
+const periode = { fom: '2024-11-18', tom: '2024-12-01' };
+const timerArbeider = [
+  { dato: '2024-11-18' },
+  { dato: '2024-11-19' },
+  { dato: '2024-11-20' },
+  { dato: '2024-11-21' },
+  { dato: '2024-11-22' },
+  { dato: '2024-11-23' },
+  { dato: '2024-11-24' },
+  { dato: '2024-11-25' },
+  { dato: '2024-11-26' },
+  { dato: '2024-11-27' },
+  { dato: '2024-11-28' },
+  { dato: '2024-11-29' },
+  { dato: '2024-11-30' },
+  { dato: '2024-12-01' },
+];
 
 describe('oppsummering kalender', () => {
   it('skal vise ukenummer på perioden', () => {
-    render(<OppsummeringKalender meldekort={meldekort} />);
+    render(<OppsummeringKalender timerArbeidet={timerArbeider} periode={periode} />);
     const ukenummer = screen.getByText('Uke 47 - 48');
     expect(ukenummer).toBeVisible();
   });
 
   it('skal vise fra dato og til dato for perioden', () => {
-    render(<OppsummeringKalender meldekort={meldekort} />);
+    render(<OppsummeringKalender timerArbeidet={timerArbeider} periode={periode} />);
     const datoerForPerioden = screen.getByText('18.11.2024 - 01.12.2024');
     expect(datoerForPerioden).toBeVisible();
   });
 
   it('skal vise dagene i uken som tekst', () => {
-    render(<OppsummeringKalender meldekort={meldekort} />);
+    render(<OppsummeringKalender timerArbeidet={timerArbeider} periode={periode} />);
     const mandag = screen.getByText('Man.');
     expect(mandag).toBeVisible();
 
@@ -66,17 +59,17 @@ describe('oppsummering kalender', () => {
   });
 
   it('skal vise 14 felter som viser timene som  er ført', () => {
-    render(<OppsummeringKalender meldekort={meldekort} />);
+    render(<OppsummeringKalender timerArbeidet={timerArbeider} periode={periode} />);
     for (let i = 0; i < 14; i++) {
       const førteTimer = screen.getAllByText('0');
       expect(førteTimer).toHaveLength(14);
     }
   });
   it('skal vise datoen for de 14 feltene', () => {
-    render(<OppsummeringKalender meldekort={meldekort} />);
+    render(<OppsummeringKalender timerArbeidet={timerArbeider} periode={periode} />);
     const datoer = eachDayOfInterval({
-      start: new Date(meldekort.periode.fom),
-      end: new Date(meldekort.periode.tom),
+      start: new Date(periode.fom),
+      end: new Date(periode.tom),
     });
     datoer.forEach((dato) => {
       const datoNummer = format(dato, 'd');

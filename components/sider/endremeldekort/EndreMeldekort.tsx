@@ -1,6 +1,6 @@
 'use client';
 
-import { HistoriskMeldekortDetaljerDto, MeldekortResponse } from 'lib/types/types';
+import { HistoriskMeldekortDetaljerDto } from 'lib/types/types';
 import { BodyShort, Button, Checkbox, CheckboxGroup, Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useState } from 'react';

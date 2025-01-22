@@ -1,5 +1,5 @@
 import { EndreMeldekort } from 'components/sider/endremeldekort/EndreMeldekort';
-import { hentInnsendtMeldekortDetjalert, hentMeldekort } from 'lib/services/meldekortservice';
+import { hentInnsendtMeldekortDetjalert } from 'lib/services/meldekortservice';
 
 interface Props {
   params: Promise<{
