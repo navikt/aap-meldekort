@@ -61,7 +61,7 @@ describe('oppsummering kalender', () => {
   it('skal vise 14 felter som viser timene som  er ført', () => {
     render(<OppsummeringKalender timerArbeidet={timerArbeider} periode={periode} />);
     for (let i = 0; i < 14; i++) {
-      const førteTimer = screen.getAllByText('0');
+      const førteTimer = screen.getAllByText('0t');
       expect(førteTimer).toHaveLength(14);
     }
   });
