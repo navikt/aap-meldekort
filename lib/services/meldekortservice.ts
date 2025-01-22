@@ -59,7 +59,7 @@ export async function hentMeldekort(referanse: string): Promise<MeldekortRespons
     return hentMeldekortMock();
   }
 
-  const url = `${meldeKortBaseUrl}/api/arena/skjema/meldekort/${referanse}`;
+  const url = `${meldeKortBaseUrl}/api/arena/skjema/${referanse}`;
   return await fetcher<MeldekortResponse>(url, 'GET');
 }
 
@@ -72,7 +72,7 @@ export async function gåTilNesteSteg(
     return await hentMeldekortMock();
   }
 
-  const url = `${meldeKortBaseUrl}/api/arena/skjema/meldekort/${meldekortId}/neste-steg`;
+  const url = `${meldeKortBaseUrl}/api/arena/skjema/${meldekortId}/neste-steg`;
   return fetcher(url, 'POST', meldekortRequest);
 }
 
@@ -85,6 +85,6 @@ export async function lagreMeldekort(
     return undefined;
   }
 
-  const url = `${meldeKortBaseUrl}/api/arena/skjema/meldekort/${meldekortId}/neste-steg`;
+  const url = `${meldeKortBaseUrl}/api/arena/skjema/${meldekortId}/neste-steg`;
   return fetcher(url, 'POST', meldekortRequest);
 }
