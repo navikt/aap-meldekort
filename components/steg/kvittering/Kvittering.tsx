@@ -3,14 +3,14 @@
 import { Accordion, Alert, Button, HGrid, Link } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useParams } from 'next/navigation';
-import { KommendeMeldekortDto, MeldekortResponse } from 'lib/types/types';
+import { KommendeMeldekort, MeldekortResponse } from 'lib/types/types';
 import NextLink from 'next/link';
 
 import styles from 'components/steg/kvittering/Kvittering.module.css';
 
 interface Props {
   meldekort: MeldekortResponse;
-  kommendeMeldekort?: KommendeMeldekortDto;
+  kommendeMeldekort?: KommendeMeldekort;
 }
 
 export const Kvittering = ({ meldekort, kommendeMeldekort }: Props) => {

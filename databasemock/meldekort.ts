@@ -1,9 +1,9 @@
 import fs from 'fs/promises';
 
 import {
-  HistoriskMeldekortDetaljerDto,
-  HistoriskMeldekortDto,
-  KommendeMeldekortDto,
+  HistoriskMeldekortDetaljer,
+  HistoriskMeldekort,
+  KommendeMeldekort,
   MeldekortRequest,
   MeldekortResponse,
   Steg,
@@ -14,14 +14,14 @@ import {
  * meldekort
  */
 
-export async function hentKommendeMeldekortMock(): Promise<KommendeMeldekortDto> {
+export async function hentKommendeMeldekortMock(): Promise<KommendeMeldekort> {
   try {
-    return JSON.parse(await fs.readFile('.kommendeMeldekort.cache', 'utf8')) as unknown as KommendeMeldekortDto;
+    return JSON.parse(await fs.readFile('.kommendeMeldekort.cache', 'utf8')) as unknown as KommendeMeldekort;
   } catch (err) {
-    const kommendeMeldekort: KommendeMeldekortDto = {
+    const kommendeMeldekort: KommendeMeldekort = {
       nesteMeldekort: {
         meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' },
-        meldekortId: '123456',
+        meldekortId: 123456,
         tidligsteInnsendingsDato: '2024-11-05',
         kanSendesInn: true,
       },
@@ -75,29 +75,29 @@ export async function hentMeldekortMock(): Promise<MeldekortResponse> {
   }
 }
 
-export async function hentHistoriskMeldekortMock(): Promise<HistoriskMeldekortDto[]> {
+export async function hentHistoriskMeldekortMock(): Promise<HistoriskMeldekort[]> {
   try {
-    return JSON.parse(await fs.readFile('.historiskMeldekort.cache', 'utf8')) as unknown as HistoriskMeldekortDto[];
+    return JSON.parse(await fs.readFile('.historiskMeldekort.cache', 'utf8')) as unknown as HistoriskMeldekort[];
   } catch (err) {
-    const meldekort: HistoriskMeldekortDto[] = [
-      { meldekortId: '123456789', meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' }, status: 'INNSENDT' },
+    const meldekort: HistoriskMeldekort[] = [
+      { meldekortId: 123456789, meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' }, status: 'INNSENDT' },
     ];
 
     return (await fs.writeFile(
       '.historiskMeldekort.cache',
       JSON.stringify(meldekort)
-    )) as unknown as HistoriskMeldekortDto[];
+    )) as unknown as HistoriskMeldekort[];
   }
 }
 
-export async function hentHistoriskMeldekortDetaljerMock(): Promise<HistoriskMeldekortDetaljerDto> {
+export async function hentHistoriskMeldekortDetaljerMock(): Promise<HistoriskMeldekortDetaljer> {
   try {
     return JSON.parse(
       await fs.readFile('.historiskMeldekortDetaljer.cache', 'utf8')
-    ) as unknown as HistoriskMeldekortDetaljerDto;
+    ) as unknown as HistoriskMeldekortDetaljer;
   } catch (err) {
-    const meldekort: HistoriskMeldekortDetaljerDto = {
-      meldekortId: '123456789',
+    const meldekort: HistoriskMeldekortDetaljer = {
+      meldekortId: 123456789,
       meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' },
       status: 'INNSENDT',
       innsendtDato: new Date().toString(),
@@ -123,7 +123,7 @@ export async function hentHistoriskMeldekortDetaljerMock(): Promise<HistoriskMel
     return (await fs.writeFile(
       '.historiskMeldekortDetaljer.cache',
       JSON.stringify(meldekort)
-    )) as unknown as HistoriskMeldekortDetaljerDto;
+    )) as unknown as HistoriskMeldekortDetaljer;
   }
 }
 

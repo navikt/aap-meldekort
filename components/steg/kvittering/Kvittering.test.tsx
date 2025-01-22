@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { Kvittering } from 'components/steg/kvittering/Kvittering';
 import { describe, expect, it } from 'vitest';
-import { KommendeMeldekortDto, MeldekortResponse } from 'lib/types/types';
+import { KommendeMeldekort, MeldekortResponse } from 'lib/types/types';
 
 const meldekort: MeldekortResponse = {
   periode: { fom: '2024-11-18', tom: '2024-12-01' },
@@ -25,10 +25,10 @@ describe('Kvittering', () => {
   });
 
   it('skal ha en knapp for å gå tilbake til oversikt siden', () => {
-    const kommendeMeldekort: KommendeMeldekortDto = {
+    const kommendeMeldekort: KommendeMeldekort = {
       nesteMeldekort: {
         meldeperiode: { fom: '2024-12-15', tom: '2024-12-01' },
-        meldekortId: '987654321',
+        meldekortId: 987654321,
         tidligsteInnsendingsDato: '',
         kanSendesInn: true,
       },

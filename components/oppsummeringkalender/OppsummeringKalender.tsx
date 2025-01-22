@@ -6,10 +6,10 @@ import { OppsummeringUkeRad } from 'components/oppsummeringkalender/oppsummering
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 
 import styles from './OppsummeringKalender.module.css';
-import { Periode, Timer } from 'lib/types/types';
+import { Periode, TimerArbeidet } from 'lib/types/types';
 
 interface Props {
-  timerArbeidet: Timer;
+  timerArbeidet?: TimerArbeidet[] | null;
   periode: Periode;
   visPeriode?: boolean;
 }
@@ -28,7 +28,7 @@ export const OppsummeringKalender = ({ periode, timerArbeidet, visPeriode = true
 
   const grupperteFelter: Record<string, Dag[]> = {};
 
-  timerArbeidet.forEach((timer) => {
+  timerArbeidet?.forEach((timer) => {
     const ukestart = format(startOfWeek(timer.dato, { weekStartsOn: 1 }), 'yyyy-MM-dd');
     if (!grupperteFelter[ukestart]) {
       grupperteFelter[ukestart] = [];

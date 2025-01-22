@@ -1,13 +1,13 @@
 'use client';
 
-import { KommendeMeldekortDto } from 'lib/types/types';
+import { KommendeMeldekort } from 'lib/types/types';
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 import { useParams } from 'next/navigation';
 import { LinkPanel } from 'components/linkpanel/LinkPanel';
 
 interface Props {
-  kommendeMeldekort?: KommendeMeldekortDto;
+  kommendeMeldekort?: KommendeMeldekort;
 }
 
 export const Oversikt = ({ kommendeMeldekort }: Props) => {
@@ -22,7 +22,7 @@ export const Oversikt = ({ kommendeMeldekort }: Props) => {
       <Heading level={'2'} size={'medium'}>
         Velg hva du vil gjøre
       </Heading>
-      {kommendeMeldekort ? (
+      {kommendeMeldekort.nesteMeldekort ? (
         <VStack gap={'4'}>
           <BodyShort
             size={'large'}

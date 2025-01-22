@@ -2,38 +2,16 @@ import { components } from 'lib/types/schema';
 
 export type MeldekortRequest = components['schemas']['no.nav.aap.meldekort.arena.MeldekortRequest'];
 export type MeldekortResponse = components['schemas']['no.nav.aap.meldekort.arena.MeldekortResponse'];
-// export type Meldekort = components['schemas']['no.nav.aap.meldekort.arena.MeldekortDto'];
-export type Meldeperiode = components['schemas']['no.nav.aap.meldekort.arena.MeldeperiodeDto'];
 
 export type Steg = MeldekortResponse['steg'];
+export type KommendeMeldekort = components['schemas']['no.nav.aap.meldekort.arena.KommendeMeldekortDto'];
 
-export type Periode = components['schemas']['no.nav.aap.meldekort.arena.MeldeperiodeDto']['periode'];
-export type Timer = components['schemas']['no.nav.aap.meldekort.arena.MeldekortResponse']['meldekort']['timerArbeidet'];
+export type NesteMeldekort = components['schemas']['no.nav.aap.meldekort.arena.NesteMeldekortDto'];
 
-export interface KommendeMeldekortDto {
-  antallUbesvarteMeldekort: number;
-  nesteMeldekort: NesteMeldekortDto;
-}
+export type HistoriskMeldekort = components['schemas']['no.nav.aap.meldekort.arena.HistoriskMeldekortDto'];
 
-export interface NesteMeldekortDto {
-  meldeperiode: Periode;
-  meldekortId: string;
-  tidligsteInnsendingsDato: string;
-  kanSendesInn: Boolean;
-}
+export type HistoriskMeldekortDetaljer =
+  components['schemas']['no.nav.aap.meldekort.arena.HistoriskMeldekortDetaljerDto'];
 
-export interface HistoriskMeldekortDto {
-  meldeperiode: Periode;
-  meldekortId: string;
-  status: string;
-}
-
-export interface HistoriskMeldekortDetaljerDto {
-  meldeperiode: Periode;
-  meldekortId: string;
-  status: string;
-  bruttoBeløp?: number;
-  innsendtDato: string;
-  kanEndres: Boolean;
-  timerArbeidet: { dato: string; timer?: number }[];
-}
+export type Periode = components['schemas']['no.nav.aap.meldekort.arena.PeriodeDto'];
+export type TimerArbeidet = components['schemas']['no.nav.aap.meldekort.arena.TimerArbeidetDto'];

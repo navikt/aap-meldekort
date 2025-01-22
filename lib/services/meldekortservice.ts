@@ -1,8 +1,8 @@
 import { fetcher } from 'lib/services/fetchProxy';
 import {
-  HistoriskMeldekortDetaljerDto,
-  HistoriskMeldekortDto,
-  KommendeMeldekortDto,
+  HistoriskMeldekortDetaljer,
+  HistoriskMeldekort,
+  KommendeMeldekort,
   MeldekortRequest,
   MeldekortResponse,
 } from 'lib/types/types';
@@ -19,31 +19,31 @@ const meldeKortBaseUrl = process.env.MELDEKORT_API_BASE_URL;
 
 export const isLocal = () => process.env.NEXT_PUBLIC_ENVIRONMENT === 'localhost';
 
-export async function hentKommendeMeldekort(): Promise<KommendeMeldekortDto> {
+export async function hentKommendeMeldekort(): Promise<KommendeMeldekort> {
   if (isLocal()) {
     return hentKommendeMeldekortMock();
   }
 
   const url = `${meldeKortBaseUrl}/api/arena/meldekort/neste`;
-  return await fetcher<KommendeMeldekortDto>(url, 'GET');
+  return await fetcher<KommendeMeldekort>(url, 'GET');
 }
 
-export async function hentInnsendteMeldekort(): Promise<HistoriskMeldekortDto[]> {
+export async function hentInnsendteMeldekort(): Promise<HistoriskMeldekort[]> {
   if (isLocal()) {
     return hentHistoriskMeldekortMock();
   }
 
   const url = `${meldeKortBaseUrl}/api/arena/meldekort/historisk`;
-  return await fetcher<HistoriskMeldekortDto[]>(url, 'GET');
+  return await fetcher<HistoriskMeldekort[]>(url, 'GET');
 }
 
-export async function hentInnsendtMeldekortDetjalert(meldekortId: string): Promise<HistoriskMeldekortDetaljerDto> {
+export async function hentInnsendtMeldekortDetjalert(meldekortId: string): Promise<HistoriskMeldekortDetaljer> {
   if (isLocal()) {
     return hentHistoriskMeldekortDetaljerMock();
   }
 
   const url = `${meldeKortBaseUrl}/api/arena/meldekort/historisk/${meldekortId}`;
-  return await fetcher<HistoriskMeldekortDetaljerDto>(url, 'GET');
+  return await fetcher<HistoriskMeldekortDetaljer>(url, 'GET');
 }
 
 export async function korrigerMeldekort() {

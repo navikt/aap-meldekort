@@ -1,13 +1,15 @@
 'use client';
 
-import { HistoriskMeldekortDetaljerDto } from 'lib/types/types';
+import { HistoriskMeldekortDetaljer } from 'lib/types/types';
 import { BodyShort, Button, Checkbox, CheckboxGroup, Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useState } from 'react';
 import { JaEllerNei } from 'lib/utils/form';
 
+import styles from './EndreMeldekort.module.css';
+
 interface Props {
-  meldekort: HistoriskMeldekortDetaljerDto;
+  meldekort: HistoriskMeldekortDetaljer;
 }
 
 export const EndreMeldekort = ({ meldekort }: Props) => {
@@ -35,9 +37,11 @@ export const EndreMeldekort = ({ meldekort }: Props) => {
       ) : (
         <OppsummeringKalender timerArbeidet={meldekort.timerArbeidet} periode={meldekort.meldeperiode} />
       )}
-      <div>
-        <Button variant={'secondary'}>Tilbake</Button>
-        <Button>Send inn</Button>
+      <div className={styles.buttons}>
+        <Button variant={'secondary'} onClick={() => console.log('heheh')}>
+          Tilbake
+        </Button>
+        <Button disabled={!endrer}>Neste</Button>
       </div>
     </VStack>
   );
