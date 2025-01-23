@@ -1,16 +1,19 @@
 import { format, getISOWeek, startOfWeek } from 'date-fns';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 import { UkeHeader } from 'components/rapporteringskalender/ukeheader/UkeHeader';
 import { OppsummeringUkeRad } from 'components/oppsummeringkalender/oppsummeringukerad/OppsummeringUkeRad';
-import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 
 import styles from './OppsummeringKalender.module.css';
 import { Periode, TimerArbeidet } from 'lib/types/types';
+import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
+import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 
 interface Props {
-  timerArbeidet?: TimerArbeidet[] | null;
   periode: Periode;
+  timerArbeidet?: TimerArbeidet[] | null;
+  utbetalt?: number | null;
+  innsendtDato?: string | null;
   visPeriode?: boolean;
 }
 
@@ -19,7 +22,7 @@ export interface Dag {
   timer: number;
 }
 
-export const OppsummeringKalender = ({ periode, timerArbeidet, visPeriode = true }: Props) => {
+export const OppsummeringKalender = ({ periode, timerArbeidet, visPeriode = true, utbetalt, innsendtDato }: Props) => {
   const fraDato = new Date(periode.fom);
   const tilDato = new Date(periode.tom);
 
@@ -59,7 +62,25 @@ export const OppsummeringKalender = ({ periode, timerArbeidet, visPeriode = true
           <OppsummeringUkeRad key={ukeStart} felterIUken={felterIUken} />
         ))}
 
-        <OppsummeringTimer timer={timer} className={styles.oppsummering} />
+        <VStack gap={'4'}>
+          <OppsummeringTimer timer={timer} />
+          {utbetalt && (
+            <OppsummeringRad
+              heading={'Utbetalt for perioden'}
+              label={'Utbetalt'}
+              value={`${utbetalt} kr`}
+              backgroundColor={'green'}
+            />
+          )}
+          {innsendtDato && (
+            <OppsummeringRad
+              heading={'Innsendt'}
+              label={'Innsendt'}
+              value={formaterDatoForFrontend(innsendtDato)}
+              backgroundColor={'white'}
+            />
+          )}
+        </VStack>
       </div>
     </div>
   );

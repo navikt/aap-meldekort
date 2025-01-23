@@ -96,6 +96,8 @@ export const FyllUtKorrigering = () => {
               <OppsummeringKalender
                 timerArbeidet={korrigering.meldekort.timerArbeidet}
                 periode={korrigering.meldekort.meldeperiode}
+                utbetalt={korrigering.meldekort.bruttoBeløp}
+                innsendtDato={korrigering.meldekort.innsendtDato}
               />
             )}
             {errors.length > 0 && (

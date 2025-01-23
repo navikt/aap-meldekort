@@ -1,12 +1,19 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
+import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
 
 beforeEach(() => {
-  render(<OppsummeringTimer timer={26} />);
+  render(
+    <OppsummeringRad
+      heading={'Sammenlagt for perioden'}
+      label={'Jobb'}
+      value={'26 timer (35%)'}
+      backgroundColor={'blue'}
+    />
+  );
 });
 
-describe('timer', () => {
+describe('oppsummeringrad', () => {
   it('skal ha en label', () => {
     const label = screen.getByText('Jobb');
     expect(label).toBeVisible();

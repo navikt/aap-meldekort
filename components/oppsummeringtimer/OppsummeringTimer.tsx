@@ -1,6 +1,4 @@
-import { BodyShort, Label } from '@navikt/ds-react';
-
-import styles from 'components/oppsummeringtimer/OppsummeringTimer.module.css';
+import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
 
 interface Props {
   timer: number;
@@ -9,20 +7,15 @@ interface Props {
 
 const antallTimerIMeldepliktPerioden = 37.5 * 2;
 
-export const OppsummeringTimer = ({ timer, className }: Props) => {
+export const OppsummeringTimer = ({ timer }: Props) => {
   const antallTimerIProsent = Math.round((timer / antallTimerIMeldepliktPerioden) * 100);
 
   return (
-    <div className={`${styles.oppsummeringtimer} ${className}`}>
-      <BodyShort size={'small'} className={styles.heading}>
-        Sammenlagt for perioden
-      </BodyShort>
-      <div className={styles.timer}>
-        <Label size={'medium'}>Jobb</Label>
-        <BodyShort size={'medium'}>
-          {timer} timer ({antallTimerIProsent}%)
-        </BodyShort>
-      </div>
-    </div>
+    <OppsummeringRad
+      heading={'Sammenlagt for perioden'}
+      label={'Jobb'}
+      value={`${timer} timer (${antallTimerIProsent})`}
+      backgroundColor={'blue'}
+    />
   );
 };
