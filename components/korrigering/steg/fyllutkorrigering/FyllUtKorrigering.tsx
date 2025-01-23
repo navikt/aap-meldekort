@@ -10,6 +10,7 @@ import { FormProvider } from 'react-hook-form';
 import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
 import { useParams, useRouter } from 'next/navigation';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
+import timer from '@navikt/aksel-icons/src/Timer';
 
 export interface FormFields {
   dager: Dag[];
@@ -32,7 +33,7 @@ export const FyllUtKorrigering = () => {
       type: 'fieldArray',
       defaultValue: korrigering?.meldekort.timerArbeidet?.map((timerArbeidet) => ({
         dag: timerArbeidet.dato,
-        timer: timerArbeidet.timer?.toString() || '',
+        timer: timerArbeidet.timer == null || timerArbeidet.timer === 0 ? '' : timerArbeidet.timer.toString(),
       })),
     },
     endreMeldekort: {
