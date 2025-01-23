@@ -7,6 +7,7 @@ import { OppsummeringKalender } from 'components/oppsummeringkalender/Oppsummeri
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 import styles from 'components/korrigering/steg/fyllutkorrigering/FyllUtKorrigering.module.css';
 import { korrigerMeldekortClient } from 'lib/client/clientApi';
+import { ArrowLeftIcon } from '@navikt/aksel-icons';
 
 interface FormFields {
   opplysningerStemmer: JaEllerNei[];
@@ -48,17 +49,19 @@ export const SeOver = () => {
           periode={korrigering.meldekort.meldeperiode}
         />
         <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
-      </VStack>
       <div className={styles.buttons}>
         <Button
           variant={'secondary'}
           onClick={() => setKorrigering({ ...korrigering, steg: 'FYLL_TIMER' })}
           type={'button'}
+          iconPosition={'left'}
+          icon={<ArrowLeftIcon />}
         >
-          Tilbake
+          Endre
         </Button>
         <Button>Send inn</Button>
       </div>
+      </VStack>
     </form>
   );
 };

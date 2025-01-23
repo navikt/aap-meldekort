@@ -12,6 +12,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 import { useState } from 'react';
 import { erGyldigTimer, UtfyllingAvTimerError } from 'components/steg/utfylling/Utfylling';
+import { ArrowLeftIcon } from '@navikt/aksel-icons';
 
 export interface FormFields {
   dager: Dag[];
@@ -103,7 +104,13 @@ export const FyllUtKorrigering = () => {
               </Alert>
             )}
             <div className={styles.buttons}>
-              <Button variant={'secondary'} onClick={() => router.push(`/${params.system}/innsendt`)} type={'button'}>
+              <Button
+                variant={'secondary'}
+                onClick={() => router.push(`/${params.system}/innsendt`)}
+                type={'button'}
+                iconPosition={'left'}
+                icon={<ArrowLeftIcon />}
+              >
                 Tilbake
               </Button>
               {korrigering.meldekort.kanEndres && <Button disabled={!endrer}>Neste</Button>}
