@@ -19,7 +19,7 @@ export const LinkPanel = ({ title, href, description, status, variant = 'primary
   return (
     <a href={href} className={`${styles.link} ${className}`}>
       <div className={styles.top}>
-        <BodyShort size={'large'} style={{ fontWeight: 'bold' }}>
+        <BodyShort size={'large'} weight={'semibold'}>
           {title}
         </BodyShort>
         <div className={styles.topright}>

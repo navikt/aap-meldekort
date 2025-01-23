@@ -4,7 +4,7 @@ import { Alert, BodyShort, Heading, HGrid } from '@navikt/ds-react';
 import { HistoriskMeldekort } from 'lib/types/types';
 import { useParams } from 'next/navigation';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
-import { LinkPanelMeldekort } from 'components/linkpanel/meldekort/LinkPanelMeldekort';
+import { LinkPanel } from 'components/linkpanel/LinkPanel';
 
 interface Props {
   innsendteMeldeperioder: HistoriskMeldekort[];
@@ -27,7 +27,8 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
         <>
           {innsendteMeldeperioder.map((innsendtMeldekort) => {
             return (
-              <LinkPanelMeldekort
+              <LinkPanel
+                variant={'secondary'}
                 key={innsendtMeldekort.meldekortId}
                 title={`${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.tom)}`}
                 href={`/${params.system}/innsendt/${innsendtMeldekort.meldekortId}`}
