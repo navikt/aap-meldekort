@@ -23,7 +23,11 @@ export const MeldekortStatus = ({ status }: Props) => {
 
   return (
     <div className={`${hentClassnameForStatus()} ${styles.status}`}>
-      <BodyShort>{status}</BodyShort>
+      <BodyShort>{storForbokstav(status)}</BodyShort>
     </div>
   );
 };
+
+function storForbokstav(tekst: string): string {
+  return tekst.charAt(0).toUpperCase() + tekst.slice(1).toLowerCase();
+}
