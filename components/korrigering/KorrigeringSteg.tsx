@@ -1,6 +1,7 @@
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 import { FyllUtKorrigering } from 'components/korrigering/steg/fyllutkorrigering/FyllUtKorrigering';
 import { SeOver } from 'components/korrigering/steg/seover/SeOver';
+import { Kvittering } from 'components/korrigering/steg/kvittering/Kvittering';
 
 export const KorrigeringSteg = () => {
   const { korrigering } = useKorrigerMeldekort();
@@ -9,7 +10,7 @@ export const KorrigeringSteg = () => {
     <>
       {korrigering.steg === 'FYLL_TIMER' && <FyllUtKorrigering />}
       {korrigering.steg === 'SE_OVER_TIMER' && <SeOver />}
-      {korrigering.steg === 'KVITTERING' && <div>Kvittering</div>}
+      {korrigering.steg === 'KVITTERING' && <Kvittering />}
     </>
   );
 };
