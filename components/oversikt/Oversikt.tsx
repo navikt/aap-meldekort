@@ -1,7 +1,7 @@
 'use client';
 
 import { KommendeMeldekort } from 'lib/types/types';
-import { Alert, BodyShort, Heading, Label, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { useParams } from 'next/navigation';
 import { LinkPanel } from 'components/linkpanel/LinkPanel';
 

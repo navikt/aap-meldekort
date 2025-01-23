@@ -101,7 +101,7 @@ export async function hentHistoriskMeldekortDetaljerMock(): Promise<HistoriskMel
       meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' },
       status: 'INNSENDT',
       innsendtDato: new Date().toString(),
-      kanEndres: false,
+      kanEndres: true,
       bruttoBeløp: 8745,
       timerArbeidet: [
         { dato: '2024-11-04' },

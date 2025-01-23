@@ -86,7 +86,9 @@ export const FyllUtKorrigering = () => {
               påvirke utbetalingen du fikk.
             </BodyShort>
             <ReadMore header={'Les mer om hvordan endre et meldekort'}>Her kommer det noe tekst</ReadMore>
-            <FormField form={form} formField={formFields.endreMeldekort} size={'medium'} />
+            {korrigering.meldekort.kanEndres && (
+              <FormField form={form} formField={formFields.endreMeldekort} size={'medium'} />
+            )}
             {endrer ? (
               <Rapporteringskalender periode={korrigering.meldekort.meldeperiode} errors={errors} />
             ) : (
@@ -104,7 +106,7 @@ export const FyllUtKorrigering = () => {
               <Button variant={'secondary'} onClick={() => router.push(`/${params.system}/innsendt`)} type={'button'}>
                 Tilbake
               </Button>
-              <Button disabled={!endrer}>Neste</Button>
+              {korrigering.meldekort.kanEndres && <Button disabled={!endrer}>Neste</Button>}
             </div>
           </VStack>
         </form>
