@@ -1,15 +1,10 @@
 'use client';
 
 import { Alert, BodyShort, Heading, HGrid } from '@navikt/ds-react';
-import { HistoriskMeldekort, MeldekortResponse } from 'lib/types/types';
+import { HistoriskMeldekort } from 'lib/types/types';
 import { useParams } from 'next/navigation';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { LinkPanelMeldekort } from 'components/linkpanel/meldekort/LinkPanelMeldekort';
-
-export interface InnsendteMeldekortType {
-  meldekort: MeldekortResponse;
-  meldekortId: string;
-}
 
 interface Props {
   innsendteMeldeperioder: HistoriskMeldekort[];
@@ -40,7 +35,7 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
                   new Date(innsendtMeldekort.meldeperiode.fom),
                   new Date(innsendtMeldekort.meldeperiode.tom)
                 )}`}
-                status={'hellopello'}
+                status={innsendtMeldekort.status}
               />
             );
           })}

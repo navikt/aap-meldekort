@@ -2,16 +2,17 @@ import { ChevronRightIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
 
 import styles from './LinkPanelMeldekort.module.css';
-import { Status } from 'components/status/Status';
+import { MeldekortStatus } from 'components/meldekortstatus/MeldekortStatus';
+import { Status } from 'lib/types/types';
 
 interface Props {
   title: string;
   href: string;
   description?: string;
-  status?: string;
+  status: Status;
 }
 
-export const LinkPanelMeldekort = ({ title, href, description }: Props) => {
+export const LinkPanelMeldekort = ({ title, href, description, status }: Props) => {
   return (
     <a href={href} className={styles.link}>
       <div className={styles.top}>
@@ -19,7 +20,7 @@ export const LinkPanelMeldekort = ({ title, href, description }: Props) => {
           {title}
         </BodyShort>
         <div className={styles.topright}>
-          <Status status={'INNSENDT'} />
+          <MeldekortStatus status={status} />
           <ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />
         </div>
       </div>
