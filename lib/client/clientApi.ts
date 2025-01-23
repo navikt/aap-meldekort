@@ -1,4 +1,4 @@
-import { MeldekortRequest, MeldekortResponse } from 'lib/types/types';
+import { MeldekortKorrigeringRequest, MeldekortRequest, MeldekortResponse } from 'lib/types/types';
 
 async function fetchProxy<ResponseBody>(
   url: string,
@@ -25,19 +25,30 @@ async function fetchProxy<ResponseBody>(
 }
 
 export async function gåTilNesteStegClient(
-  referanse: string,
+  meldekortId: string,
   meldekortRequest: MeldekortRequest
 ): Promise<MeldekortResponse | undefined> {
-  return await fetchProxy<MeldekortResponse>(`/api/arena/meldekort/${referanse}/neste-steg`, 'POST', meldekortRequest);
+  return await fetchProxy<MeldekortResponse>(
+    `/api/arena/meldekort/${meldekortId}/neste-steg`,
+    'POST',
+    meldekortRequest
+  );
 }
 
 export async function lagreMeldekortClient(
-  referanse: string,
+  meldekortId: string,
   meldekortRequest: MeldekortRequest
 ): Promise<MeldekortResponse | undefined> {
-  return await fetchProxy<MeldekortResponse>(`/api/arena/meldekort/${referanse}/lagre`, 'POST', meldekortRequest);
+  return await fetchProxy<MeldekortResponse>(`/api/arena/meldekort/${meldekortId}/lagre`, 'POST', meldekortRequest);
 }
 
 export async function slettMockClient() {
   await fetchProxy('/api/mock/slett', 'GET');
+}
+
+export async function korrigerMeldekortClient(
+  meldekortId: number,
+  meldekortKorrigeringRequest: MeldekortKorrigeringRequest
+) {
+  await fetchProxy(`/api/arena/meldekort/korrigering/${meldekortId}`, 'POST', meldekortKorrigeringRequest);
 }

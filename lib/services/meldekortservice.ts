@@ -5,6 +5,7 @@ import {
   KommendeMeldekort,
   MeldekortRequest,
   MeldekortResponse,
+  MeldekortKorrigeringRequest,
 } from 'lib/types/types';
 import {
   hentHistoriskMeldekortDetaljerMock,
@@ -46,8 +47,16 @@ export async function hentInnsendtMeldekortDetjalert(meldekortId: string): Promi
   return await fetcher<HistoriskMeldekortDetaljer>(url, 'GET');
 }
 
-export async function korrigerMeldekort() {
-  // TODO Legg til logikk for korrigering av meldekort
+export async function korrigerMeldekort(
+  meldekortId: string,
+  meldekortKorrigeringRequest: MeldekortKorrigeringRequest
+): Promise<boolean> {
+  if (isLocal()) {
+    return true;
+  }
+
+  const url = `${meldeKortBaseUrl}/api/arena/meldekort/${meldekortId}`;
+  return fetcher(url, 'POST', meldekortKorrigeringRequest);
 }
 
 /**

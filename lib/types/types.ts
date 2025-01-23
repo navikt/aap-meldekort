@@ -8,6 +8,9 @@ export type KommendeMeldekort = components['schemas']['no.nav.aap.meldekort.aren
 
 export type NesteMeldekort = components['schemas']['no.nav.aap.meldekort.arena.NesteMeldekortDto'];
 
+export type MeldekortKorrigeringRequest =
+  components['schemas']['no.nav.aap.meldekort.arena.MeldekortKorrigeringRequest'];
+
 export type HistoriskMeldekort = components['schemas']['no.nav.aap.meldekort.arena.HistoriskMeldekortDto'];
 
 export type HistoriskMeldekortDetaljer =
