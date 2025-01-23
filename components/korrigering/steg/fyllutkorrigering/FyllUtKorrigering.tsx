@@ -1,19 +1,15 @@
 'use client';
 
-import { HistoriskMeldekortDetaljer } from 'lib/types/types';
 import { BodyShort, Button, Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { JaEllerNei } from 'lib/utils/form';
 
-import styles from './EndreMeldekort.module.css';
+import styles from 'components/korrigering/steg/fyllutkorrigering/FyllUtKorrigering.module.css';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
 import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
 import { useParams, useRouter } from 'next/navigation';
-
-interface Props {
-  meldekort: HistoriskMeldekortDetaljer;
-}
+import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 
 export interface FormFields {
   dager: Dag[];
@@ -25,14 +21,16 @@ interface Dag {
   timer: string | null;
 }
 
-export const EndreMeldekort = ({ meldekort }: Props) => {
+export const FyllUtKorrigering = () => {
   const router = useRouter();
   const params = useParams<{ system: string }>();
+
+  const { korrigering, setKorrigering } = useKorrigerMeldekort();
 
   const { form, formFields } = useConfigForm<FormFields>({
     dager: {
       type: 'fieldArray',
-      defaultValue: meldekort?.timerArbeidet?.map((timerArbeidet) => ({
+      defaultValue: korrigering?.meldekort.timerArbeidet?.map((timerArbeidet) => ({
         dag: timerArbeidet.dato,
         timer: timerArbeidet.timer?.toString() || '',
       })),
@@ -53,7 +51,21 @@ export const EndreMeldekort = ({ meldekort }: Props) => {
         Se og endre meldekort
       </Heading>
       <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit((data) => {})}>
+        <form
+          onSubmit={form.handleSubmit((data) => {
+            setKorrigering({
+              ...korrigering,
+              steg: 'SE_OVER_TIMER',
+              meldekort: {
+                ...korrigering.meldekort,
+                timerArbeidet: data.dager.map((dag) => ({
+                  dato: dag.dag,
+                  timer: dag.timer !== null ? Number(dag.timer) : null,
+                })),
+              },
+            });
+          })}
+        >
           <VStack gap={'4'}>
             <BodyShort>
               Du kan endre tidligere innsendte meldekort X antall uker tilbake i tid. Husk at endret meldekort kan
@@ -62,9 +74,12 @@ export const EndreMeldekort = ({ meldekort }: Props) => {
             <ReadMore header={'Les mer om hvordan endre et meldekort'}>Her kommer det noe tekst</ReadMore>
             <FormField form={form} formField={formFields.endreMeldekort} size={'medium'} />
             {endrer ? (
-              <Rapporteringskalender periode={meldekort.meldeperiode} errors={[]} />
+              <Rapporteringskalender periode={korrigering.meldekort.meldeperiode} errors={[]} />
             ) : (
-              <OppsummeringKalender timerArbeidet={meldekort.timerArbeidet} periode={meldekort.meldeperiode} />
+              <OppsummeringKalender
+                timerArbeidet={korrigering.meldekort.timerArbeidet}
+                periode={korrigering.meldekort.meldeperiode}
+              />
             )}
             <div className={styles.buttons}>
               <Button variant={'secondary'} onClick={() => router.push(`/${params.system}/innsendt`)} type={'button'}>

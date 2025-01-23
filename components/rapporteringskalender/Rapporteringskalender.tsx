@@ -10,7 +10,7 @@ import { UkeRad } from 'components/rapporteringskalender/ukerad/UkeRad';
 import { UkeHeader } from './ukeheader/UkeHeader';
 import { MeldepliktError, MeldepliktFormFields } from 'components/steg/utfylling/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
-import { MeldekortResponse, Periode } from 'lib/types/types';
+import { Periode } from 'lib/types/types';
 
 interface Props {
   periode: Periode;
