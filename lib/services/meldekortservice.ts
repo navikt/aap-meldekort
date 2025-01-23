@@ -14,7 +14,7 @@ import {
   hentMeldekortMock,
   mockNesteSteg,
   slettMock,
-} from 'databasemock/meldekort';
+} from 'databasemock/databasemock';
 
 const meldeKortBaseUrl = process.env.MELDEKORT_API_BASE_URL;
 

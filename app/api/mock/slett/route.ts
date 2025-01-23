@@ -1,4 +1,4 @@
-import { slettMock } from 'databasemock/meldekort';
+import { slettMock } from 'databasemock/databasemock';
 
 export async function GET() {
   await slettMock();

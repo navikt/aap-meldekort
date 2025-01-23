@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { gåTilNesteSteg, isLocal } from 'lib/services/meldekortservice';
 import { MeldekortRequest } from 'lib/types/types';
-import { hentMeldekortMock, mockNesteSteg } from 'databasemock/meldekort';
+import { hentMeldekortMock, mockNesteSteg } from 'databasemock/databasemock';
 import { logError, logInfo } from '@navikt/aap-felles-utils';
 
 export async function POST(req: NextRequest, props: { params: Promise<{ meldekortid: string }> }) {
