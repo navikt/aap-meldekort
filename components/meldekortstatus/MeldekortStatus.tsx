@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const MeldekortStatus = ({ status }: Props) => {
-  const className = () => {
+  const hentClassnameForStatus = () => {
     switch (status) {
       case 'INNSENDT':
         return styles.innsendt;
@@ -22,7 +22,7 @@ export const MeldekortStatus = ({ status }: Props) => {
   };
 
   return (
-    <div className={className()}>
+    <div className={`${hentClassnameForStatus()} ${styles.status}`}>
       <BodyShort>{status}</BodyShort>
     </div>
   );
