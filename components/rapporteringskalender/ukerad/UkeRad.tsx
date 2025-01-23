@@ -4,11 +4,11 @@ import { format } from 'date-fns';
 import { BodyShort } from '@navikt/ds-react';
 
 import styles from './UkeRad.module.css';
-import { MeldepliktError } from 'components/steg/utfylling/Utfylling';
+import { UtfyllingAvTimerError } from 'components/steg/utfylling/Utfylling';
 
 interface Props {
   felterIUken: FieldArrayWithIndex[];
-  errors: MeldepliktError[];
+  errors: UtfyllingAvTimerError[];
 }
 
 export const UkeRad = ({ felterIUken, errors }: Props) => {

@@ -8,13 +8,13 @@ import { FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form
 import styles from './Rapporteringskalender.module.css';
 import { UkeRad } from 'components/rapporteringskalender/ukerad/UkeRad';
 import { UkeHeader } from './ukeheader/UkeHeader';
-import { MeldepliktError, MeldepliktFormFields } from 'components/steg/utfylling/Utfylling';
+import { UtfyllingAvTimerError, MeldepliktFormFields } from 'components/steg/utfylling/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 import { Periode } from 'lib/types/types';
 
 interface Props {
   periode: Periode;
-  errors: MeldepliktError[];
+  errors: UtfyllingAvTimerError[];
 }
 
 export type FieldArrayWithIndex = FieldArrayWithId<MeldepliktFormFields> & {

@@ -1,6 +1,6 @@
 'use client';
 
-import { BodyShort, Button, Heading, ReadMore, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { JaEllerNei } from 'lib/utils/form';
 
@@ -10,7 +10,8 @@ import { FormProvider } from 'react-hook-form';
 import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
 import { useParams, useRouter } from 'next/navigation';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
-import timer from '@navikt/aksel-icons/src/Timer';
+import { useState } from 'react';
+import { erGyldigTimer, UtfyllingAvTimerError } from 'components/steg/utfylling/Utfylling';
 
 export interface FormFields {
   dager: Dag[];
@@ -25,6 +26,7 @@ interface Dag {
 export const FyllUtKorrigering = () => {
   const router = useRouter();
   const params = useParams<{ system: string }>();
+  const [errors, setErrors] = useState<UtfyllingAvTimerError[]>([]);
 
   const { korrigering, setKorrigering } = useKorrigerMeldekort();
 
@@ -54,17 +56,28 @@ export const FyllUtKorrigering = () => {
       <FormProvider {...form}>
         <form
           onSubmit={form.handleSubmit((data) => {
-            setKorrigering({
-              ...korrigering,
-              steg: 'SE_OVER_TIMER',
-              meldekort: {
-                ...korrigering.meldekort,
-                timerArbeidet: data.dager.map((dag) => ({
-                  dato: dag.dag,
-                  timer: dag.timer !== null ? Number(dag.timer) : null,
-                })),
-              },
+            setErrors([]);
+            const errors: UtfyllingAvTimerError[] = [];
+            data.dager.map((dag, index) => {
+              if (!erGyldigTimer(dag.timer)) {
+                errors.push({ index: index, harError: true });
+              }
             });
+            setErrors(errors);
+
+            if (errors.length === 0) {
+              setKorrigering({
+                ...korrigering,
+                steg: 'SE_OVER_TIMER',
+                meldekort: {
+                  ...korrigering.meldekort,
+                  timerArbeidet: data.dager.map((dag) => ({
+                    dato: dag.dag,
+                    timer: dag.timer !== null ? Number(dag.timer) : null,
+                  })),
+                },
+              });
+            }
           })}
         >
           <VStack gap={'4'}>
@@ -75,12 +88,17 @@ export const FyllUtKorrigering = () => {
             <ReadMore header={'Les mer om hvordan endre et meldekort'}>Her kommer det noe tekst</ReadMore>
             <FormField form={form} formField={formFields.endreMeldekort} size={'medium'} />
             {endrer ? (
-              <Rapporteringskalender periode={korrigering.meldekort.meldeperiode} errors={[]} />
+              <Rapporteringskalender periode={korrigering.meldekort.meldeperiode} errors={errors} />
             ) : (
               <OppsummeringKalender
                 timerArbeidet={korrigering.meldekort.timerArbeidet}
                 periode={korrigering.meldekort.meldeperiode}
               />
+            )}
+            {errors.length > 0 && (
+              <Alert variant={'error'}>
+                Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer
+              </Alert>
             )}
             <div className={styles.buttons}>
               <Button variant={'secondary'} onClick={() => router.push(`/${params.system}/innsendt`)} type={'button'}>

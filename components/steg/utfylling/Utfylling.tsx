@@ -25,14 +25,14 @@ interface Dag {
   timer: string | null;
 }
 
-export interface MeldepliktError {
+export interface UtfyllingAvTimerError {
   index: number;
   harError: boolean;
 }
 
 export const Utfylling = ({ meldekort, referanse }: Props) => {
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
-  const [errors, setErrors] = useState<MeldepliktError[]>([]);
+  const [errors, setErrors] = useState<UtfyllingAvTimerError[]>([]);
 
   const { form, formFields } = useConfigForm<MeldepliktFormFields>({
     dager: {
@@ -59,7 +59,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
         nesteStegKnappTekst={'Send inn'}
         onSubmit={form.handleSubmit(async (data) => {
           setErrors([]);
-          const errors: MeldepliktError[] = [];
+          const errors: UtfyllingAvTimerError[] = [];
           data.dager.map((dag, index) => {
             if (!erGyldigTimer(dag.timer)) {
               errors.push({ index: index, harError: true });
@@ -107,7 +107,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
   );
 };
 
-function erGyldigTimer(value: string | null): boolean {
+export function erGyldigTimer(value: string | null): boolean {
   if (!value || value === '') {
     return true;
   }
