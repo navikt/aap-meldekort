@@ -57,11 +57,12 @@ export const OppsummeringKalender = ({ periode, timerArbeidet, visPeriode = true
         </div>
       )}
       <div className={styles.kalender}>
-        <UkeHeader />
-        {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
-          <OppsummeringUkeRad key={ukeStart} felterIUken={felterIUken} />
-        ))}
-
+        <div>
+          <UkeHeader />
+          {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
+            <OppsummeringUkeRad key={ukeStart} felterIUken={felterIUken} />
+          ))}
+        </div>
         <VStack gap={'4'}>
           <OppsummeringTimer timer={timer} />
           {utbetalt && (
