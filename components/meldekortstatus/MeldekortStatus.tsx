@@ -2,6 +2,7 @@ import { BodyShort } from '@navikt/ds-react';
 
 import styles from 'components/meldekortstatus/MeldekortStatus.module.css';
 import { Status } from 'lib/types/types';
+import { storForbokstav } from 'lib/utils/string';
 
 interface Props {
   status: Status;
@@ -27,7 +28,3 @@ export const MeldekortStatus = ({ status }: Props) => {
     </div>
   );
 };
-
-function storForbokstav(tekst: string): string {
-  return tekst.charAt(0).toUpperCase() + tekst.slice(1).toLowerCase();
-}

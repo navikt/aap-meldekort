@@ -8,6 +8,7 @@ import styles from './OppsummeringKalender.module.css';
 import { Periode, TimerArbeidet } from 'lib/types/types';
 import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
+import { formaterTilNok } from 'lib/utils/string';
 
 interface Props {
   periode: Periode;
@@ -69,7 +70,7 @@ export const OppsummeringKalender = ({ periode, timerArbeidet, visPeriode = true
             <OppsummeringRad
               heading={'Utbetalt for perioden'}
               label={'Utbetalt'}
-              value={`${utbetalt} kr`}
+              value={`${formaterTilNok(utbetalt)}`}
               backgroundColor={'green'}
             />
           )}
