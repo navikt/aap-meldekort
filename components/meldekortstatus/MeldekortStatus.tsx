@@ -17,8 +17,6 @@ export const MeldekortStatus = ({ status }: Props) => {
         return styles.feilet;
       case 'FERDIG':
         return styles.ferdig;
-      case 'KORRIGERT':
-        return styles.korrigert;
     }
   };
 
