@@ -64,7 +64,10 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
           </VStack>
         )}
 
-        <OppsummeringKalender timerArbeidet={meldekort.meldekort.timerArbeidet} periode={meldekort.periode} />
+        {meldekort.meldekort.harDuJobbet && (
+          <OppsummeringKalender timerArbeidet={meldekort.meldekort.timerArbeidet} periode={meldekort.periode} />
+        )}
+
         <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
       </VStack>
     </Form>
