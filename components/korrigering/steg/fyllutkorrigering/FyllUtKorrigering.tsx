@@ -49,6 +49,8 @@ export const FyllUtKorrigering = () => {
 
   const endrer = form.watch('endreMeldekort')?.includes(JaEllerNei.Ja);
 
+  const visNesteKnapp = endrer && korrigering.meldekort.kanEndres;
+
   return (
     <VStack gap={'4'}>
       <Heading size={'medium'} level={'2'}>
@@ -115,7 +117,7 @@ export const FyllUtKorrigering = () => {
               >
                 Tilbake
               </Button>
-              {korrigering.meldekort.kanEndres && <Button disabled={!endrer}>Neste</Button>}
+              {visNesteKnapp && <Button disabled={!endrer}>Neste</Button>}
             </div>
           </VStack>
         </form>
