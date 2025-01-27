@@ -40,7 +40,13 @@ export const Periode = ({ meldekort, referanse }: Props) => {
       nesteStegKnappTekst={'Til utfylling'}
       onSubmit={form.handleSubmit(async (data) => {
         løsStegOgGåTilNeste({
-          meldekort: { ...meldekort.meldekort, harDuJobbet: data.harArbeidet === JaEllerNei.Ja },
+          meldekort: {
+            ...meldekort.meldekort,
+            harDuJobbet: data.harArbeidet === JaEllerNei.Ja,
+            timerArbeidet: meldekort.meldekort.timerArbeidet.map((dag) => {
+              return { dato: dag.dato, timer: data.harArbeidet === JaEllerNei.Nei ? 0 : dag.timer };
+            }),
+          },
           nåværendeSteg: 'JOBBET_I_MELDEPERIODEN',
         });
       })}
