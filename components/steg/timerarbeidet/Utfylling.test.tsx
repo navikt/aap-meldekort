@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { Utfylling } from 'components/steg/utfylling/Utfylling';
+import { Utfylling } from 'components/steg/timerarbeidet/Utfylling';
 import { userEvent } from '@testing-library/user-event';
 import { eachDayOfInterval, format } from 'date-fns';
 import { MeldekortResponse } from 'lib/types/types';
@@ -61,22 +61,9 @@ describe('Utfylling', () => {
     expect(oppsummering).toBeVisible();
   });
 
-  it('skal ha et felt for å bekrefte at opplysningene stemmer', () => {
-    const felt = screen.getByRole('checkbox', { name: 'Jeg bekrefter at disse opplysningene stemmer' });
-    expect(felt).toBeVisible();
-  });
-
   it('skal vise korrekt tekst på neste steg knapp', () => {
-    const knapp = screen.getByRole('button', { name: 'Send inn' });
+    const knapp = screen.getByRole('button', { name: 'Neste' });
     expect(knapp).toBeVisible();
-  });
-
-  it('skal vise en feilmelding dersom feltet ikke er huket av', async () => {
-    const knapp = screen.getByRole('button', { name: 'Send inn' });
-    await user.click(knapp);
-
-    const feilmelding = screen.getByText('Du må bekrefte at disse opplysningene stemmer');
-    expect(feilmelding).toBeVisible();
   });
 });
 
@@ -143,13 +130,7 @@ describe('rapporteringskalender', () => {
     const felt = screen.getByRole('textbox', { name: 'dager.0.timer' });
     await user.type(felt, '2.3');
 
-    const checkbox = screen.getByRole('checkbox', {
-      name: 'Jeg bekrefter at disse opplysningene stemmer',
-    });
-
-    await user.click(checkbox);
-
-    const fullførKnapp = screen.getByRole('button', { name: 'Send inn' });
+    const fullførKnapp = screen.getByRole('button', { name: 'Neste' });
     await user.click(fullførKnapp);
 
     const feilmelding = screen.getByText(
@@ -165,13 +146,7 @@ describe('rapporteringskalender', () => {
     const felt = screen.getByRole('textbox', { name: 'dager.0.timer' });
     await user.type(felt, '25');
 
-    const checkbox = screen.getByRole('checkbox', {
-      name: 'Jeg bekrefter at disse opplysningene stemmer',
-    });
-
-    await user.click(checkbox);
-
-    const fullførKnapp = screen.getByRole('button', { name: 'Send inn' });
+    const fullførKnapp = screen.getByRole('button', { name: 'Neste' });
     await user.click(fullførKnapp);
 
     const feilmelding = screen.getByText(
@@ -187,13 +162,7 @@ describe('rapporteringskalender', () => {
     const felt = screen.getByRole('textbox', { name: 'dager.0.timer' });
     await user.type(felt, 'attentimerogtredveminutter');
 
-    const checkbox = screen.getByRole('checkbox', {
-      name: 'Jeg bekrefter at disse opplysningene stemmer',
-    });
-
-    await user.click(checkbox);
-
-    const fullførKnapp = screen.getByRole('button', { name: 'Send inn' });
+    const fullførKnapp = screen.getByRole('button', { name: 'Neste' });
     await user.click(fullførKnapp);
 
     const feilmelding = screen.getByText(

@@ -1,8 +1,9 @@
-import { expect, describe, it, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { TimerArbeidet } from 'components/steg/utfylling/TimerArbeidet';
+
 import { MeldekortResponse } from 'lib/types/types';
 import { userEvent } from '@testing-library/user-event';
+import { StemmerOpplysningene } from 'components/steg/stemmeropplysningene/StemmerOpplysningene';
 
 const meldekort: MeldekortResponse = {
   meldekort: {
@@ -28,7 +29,7 @@ const meldekort: MeldekortResponse = {
 };
 
 describe('Timer arbeidet', () => {
-  beforeEach(() => render(<TimerArbeidet referanse={'123'} meldekort={meldekort} />));
+  beforeEach(() => render(<StemmerOpplysningene referanse={'123'} meldekort={meldekort} />));
 
   it('skal ha en overskrift', () => {
     const heading = screen.getByRole('heading', { name: 'Se over før du sender inn', level: 2 });

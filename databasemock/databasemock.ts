@@ -1,8 +1,8 @@
 import fs from 'fs/promises';
 
 import {
-  HistoriskMeldekortDetaljer,
   HistoriskMeldekort,
+  HistoriskMeldekortDetaljer,
   KommendeMeldekort,
   MeldekortRequest,
   MeldekortResponse,
@@ -34,7 +34,7 @@ export async function hentKommendeMeldekortMock(): Promise<KommendeMeldekort> {
 }
 
 export async function mockNesteSteg(meldekortRequest: MeldekortRequest) {
-  const nesteSteg = hentNesteSteg(meldekortRequest.nåværendeSteg);
+  const nesteSteg = hentNesteSteg(meldekortRequest.nåværendeSteg, meldekortRequest?.meldekort?.harDuJobbet || false);
 
   const meldekort = await hentMeldekortMock();
 
@@ -132,13 +132,15 @@ export async function slettMock() {
   await fs.unlink('.meldekort.cache');
 }
 
-function hentNesteSteg(nåværendeSteg: Steg): Steg {
+function hentNesteSteg(nåværendeSteg: Steg, jobbetIMeldeperiode: boolean): Steg {
   switch (nåværendeSteg) {
     case 'BEKREFT_SVARER_ÆRLIG':
       return 'JOBBET_I_MELDEPERIODEN';
     case 'JOBBET_I_MELDEPERIODEN':
-      return 'TIMER_ARBEIDET';
+      return jobbetIMeldeperiode ? 'TIMER_ARBEIDET' : 'STEMMER_OPPLYSNINGENE';
     case 'TIMER_ARBEIDET':
+      return 'STEMMER_OPPLYSNINGENE';
+    case 'STEMMER_OPPLYSNINGENE':
       return 'KVITTERING';
     case 'KVITTERING':
       throw new Error('Det finnes ikke et steg etter kvittering');

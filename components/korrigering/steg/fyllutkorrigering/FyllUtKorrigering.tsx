@@ -11,7 +11,7 @@ import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporte
 import { useParams, useRouter } from 'next/navigation';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 import { useState } from 'react';
-import { erGyldigTimer, UtfyllingAvTimerError } from 'components/steg/utfylling/Utfylling';
+import { erGyldigTimer, UtfyllingAvTimerError } from 'components/steg/timerarbeidet/Utfylling';
 import { ArrowLeftIcon } from '@navikt/aksel-icons';
 
 export interface FormFields {

@@ -3,9 +3,8 @@
 import { Form } from 'components/form/Form';
 import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
 import { Alert, BodyLong, Heading, ReadMore, VStack } from '@navikt/ds-react';
-import { FormField, useConfigForm } from '@navikt/aap-felles-react';
+import { useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
-import { JaEllerNei } from 'lib/utils/form';
 import { useState } from 'react';
 import { MeldekortResponse } from 'lib/types/types';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
@@ -17,7 +16,6 @@ interface Props {
 
 export interface MeldepliktFormFields {
   dager: Dag[];
-  opplysningerStemmer: JaEllerNei[];
 }
 
 interface Dag {
@@ -34,20 +32,13 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const [errors, setErrors] = useState<UtfyllingAvTimerError[]>([]);
 
-  const { form, formFields } = useConfigForm<MeldepliktFormFields>({
+  const { form } = useConfigForm<MeldepliktFormFields>({
     dager: {
       type: 'fieldArray',
       defaultValue: meldekort.meldekort.timerArbeidet.map((timerArbeidet) => ({
         dag: timerArbeidet.dato,
         timer: timerArbeidet.timer == null || timerArbeidet.timer === 0 ? '' : timerArbeidet.timer.toString(),
       })),
-    },
-    opplysningerStemmer: {
-      type: 'checkbox',
-      label: 'Bekreft at opplysningene stemmer',
-      hideLabel: true,
-      options: [{ label: 'Jeg bekrefter at disse opplysningene stemmer', value: JaEllerNei.Ja }],
-      rules: { required: 'Du må bekrefte at disse opplysningene stemmer' },
     },
   });
 
@@ -56,7 +47,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
       <Form
         referanse={referanse}
         forrigeSteg={'JOBBET_I_MELDEPERIODEN'}
-        nesteStegKnappTekst={'Send inn'}
+        nesteStegKnappTekst={'Neste'}
         onSubmit={form.handleSubmit(async (data) => {
           setErrors([]);
           const errors: UtfyllingAvTimerError[] = [];
@@ -71,7 +62,6 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
             løsStegOgGåTilNeste({
               meldekort: {
                 ...meldekort.meldekort,
-                stemmerOpplysningene: true,
                 timerArbeidet: data.dager.map((dag) => ({
                   dato: dag.dag,
                   timer: dag.timer !== null ? Number(dag.timer) : null,
@@ -99,8 +89,6 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
               Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer
             </Alert>
           )}
-
-          <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
         </VStack>
       </Form>
     </FormProvider>

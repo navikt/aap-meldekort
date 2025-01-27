@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import { BodyShort } from '@navikt/ds-react';
 
 import styles from './UkeRad.module.css';
-import { UtfyllingAvTimerError } from 'components/steg/utfylling/Utfylling';
+import { UtfyllingAvTimerError } from 'components/steg/timerarbeidet/Utfylling';
 
 interface Props {
   felterIUken: FieldArrayWithIndex[];

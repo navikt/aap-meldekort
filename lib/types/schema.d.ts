@@ -379,6 +379,82 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/arena/test/proxy/meldekortdetaljer/{meldekortId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description meldekortId */
+                    meldekortId: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["kotlin.Any"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/arena/test/proxy/korrigerte-meldekort/{meldekortId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description meldekortId */
+                    meldekortId: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["kotlin.Any"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -394,7 +470,7 @@ export interface components {
             "bruttoBel\u00F8p"?: number | null;
             /**
              * Format: date
-             * @example 2025-01-23
+             * @example 2025-01-27
              */
             innsendtDato?: string | null;
             kanEndres: boolean;
@@ -402,7 +478,7 @@ export interface components {
             meldekortId: number;
             meldeperiode: components["schemas"]["no.nav.aap.meldekort.arena.PeriodeDto"];
             /** @enum {string} */
-            status: "KORRIGERT" | "INNSENDT" | "FERDIG" | "FEILET";
+            status: "OVERSTYRT_AV_ANNET_MELDEKORT" | "INNSENDT" | "FERDIG" | "FEILET";
             timerArbeidet?: components["schemas"]["no.nav.aap.meldekort.arena.TimerArbeidetDto"][] | null;
         };
         "no.nav.aap.meldekort.arena.HistoriskMeldekortDto": {
@@ -410,7 +486,7 @@ export interface components {
             meldekortId: number;
             meldeperiode: components["schemas"]["no.nav.aap.meldekort.arena.PeriodeDto"];
             /** @enum {string} */
-            status: "KORRIGERT" | "INNSENDT" | "FERDIG" | "FEILET";
+            status: "OVERSTYRT_AV_ANNET_MELDEKORT" | "INNSENDT" | "FERDIG" | "FEILET";
         };
         "no.nav.aap.meldekort.arena.InnsendingFeil": {
             innsendingFeil: components["schemas"]["no.nav.aap.meldekort.arena.ArenaInnsendingFeiletException.InnsendingFeil"][];
@@ -426,14 +502,14 @@ export interface components {
         "no.nav.aap.meldekort.arena.MeldekortRequest": {
             meldekort: components["schemas"]["no.nav.aap.meldekort.arena.MeldekortSkjemaDto"];
             /** @enum {string} */
-            "n\u00E5v\u00E6rendeSteg": "BEKREFT_SVARER_ÆRLIG" | "JOBBET_I_MELDEPERIODEN" | "TIMER_ARBEIDET" | "KVITTERING";
+            "n\u00E5v\u00E6rendeSteg": "BEKREFT_SVARER_ÆRLIG" | "JOBBET_I_MELDEPERIODEN" | "TIMER_ARBEIDET" | "STEMMER_OPPLYSNINGENE" | "KVITTERING";
         };
         "no.nav.aap.meldekort.arena.MeldekortResponse": {
             feil?: components["schemas"]["no.nav.aap.meldekort.arena.Feil"];
             meldekort: components["schemas"]["no.nav.aap.meldekort.arena.MeldekortSkjemaDto"];
             periode: components["schemas"]["no.nav.aap.meldekort.arena.PeriodeDto"];
             /** @enum {string} */
-            steg: "BEKREFT_SVARER_ÆRLIG" | "JOBBET_I_MELDEPERIODEN" | "TIMER_ARBEIDET" | "KVITTERING";
+            steg: "BEKREFT_SVARER_ÆRLIG" | "JOBBET_I_MELDEPERIODEN" | "TIMER_ARBEIDET" | "STEMMER_OPPLYSNINGENE" | "KVITTERING";
         };
         "no.nav.aap.meldekort.arena.MeldekortSkjemaDto": {
             harDuJobbet?: boolean | null;
@@ -448,26 +524,26 @@ export interface components {
             meldeperiode: components["schemas"]["no.nav.aap.meldekort.arena.PeriodeDto"];
             /**
              * Format: date
-             * @example 2025-01-23
+             * @example 2025-01-27
              */
             tidligsteInnsendingsDato: string;
         };
         "no.nav.aap.meldekort.arena.PeriodeDto": {
             /**
              * Format: date
-             * @example 2025-01-23
+             * @example 2025-01-27
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-01-23
+             * @example 2025-01-27
              */
             tom: string;
         };
         "no.nav.aap.meldekort.arena.TimerArbeidetDto": {
             /**
              * Format: date
-             * @example 2025-01-23
+             * @example 2025-01-27
              */
             dato: string;
             /** Format: double */
