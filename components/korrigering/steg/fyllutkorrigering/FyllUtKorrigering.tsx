@@ -12,7 +12,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 import { useState } from 'react';
 import { erGyldigTimer, UtfyllingAvTimerError } from 'components/steg/timerarbeidet/Utfylling';
-import { ArrowLeftIcon } from '@navikt/aksel-icons';
+import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
 
 export interface FormFields {
   dager: Dag[];
@@ -49,7 +49,7 @@ export const FyllUtKorrigering = () => {
   });
 
   const endrer = form.watch('endreMeldekort')?.includes(JaEllerNei.Ja);
-  const visNesteKnapp = endrer && korrigering.meldekort.kanEndres;
+  const visNesteKnapp = endrer && korrigering.meldekort.kanEndres && korrigering.meldekort.timerArbeidet !== null;
 
   return (
     <VStack gap={'4'}>
@@ -77,7 +77,7 @@ export const FyllUtKorrigering = () => {
                   ...korrigering.meldekort,
                   timerArbeidet: data.dager.map((dag) => ({
                     dato: dag.dag,
-                    timer: dag.timer !== null ? Number(dag.timer) : null,
+                    ...(dag.timer !== '' && { timer: Number(dag.timer) }),
                   })),
                 },
               });
@@ -105,7 +105,7 @@ export const FyllUtKorrigering = () => {
             )}
             {errors.length > 0 && (
               <Alert variant={'error'}>
-                Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer
+                Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer.
               </Alert>
             )}
             <div className={styles.buttons}>
@@ -118,7 +118,11 @@ export const FyllUtKorrigering = () => {
               >
                 Tilbake
               </Button>
-              {visNesteKnapp && <Button disabled={!endrer}>Neste</Button>}
+              {visNesteKnapp && (
+                <Button iconPosition={'right'} icon={<ArrowRightIcon />}>
+                  Neste
+                </Button>
+              )}
             </div>
           </VStack>
         </form>
