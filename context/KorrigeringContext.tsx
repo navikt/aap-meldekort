@@ -2,11 +2,13 @@
 
 import { createContext, Dispatch, ReactNode, useState } from 'react';
 import { HistoriskMeldekortDetaljer } from 'lib/types/types';
+import { isEqual } from 'lodash';
 
 type Steg = 'FYLL_TIMER' | 'SE_OVER_TIMER' | 'KVITTERING';
 
 export interface KorrigeringContextType {
   korrigering: Korrigering;
+  harDetSkjeddEndringer: () => boolean;
   setKorrigering: Dispatch<Korrigering>;
 }
 
@@ -31,9 +33,14 @@ export function KorrigeringContextProvider(props: Props) {
     endrerMeldekort: false,
   });
 
+  function harDetSkjeddEndringer() {
+    return isEqual(props.meldekort.timerArbeidet, korrigering.meldekort.timerArbeidet);
+  }
+
   const context: KorrigeringContextType = {
     korrigering,
     setKorrigering,
+    harDetSkjeddEndringer,
   };
 
   return <KorrigeringContext.Provider value={context}>{children}</KorrigeringContext.Provider>;

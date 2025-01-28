@@ -8,13 +8,14 @@ import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 import styles from 'components/korrigering/steg/fyllutkorrigering/FyllUtKorrigering.module.css';
 import { korrigerMeldekortClient } from 'lib/client/clientApi';
 import { ArrowLeftIcon } from '@navikt/aksel-icons';
+import { IngenEndringer } from 'components/korrigering/steg/seover/ingenendringer/IngenEndringer';
 
 interface FormFields {
   opplysningerStemmer: JaEllerNei[];
 }
 
 export const SeOver = () => {
-  const { korrigering, setKorrigering } = useKorrigerMeldekort();
+  const { korrigering, setKorrigering, harDetSkjeddEndringer } = useKorrigerMeldekort();
 
   const { form, formFields } = useConfigForm<FormFields>({
     opplysningerStemmer: {
@@ -25,6 +26,10 @@ export const SeOver = () => {
       rules: { required: 'Du må bekrefte at disse opplysningene stemmer' },
     },
   });
+
+  if (!harDetSkjeddEndringer()) {
+    return <IngenEndringer />;
+  }
 
   return (
     <form
@@ -49,18 +54,18 @@ export const SeOver = () => {
           periode={korrigering.meldekort.meldeperiode}
         />
         <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
-      <div className={styles.buttons}>
-        <Button
-          variant={'secondary'}
-          onClick={() => setKorrigering({ ...korrigering, steg: 'FYLL_TIMER' })}
-          type={'button'}
-          iconPosition={'left'}
-          icon={<ArrowLeftIcon />}
-        >
-          Endre
-        </Button>
-        <Button>Send inn</Button>
-      </div>
+        <div className={styles.buttons}>
+          <Button
+            variant={'secondary'}
+            onClick={() => setKorrigering({ ...korrigering, steg: 'FYLL_TIMER' })}
+            type={'button'}
+            iconPosition={'left'}
+            icon={<ArrowLeftIcon />}
+          >
+            Endre
+          </Button>
+          <Button>Send inn</Button>
+        </div>
       </VStack>
     </form>
   );

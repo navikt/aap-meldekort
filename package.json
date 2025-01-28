@@ -10,7 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "gentypes": "openapi-typescript http://localhost:8080/openapi.json -o lib/types/schema.d.ts",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "prettier": "@navikt/aap-felles-prettier",
   "dependencies": {
@@ -25,6 +25,7 @@
     "@navikt/oasis": "^3.6.0",
     "csp-header": "^6.0.0",
     "html-react-parser": "^5.2.2",
+    "lodash": "^4.17.21",
     "next": "15.1.6",
     "react": "19.0.0",
     "react-dom": "19.0.0",
@@ -37,6 +38,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
+    "@types/lodash": "^4",
     "@types/node": "^22.10.6",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
