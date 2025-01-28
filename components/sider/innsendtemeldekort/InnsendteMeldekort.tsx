@@ -5,6 +5,7 @@ import { HistoriskMeldekort } from 'lib/types/types';
 import { useParams } from 'next/navigation';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { LinkPanel } from 'components/linkpanel/LinkPanel';
+import { HjemKnapp } from 'components/hjemknapp/HjemKnapp';
 
 interface Props {
   innsendteMeldeperioder: HistoriskMeldekort[];
@@ -15,6 +16,7 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
 
   return (
     <HGrid gap={'4'}>
+      <HjemKnapp label={'Tilbake til oversikten'} href={`/${params.system}`} />
       <Heading size={'medium'} level={'2'} spacing>
         Oversikt over innsendte meldekort
       </Heading>

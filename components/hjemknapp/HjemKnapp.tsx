@@ -2,14 +2,17 @@
 
 import { Link } from '@navikt/ds-react';
 import { HouseIcon } from '@navikt/aksel-icons';
-import { useParams } from 'next/navigation';
 
-export const HjemKnapp = () => {
-  const params = useParams<{ system: string }>();
+interface Props {
+  label: string;
+  href: string;
+}
+
+export const HjemKnapp = ({ label, href }: Props) => {
   return (
-    <Link href={`/${params.system}`}>
+    <Link href={href}>
       <HouseIcon aria-hidden="true" />
-      <span>AAP Meldekort</span>
+      <span>{label}</span>
     </Link>
   );
 };

@@ -7,11 +7,10 @@ import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import Script from 'next/script';
 import { getEnvironment } from 'lib/utils/environments';
 import styles from 'app/[lang]/layout.module.css';
-import {Heading, VStack} from '@navikt/ds-react';
+import { Heading } from '@navikt/ds-react';
 import { Språkvelger } from 'components/språkvelger/Språkvelger';
 import { SlettMockButton } from 'components/slettmockbutton/SlettMockButton';
 import { isLocal } from 'lib/services/meldekortservice';
-import { HjemKnapp } from 'components/hjemknapp/HjemKnapp';
 
 export const metadata: Metadata = {
   title: 'AAP Meldekort',
@@ -41,12 +40,7 @@ export default async function RootLayout({
             <Språkvelger />
           </div>
         </div>
-        <main className={styles.rapporteringcontainer}>
-          <VStack gap={'4'}>
-            <HjemKnapp />
-            {children}
-          </VStack>
-        </main>
+        <main className={styles.rapporteringcontainer}>{children}</main>
         <Decorator.Footer />
         <Decorator.Scripts loader={Script} />
       </body>
