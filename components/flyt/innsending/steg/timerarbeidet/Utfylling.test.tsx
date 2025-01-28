@@ -4,6 +4,7 @@ import { Utfylling } from 'components/flyt/innsending/steg/timerarbeidet/Utfylli
 import { userEvent } from '@testing-library/user-event';
 import { eachDayOfInterval, format } from 'date-fns';
 import { MeldekortResponse } from 'lib/types/types';
+import { nb } from 'date-fns/locale/nb';
 
 const meldeperiode: MeldekortResponse = {
   periode: { fom: '2024-11-18', tom: '2024-12-01' },
@@ -107,7 +108,8 @@ describe('rapporteringskalender', () => {
   it('skal vise 14 felter for å føre inn timer', () => {
     render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
     for (let i = 0; i < 14; i++) {
-      const felt = screen.getByRole('textbox', { name: `dager.${i}.timer` });
+      const labelTekst = finnLabeltekst(meldeperiode.meldekort.timerArbeidet[i].dato);
+      const felt = screen.getByRole('textbox', { name: labelTekst });
       expect(felt).toBeVisible();
     }
   });
@@ -126,8 +128,8 @@ describe('rapporteringskalender', () => {
 
   it('skal vise en feilmelding dersom bruker skriver inn et desimaltall som ikke er en hel eller halv time', async () => {
     render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
-
-    const felt = screen.getByRole('textbox', { name: 'dager.0.timer' });
+    const labelTekst = finnLabeltekst(meldeperiode.meldekort.timerArbeidet[0].dato);
+    const felt = screen.getByRole('textbox', { name: labelTekst });
     await user.type(felt, '2.3');
 
     const fullførKnapp = screen.getByRole('button', { name: 'Neste' });
@@ -143,7 +145,8 @@ describe('rapporteringskalender', () => {
   it('skal vise en feilmelding dersom bruker skriver inn et tall som er over 24 timer', async () => {
     render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
 
-    const felt = screen.getByRole('textbox', { name: 'dager.0.timer' });
+    const labelTekst = finnLabeltekst(meldeperiode.meldekort.timerArbeidet[0].dato);
+    const felt = screen.getByRole('textbox', { name: labelTekst });
     await user.type(felt, '25');
 
     const fullførKnapp = screen.getByRole('button', { name: 'Neste' });
@@ -159,7 +162,8 @@ describe('rapporteringskalender', () => {
   it('skal vise en feilmelding dersom bruker skriver inn et tall som ikke er et tall', async () => {
     render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
 
-    const felt = screen.getByRole('textbox', { name: 'dager.0.timer' });
+    const labelTekst = finnLabeltekst(meldeperiode.meldekort.timerArbeidet[0].dato);
+    const felt = screen.getByRole('textbox', { name: labelTekst });
     await user.type(felt, 'attentimerogtredveminutter');
 
     const fullførKnapp = screen.getByRole('button', { name: 'Neste' });
@@ -172,3 +176,8 @@ describe('rapporteringskalender', () => {
     expect(feilmelding).toBeVisible();
   });
 });
+
+function finnLabeltekst(dato: string): string {
+  const førsteDag = new Date(dato);
+  return format(førsteDag, 'eeee do MMMM', { locale: nb });
+}

@@ -1,6 +1,8 @@
 import { TimerInput } from 'components/rapporteringskalender/timerinput/TimerInput';
 import { FieldArrayWithIndex } from 'components/rapporteringskalender/Rapporteringskalender';
 import { format } from 'date-fns';
+import { nb } from 'date-fns/locale/nb';
+
 import { BodyShort } from '@navikt/ds-react';
 
 import styles from './UkeRad.module.css';
@@ -30,6 +32,7 @@ export const UkeRad = ({ felterIUken, errors }: Props) => {
             key={field.id}
             index={field.index}
             harError={Boolean(errors.find((error) => error.index === field.index)?.harError)}
+            label={format(new Date(field.dag), 'eeee do MMMM', { locale: nb })}
           />
         ))}
       </div>

@@ -5,9 +5,10 @@ import { useFormContext } from 'react-hook-form';
 interface Props {
   index: number;
   harError: boolean;
+  label: string;
 }
 
-export const TimerInput = ({ index, harError }: Props) => {
+export const TimerInput = ({ index, harError, label }: Props) => {
   const form = useFormContext();
   const textfieldClassName = form.watch(`dager.${index}.timer`) ? styles.inputmedverdi : styles.inpututenverdi;
   const harErrorClassName = harError ? 'navds-text-field--error' : '';
@@ -18,7 +19,7 @@ export const TimerInput = ({ index, harError }: Props) => {
         control={form.control}
         name={`dager.${index}.timer`}
         type={'text'}
-        label={`dager.${index}.timer`}
+        label={label}
         hideLabel
         className={`${textfieldClassName} ${harErrorClassName}`}
       />
