@@ -41,14 +41,14 @@ export const FyllUtKorrigering = () => {
     },
     endreMeldekort: {
       type: 'checkbox',
-      label: 'Bekreft at opplysningene stemmer',
+      label: 'Endre meldekort',
       hideLabel: true,
+      defaultValue: korrigering.endrerMeldekort ? [JaEllerNei.Ja] : [],
       options: [{ label: 'Endre meldekort', value: JaEllerNei.Ja }],
     },
   });
 
   const endrer = form.watch('endreMeldekort')?.includes(JaEllerNei.Ja);
-
   const visNesteKnapp = endrer && korrigering.meldekort.kanEndres;
 
   return (
@@ -72,6 +72,7 @@ export const FyllUtKorrigering = () => {
               setKorrigering({
                 ...korrigering,
                 steg: 'SE_OVER_TIMER',
+                endrerMeldekort: true,
                 meldekort: {
                   ...korrigering.meldekort,
                   timerArbeidet: data.dager.map((dag) => ({

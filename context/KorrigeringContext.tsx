@@ -14,6 +14,7 @@ export const KorrigeringContext = createContext<KorrigeringContextType | null>(n
 
 interface Korrigering {
   steg: Steg;
+  endrerMeldekort: boolean;
   meldekort: HistoriskMeldekortDetaljer;
 }
 
@@ -27,6 +28,7 @@ export function KorrigeringContextProvider(props: Props) {
   const [korrigering, setKorrigering] = useState<Korrigering>({
     steg: 'FYLL_TIMER',
     meldekort: props.meldekort,
+    endrerMeldekort: false,
   });
 
   const context: KorrigeringContextType = {
