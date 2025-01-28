@@ -2,13 +2,12 @@
 
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { JaEllerNei } from 'lib/utils/form';
-import { Alert, BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
-import styles from 'components/flyt/korrigering/steg/fyllutkorrigering/FyllUtKorrigering.module.css';
 import { korrigerMeldekortClient } from 'lib/client/clientApi';
-import { ArrowLeftIcon } from '@navikt/aksel-icons';
 import { IngenEndringer } from 'components/flyt/korrigering/steg/seover/ingenendringer/IngenEndringer';
+import { Form } from 'components/form/Form';
 
 interface FormFields {
   opplysningerStemmer: JaEllerNei[];
@@ -32,7 +31,7 @@ export const SeOver = () => {
   }
 
   return (
-    <form
+    <Form
       onSubmit={form.handleSubmit(async () => {
         await korrigerMeldekortClient(korrigering.meldekort.meldekortId, {
           // @ts-ignore TODO Fiks type i context
@@ -41,6 +40,9 @@ export const SeOver = () => {
           }),
         }).then(() => setKorrigering({ ...korrigering, steg: 'KVITTERING' }));
       })}
+      forrigeStegOnClick={() => setKorrigering({ ...korrigering, steg: 'FYLL_TIMER' })}
+      forrigeStegKnappTekst={'Endre'}
+      nesteStegKnappTekst={'Send inn'}
     >
       <VStack gap={'4'}>
         <Heading size={'large'} level={'2'} spacing>
@@ -54,19 +56,7 @@ export const SeOver = () => {
           periode={korrigering.meldekort.meldeperiode}
         />
         <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
-        <div className={styles.buttons}>
-          <Button
-            variant={'secondary'}
-            onClick={() => setKorrigering({ ...korrigering, steg: 'FYLL_TIMER' })}
-            type={'button'}
-            iconPosition={'left'}
-            icon={<ArrowLeftIcon />}
-          >
-            Endre
-          </Button>
-          <Button>Send inn</Button>
-        </div>
       </VStack>
-    </form>
+    </Form>
   );
 };

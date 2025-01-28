@@ -1,10 +1,8 @@
 'use client';
 
-import { Alert, BodyShort, Button, Heading, ReadMore, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { JaEllerNei } from 'lib/utils/form';
-
-import styles from 'components/flyt/korrigering/steg/fyllutkorrigering/FyllUtKorrigering.module.css';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
 import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
@@ -12,7 +10,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 import { useState } from 'react';
 import { erGyldigTimer, UtfyllingAvTimerError } from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
-import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
+import { Form } from 'components/form/Form';
 
 export interface FormFields {
   dager: Dag[];
@@ -57,7 +55,7 @@ export const FyllUtKorrigering = () => {
         Se og endre meldekort
       </Heading>
       <FormProvider {...form}>
-        <form
+        <Form
           onSubmit={form.handleSubmit((data) => {
             setErrors([]);
             const errors: UtfyllingAvTimerError[] = [];
@@ -83,6 +81,9 @@ export const FyllUtKorrigering = () => {
               });
             }
           })}
+          forrigeStegOnClick={() => router.push(`/${params.system}/innsendt`)}
+          isLoading={false}
+          visNesteKnapp={visNesteKnapp}
         >
           <VStack gap={'4'}>
             <BodyShort>
@@ -108,24 +109,8 @@ export const FyllUtKorrigering = () => {
                 Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer.
               </Alert>
             )}
-            <div className={styles.buttons}>
-              <Button
-                variant={'secondary'}
-                onClick={() => router.push(`/${params.system}/innsendt`)}
-                type={'button'}
-                iconPosition={'left'}
-                icon={<ArrowLeftIcon />}
-              >
-                Tilbake
-              </Button>
-              {visNesteKnapp && (
-                <Button iconPosition={'right'} icon={<ArrowRightIcon />}>
-                  Neste
-                </Button>
-              )}
-            </div>
           </VStack>
-        </form>
+        </Form>
       </FormProvider>
     </VStack>
   );

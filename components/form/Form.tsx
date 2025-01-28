@@ -7,19 +7,21 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
 interface Props {
   children: ReactNode;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  isLoading: boolean;
+  isLoading?: boolean;
   errorMessage?: string;
   forrigeStegOnClick?: () => void;
   nesteStegKnappTekst?: string;
   forrigeStegKnappTekst?: string;
+  visNesteKnapp?: boolean;
 }
 
 export const Form = ({
   children,
   onSubmit,
   forrigeStegOnClick,
-  isLoading,
   errorMessage,
+  isLoading = false,
+  visNesteKnapp = true,
   nesteStegKnappTekst = 'Neste',
   forrigeStegKnappTekst = 'Tilbake',
 }: Props) => {
@@ -39,14 +41,16 @@ export const Form = ({
             {forrigeStegKnappTekst}
           </Button>
         )}
-        <Button
-          variant={'primary'}
-          icon={<ArrowRightIcon aria-hidden={'true'} />}
-          iconPosition={'right'}
-          loading={isLoading}
-        >
-          {nesteStegKnappTekst}
-        </Button>
+        {visNesteKnapp && (
+          <Button
+            variant={'primary'}
+            icon={<ArrowRightIcon aria-hidden={'true'} />}
+            iconPosition={'right'}
+            loading={isLoading}
+          >
+            {nesteStegKnappTekst}
+          </Button>
+        )}
       </div>
     </form>
   );
