@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 describe('Form generelt', () => {
   beforeEach(() => {
     render(
-      <Form onSubmit={vitest.fn()} forrigeSteg={'BEKREFT_SVARER_ÆRLIG'} referanse={'123'} isLoading={false}>
+      <Form onSubmit={vitest.fn()} forrigeStegOnClick={vitest.fn()} forrigeStegKnappTekst={'Tilbake'} isLoading={false}>
         <div>Noe greier</div>
       </Form>
     );
@@ -19,7 +19,7 @@ describe('Form generelt', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeVisible();
   });
 
-  test('skal ha en knapp for å gå tilbake til forrige steg dersom forrigeSteg er satt', () => {
+  test('skal ha en knapp for å gå tilbake til forrige steg dersom forrigeStegOnClick er satt', () => {
     expect(screen.getByRole('button', { name: 'Tilbake' })).toBeVisible();
   });
 
@@ -44,7 +44,7 @@ describe('Form generelt', () => {
 describe('varianter', () => {
   test('skal ikke vise knapp tilbake hvis forrigeSteg ikke er satt', () => {
     render(
-      <Form onSubmit={vitest.fn()} referanse={'123'} isLoading={false}>
+      <Form onSubmit={vitest.fn()} isLoading={false}>
         <div>Noe greier</div>
       </Form>
     );
@@ -54,7 +54,7 @@ describe('varianter', () => {
 
   test('skal vise korrekt tekst på neste knapp dersom nesteStegKnappTekst er satt', () => {
     render(
-      <Form onSubmit={vitest.fn()} referanse={'123'} isLoading={false} nesteStegKnappTekst={'Neste steg'}>
+      <Form onSubmit={vitest.fn()} isLoading={false} nesteStegKnappTekst={'Neste steg'}>
         <div>Noe greier</div>
       </Form>
     );
@@ -63,13 +63,7 @@ describe('varianter', () => {
 
   test('skal vise korrekt tekst på tilbake knapp dersom forrigeStegKnappTekst er satt', () => {
     render(
-      <Form
-        onSubmit={vitest.fn()}
-        forrigeSteg={'BEKREFT_SVARER_ÆRLIG'}
-        referanse={'123'}
-        isLoading={false}
-        forrigeStegKnappTekst={'Endre'}
-      >
+      <Form onSubmit={vitest.fn()} forrigeStegOnClick={vitest.fn()} isLoading={false} forrigeStegKnappTekst={'Endre'}>
         <div>Noe greier</div>
       </Form>
     );
@@ -78,14 +72,7 @@ describe('varianter', () => {
 
   test('skal vise feilmelding dersom det er satt', () => {
     render(
-      <Form
-        onSubmit={vitest.fn()}
-        forrigeSteg={'BEKREFT_SVARER_ÆRLIG'}
-        referanse={'123'}
-        isLoading={false}
-        errorMessage={'Noe gikk galt.'}
-        forrigeStegKnappTekst={'Endre'}
-      >
+      <Form onSubmit={vitest.fn()} isLoading={false} errorMessage={'Noe gikk galt.'} forrigeStegKnappTekst={'Endre'}>
         <div>Noe greier</div>
       </Form>
     );

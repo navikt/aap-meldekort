@@ -7,6 +7,7 @@ import { JaEllerNei } from 'lib/utils/form';
 import { Form } from 'components/form/Form';
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
+import { useParams, useRouter } from 'next/navigation';
 
 interface Props {
   referanse: string;
@@ -29,11 +30,16 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
       rules: { required: 'Du må bekrefte at disse opplysningene stemmer' },
     },
   });
+  const router = useRouter();
+  const params = useParams<{ system: string }>();
 
   return (
     <Form
-      referanse={referanse}
-      forrigeSteg={meldekort.meldekort.harDuJobbet ? 'TIMER_ARBEIDET' : 'JOBBET_I_MELDEPERIODEN'}
+      forrigeStegOnClick={() =>
+        router.push(
+          `/${params.system}/${referanse}/${meldekort.meldekort.harDuJobbet ? 'TIMER_ARBEIDET' : 'JOBBET_I_MELDEPERIODEN'}`
+        )
+      }
       nesteStegKnappTekst={'Send inn'}
       forrigeStegKnappTekst={'Endre'}
       onSubmit={form.handleSubmit(async () => {

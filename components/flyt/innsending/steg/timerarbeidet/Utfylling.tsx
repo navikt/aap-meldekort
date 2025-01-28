@@ -8,6 +8,7 @@ import { FormProvider } from 'react-hook-form';
 import { useState } from 'react';
 import { MeldekortResponse } from 'lib/types/types';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
+import { useParams, useRouter } from 'next/navigation';
 
 interface Props {
   meldekort: MeldekortResponse;
@@ -29,6 +30,8 @@ export interface UtfyllingAvTimerError {
 }
 
 export const Utfylling = ({ meldekort, referanse }: Props) => {
+  const router = useRouter();
+  const params = useParams<{ system: string }>();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const [errors, setErrors] = useState<UtfyllingAvTimerError[]>([]);
 
@@ -45,8 +48,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
   return (
     <FormProvider {...form}>
       <Form
-        referanse={referanse}
-        forrigeSteg={'JOBBET_I_MELDEPERIODEN'}
+        forrigeStegOnClick={() => router.push(`/${params.system}/${referanse}/JOBBET_I_MELDEPERIODEN`)}
         nesteStegKnappTekst={'Neste'}
         onSubmit={form.handleSubmit(async (data) => {
           setErrors([]);
