@@ -10,7 +10,7 @@ export const SlettMockButton = () => {
 
   return (
     <Button
-      icon={<TrashIcon title="a11y-title" fontSize="1.5rem" />}
+      icon={<TrashIcon aria-hidden fontSize="1.5rem" />}
       onClick={() => {
         slettMockClient();
         router.push('/');
