@@ -1,4 +1,4 @@
-import { Introduksjon } from 'components/steg/introduksjon/Introduksjon';
+import { Introduksjon } from 'components/flyt/innsending/steg/introduksjon/Introduksjon';
 import { hentMeldekort } from 'lib/services/meldekortservice';
 
 interface Props {

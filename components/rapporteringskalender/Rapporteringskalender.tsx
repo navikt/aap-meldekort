@@ -8,7 +8,7 @@ import { FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form
 import styles from './Rapporteringskalender.module.css';
 import { UkeRad } from 'components/rapporteringskalender/ukerad/UkeRad';
 import { UkeHeader } from './ukeheader/UkeHeader';
-import { UtfyllingAvTimerError, MeldepliktFormFields } from 'components/steg/timerarbeidet/Utfylling';
+import { UtfyllingAvTimerError, MeldepliktFormFields } from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
 import { Periode } from 'lib/types/types';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 

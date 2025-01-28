@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { Introduksjon } from 'components/steg/introduksjon/Introduksjon';
+import { Introduksjon } from 'components/flyt/innsending/steg/introduksjon/Introduksjon';
 import { userEvent } from '@testing-library/user-event';
 import { MeldekortResponse } from 'lib/types/types';
 

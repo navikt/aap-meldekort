@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { Periode } from 'components/steg/periode/Periode';
+import { Periode } from 'components/flyt/innsending/steg/periode/Periode';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { MeldekortResponse } from 'lib/types/types';

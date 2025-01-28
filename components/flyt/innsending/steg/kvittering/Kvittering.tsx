@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import { KommendeMeldekort, MeldekortResponse } from 'lib/types/types';
 import NextLink from 'next/link';
 
-import styles from 'components/steg/kvittering/Kvittering.module.css';
+import styles from 'components/flyt/innsending/steg/kvittering/Kvittering.module.css';
 
 interface Props {
   meldekort: MeldekortResponse;

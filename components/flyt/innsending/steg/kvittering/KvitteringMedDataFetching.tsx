@@ -1,4 +1,4 @@
-import { Kvittering } from 'components/steg/kvittering/Kvittering';
+import { Kvittering } from 'components/flyt/innsending/steg/kvittering/Kvittering';
 import { hentKommendeMeldekort, hentMeldekort } from 'lib/services/meldekortservice';
 
 interface Props {

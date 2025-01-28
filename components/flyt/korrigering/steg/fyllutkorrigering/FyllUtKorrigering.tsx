@@ -4,14 +4,14 @@ import { Alert, BodyShort, Button, Heading, ReadMore, VStack } from '@navikt/ds-
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { JaEllerNei } from 'lib/utils/form';
 
-import styles from 'components/korrigering/steg/fyllutkorrigering/FyllUtKorrigering.module.css';
+import styles from 'components/flyt/korrigering/steg/fyllutkorrigering/FyllUtKorrigering.module.css';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
 import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
 import { useParams, useRouter } from 'next/navigation';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 import { useState } from 'react';
-import { erGyldigTimer, UtfyllingAvTimerError } from 'components/steg/timerarbeidet/Utfylling';
+import { erGyldigTimer, UtfyllingAvTimerError } from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
 import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
 
 export interface FormFields {

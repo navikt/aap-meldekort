@@ -1,7 +1,7 @@
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
-import { FyllUtKorrigering } from 'components/korrigering/steg/fyllutkorrigering/FyllUtKorrigering';
-import { SeOver } from 'components/korrigering/steg/seover/SeOver';
-import { Kvittering } from 'components/korrigering/steg/kvittering/Kvittering';
+import { FyllUtKorrigering } from 'components/flyt/korrigering/steg/fyllutkorrigering/FyllUtKorrigering';
+import { SeOver } from 'components/flyt/korrigering/steg/seover/SeOver';
+import { Kvittering } from 'components/flyt/korrigering/steg/kvittering/Kvittering';
 
 export const KorrigeringSteg = () => {
   const { korrigering } = useKorrigerMeldekort();

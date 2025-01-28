@@ -1,11 +1,11 @@
-import { PeriodeMedDataFetching } from 'components/steg/periode/PeriodeMedDataFetching';
-import { UtfyllingMedDataFetching } from 'components/steg/timerarbeidet/UtfyllingMedDataFetching';
+import { PeriodeMedDataFetching } from 'components/flyt/innsending/steg/periode/PeriodeMedDataFetching';
+import { UtfyllingMedDataFetching } from 'components/flyt/innsending/steg/timerarbeidet/UtfyllingMedDataFetching';
 import { Steg } from 'lib/types/types';
-import { IntroduksjonMedDataFetching } from 'components/steg/introduksjon/IntroduksjonMedDataFetching';
-import { KvitteringMedDataFetching } from 'components/steg/kvittering/KvitteringMedDataFetching';
+import { IntroduksjonMedDataFetching } from 'components/flyt/innsending/steg/introduksjon/IntroduksjonMedDataFetching';
+import { KvitteringMedDataFetching } from 'components/flyt/innsending/steg/kvittering/KvitteringMedDataFetching';
 import { hentMeldekort } from 'lib/services/meldekortservice';
 import { redirect } from 'next/navigation';
-import { StemmerOpplysningeneMedDataFetching } from 'components/steg/stemmeropplysningene/StemmerOpplysningeneMedDataFetching';
+import { StemmerOpplysningeneMedDataFetching } from 'components/flyt/innsending/steg/stemmeropplysningene/StemmerOpplysningeneMedDataFetching';
 
 interface Props {
   params: Promise<{

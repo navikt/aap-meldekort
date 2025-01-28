@@ -5,10 +5,10 @@ import { JaEllerNei } from 'lib/utils/form';
 import { Alert, BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
-import styles from 'components/korrigering/steg/fyllutkorrigering/FyllUtKorrigering.module.css';
+import styles from 'components/flyt/korrigering/steg/fyllutkorrigering/FyllUtKorrigering.module.css';
 import { korrigerMeldekortClient } from 'lib/client/clientApi';
 import { ArrowLeftIcon } from '@navikt/aksel-icons';
-import { IngenEndringer } from 'components/korrigering/steg/seover/ingenendringer/IngenEndringer';
+import { IngenEndringer } from 'components/flyt/korrigering/steg/seover/ingenendringer/IngenEndringer';
 
 interface FormFields {
   opplysningerStemmer: JaEllerNei[];

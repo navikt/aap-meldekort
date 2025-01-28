@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import { MeldekortResponse } from 'lib/types/types';
 import { userEvent } from '@testing-library/user-event';
-import { StemmerOpplysningene } from 'components/steg/stemmeropplysningene/StemmerOpplysningene';
+import { StemmerOpplysningene } from 'components/flyt/innsending/steg/stemmeropplysningene/StemmerOpplysningene';
 
 const meldekortUtenArbeid: MeldekortResponse = {
   meldekort: {

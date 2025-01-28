@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { Utfylling } from 'components/steg/timerarbeidet/Utfylling';
+import { Utfylling } from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
 import { userEvent } from '@testing-library/user-event';
 import { eachDayOfInterval, format } from 'date-fns';
 import { MeldekortResponse } from 'lib/types/types';

@@ -4,7 +4,7 @@ import { Accordion, Alert, HGrid, Link } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useParams } from 'next/navigation';
 
-import styles from 'components/steg/kvittering/Kvittering.module.css';
+import styles from 'components/flyt/innsending/steg/kvittering/Kvittering.module.css';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 
 export const Kvittering = () => {

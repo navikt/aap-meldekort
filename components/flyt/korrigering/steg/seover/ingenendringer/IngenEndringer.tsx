@@ -3,7 +3,7 @@
 import { Alert, BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
 import { useParams, useRouter } from 'next/navigation';
 
-import styles from './IngenEndringer.module.css';
+import styles from 'components/flyt/korrigering/steg/seover/ingenendringer/IngenEndringer.module.css';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 import { ArrowLeftIcon } from '@navikt/aksel-icons';
 

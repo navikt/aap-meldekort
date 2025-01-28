@@ -1,4 +1,4 @@
-import { Periode } from 'components/steg/periode/Periode';
+import { Periode } from 'components/flyt/innsending/steg/periode/Periode';
 import { hentMeldekort } from 'lib/services/meldekortservice';
 
 interface Props {

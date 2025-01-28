@@ -1,5 +1,5 @@
 import { hentInnsendtMeldekortDetjalert } from 'lib/services/meldekortservice';
-import { Korrigering } from 'components/korrigering/Korrigering';
+import { Korrigering } from 'components/flyt/korrigering/Korrigering';
 
 interface Props {
   params: Promise<{
