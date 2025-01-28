@@ -14,7 +14,7 @@ export const OppsummeringTimer = ({ timer }: Props) => {
     <OppsummeringRad
       heading={'Sammenlagt for perioden'}
       label={'Jobb'}
-      value={`${timer} timer (${antallTimerIProsent})`}
+      value={`${timer} timer (${antallTimerIProsent}%)`}
       backgroundColor={'blue'}
     />
   );
