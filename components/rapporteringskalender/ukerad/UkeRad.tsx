@@ -20,7 +20,7 @@ export const UkeRad = ({ felterIUken, errors }: Props) => {
         {felterIUken.map((field, index) => {
           const dagINummer = format(new Date(field.dag), 'd');
           return (
-            <BodyShort key={index} size={'medium'}>
+            <BodyShort key={index} size={'medium'} aria-hidden>
               {dagINummer}.
             </BodyShort>
           );
