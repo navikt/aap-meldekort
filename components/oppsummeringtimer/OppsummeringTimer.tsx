@@ -2,7 +2,6 @@ import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
 
 interface Props {
   timer: number;
-  className?: string;
 }
 
 const antallTimerIMeldepliktPerioden = 37.5 * 2;
