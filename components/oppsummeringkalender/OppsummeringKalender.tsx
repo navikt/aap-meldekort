@@ -66,7 +66,7 @@ export const OppsummeringKalender = ({ periode, timerArbeidet, visPeriode = true
         </div>
         <VStack gap={'4'}>
           <OppsummeringTimer timer={timer} />
-          {utbetalt && (
+          {utbetalt !== null && utbetalt !== undefined && (
             <OppsummeringRad
               heading={'Utbetalt for perioden'}
               label={'Utbetalt'}
