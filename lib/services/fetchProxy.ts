@@ -22,7 +22,7 @@ export async function fetcher<ResponseBody>(url: string, method: 'GET' | 'POST',
     });
 
     const responseJson = await response.json();
-    logInfo(`respons for ${url} med statuskode ${response.status}} er ` + JSON.stringify(responseJson));
+    logInfo(`respons for ${url} med statuskode ${response.status}} er ` + JSON.stringify(responseJson)); //TODO Fjern denne før vi går i prod
     return responseJson;
   } catch (error) {
     logError(`Klarte ikke å hente ${url}:` + JSON.stringify(error));
