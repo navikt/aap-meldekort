@@ -47,7 +47,8 @@ export const FyllUtKorrigering = () => {
   });
 
   const endrer = form.watch('endreMeldekort')?.includes(JaEllerNei.Ja);
-  const visNesteKnapp = endrer && korrigering.meldekort.kanEndres && korrigering.meldekort.timerArbeidet !== null;
+  const visKnapperForKorrigering =
+    endrer && korrigering.meldekort.kanEndres && korrigering.meldekort.timerArbeidet !== null;
 
   return (
     <VStack gap={'4'}>
@@ -83,7 +84,9 @@ export const FyllUtKorrigering = () => {
           })}
           forrigeStegOnClick={() => router.push(`/${params.system}/innsendt`)}
           isLoading={false}
-          visNesteKnapp={visNesteKnapp}
+          visNesteKnapp={visKnapperForKorrigering}
+          visAvbrytKnapp={visKnapperForKorrigering}
+          avbrytOnClick={() => router.push(`/${params.system}/innsendt`)}
         >
           <VStack gap={'4'}>
             <BodyShort>

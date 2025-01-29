@@ -13,13 +13,17 @@ interface Props {
   nesteStegKnappTekst?: string;
   forrigeStegKnappTekst?: string;
   visNesteKnapp?: boolean;
+  avbrytOnClick?: () => void;
+  visAvbrytKnapp?: boolean;
 }
 
 export const Form = ({
   children,
   onSubmit,
   forrigeStegOnClick,
+  avbrytOnClick,
   errorMessage,
+  visAvbrytKnapp = false,
   isLoading = false,
   visNesteKnapp = true,
   nesteStegKnappTekst = 'Neste',
@@ -52,6 +56,13 @@ export const Form = ({
           </Button>
         )}
       </div>
+      {visAvbrytKnapp && avbrytOnClick && (
+        <div className={styles.avbryt}>
+          <Button variant={'tertiary'} onClick={avbrytOnClick}>
+            Avbryt
+          </Button>
+        </div>
+      )}
     </form>
   );
 };

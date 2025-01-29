@@ -8,12 +8,15 @@ import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 import { korrigerMeldekortClient } from 'lib/client/clientApi';
 import { IngenEndringer } from 'components/flyt/korrigering/steg/seover/ingenendringer/IngenEndringer';
 import { Form } from 'components/form/Form';
+import { useParams, useRouter } from 'next/navigation';
 
 interface FormFields {
   opplysningerStemmer: JaEllerNei[];
 }
 
 export const SeOver = () => {
+  const router = useRouter();
+  const params = useParams<{ system: string }>();
   const { korrigering, setKorrigering, harDetSkjeddEndringer } = useKorrigerMeldekort();
 
   const { form, formFields } = useConfigForm<FormFields>({
@@ -43,6 +46,8 @@ export const SeOver = () => {
       forrigeStegOnClick={() => setKorrigering({ ...korrigering, steg: 'FYLL_TIMER' })}
       forrigeStegKnappTekst={'Endre'}
       nesteStegKnappTekst={'Send inn'}
+      visAvbrytKnapp={true}
+      avbrytOnClick={() => router.push(`/${params.system}/innsendt`)}
     >
       <VStack gap={'4'}>
         <Heading size={'large'} level={'2'} spacing>
