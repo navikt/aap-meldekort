@@ -16,7 +16,7 @@ export default async function innsendingLayout(props: Props) {
 
   return (
     <VStack gap={'4'}>
-      <HjemKnapp label={'Tilbake til oversikten'} href={`/${params.system}}`} />
+      <HjemKnapp label={'Tilbake til oversikten'} href={`/${params.system}`} />
       {props.children}
     </VStack>
   );

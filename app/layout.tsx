@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import Script from 'next/script';
 import { getEnvironment } from 'lib/utils/environments';
-import styles from 'app/[lang]/layout.module.css';
+import styles from 'app/layout.module.css';
 import { Heading } from '@navikt/ds-react';
 import { Språkvelger } from 'components/språkvelger/Språkvelger';
 import { SlettMockButton } from 'components/slettmockbutton/SlettMockButton';
