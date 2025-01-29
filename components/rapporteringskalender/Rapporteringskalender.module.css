@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--a-spacing-4);
-  margin: 0 var(--a-spacing-16);
 }
 
 .heading {
@@ -19,5 +18,9 @@
 
 .wrapper {
   background-color: var(--a-gray-100);
-  padding: var(--a-spacing-6);
+}
+
+.fullBleed {
+  margin: 0 calc(50% - 50vw);
+  padding: 0 calc(50vw - 50%);
 }

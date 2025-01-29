@@ -47,7 +47,7 @@ export const Rapporteringskalender = ({ errors, periode }: Props) => {
   });
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${styles.fullBleed}`}>
       <div className={styles.rapporteringskalender}>
         <div className={styles.heading}>
           <Heading size={'medium'} level={'3'}>
