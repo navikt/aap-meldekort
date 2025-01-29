@@ -27,13 +27,18 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
 
       {innsendteMeldeperioder.length > 0 ? (
         <>
-          {innsendteMeldeperioder.map((innsendtMeldekort) => {
+          {innsendteMeldeperioder.map((innsendtMeldekort, key) => {
+            const urlSearchParams = new URLSearchParams();
+            urlSearchParams.append('fom', innsendtMeldekort.meldeperiode.fom);
+            urlSearchParams.append('tom', innsendtMeldekort.meldeperiode.tom);
+            const url = `/${params.system}/innsendt/periode?${urlSearchParams}`;
+
             return (
               <LinkPanel
+                key={key}
                 variant={'secondary'}
-                key={innsendtMeldekort.meldekortId}
                 title={`${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.tom)}`}
-                href={`/${params.system}/innsendt/${innsendtMeldekort.meldekortId}`}
+                href={url}
                 description={`Uke ${hentUkeNummerForPeriode(
                   new Date(innsendtMeldekort.meldeperiode.fom),
                   new Date(innsendtMeldekort.meldeperiode.tom)

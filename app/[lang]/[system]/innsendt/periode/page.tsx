@@ -2,14 +2,13 @@ import { hentInnsendtMeldekortDetjalert } from 'lib/services/meldekortservice';
 import { Korrigering } from 'components/flyt/korrigering/Korrigering';
 
 interface Props {
-  params: Promise<{
-    innsendtreferanse: string;
-  }>;
+  searchParams: Promise<{ fom: string; tom: string }>;
 }
 
 export default async function endreMeldekortPage(props: Props) {
-  const params = await props.params;
-  const innsendteMeldekort = await hentInnsendtMeldekortDetjalert(params.innsendtreferanse);
+  const searchParams = await props.searchParams;
+
+  const innsendteMeldekort = await hentInnsendtMeldekortDetjalert(searchParams);
 
   return <Korrigering meldekort={innsendteMeldekort} />;
 }

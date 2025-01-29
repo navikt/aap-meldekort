@@ -80,7 +80,7 @@ export async function hentHistoriskMeldekortMock(): Promise<HistoriskMeldekort[]
     return JSON.parse(await fs.readFile('.historiskMeldekort.cache', 'utf8')) as unknown as HistoriskMeldekort[];
   } catch (err) {
     const meldekort: HistoriskMeldekort[] = [
-      { meldekortId: 123456789, meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' }, status: 'INNSENDT' },
+      { meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' }, status: 'INNSENDT' },
     ];
 
     return (await fs.writeFile(

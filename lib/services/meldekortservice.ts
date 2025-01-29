@@ -6,6 +6,7 @@ import {
   MeldekortRequest,
   MeldekortResponse,
   MeldekortKorrigeringRequest,
+  Periode,
 } from 'lib/types/types';
 import {
   hentHistoriskMeldekortDetaljerMock,
@@ -38,13 +39,13 @@ export async function hentInnsendteMeldekort(): Promise<HistoriskMeldekort[]> {
   return await fetcher<HistoriskMeldekort[]>(url, 'GET');
 }
 
-export async function hentInnsendtMeldekortDetjalert(meldekortId: string): Promise<HistoriskMeldekortDetaljer> {
+export async function hentInnsendtMeldekortDetjalert(periode: Periode): Promise<HistoriskMeldekortDetaljer> {
   if (isLocal()) {
     return hentHistoriskMeldekortDetaljerMock();
   }
 
-  const url = `${meldeKortBaseUrl}/api/arena/meldekort/historisk/${meldekortId}`;
-  return await fetcher<HistoriskMeldekortDetaljer>(url, 'GET');
+  const url = `${meldeKortBaseUrl}/api/arena/meldekort/historisk/meldeperiode`;
+  return await fetcher<HistoriskMeldekortDetaljer>(url, 'POST', periode);
 }
 
 export async function korrigerMeldekort(
