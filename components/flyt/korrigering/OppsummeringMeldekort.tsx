@@ -60,7 +60,7 @@ export const OppsummeringMeldekort = ({ historiskeMeldekortDetaljer }: Props) =>
             variant={'secondary'}
             iconPosition={'left'}
             icon={<ArrowLeftIcon />}
-            onClick={() => router.push('/arena/innsendt')}
+            onClick={() => router.push('/innsendt')}
           >
             Tilbake
           </Button>

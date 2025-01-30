@@ -17,7 +17,7 @@ const NotFound = () => {
       <Heading level="2" size="medium" spacing>
         Denne siden finnes ikke.
       </Heading>
-      <Link href={`/arena`}>Gå tilbake til oversikt</Link>
+      <Link href={`/`}>Gå tilbake til oversikt</Link>
     </div>
   );
 };
