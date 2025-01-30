@@ -23,7 +23,7 @@ const Error = () => {
         </List.Item>
         <List.Item>
           gå tilbake til{' '}
-          <Link href="#" onClick={() => router.push('/arena')}>
+          <Link href="#" onClick={() => router.push('/')}>
             meldekort oversikt
           </Link>
         </List.Item>
