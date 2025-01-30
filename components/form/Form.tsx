@@ -12,9 +12,7 @@ interface Props {
   forrigeStegOnClick?: () => void;
   nesteStegKnappTekst?: string;
   forrigeStegKnappTekst?: string;
-  visNesteKnapp?: boolean;
   avbrytOnClick?: () => void;
-  visAvbrytKnapp?: boolean;
 }
 
 export const Form = ({
@@ -23,9 +21,7 @@ export const Form = ({
   forrigeStegOnClick,
   avbrytOnClick,
   errorMessage,
-  visAvbrytKnapp = false,
   isLoading = false,
-  visNesteKnapp = true,
   nesteStegKnappTekst = 'Neste',
   forrigeStegKnappTekst = 'Tilbake',
 }: Props) => {
@@ -45,18 +41,16 @@ export const Form = ({
             {forrigeStegKnappTekst}
           </Button>
         )}
-        {visNesteKnapp && (
-          <Button
-            variant={'primary'}
-            icon={<ArrowRightIcon aria-hidden={'true'} />}
-            iconPosition={'right'}
-            loading={isLoading}
-          >
-            {nesteStegKnappTekst}
-          </Button>
-        )}
+        <Button
+          variant={'primary'}
+          icon={<ArrowRightIcon aria-hidden={'true'} />}
+          iconPosition={'right'}
+          loading={isLoading}
+        >
+          {nesteStegKnappTekst}
+        </Button>
       </div>
-      {visAvbrytKnapp && avbrytOnClick && (
+      {avbrytOnClick && (
         <div className={styles.avbryt}>
           <Button variant={'tertiary'} onClick={avbrytOnClick}>
             Avbryt

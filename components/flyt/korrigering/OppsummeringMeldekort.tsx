@@ -5,13 +5,12 @@ import { OppsummeringKalender } from 'components/oppsummeringkalender/Oppsummeri
 import { HistoriskMeldekortDetaljer } from 'lib/types/types';
 import { ArrowLeftIcon } from '@navikt/aksel-icons';
 import { useRouter } from 'next/navigation';
-import { Korrigering } from 'components/flyt/korrigering/Korrigering';
 
 interface Props {
   historiskeMeldekortDetaljer: HistoriskMeldekortDetaljer[];
 }
 
-export const Thomas = ({ historiskeMeldekortDetaljer }: Props) => {
+export const OppsummeringMeldekort = ({ historiskeMeldekortDetaljer }: Props) => {
   const router = useRouter();
 
   const kanEndres = historiskeMeldekortDetaljer.some((meldekort) => meldekort.kanEndres);
@@ -49,6 +48,7 @@ export const Thomas = ({ historiskeMeldekortDetaljer }: Props) => {
               periode={historiskMeldekort.meldeperiode}
               utbetalt={historiskMeldekort.bruttoBeløp}
               innsendtDato={historiskMeldekort.innsendtDato}
+              kanEndres={historiskMeldekort.kanEndres}
             />
           );
         })}

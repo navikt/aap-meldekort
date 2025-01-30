@@ -9,6 +9,7 @@ import { Periode, TimerArbeidet } from 'lib/types/types';
 import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 import { formaterTilNok } from 'lib/utils/string';
+import Link from 'next/link';
 
 interface Props {
   periode: Periode;
@@ -67,6 +68,11 @@ export const OppsummeringKalender = ({
       )}
       <div className={styles.kalender}>
         <div>
+          {kanEndres && (
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.5rem' }}>
+              <Link href={'/arena/innsendt/periode/korriger'}>Endre meldekort</Link>
+            </div>
+          )}
           <UkeHeader />
           {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
             <OppsummeringUkeRad key={ukeStart} felterIUken={felterIUken} />
