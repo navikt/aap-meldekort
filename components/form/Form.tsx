@@ -52,7 +52,7 @@ export const Form = ({
       </div>
       {avbrytOnClick && (
         <div className={styles.avbryt}>
-          <Button variant={'tertiary'} onClick={avbrytOnClick}>
+          <Button variant={'tertiary'} onClick={avbrytOnClick} type={'button'}>
             Avbryt
           </Button>
         </div>
