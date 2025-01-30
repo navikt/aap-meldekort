@@ -4,7 +4,7 @@ import { Alert, BodyShort, Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
 import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 import { useState } from 'react';
 import { erGyldigTimer, UtfyllingAvTimerError } from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
@@ -21,8 +21,8 @@ interface Dag {
 
 export const FyllUtKorrigering = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [errors, setErrors] = useState<UtfyllingAvTimerError[]>([]);
-
   const { korrigering, setKorrigering } = useKorrigerMeldekort();
 
   const { form } = useConfigForm<FormFields>({
@@ -65,7 +65,7 @@ export const FyllUtKorrigering = () => {
             }
           })}
           forrigeStegKnappTekst={'Avbryt'}
-          forrigeStegOnClick={() => router.push(`/innsendt`)}
+          forrigeStegOnClick={() => router.push(`/innsendt/periode?${searchParams}`)}
           isLoading={false}
         >
           <VStack gap={'4'}>
