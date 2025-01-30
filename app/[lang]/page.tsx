@@ -1,18 +1,9 @@
-'use client';
+import { Oversikt } from 'components/oversikt/Oversikt';
+import { hentInnsendteMeldekort, hentKommendeMeldekort } from 'lib/services/meldekortservice';
 
-import { Button, Heading, VStack } from '@navikt/ds-react';
-import { useRouter } from 'next/navigation';
+export default async function Page() {
+  const innsendteMeldekort = await hentInnsendteMeldekort();
+  const kommendeMeldekort = await hentKommendeMeldekort();
 
-export default function Home() {
-  const router = useRouter();
-
-  return (
-    <VStack gap={'4'}>
-      <Heading size={'large'}>Hva ønsker du å teste?</Heading>
-      <div className={'flex-row'}>
-        <Button onClick={() => router.push('/arena')}>Arena-meldekort</Button>
-        <Button onClick={() => router.push('/kelvin')}>Kelvin-meldekort</Button>
-      </div>
-    </VStack>
-  );
+  return <Oversikt kommendeMeldekort={kommendeMeldekort} harInnsendteMeldekort={innsendteMeldekort.length > 0} />;
 }

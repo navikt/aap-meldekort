@@ -7,7 +7,7 @@ import { BodyShort, Heading, HGrid, ReadMore } from '@navikt/ds-react';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { MeldekortResponse } from 'lib/types/types';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   meldekort: MeldekortResponse;
@@ -35,11 +35,10 @@ export const Periode = ({ meldekort, referanse }: Props) => {
   const tilDato = new Date(meldekort.periode.tom);
 
   const router = useRouter();
-  const params = useParams<{ system: string }>();
 
   return (
     <Form
-      forrigeStegOnClick={() => router.push(`/${params.system}/${referanse}/BEKREFT_SVARER_ÆRLIG`)}
+      forrigeStegOnClick={() => router.push(`/${referanse}/BEKREFT_SVARER_ÆRLIG`)}
       nesteStegKnappTekst={'Til utfylling'}
       onSubmit={form.handleSubmit(async (data) => {
         løsStegOgGåTilNeste({

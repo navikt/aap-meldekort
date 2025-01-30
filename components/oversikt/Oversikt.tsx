@@ -2,7 +2,6 @@
 
 import { KommendeMeldekort } from 'lib/types/types';
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
-import { useParams } from 'next/navigation';
 import { LinkPanel } from 'components/linkpanel/LinkPanel';
 
 interface Props {
@@ -11,8 +10,6 @@ interface Props {
 }
 
 export const Oversikt = ({ kommendeMeldekort, harInnsendteMeldekort }: Props) => {
-  const params = useParams<{ system: string }>();
-
   if (!kommendeMeldekort) {
     return <div>Kunne ikke finne noen meldeperioder</div>;
   }
@@ -31,7 +28,7 @@ export const Oversikt = ({ kommendeMeldekort, harInnsendteMeldekort }: Props) =>
         <BodyShort size={'large'}>Meldekort som er klare for innsending vises her</BodyShort>
         {kommendeMeldekort.nesteMeldekort ? (
           <LinkPanel
-            href={`/${params.system}/${kommendeMeldekort.nesteMeldekort.meldekortId}`}
+            href={`/${kommendeMeldekort.nesteMeldekort.meldekortId}`}
             title={`${kommendeMeldekort.antallUbesvarteMeldekort} meldekort klare for innsending`}
           />
         ) : (
@@ -52,7 +49,7 @@ export const Oversikt = ({ kommendeMeldekort, harInnsendteMeldekort }: Props) =>
         </Heading>
         <BodyShort size={'large'}>Her kan du se og endre meldekort</BodyShort>
         {harInnsendteMeldekort ? (
-          <LinkPanel title={'Gå til innsendte meldekort'} href={`/${params.system}/innsendt`} />
+          <LinkPanel title={'Gå til innsendte meldekort'} href={`/innsendt`} />
         ) : (
           <Alert variant={'info'}>
             <BodyShort size={'large'} weight={'semibold'} spacing>

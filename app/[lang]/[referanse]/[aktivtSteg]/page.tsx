@@ -11,7 +11,6 @@ interface Props {
   params: Promise<{
     referanse: string;
     aktivtSteg: string;
-    system: string;
   }>;
 }
 
@@ -37,7 +36,7 @@ const AktivtStegPage = async (props: Props) => {
   }
 
   if (skalRedirecteTilAktivtSteg()) {
-    redirect(`/${params.system}/${referanse}/${meldekort.steg}`);
+    redirect(`/${referanse}/${meldekort.steg}`);
   }
 
   return (

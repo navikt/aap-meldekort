@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { MeldekortRequest } from 'lib/types/types';
 import { gåTilNesteStegClient } from 'lib/client/clientApi';
 
@@ -9,7 +9,6 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
   errorMessage?: string;
 } {
   const router = useRouter();
-  const params = useParams<{ system: string }>();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>();
 
@@ -21,7 +20,7 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
       setErrorMessage('Kunne ikke gå videre på grunn av: ' + JSON.stringify(meldekortResponse?.feil?.innsendingFeil));
       setIsLoading(false);
     } else {
-      router.push(`/${params.system}/${referanse}/${meldekortResponse?.steg}`);
+      router.push(`/${referanse}/${meldekortResponse?.steg}`);
     }
   };
 

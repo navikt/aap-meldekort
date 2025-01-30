@@ -1,7 +1,7 @@
 'use client';
 
 import { Alert, BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import styles from 'components/flyt/korrigering/steg/seover/ingenendringer/IngenEndringer.module.css';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
@@ -9,7 +9,6 @@ import { ArrowLeftIcon } from '@navikt/aksel-icons';
 
 export const IngenEndringer = () => {
   const router = useRouter();
-  const params = useParams<{ system: string }>();
   const { korrigering, setKorrigering } = useKorrigerMeldekort();
 
   return (
@@ -37,7 +36,7 @@ export const IngenEndringer = () => {
           Tilbake
         </Button>
 
-        <Button onClick={() => router.push(`/${params.system}/innsendt`)} variant={'secondary'}>
+        <Button onClick={() => router.push(`/innsendt`)} variant={'secondary'}>
           Avbryt
         </Button>
       </div>

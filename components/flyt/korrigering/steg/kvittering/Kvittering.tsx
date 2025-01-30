@@ -2,14 +2,12 @@
 
 import { Accordion, Alert, HGrid, Link } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
-import { useParams } from 'next/navigation';
 
 import styles from 'components/flyt/innsending/steg/kvittering/Kvittering.module.css';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 
 export const Kvittering = () => {
   const { korrigering } = useKorrigerMeldekort();
-  const params = useParams<{ system: string }>();
 
   return (
     <HGrid columns={'1'} gap={'4'}>
@@ -28,7 +26,7 @@ export const Kvittering = () => {
         </Accordion.Item>
       </Accordion>
       <div className={styles.knapperad}>
-        <Link href={`/${params.system}/innsendt`} className={styles.link}>
+        <Link href={`/innsendt`} className={styles.link}>
           Gå tilbake til oversikt
         </Link>
       </div>

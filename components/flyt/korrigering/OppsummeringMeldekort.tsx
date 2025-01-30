@@ -4,7 +4,7 @@ import { Alert, BodyShort, Button, Heading, Link, ReadMore, VStack } from '@navi
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { HistoriskMeldekortDetaljer } from 'lib/types/types';
 import { ArrowLeftIcon } from '@navikt/aksel-icons';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { HjemKnapp } from 'components/hjemknapp/HjemKnapp';
 
 interface Props {
@@ -13,13 +13,12 @@ interface Props {
 
 export const OppsummeringMeldekort = ({ historiskeMeldekortDetaljer }: Props) => {
   const router = useRouter();
-  const params = useParams<{ system: string }>();
 
   const kanEndres = historiskeMeldekortDetaljer.some((meldekort) => meldekort.kanEndres);
 
   return (
     <VStack gap={'4'}>
-      <HjemKnapp label={'Tilbake til oversikten'} href={`/${params.system}/innsendt`} />
+      <HjemKnapp label={'Tilbake til oversikten'} href={`/innsendt`} />
       <Heading size={'medium'} level={'2'}>
         Se og endre meldekort
       </Heading>

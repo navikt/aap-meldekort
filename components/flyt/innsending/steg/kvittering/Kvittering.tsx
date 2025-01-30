@@ -2,7 +2,6 @@
 
 import { Accordion, Alert, Button, HGrid, Link } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
-import { useParams } from 'next/navigation';
 import { KommendeMeldekort, MeldekortResponse } from 'lib/types/types';
 import NextLink from 'next/link';
 
@@ -14,8 +13,6 @@ interface Props {
 }
 
 export const Kvittering = ({ meldekort, kommendeMeldekort }: Props) => {
-  const params = useParams<{ system: string }>();
-
   return (
     <HGrid columns={'1'} gap={'4'}>
       <Alert variant="success">
@@ -31,13 +28,13 @@ export const Kvittering = ({ meldekort, kommendeMeldekort }: Props) => {
       </Accordion>
       <div className={styles.knapperad}>
         {kommendeMeldekort?.nesteMeldekort && (
-          <NextLink href={`/${params.system}/${kommendeMeldekort.nesteMeldekort.meldekortId}`} passHref legacyBehavior>
+          <NextLink href={`/${kommendeMeldekort.nesteMeldekort.meldekortId}`} passHref legacyBehavior>
             <Button variant="primary" type="button" as={'a'}>
               Gå til neste meldekort
             </Button>
           </NextLink>
         )}
-        <Link href={`/${params.system}`} className={styles.link}>
+        <Link href={`/`} className={styles.link}>
           Gå tilbake til oversikt
         </Link>
       </div>

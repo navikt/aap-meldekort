@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation';
 interface Props {
   params: Promise<{
     referanse: string;
-    system: string;
   }>;
 }
 
@@ -15,5 +14,5 @@ export default async function Page(props: Props) {
 
   const meldekort = await hentMeldekort(referanse);
 
-  redirect(`/${params.system}/${referanse}/${meldekort.steg}`);
+  redirect(`/${referanse}/${meldekort.steg}`);
 }

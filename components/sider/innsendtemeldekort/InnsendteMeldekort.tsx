@@ -2,7 +2,6 @@
 
 import { Alert, BodyShort, Heading, HGrid } from '@navikt/ds-react';
 import { HistoriskMeldekort } from 'lib/types/types';
-import { useParams } from 'next/navigation';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { LinkPanel } from 'components/linkpanel/LinkPanel';
 import { HjemKnapp } from 'components/hjemknapp/HjemKnapp';
@@ -12,11 +11,9 @@ interface Props {
 }
 
 export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
-  const params = useParams<{ system: string }>();
-
   return (
     <HGrid gap={'4'}>
-      <HjemKnapp label={'Tilbake til oversikten'} href={`/${params.system}`} />
+      <HjemKnapp label={'Tilbake til oversikten'} href={`/`} />
       <Heading size={'medium'} level={'2'} spacing>
         Oversikt over innsendte meldekort
       </Heading>
@@ -31,7 +28,7 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
             const urlSearchParams = new URLSearchParams();
             urlSearchParams.append('fom', innsendtMeldekort.meldeperiode.fom);
             urlSearchParams.append('tom', innsendtMeldekort.meldeperiode.tom);
-            const url = `/${params.system}/innsendt/periode?${urlSearchParams}`;
+            const url = `/innsendt/periode?${urlSearchParams}`;
 
             return (
               <LinkPanel

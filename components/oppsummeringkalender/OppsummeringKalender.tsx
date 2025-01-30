@@ -10,7 +10,6 @@ import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 import { formaterTilNok } from 'lib/utils/string';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 interface Props {
   periode: Periode;
@@ -34,7 +33,6 @@ export const OppsummeringKalender = ({
   visPeriode = true,
   kanEndres = false,
 }: Props) => {
-  const params = useParams<{ system: string }>();
   const fraDato = new Date(periode.fom);
   const tilDato = new Date(periode.tom);
 
@@ -59,7 +57,7 @@ export const OppsummeringKalender = ({
   const urlSearchParams = new URLSearchParams();
   urlSearchParams.append('fom', periode.fom);
   urlSearchParams.append('tom', periode.tom);
-  const url = `/${params.system}/innsendt/periode/korriger?${urlSearchParams}`;
+  const url = `/innsendt/periode/korriger?${urlSearchParams}`;
 
   return (
     <div className={styles.oppsummeringkalender}>
