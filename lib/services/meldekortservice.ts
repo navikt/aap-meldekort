@@ -39,7 +39,7 @@ export async function hentInnsendteMeldekort(): Promise<HistoriskMeldekort[]> {
   return await fetcher<HistoriskMeldekort[]>(url, 'GET');
 }
 
-export async function hentInnsendtMeldekortDetjalert(periode: Periode): Promise<HistoriskMeldekortDetaljer[]> {
+export async function hentHisotriskMeldekortDetaljer(periode: Periode): Promise<HistoriskMeldekortDetaljer[]> {
   if (isLocal()) {
     return hentHistoriskMeldekortDetaljerMock();
   }

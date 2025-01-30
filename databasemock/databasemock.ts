@@ -8,6 +8,7 @@ import {
   MeldekortResponse,
   Steg,
 } from 'lib/types/types';
+import { subDays } from 'date-fns';
 
 /*
  * meldeperioder
@@ -121,6 +122,30 @@ export async function hentHistoriskMeldekortDetaljerMock(): Promise<HistoriskMel
           { dato: '2024-11-17' },
         ],
       },
+      // {
+      //   meldekortId: 123456789,
+      //   meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' },
+      //   status: 'INNSENDT',
+      //   innsendtDato: subDays(new Date(), 2).toString(),
+      //   kanEndres: true,
+      //   bruttoBeløp: 8745,
+      //   timerArbeidet: [
+      //     { dato: '2024-11-04' },
+      //     { dato: '2024-11-05' },
+      //     { dato: '2024-11-06' },
+      //     { dato: '2024-11-07', timer: 5 },
+      //     { dato: '2024-11-08' },
+      //     { dato: '2024-11-09' },
+      //     { dato: '2024-11-10' },
+      //     { dato: '2024-11-11' },
+      //     { dato: '2024-11-12' },
+      //     { dato: '2024-11-13' },
+      //     { dato: '2024-11-14' },
+      //     { dato: '2024-11-15' },
+      //     { dato: '2024-11-16' },
+      //     { dato: '2024-11-17' },
+      //   ],
+      // },
     ];
     return (await fs.writeFile(
       '.historiskMeldekortDetaljer.cache',
@@ -132,6 +157,8 @@ export async function hentHistoriskMeldekortDetaljerMock(): Promise<HistoriskMel
 export async function slettMock() {
   await fs.unlink('.kommendeMeldekort.cache');
   await fs.unlink('.meldekort.cache');
+  await fs.unlink('.historiskMeldekort.cache');
+  await fs.unlink('.historiskMeldekortDetaljer.cache');
 }
 
 function hentNesteSteg(nåværendeSteg: Steg, jobbetIMeldeperiode: boolean): Steg {

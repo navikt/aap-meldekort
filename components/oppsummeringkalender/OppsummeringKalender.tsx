@@ -16,6 +16,7 @@ interface Props {
   utbetalt?: number | null;
   innsendtDato?: string | null;
   visPeriode?: boolean;
+  kanEndres?: boolean;
 }
 
 export interface Dag {
@@ -23,7 +24,14 @@ export interface Dag {
   timer: number;
 }
 
-export const OppsummeringKalender = ({ periode, timerArbeidet, visPeriode = true, utbetalt, innsendtDato }: Props) => {
+export const OppsummeringKalender = ({
+  periode,
+  timerArbeidet,
+  utbetalt,
+  innsendtDato,
+  visPeriode = true,
+  kanEndres = false,
+}: Props) => {
   const fraDato = new Date(periode.fom);
   const tilDato = new Date(periode.tom);
 

@@ -1,5 +1,5 @@
-import { hentInnsendtMeldekortDetjalert } from 'lib/services/meldekortservice';
-import { Korrigering } from 'components/flyt/korrigering/Korrigering';
+import { hentHisotriskMeldekortDetaljer } from 'lib/services/meldekortservice';
+import { Thomas } from 'components/flyt/korrigering/Thomas';
 
 interface Props {
   searchParams: Promise<{ fom: string; tom: string }>;
@@ -8,7 +8,7 @@ interface Props {
 export default async function endreMeldekortPage(props: Props) {
   const searchParams = await props.searchParams;
 
-  const innsendteMeldekort = await hentInnsendtMeldekortDetjalert(searchParams);
+  const hisotriskMeldekortDetaljer = await hentHisotriskMeldekortDetaljer(searchParams);
 
-  return <Korrigering meldekort={innsendteMeldekort} />;
+  return <Thomas historiskeMeldekortDetaljer={hisotriskMeldekortDetaljer} />;
 }

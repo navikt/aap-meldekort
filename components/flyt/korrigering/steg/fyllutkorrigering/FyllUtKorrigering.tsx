@@ -52,9 +52,6 @@ export const FyllUtKorrigering = () => {
 
   return (
     <VStack gap={'4'}>
-      <Heading size={'medium'} level={'2'}>
-        Se og endre meldekort
-      </Heading>
       <FormProvider {...form}>
         <Form
           onSubmit={form.handleSubmit((data) => {
@@ -89,11 +86,6 @@ export const FyllUtKorrigering = () => {
           avbrytOnClick={() => router.push(`/${params.system}/innsendt`)}
         >
           <VStack gap={'4'}>
-            <BodyShort>
-              Du kan endre tidligere innsendte meldekort X antall uker tilbake i tid. Husk at endret meldekort kan
-              påvirke utbetalingen du fikk.
-            </BodyShort>
-            <ReadMore header={'Les mer om hvordan endre et meldekort'}>Her kommer det noe tekst</ReadMore>
             {korrigering.meldekort.kanEndres && (
               <FormField form={form} formField={formFields.endreMeldekort} size={'medium'} />
             )}
