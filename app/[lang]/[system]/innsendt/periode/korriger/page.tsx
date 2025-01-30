@@ -10,6 +10,9 @@ export default async function KorrigeringPage(props: Props) {
 
   const historiskMeldekortDetaljer = await hentHistoriskMeldekortDetaljer(searchParams);
   const meldekortSomKanEndres = historiskMeldekortDetaljer.find((historiskMeldekort) => historiskMeldekort.kanEndres);
+
+  console.log('searchParams', searchParams);
+
   if (!meldekortSomKanEndres) {
     return <div>Fant ikke meldekort som kan endres</div>;
   }

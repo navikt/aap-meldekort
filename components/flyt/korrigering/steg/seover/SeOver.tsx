@@ -46,7 +46,6 @@ export const SeOver = () => {
       forrigeStegOnClick={() => setKorrigering({ ...korrigering, steg: 'FYLL_TIMER' })}
       forrigeStegKnappTekst={'Endre'}
       nesteStegKnappTekst={'Send inn'}
-      visAvbrytKnapp={true}
       avbrytOnClick={() => router.push(`/${params.system}/innsendt`)}
     >
       <VStack gap={'4'}>
