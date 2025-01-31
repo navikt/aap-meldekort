@@ -8,7 +8,6 @@ import {
   MeldekortResponse,
   Steg,
 } from 'lib/types/types';
-import { subDays } from 'date-fns';
 
 /*
  * meldeperioder
@@ -104,6 +103,7 @@ export async function hentHistoriskMeldekortDetaljerMock(): Promise<HistoriskMel
         status: 'INNSENDT',
         innsendtDato: new Date().toString(),
         kanEndres: true,
+        type: 'VANLIG',
         bruttoBeløp: 8745,
         timerArbeidet: [
           { dato: '2024-11-04' },

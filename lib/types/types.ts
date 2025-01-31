@@ -20,3 +20,6 @@ export type Periode = components['schemas']['no.nav.aap.meldekort.arena.PeriodeD
 export type TimerArbeidet = components['schemas']['no.nav.aap.meldekort.arena.TimerArbeidetDto'];
 
 export type Status = components['schemas']['no.nav.aap.meldekort.arena.HistoriskMeldekortDto']['status'];
+
+export type HistoriskMeldekortType =
+  components['schemas']['no.nav.aap.meldekort.arena.HistoriskMeldekortDetaljerDto']['type'];

@@ -5,7 +5,7 @@ import { UkeHeader } from 'components/rapporteringskalender/ukeheader/UkeHeader'
 import { OppsummeringUkeRad } from 'components/oppsummeringkalender/oppsummeringukerad/OppsummeringUkeRad';
 
 import styles from './OppsummeringKalender.module.css';
-import { Periode, TimerArbeidet } from 'lib/types/types';
+import { HistoriskMeldekortType, Periode, TimerArbeidet } from 'lib/types/types';
 import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 import { formaterTilNok } from 'lib/utils/string';
@@ -18,6 +18,7 @@ interface Props {
   innsendtDato?: string | null;
   visPeriode?: boolean;
   kanEndres?: boolean;
+  type?: HistoriskMeldekortType;
 }
 
 export interface Dag {
@@ -30,6 +31,7 @@ export const OppsummeringKalender = ({
   timerArbeidet,
   utbetalt,
   innsendtDato,
+  type,
   visPeriode = true,
   kanEndres = false,
 }: Props) => {
@@ -95,8 +97,8 @@ export const OppsummeringKalender = ({
           )}
           {innsendtDato && (
             <OppsummeringRad
-              heading={'Innsendt'}
-              label={'Innsendt'}
+              heading={type === 'KORRIGERING' ? 'Korrigert' : 'Innsendt'}
+              label={type === 'KORRIGERING' ? 'Korrigert' : 'Innsendt'}
               value={formaterDatoForFrontend(innsendtDato)}
               backgroundColor={'white'}
             />
