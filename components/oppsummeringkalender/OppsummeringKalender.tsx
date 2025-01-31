@@ -62,7 +62,7 @@ export const OppsummeringKalender = ({
   const url = `/innsendt/periode/korriger?${urlSearchParams}`;
 
   return (
-    <div className={styles.oppsummeringkalender}>
+    <div className={`${styles.fullBleed} ${styles.oppsummeringkalender}`}>
       {visPeriode && (
         <div className={styles.heading}>
           <Heading size={'medium'} level={'3'}>
@@ -73,7 +73,7 @@ export const OppsummeringKalender = ({
           </BodyShort>
         </div>
       )}
-      <div className={styles.kalender}>
+      <div className={`${styles.kalender}`}>
         <div>
           {kanEndres && (
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.5rem' }}>

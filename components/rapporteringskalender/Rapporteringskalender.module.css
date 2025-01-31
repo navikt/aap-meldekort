@@ -22,7 +22,13 @@
   padding-block: var(--a-spacing-4);
 }
 
-/*.fullBleed {*/
-/*  margin: 0 calc(50% - 50vw);*/
-/*  padding-inline: calc(50vw - 50%);*/
-/*}*/
+@media (max-width: 768px) {
+  .fullBleed {
+    margin: 0 calc(50% - 50vw);
+    padding-inline: calc(50vw - 50%);
+  }
+
+  .rapporteringskalender {
+    margin: 0;
+  }
+}
