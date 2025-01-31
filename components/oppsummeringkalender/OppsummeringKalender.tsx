@@ -74,9 +74,9 @@ export const OppsummeringKalender = ({
         </div>
       )}
       <div className={`${styles.kalender}`}>
-        <div>
+        <VStack gap={'4'}>
           {kanEndres && (
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.5rem' }}>
+            <div className={styles.endremeldekortlink}>
               <Link href={url}>Endre meldekort</Link>
             </div>
           )}
@@ -84,7 +84,7 @@ export const OppsummeringKalender = ({
           {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
             <OppsummeringUkeRad key={ukeStart} felterIUken={felterIUken} />
           ))}
-        </div>
+        </VStack>
         <VStack gap={'4'}>
           <OppsummeringTimer timer={timer} />
           {utbetalt !== null && utbetalt !== undefined && (
