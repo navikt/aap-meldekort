@@ -51,6 +51,7 @@ export const OppsummeringMeldekort = ({ historiskeMeldekortDetaljer }: Props) =>
               utbetalt={historiskMeldekort.bruttoBeløp}
               innsendtDato={historiskMeldekort.innsendtDato}
               kanEndres={historiskMeldekort.kanEndres}
+              type={historiskMeldekort.type}
             />
           );
         })}
