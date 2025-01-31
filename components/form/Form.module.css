@@ -1,13 +1,18 @@
 .knapper {
   margin-top: var(--a-spacing-8);
   display: flex;
-  flex-direction: row;
-  justify-content: center;
   gap: var(--a-spacing-4);
+  justify-content: center;
 }
 
 .avbryt {
   margin-top: var(--a-spacing-2);
   display: flex;
   justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .knapper {
+    flex-direction: column;
+  }
 }
