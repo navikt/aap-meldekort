@@ -9,6 +9,7 @@ import { korrigerMeldekortClient } from 'lib/client/clientApi';
 import { IngenEndringer } from 'components/flyt/korrigering/steg/seover/ingenendringer/IngenEndringer';
 import { Form } from 'components/form/Form';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface FormFields {
   opplysningerStemmer: JaEllerNei[];
@@ -17,6 +18,7 @@ interface FormFields {
 export const SeOver = () => {
   const router = useRouter();
   const { korrigering, setKorrigering, harDetSkjeddEndringer } = useKorrigerMeldekort();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { form, formFields } = useConfigForm<FormFields>({
     opplysningerStemmer: {
@@ -35,17 +37,22 @@ export const SeOver = () => {
   return (
     <Form
       onSubmit={form.handleSubmit(async () => {
+        setIsLoading(true);
         await korrigerMeldekortClient(korrigering.meldekort.meldekortId, {
           // @ts-ignore TODO Fiks type i context
           timerArbeidet: korrigering.meldekort.timerArbeidet?.map((data) => {
             return { dato: data.dato, timer: data.timer };
           }),
-        }).then(() => setKorrigering({ ...korrigering, steg: 'KVITTERING' }));
+        });
+
+        setIsLoading(false);
+        setKorrigering({ ...korrigering, steg: 'KVITTERING' });
       })}
       forrigeStegOnClick={() => setKorrigering({ ...korrigering, steg: 'FYLL_TIMER' })}
       forrigeStegKnappTekst={'Endre'}
       nesteStegKnappTekst={'Send inn'}
       avbrytOnClick={() => router.push(`/innsendt`)}
+      isLoading={isLoading}
     >
       <VStack gap={'4'}>
         <Heading size={'large'} level={'2'} spacing>
