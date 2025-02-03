@@ -36,25 +36,25 @@ describe('oppsummering kalender', () => {
 
   it('skal vise dagene i uken som tekst', () => {
     render(<OppsummeringKalender timerArbeidet={timerArbeider} periode={periode} />);
-    const mandag = screen.getByText('Man.');
+    const mandag = screen.getByText('ma.');
     expect(mandag).toBeVisible();
 
-    const tirsdag = screen.getByText('Tir.');
+    const tirsdag = screen.getByText('ti.');
     expect(tirsdag).toBeVisible();
 
-    const onsdag = screen.getByText('Ons.');
+    const onsdag = screen.getByText('on.');
     expect(onsdag).toBeVisible();
 
-    const torsdag = screen.getByText('Tor.');
+    const torsdag = screen.getByText('to.');
     expect(torsdag).toBeVisible();
 
-    const fredag = screen.getByText('Fre.');
+    const fredag = screen.getByText('fr.');
     expect(fredag).toBeVisible();
 
-    const lørdag = screen.getByText('Lør.');
+    const lørdag = screen.getByText('lø.');
     expect(lørdag).toBeVisible();
 
-    const søndag = screen.getByText('Søn.');
+    const søndag = screen.getByText('sø.');
     expect(søndag).toBeVisible();
   });
 

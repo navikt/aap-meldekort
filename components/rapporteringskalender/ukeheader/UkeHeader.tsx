@@ -5,25 +5,25 @@ export const UkeHeader = () => {
   return (
     <div className={styles.header}>
       <BodyShort size={'small'} aria-hidden>
-        Man.
+        ma.
       </BodyShort>
       <BodyShort size={'small'} aria-hidden>
-        Tir.
+        ti.
       </BodyShort>
       <BodyShort size={'small'} aria-hidden>
-        Ons.
+        on.
       </BodyShort>
       <BodyShort size={'small'} aria-hidden>
-        Tor.
+        to.
       </BodyShort>
       <BodyShort size={'small'} aria-hidden>
-        Fre.
+        fr.
       </BodyShort>
       <BodyShort size={'small'} aria-hidden>
-        Lør.
+        lø.
       </BodyShort>
       <BodyShort size={'small'} aria-hidden>
-        Søn.
+        sø.
       </BodyShort>
     </div>
   );
