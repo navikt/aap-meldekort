@@ -5,7 +5,7 @@ import { nb } from 'date-fns/locale/nb';
 
 import { BodyShort, Heading } from '@navikt/ds-react';
 
-import styles from 'components/rapporteringskalender/ukerad/UkeRapportering.module.css';
+import styles from 'components/rapporteringskalender/ukerapportering/UkeRapportering.module.css';
 import { UtfyllingAvTimerError } from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 
@@ -49,6 +49,7 @@ export const UkeRapportering = ({ felterIUken, errors }: Props) => {
             index={field.index}
             harError={Boolean(errors.find((error) => error.index === field.index)?.harError)}
             label={format(new Date(field.dag), 'eeee do MMMM', { locale: nb })}
+            isSmallScreen={false}
           />
         ))}
       </div>
