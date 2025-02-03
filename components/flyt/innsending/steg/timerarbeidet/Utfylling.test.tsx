@@ -53,7 +53,7 @@ describe('Utfylling', () => {
   });
 
   it('skal vise en rapporteringskalender', () => {
-    const rapporteringskalender = screen.getByRole('heading', { name: 'Uke 47 - 48', level: 3 });
+    const rapporteringskalender = screen.getByRole('heading', { name: 'Uke 47', level: 3 });
     expect(rapporteringskalender).toBeVisible();
   });
 
@@ -71,37 +71,37 @@ describe('Utfylling', () => {
 describe('rapporteringskalender', () => {
   it('skal vise ukenummer på perioden', () => {
     render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
-    const ukenummer = screen.getByText('Uke 47 - 48');
+    const ukenummer = screen.getByText('Uke 47');
     expect(ukenummer).toBeVisible();
   });
 
   it('skal vise fra dato og til dato for perioden', () => {
     render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
-    const datoerForPerioden = screen.getByText('18.11.2024 - 01.12.2024');
+    const datoerForPerioden = screen.getByText('18.11.2024 - 24.11.2024');
     expect(datoerForPerioden).toBeVisible();
   });
 
   it('skal vise dagene i uken som tekst', () => {
     render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
-    const mandag = screen.getByText('ma.');
+    const mandag = screen.getAllByText('ma.')[0];
     expect(mandag).toBeVisible();
 
-    const tirsdag = screen.getByText('ti.');
+    const tirsdag = screen.getAllByText('ti.')[0];
     expect(tirsdag).toBeVisible();
 
-    const onsdag = screen.getByText('on.');
+    const onsdag = screen.getAllByText('on.')[0];
     expect(onsdag).toBeVisible();
 
-    const torsdag = screen.getByText('to.');
+    const torsdag = screen.getAllByText('to.')[0];
     expect(torsdag).toBeVisible();
 
-    const fredag = screen.getByText('fr.');
+    const fredag = screen.getAllByText('fr.')[0];
     expect(fredag).toBeVisible();
 
-    const lørdag = screen.getByText('lø.');
+    const lørdag = screen.getAllByText('lø.')[0];
     expect(lørdag).toBeVisible();
 
-    const søndag = screen.getByText('sø.');
+    const søndag = screen.getAllByText('sø.')[0];
     expect(søndag).toBeVisible();
   });
 
