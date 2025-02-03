@@ -14,10 +14,10 @@
   },
   "prettier": "@navikt/aap-felles-prettier",
   "dependencies": {
-    "@navikt/aap-felles-css": "^4.2.6",
-    "@navikt/aap-felles-react": "^4.2.6",
-    "@navikt/aap-felles-utils": "^4.2.6",
-    "@navikt/aap-felles-utils-client": "^4.2.6",
+    "@navikt/aap-felles-css": "^4.2.8",
+    "@navikt/aap-felles-react": "^4.2.8",
+    "@navikt/aap-felles-utils": "^4.2.8",
+    "@navikt/aap-felles-utils-client": "^4.2.8",
     "@navikt/aksel-icons": "^7.10.0",
     "@navikt/ds-css": "^7.10.0",
     "@navikt/ds-react": "^7.10.0",
@@ -32,7 +32,7 @@
     "react-hook-form": "^7.54.2"
   },
   "devDependencies": {
-    "@navikt/aap-felles-prettier": "^4.2.6",
+    "@navikt/aap-felles-prettier": "^4.2.8",
     "@navikt/eslint-config-aap": "^4.2.2",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
