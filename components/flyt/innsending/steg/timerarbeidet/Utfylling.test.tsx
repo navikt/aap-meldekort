@@ -121,7 +121,7 @@ describe('rapporteringskalender', () => {
     });
     datoer.forEach((dato) => {
       const datoNummer = format(dato, 'd');
-      const tekst = screen.getByText(`${datoNummer}.`);
+      const tekst = screen.getByText(`${datoNummer}`);
       expect(tekst).toBeVisible();
     });
   });

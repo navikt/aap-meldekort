@@ -19,6 +19,7 @@ export const TimerInput = ({ index, harError, label }: Props) => {
         control={form.control}
         name={`dager.${index}.timer`}
         type={'text'}
+        size={"medium"}
         label={label}
         hideLabel
         className={`${textfieldClassName} ${harErrorClassName}`}

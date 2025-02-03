@@ -77,7 +77,7 @@ export const FyllUtKorrigering = () => {
               påvirke utbetalingen du fikk.
             </BodyShort>
             <ReadMore header={'Les mer om hvordan endre et meldekort'}>Her kommer det noe tekst</ReadMore>
-            <Rapporteringskalender periode={korrigering.meldekort.meldeperiode} errors={errors} />
+            <Rapporteringskalender errors={errors} />
             {errors.length > 0 && (
               <Alert variant={'error'}>
                 Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer.

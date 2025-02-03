@@ -2,33 +2,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--a-spacing-4);
-  margin: 0 var(--a-spacing-16);
-}
-
-.heading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--a-spacing-2);
 }
 
 .kalender {
   display: flex;
   flex-direction: column;
-}
-
-.wrapper {
-  background-color: var(--a-gray-100);
-  padding-block: var(--a-spacing-4);
-}
-
-@media (max-width: 768px) {
-  .fullBleed {
-    margin: 0 calc(50% - 50vw);
-    padding-inline: calc(50vw - 50%);
-  }
-
-  .rapporteringskalender {
-    margin: 0;
-  }
+  gap: var(--a-spacing-4);
 }

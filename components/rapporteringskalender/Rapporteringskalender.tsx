@@ -1,19 +1,14 @@
 'use client';
 
-import { format, getISOWeek, startOfWeek } from 'date-fns';
-import { BodyShort, Heading } from '@navikt/ds-react';
-import { formaterDatoForFrontend } from 'lib/utils/date';
+import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';
 import { FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form';
 
 import styles from './Rapporteringskalender.module.css';
-import { UkeRad } from 'components/rapporteringskalender/ukerad/UkeRad';
-import { UkeHeader } from './ukeheader/UkeHeader';
-import { UtfyllingAvTimerError, MeldepliktFormFields } from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
-import { Periode } from 'lib/types/types';
+import { UkeRapportering } from 'components/rapporteringskalender/ukerad/UkeRapportering';
+import { MeldepliktFormFields, UtfyllingAvTimerError } from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 
 interface Props {
-  periode: Periode;
   errors: UtfyllingAvTimerError[];
 }
 
@@ -21,10 +16,9 @@ export type FieldArrayWithIndex = FieldArrayWithId<MeldepliktFormFields> & {
   index: number;
 };
 
-export const Rapporteringskalender = ({ errors, periode }: Props) => {
-  const fraDato = new Date(periode.fom);
-  const tilDato = new Date(periode.tom);
+export type MeldeperiodeUke = { ukeStart: Date; ukeSlutt: Date; ukeNummer: number; felter: FieldArrayWithIndex[] };
 
+export const Rapporteringskalender = ({ errors }: Props) => {
   const form = useFormContext<MeldepliktFormFields>();
 
   const { fields } = useFieldArray({
@@ -32,39 +26,35 @@ export const Rapporteringskalender = ({ errors, periode }: Props) => {
     name: 'dager',
   });
 
-  const fraDatoUkenummer = getISOWeek(fraDato);
-  const tilDatoUkenummer = getISOWeek(tilDato);
+  const meldeperiodeUker: Record<string, MeldeperiodeUke> = fields.reduce(
+    (acc, field, index) => {
+      const ukeStart = format(startOfWeek(new Date(field.dag), { weekStartsOn: 1 }), 'yyyy-MM-dd');
 
-  const grupperteFelter: Record<string, FieldArrayWithIndex[]> = {};
+      if (!acc[ukeStart]) {
+        const parsedUkeStart = new Date(ukeStart);
+        acc[ukeStart] = {
+          felter: [],
+          ukeStart: parsedUkeStart,
+          ukeSlutt: endOfWeek(parsedUkeStart, { weekStartsOn: 1 }),
+          ukeNummer: getISOWeek(parsedUkeStart),
+        };
+      }
 
-  fields.forEach((field, index) => {
-    const ukeStart = format(startOfWeek(new Date(field.dag), { weekStartsOn: 1 }), 'yyyy-MM-dd');
+      acc[ukeStart].felter.push({ ...field, index });
 
-    if (!grupperteFelter[ukeStart]) {
-      grupperteFelter[ukeStart] = [];
-    }
-    grupperteFelter[ukeStart].push({ ...field, index });
-  });
+      return acc;
+    },
+    {} as Record<string, MeldeperiodeUke>
+  );
 
   return (
-    <div className={`${styles.wrapper} ${styles.fullBleed}`}>
-      <div className={styles.rapporteringskalender}>
-        <div className={styles.heading}>
-          <Heading size={'medium'} level={'3'}>
-            Uke {fraDatoUkenummer} - {tilDatoUkenummer}
-          </Heading>
-          <BodyShort>
-            {formaterDatoForFrontend(periode.fom)} - {formaterDatoForFrontend(periode.tom)}
-          </BodyShort>
-        </div>
-        <div className={styles.kalender}>
-          <UkeHeader />
-          {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
-            <UkeRad key={ukeStart} felterIUken={felterIUken} errors={errors} />
-          ))}
-        </div>
-        <OppsummeringTimer timer={form.watch('dager').reduce((acc, curr) => acc + Number(curr.timer), 0)} />
+    <div className={styles.rapporteringskalender}>
+      <div className={styles.kalender}>
+        {Object.entries(meldeperiodeUker).map(([ukeStart, felterIUken]) => (
+          <UkeRapportering key={ukeStart} felterIUken={felterIUken} errors={errors} />
+        ))}
       </div>
+      <OppsummeringTimer timer={form.watch('dager').reduce((acc, curr) => acc + Number(curr.timer), 0)} />
     </div>
   );
 };
