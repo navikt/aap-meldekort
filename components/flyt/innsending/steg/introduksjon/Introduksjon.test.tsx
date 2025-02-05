@@ -29,7 +29,7 @@ describe('skjema', () => {
   it('skal ha et felt for å bekrefte at bruker vil fylle ut meldekortet riktig', () => {
     render(<Introduksjon meldekort={meldekort} referanse={'1234'} />);
     const checkbox = screen.getByRole('checkbox', {
-      name: 'Jeg bekrefter at jeg vil fylle ut meldekortet så riktig jeg kan',
+      name: 'Jeg bekrefter at jeg vil fylle ut meldekortet så riktig jeg kan.',
     });
     expect(checkbox).toBeVisible();
   });

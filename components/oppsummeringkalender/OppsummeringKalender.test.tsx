@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { eachDayOfInterval, format } from 'date-fns';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 
 const periode = { fom: '2024-11-18', tom: '2024-12-01' };
@@ -36,25 +35,25 @@ describe('oppsummering kalender', () => {
 
   it('skal vise dagene i uken som tekst', () => {
     render(<OppsummeringKalender timerArbeidet={timerArbeider} periode={periode} />);
-    const mandag = screen.getByText('ma.');
+    const mandag = screen.getByText('ma. 18.');
     expect(mandag).toBeVisible();
 
-    const tirsdag = screen.getByText('ti.');
+    const tirsdag = screen.getByText('ti. 19.');
     expect(tirsdag).toBeVisible();
 
-    const onsdag = screen.getByText('on.');
+    const onsdag = screen.getByText('on. 20.');
     expect(onsdag).toBeVisible();
 
-    const torsdag = screen.getByText('to.');
+    const torsdag = screen.getByText('to. 21.');
     expect(torsdag).toBeVisible();
 
-    const fredag = screen.getByText('fr.');
+    const fredag = screen.getByText('fr. 22.');
     expect(fredag).toBeVisible();
 
-    const lørdag = screen.getByText('lø.');
+    const lørdag = screen.getByText('lø. 23.');
     expect(lørdag).toBeVisible();
 
-    const søndag = screen.getByText('sø.');
+    const søndag = screen.getByText('sø. 24.');
     expect(søndag).toBeVisible();
   });
 
@@ -64,17 +63,5 @@ describe('oppsummering kalender', () => {
       const førteTimer = screen.getAllByText('0t');
       expect(førteTimer).toHaveLength(14);
     }
-  });
-  it('skal vise datoen for de 14 feltene', () => {
-    render(<OppsummeringKalender timerArbeidet={timerArbeider} periode={periode} />);
-    const datoer = eachDayOfInterval({
-      start: new Date(periode.fom),
-      end: new Date(periode.tom),
-    });
-    datoer.forEach((dato) => {
-      const datoNummer = format(dato, 'd');
-      const tekst = screen.getByText(`${datoNummer}.`);
-      expect(tekst).toBeVisible();
-    });
   });
 });

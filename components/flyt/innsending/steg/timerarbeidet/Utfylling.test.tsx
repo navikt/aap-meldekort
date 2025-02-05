@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Utfylling } from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
 import { userEvent } from '@testing-library/user-event';
-import { eachDayOfInterval, format } from 'date-fns';
+import { format } from 'date-fns';
 import { MeldekortResponse } from 'lib/types/types';
 import { nb } from 'date-fns/locale/nb';
 
@@ -81,27 +81,27 @@ describe('rapporteringskalender', () => {
     expect(datoerForPerioden).toBeVisible();
   });
 
-  it('skal vise dagene i uken som tekst', () => {
+  it('skal vise dagene og datoen i uken som tekst', () => {
     render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
-    const mandag = screen.getAllByText('ma.')[0];
+    const mandag = screen.getByText('ma. 18.');
     expect(mandag).toBeVisible();
 
-    const tirsdag = screen.getAllByText('ti.')[0];
+    const tirsdag = screen.getByText('ti. 19.');
     expect(tirsdag).toBeVisible();
 
-    const onsdag = screen.getAllByText('on.')[0];
+    const onsdag = screen.getByText('on. 20.');
     expect(onsdag).toBeVisible();
 
-    const torsdag = screen.getAllByText('to.')[0];
+    const torsdag = screen.getByText('to. 21.');
     expect(torsdag).toBeVisible();
 
-    const fredag = screen.getAllByText('fr.')[0];
+    const fredag = screen.getByText('fr. 22.');
     expect(fredag).toBeVisible();
 
-    const lørdag = screen.getAllByText('lø.')[0];
+    const lørdag = screen.getByText('lø. 23.');
     expect(lørdag).toBeVisible();
 
-    const søndag = screen.getAllByText('sø.')[0];
+    const søndag = screen.getByText('sø. 24.');
     expect(søndag).toBeVisible();
   });
 
@@ -112,18 +112,6 @@ describe('rapporteringskalender', () => {
       const felt = screen.getByRole('textbox', { name: labelTekst });
       expect(felt).toBeVisible();
     }
-  });
-  it('skal vise datoen for de 14 feltene', () => {
-    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
-    const datoer = eachDayOfInterval({
-      start: new Date(meldeperiode.periode.fom),
-      end: new Date(meldeperiode.periode.tom),
-    });
-    datoer.forEach((dato) => {
-      const datoNummer = format(dato, 'd');
-      const tekst = screen.getByText(`${datoNummer}`);
-      expect(tekst).toBeVisible();
-    });
   });
 
   it('skal vise en feilmelding dersom bruker skriver inn et desimaltall som ikke er en hel eller halv time', async () => {
