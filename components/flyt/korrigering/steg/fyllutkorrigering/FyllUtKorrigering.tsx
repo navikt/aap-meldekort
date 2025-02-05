@@ -7,7 +7,11 @@ import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporte
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 import { useState } from 'react';
-import { erGyldigTimer, UtfyllingAvTimerError } from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
+import {
+  erGyldigTimer,
+  replaceCommasWithDots,
+  UtfyllingAvTimerError,
+} from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
 import { Form } from 'components/form/Form';
 
 export interface FormFields {
@@ -58,7 +62,7 @@ export const FyllUtKorrigering = () => {
                   ...korrigering.meldekort,
                   timerArbeidet: data.dager.map((dag) => ({
                     dato: dag.dag,
-                    ...(dag.timer !== '' && { timer: Number(dag.timer) }),
+                    ...(dag.timer !== '' && dag.timer !== null && { timer: Number(replaceCommasWithDots(dag.timer)) }),
                   })),
                 },
               });

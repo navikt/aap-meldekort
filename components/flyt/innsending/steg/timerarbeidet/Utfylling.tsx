@@ -65,7 +65,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
                 ...meldekort.meldekort,
                 timerArbeidet: data.dager.map((dag) => ({
                   dato: dag.dag,
-                  timer: dag.timer !== null ? Number(dag.timer) : null,
+                  timer: dag.timer !== null ? Number(replaceCommasWithDots(dag.timer)) : null,
                 })),
               },
               nåværendeSteg: 'TIMER_ARBEIDET',
@@ -108,6 +108,6 @@ export function erGyldigTimer(value: string | null): boolean {
   } else return (valueAsNumber * 10) % 5 === 0;
 }
 
-function replaceCommasWithDots(input: string): string {
+export function replaceCommasWithDots(input: string): string {
   return input.replace(/,/g, '.');
 }
