@@ -165,6 +165,7 @@ describe('rapporteringskalender', () => {
   });
 
   it('skal ha en lenke for å gå tilbake til forrige steg', () => {
+    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
     const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
     expect(tilbakeLenke).toBeVisible();
   });
