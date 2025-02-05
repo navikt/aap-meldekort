@@ -3,6 +3,7 @@ import { BodyShort } from '@navikt/ds-react';
 import { Dag } from 'components/oppsummeringkalender/OppsummeringKalender';
 
 import styles from './OppsummeringUkeRad.module.css';
+import { formaterUkedag } from 'components/rapporteringskalender/ukerapportering/UkeRapportering';
 
 interface Props {
   felterIUken: Dag[];
@@ -11,23 +12,19 @@ interface Props {
 export const OppsummeringUkeRad = ({ felterIUken }: Props) => {
   return (
     <div className={styles.rad}>
-      <div className={styles.dagnummer}>
-        {felterIUken.map((field, index) => {
-          const dagINummer = format(new Date(field.dag), 'd');
-          return (
-            <BodyShort key={index} size={'medium'}>
-              {dagINummer}.
+      {felterIUken.map((field, index) => {
+        const dagINummer = format(new Date(field.dag), 'd');
+        return (
+          <div className={styles.dag} key={index}>
+            <BodyShort size={'small'} aria-hidden weight={'semibold'}>
+              {formaterUkedag(field.dag.toString())} {dagINummer}.
             </BodyShort>
-          );
-        })}
-      </div>
-      <div className={styles.timertekst}>
-        {felterIUken.map((field, index) => (
-          <div className={`${styles.timer} ${field.timer > 0 && styles.harTimer}`} key={index}>
-            <BodyShort>{`${field.timer}t`}</BodyShort>
+            <div className={`${styles.timer} ${field.timer > 0 && styles.harTimer}`}>
+              <BodyShort>{`${field.timer}t`}</BodyShort>
+            </div>
           </div>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import { format, getISOWeek, startOfWeek } from 'date-fns';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { formaterDatoForFrontend } from 'lib/utils/date';
-import { UkeHeader } from 'components/rapporteringskalender/ukeheader/UkeHeader';
 import { OppsummeringUkeRad } from 'components/oppsummeringkalender/oppsummeringukerad/OppsummeringUkeRad';
 
 import styles from './OppsummeringKalender.module.css';
@@ -80,9 +79,10 @@ export const OppsummeringKalender = ({
               <Link href={url}>Endre meldekort</Link>
             </div>
           )}
-          <UkeHeader />
           {Object.entries(grupperteFelter).map(([ukeStart, felterIUken]) => (
-            <OppsummeringUkeRad key={ukeStart} felterIUken={felterIUken} />
+            <div key={ukeStart}>
+              <OppsummeringUkeRad felterIUken={felterIUken} />
+            </div>
           ))}
         </VStack>
         <VStack gap={'4'}>

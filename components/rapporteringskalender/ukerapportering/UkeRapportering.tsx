@@ -30,10 +30,7 @@ export const UkeRapportering = ({ felterIUken, errors }: Props) => {
           return (
             <div key={felt.id} className={styles.felt}>
               <BodyShort size={'small'} aria-hidden weight={'semibold'} key={felt.dag}>
-                {formaterUkedag(felt.dag)}
-              </BodyShort>
-              <BodyShort size={'medium'} aria-hidden>
-                {format(new Date(felt.dag), 'd')}
+                {formaterUkedag(felt.dag)} {format(new Date(felt.dag), 'd')}.
               </BodyShort>
               <TimerInput
                 index={felt.index}
@@ -49,7 +46,7 @@ export const UkeRapportering = ({ felterIUken, errors }: Props) => {
   );
 };
 
-function formaterUkedag(date: string): string {
+export function formaterUkedag(date: string): string {
   const formatter = new Intl.DateTimeFormat('nb-NO', { weekday: 'short' });
   return formatter.format(new Date(date)).slice(0, 2) + '.';
 }
