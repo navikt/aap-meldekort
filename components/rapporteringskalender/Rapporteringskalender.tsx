@@ -5,7 +5,11 @@ import { FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form
 
 import styles from './Rapporteringskalender.module.css';
 import { UkeRapportering } from 'components/rapporteringskalender/ukerapportering/UkeRapportering';
-import { MeldepliktFormFields, UtfyllingAvTimerError } from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
+import {
+  MeldepliktFormFields,
+  replaceCommasWithDots,
+  UtfyllingAvTimerError,
+} from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 import { useEffect, useState } from 'react';
 import { UkeRapporteringSmall } from 'components/rapporteringskalender/ukerapportering/small/UkeRapporteringSmall';
@@ -73,7 +77,11 @@ export const Rapporteringskalender = ({ errors }: Props) => {
           )
         )}
       </div>
-      <OppsummeringTimer timer={form.watch('dager').reduce((acc, curr) => acc + Number(curr.timer), 0)} />
+      <OppsummeringTimer
+        timer={form
+          .watch('dager')
+          .reduce((acc, curr) => acc + (curr.timer ? Number(replaceCommasWithDots(curr.timer)) : 0), 0)}
+      />
     </div>
   );
 };
