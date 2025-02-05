@@ -5,9 +5,11 @@ import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHoo
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { JaEllerNei } from 'lib/utils/form';
 import { Form } from 'components/form/Form';
-import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, Label, VStack } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { useRouter } from 'next/navigation';
+import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
+import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 
 interface Props {
   referanse: string;
@@ -32,13 +34,15 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
     },
   });
 
+  const fraDato = new Date(meldekort.periode.fom);
+  const tilDato = new Date(meldekort.periode.tom);
+
   return (
     <Form
       forrigeStegOnClick={() =>
         router.push(`/${referanse}/${meldekort.meldekort.harDuJobbet ? 'TIMER_ARBEIDET' : 'JOBBET_I_MELDEPERIODEN'}`)
       }
       nesteStegKnappTekst={'Send inn'}
-      forrigeStegKnappTekst={'Endre'}
       onSubmit={form.handleSubmit(async () => {
         løsStegOgGåTilNeste({
           meldekort: {
@@ -51,24 +55,41 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
       isLoading={isLoading}
       errorMessage={errorMessage}
     >
-      <VStack gap={'4'}>
+      <VStack gap={'8'}>
+        <MeldekortLenke
+          label={'Tilbake'}
+          href={`/${referanse}/${meldekort.meldekort.harDuJobbet ? 'TIMER_ARBEIDET' : 'JOBBET_I_MELDEPERIODEN'}`}
+        />
         <Heading size={'large'} level={'2'} spacing>
-          Se over før du sender inn
+          Se over og send inn meldekort
         </Heading>
 
-        <Alert variant={'warning'}>Meldekortet er ikke sendt inn ennå</Alert>
-        <BodyShort spacing>Se over meldekortet ditt og pass på at alt er riktig før du sender inn.</BodyShort>
+        <BodyShort spacing>
+          Se over opplysningene på meldekortet ditt og pass på at alt er riktig før du sender inn.
+        </BodyShort>
 
-        {!meldekort.meldekort.harDuJobbet && (
-          <VStack gap={'1'}>
-            <BodyShort>Du har svart:</BodyShort>
-            <BodyShort weight={'semibold'}>At du ikke har jobbet i denne perioden.</BodyShort>
-            <BodyShort weight={'semibold'}>0 timer</BodyShort>
-          </VStack>
-        )}
+        <div>
+          <Heading
+            level={'3'}
+            size={'small'}
+          >{`Meldekort for uke ${hentUkeNummerForPeriode(fraDato, tilDato)}`}</Heading>
+          <BodyShort
+            size={'large'}
+          >{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
+        </div>
+
+        <VStack gap={'2'}>
+          <Label>Har du jobbet noe i disse ukene?</Label>
+          <BodyShort>{meldekort.meldekort.harDuJobbet ? 'Ja' : 'Nei'}</BodyShort>
+          <MeldekortLenke label={'Endre om du har jobbet disse ukene'} href={`/${referanse}/JOBBET_I_MELDEPERIODEN`} />
+        </VStack>
 
         {meldekort.meldekort.harDuJobbet && (
-          <OppsummeringKalender timerArbeidet={meldekort.meldekort.timerArbeidet} periode={meldekort.periode} />
+          <VStack gap={'2'}>
+            <Label>Timer ført</Label>
+            <OppsummeringKalender timerArbeidet={meldekort.meldekort.timerArbeidet} periode={meldekort.periode} />
+            <MeldekortLenke label={'Endre timer ført'} href={`/${referanse}/JOBBET_I_MELDEPERIODEN`} />
+          </VStack>
         )}
 
         <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />

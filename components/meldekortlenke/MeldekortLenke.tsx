@@ -13,7 +13,7 @@ export const MeldekortLenke = ({ label, href }: Props) => {
   const router = useRouter();
 
   return (
-    <Link onClick={() => router.push(href)} style={{ cursor: 'pointer' }}>
+    <Link onClick={() => router.push(href)} style={{ cursor: 'pointer' }} role={'link'}>
       <ArrowLeftIcon aria-hidden="true" />
       <span>{label}</span>
     </Link>

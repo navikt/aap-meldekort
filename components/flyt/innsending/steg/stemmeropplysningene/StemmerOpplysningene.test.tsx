@@ -54,22 +54,58 @@ const meldekortMedArbeid: MeldekortResponse = {
 };
 
 describe('Stemmer opplysningene', () => {
+  it('skal ha en lenke som fører tilbake til oversikt siden', () => {
+    render(<StemmerOpplysningene meldekort={meldekortMedArbeid} referanse={'1234'} />);
+    const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
+    expect(tilbakeLenke).toBeVisible();
+  });
+
   it('skal ha en overskrift', () => {
     render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortUtenArbeid} />);
-    const heading = screen.getByRole('heading', { name: 'Se over før du sender inn', level: 2 });
+    const heading = screen.getByRole('heading', { name: 'Se over og send inn meldekort', level: 2 });
     expect(heading).toBeVisible();
   });
 
-  it('skal ha warning som sier at meldekortet ikke er sendt inn ennå', () => {
+  it('skal vise perioden med ukenummer', () => {
     render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortUtenArbeid} />);
-    const heading = screen.getByText('Meldekortet er ikke sendt inn ennå');
-    expect(heading).toBeVisible();
+    const headingMedUkeNummer = screen.getByRole('heading', { name: 'Meldekort for uke 45 - 46' });
+    expect(headingMedUkeNummer).toBeVisible();
+  });
+
+  it('skal vise perioden med datoer', () => {
+    render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortUtenArbeid} />);
+    const datoer = screen.getByText('04.11.2024 - 17.11.2024');
+    expect(datoer).toBeVisible();
+  });
+
+  it('skal vise korrekt svar dersom bruker har oppgitt at hen har jobbet ', () => {
+    render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortMedArbeid} />);
+    const jaSvar = screen.getByText('Ja');
+    expect(jaSvar).toBeVisible();
+  });
+
+  it('skal vise korrekt svar dersom bruker har oppgitt at hen ikke har jobbet ', () => {
+    render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortUtenArbeid} />);
+    const neiSvar = screen.getByText('Nei');
+    expect(neiSvar).toBeVisible();
+  });
+
+  it('skal ha en lenke tilbake til steget for om du har arbeidet i perioden', () => {
+    render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortUtenArbeid} />);
+    const link = screen.getByRole('link', { name: 'Endre om du har jobbet disse ukene' });
+    expect(link).toBeVisible();
   });
 
   it('skal ha en oppsummeringskalender dersom det er oppgitt arbeid', () => {
     render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortMedArbeid} />);
     const oppsummeringskalender = screen.getByText('Uke 45 - 46');
     expect(oppsummeringskalender).toBeVisible();
+  });
+
+  it('skal ha en lenke tilbake til steget hvor bruker fyller inn timer', () => {
+    render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortMedArbeid} />);
+    const link = screen.getByRole('link', { name: 'Endre timer ført' });
+    expect(link).toBeVisible();
   });
 
   it('skal ha et felt for å bekrefte at opplysningene stemmer', () => {
