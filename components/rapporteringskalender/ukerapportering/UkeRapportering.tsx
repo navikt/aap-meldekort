@@ -28,30 +28,22 @@ export const UkeRapportering = ({ felterIUken, errors }: Props) => {
       <div className={styles.ukerad}>
         {felterIUken.felter.map((felt) => {
           return (
-            <BodyShort size={'small'} aria-hidden weight={'semibold'} key={felt.dag}>
-              {formaterUkedag(felt.dag)}
-            </BodyShort>
+            <div key={felt.id} className={styles.felt}>
+              <BodyShort size={'small'} aria-hidden weight={'semibold'} key={felt.dag}>
+                {formaterUkedag(felt.dag)}
+              </BodyShort>
+              <BodyShort size={'medium'} aria-hidden>
+                {format(new Date(felt.dag), 'd')}
+              </BodyShort>
+              <TimerInput
+                index={felt.index}
+                harError={Boolean(errors.find((error) => error.index === felt.index)?.harError)}
+                label={format(new Date(felt.dag), 'eeee do MMMM', { locale: nb })}
+                isSmallScreen={false}
+              />
+            </div>
           );
         })}
-
-        {felterIUken.felter.map((field, index) => {
-          const dagINummer = format(new Date(field.dag), 'd');
-          return (
-            <BodyShort key={index} size={'medium'} aria-hidden>
-              {dagINummer}
-            </BodyShort>
-          );
-        })}
-
-        {felterIUken.felter.map((field) => (
-          <TimerInput
-            key={field.id}
-            index={field.index}
-            harError={Boolean(errors.find((error) => error.index === field.index)?.harError)}
-            label={format(new Date(field.dag), 'eeee do MMMM', { locale: nb })}
-            isSmallScreen={false}
-          />
-        ))}
       </div>
     </div>
   );

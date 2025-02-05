@@ -8,10 +8,15 @@
 }
 
 .ukerad {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  display: flex;
+  justify-content: space-between;
+}
+
+.felt {
+  display: flex;
+  flex-direction: column;
   gap: var(--a-spacing-2);
-  justify-items: center;
+  align-items: center;
 }
 
 .heading {
