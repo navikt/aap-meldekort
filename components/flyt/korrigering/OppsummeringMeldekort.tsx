@@ -5,7 +5,7 @@ import { OppsummeringKalender } from 'components/oppsummeringkalender/Oppsummeri
 import { HistoriskMeldekortDetaljer } from 'lib/types/types';
 import { ArrowLeftIcon } from '@navikt/aksel-icons';
 import { useRouter } from 'next/navigation';
-import { HjemKnapp } from 'components/hjemknapp/HjemKnapp';
+import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 
 interface Props {
   historiskeMeldekortDetaljer: HistoriskMeldekortDetaljer[];
@@ -18,7 +18,7 @@ export const OppsummeringMeldekort = ({ historiskeMeldekortDetaljer }: Props) =>
 
   return (
     <VStack gap={'4'}>
-      <HjemKnapp label={'Tilbake til oversikten'} href={`/innsendt`} />
+      <MeldekortLenke label={'Tilbake til oversikten'} href={`/innsendt`} />
       <Heading size={'medium'} level={'2'}>
         Se og endre meldekort
       </Heading>

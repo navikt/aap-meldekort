@@ -4,7 +4,7 @@ import { Alert, BodyShort, Heading, HGrid } from '@navikt/ds-react';
 import { HistoriskMeldekort } from 'lib/types/types';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { LinkPanel } from 'components/linkpanel/LinkPanel';
-import { HjemKnapp } from 'components/hjemknapp/HjemKnapp';
+import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 
 interface Props {
   innsendteMeldeperioder: HistoriskMeldekort[];
@@ -13,7 +13,7 @@ interface Props {
 export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
   return (
     <HGrid gap={'4'}>
-      <HjemKnapp label={'Tilbake til oversikten'} href={`/`} />
+      <MeldekortLenke label={'Tilbake til oversikten'} href={`/`} />
       <Heading size={'medium'} level={'2'} spacing>
         Oversikt over innsendte meldekort
       </Heading>
