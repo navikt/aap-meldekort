@@ -45,3 +45,7 @@ export function hentUkeNummerForPeriode(fraDato: Date, tilDato: Date): string {
 
   return `${fraDatoUkenummer} - ${tilDatoUkenummer}`;
 }
+
+export function hentUkeNummerForDato(dato: Date) {
+  return getISOWeek(dato);
+}
