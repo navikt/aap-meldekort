@@ -163,6 +163,11 @@ describe('rapporteringskalender', () => {
 
     expect(feilmelding).toBeVisible();
   });
+
+  it('skal ha en lenke for å gå tilbake til forrige steg', () => {
+    const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
+    expect(tilbakeLenke).toBeVisible();
+  });
 });
 
 function finnLabeltekst(dato: string): string {

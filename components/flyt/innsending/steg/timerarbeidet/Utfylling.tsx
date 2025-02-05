@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { MeldekortResponse } from 'lib/types/types';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { useRouter } from 'next/navigation';
+import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 
 interface Props {
   meldekort: MeldekortResponse;
@@ -76,6 +77,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
         errorMessage={errorMessage}
       >
         <VStack gap={'4'}>
+          <MeldekortLenke label={'Tilbake'} href={`/${referanse}/JOBBET_I_MELDEPERIODEN`} />
           <Heading size={'large'} level={'2'}>
             Fyll ut meldekortet
           </Heading>
