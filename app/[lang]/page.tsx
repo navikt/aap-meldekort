@@ -1,4 +1,4 @@
-import { Oversikt } from 'components/oversikt/Oversikt';
+import { Oversikt } from 'components/sider/oversikt/Oversikt';
 import { hentInnsendteMeldekort, hentKommendeMeldekort } from 'lib/services/meldekortservice';
 
 export default async function Page() {
