@@ -17,7 +17,8 @@
 .dag {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
   border-bottom: 1px solid var(--a-gray-300);
   padding: var(--a-spacing-2);
 }

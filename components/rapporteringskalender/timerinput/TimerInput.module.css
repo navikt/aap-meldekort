@@ -1,15 +1,7 @@
-.input {
+.inputlargescreen {
   width: 5ch;
 }
 
-.inpututenverdi {
-  --ac-textfield-bg: var(--a-orange-100);
-}
-
-.inputmedverdi {
-  --ac-textfield-bg: var(--a-blue-200);
-}
-
 .error {
-  --ac-textfield-error-border: var(--a-red-500);
+  border: 2px solid var(--a-red-500);
 }

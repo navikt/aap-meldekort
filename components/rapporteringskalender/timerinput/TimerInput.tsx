@@ -11,19 +11,18 @@ interface Props {
 
 export const TimerInput = ({ index, harError, label, isSmallScreen }: Props) => {
   const form = useFormContext();
-  const textfieldClassName = form.watch(`dager.${index}.timer`) ? styles.inputmedverdi : styles.inpututenverdi;
-  const harErrorClassName = harError ? 'navds-text-field--error' : '';
+  const harErrorClassName = harError ? styles.error : '';
 
   return (
-    <div className={isSmallScreen ? '' : styles.input}>
+    <div className={isSmallScreen ? '' : styles.inputlargescreen}>
       <TextFieldWrapper
         control={form.control}
         name={`dager.${index}.timer`}
         type={'text'}
-        size={isSmallScreen ? 'small' : 'medium'}
+        size={'medium'}
         label={label}
         hideLabel
-        className={`${textfieldClassName} ${harErrorClassName}`}
+        className={harErrorClassName}
       />
     </div>
   );

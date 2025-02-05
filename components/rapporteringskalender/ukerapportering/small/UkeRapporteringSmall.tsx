@@ -32,10 +32,10 @@ export const UkeRapporteringSmall = ({ felterIUken, errors }: Props) => {
           return (
             <div key={field.dag} className={styles.dag}>
               <div className={styles.tekst}>
-                <BodyShort size={'medium'} aria-hidden weight={'semibold'}>
+                <BodyShort size={'large'} aria-hidden weight={'semibold'}>
                   {formaterUkedag(field.dag)}
                 </BodyShort>
-                <BodyShort size={'medium'} aria-hidden>
+                <BodyShort size={'large'} aria-hidden>
                   {dagINummer}
                 </BodyShort>
               </div>
