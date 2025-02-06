@@ -66,12 +66,6 @@ describe('Stemmer opplysningene', () => {
     expect(heading).toBeVisible();
   });
 
-  it('skal vise perioden med ukenummer', () => {
-    render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortUtenArbeid} />);
-    const headingMedUkeNummer = screen.getByRole('heading', { name: 'Meldekort for uke 45 - 46' });
-    expect(headingMedUkeNummer).toBeVisible();
-  });
-
   it('skal vise perioden med datoer', () => {
     render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortUtenArbeid} />);
     const datoer = screen.getByText('04.11.2024 - 17.11.2024');
@@ -98,13 +92,13 @@ describe('Stemmer opplysningene', () => {
 
   it('skal ha en oppsummeringskalender dersom det er oppgitt arbeid', () => {
     render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortMedArbeid} />);
-    const oppsummeringskalender = screen.getByText('Uke 45 - 46');
+    const oppsummeringskalender = screen.getByText('Arbeidstimer');
     expect(oppsummeringskalender).toBeVisible();
   });
 
   it('skal ha en lenke tilbake til steget hvor bruker fyller inn timer', () => {
     render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortMedArbeid} />);
-    const link = screen.getByRole('link', { name: 'Endre timer ført' });
+    const link = screen.getByRole('link', { name: 'Endre antall timer du har jobbet' });
     expect(link).toBeVisible();
   });
 

@@ -10,6 +10,7 @@ import { OppsummeringKalender } from 'components/oppsummeringkalender/Oppsummeri
 import { useRouter } from 'next/navigation';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { regnUtProsent, regnUtTimer } from 'lib/utils/meldekort';
 
 interface Props {
   referanse: string;
@@ -36,6 +37,8 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
 
   const fraDato = new Date(meldekort.periode.fom);
   const tilDato = new Date(meldekort.periode.tom);
+
+  const timer = regnUtTimer(meldekort.meldekort.timerArbeidet);
 
   return (
     <Form
@@ -68,17 +71,10 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
           Se over opplysningene på meldekortet ditt og pass på at alt er riktig før du sender inn.
         </BodyShort>
 
-        <div>
-          <Heading
-            level={'3'}
-            size={'small'}
-          >{`Meldekort for uke ${hentUkeNummerForPeriode(fraDato, tilDato)}`}</Heading>
-          <BodyShort
-            size={'large'}
-          >{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
-        </div>
-
         <VStack gap={'2'}>
+          <Heading size={'small'}>Jobb</Heading>
+          <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)}`}</BodyShort>
+          <BodyShort>{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
           <Label>Har du jobbet noe i disse ukene?</Label>
           <BodyShort>{meldekort.meldekort.harDuJobbet ? 'Ja' : 'Nei'}</BodyShort>
           <MeldekortLenke label={'Endre om du har jobbet disse ukene'} href={`/${referanse}/JOBBET_I_MELDEPERIODEN`} />
@@ -86,9 +82,17 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
 
         {meldekort.meldekort.harDuJobbet && (
           <VStack gap={'2'}>
-            <Label>Timer ført</Label>
-            <OppsummeringKalender timerArbeidet={meldekort.meldekort.timerArbeidet} periode={meldekort.periode} />
-            <MeldekortLenke label={'Endre timer ført'} href={`/${referanse}/TIMER_ARBEIDET`} />
+            <OppsummeringKalender
+              heading={'Arbeidstimer'}
+              timerArbeidet={meldekort.meldekort.timerArbeidet}
+              periode={meldekort.periode}
+            />
+            <div>
+              <Label>Sammenlagt jobb i de to ukene:</Label>
+              <BodyShort>{timer} timer</BodyShort>
+              <BodyShort>{`(${regnUtProsent(timer)}%)`}</BodyShort>
+            </div>
+            <MeldekortLenke label={'Endre antall timer du har jobbet'} href={`/${referanse}/TIMER_ARBEIDET`} />
           </VStack>
         )}
 
