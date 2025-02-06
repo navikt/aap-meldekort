@@ -1,20 +1,18 @@
 import { format, getISOWeek, startOfWeek } from 'date-fns';
-import { BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, Label, VStack } from '@navikt/ds-react';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 import { OppsummeringUkeRad } from 'components/oppsummeringkalender/oppsummeringukerad/OppsummeringUkeRad';
 
 import styles from './OppsummeringKalender.module.css';
 import { HistoriskMeldekortType, Periode, TimerArbeidet } from 'lib/types/types';
-import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
-import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
-import { formaterTilNok } from 'lib/utils/string';
 import Link from 'next/link';
+import { ReactNode } from 'react';
 
 interface Props {
   periode: Periode;
+  heading?: string;
+  children?: ReactNode;
   timerArbeidet?: TimerArbeidet[] | null;
-  utbetalt?: number | null;
-  innsendtDato?: string | null;
   visPeriode?: boolean;
   kanEndres?: boolean;
   type?: HistoriskMeldekortType;
@@ -27,10 +25,9 @@ export interface Dag {
 
 export const OppsummeringKalender = ({
   periode,
+  heading,
   timerArbeidet,
-  utbetalt,
-  innsendtDato,
-  type,
+  children,
   visPeriode = true,
   kanEndres = false,
 }: Props) => {
@@ -51,10 +48,6 @@ export const OppsummeringKalender = ({
     grupperteFelter[ukestart].push({ dag: new Date(timer.dato), timer: timer.timer ?? 0 });
   });
 
-  const timer = Object.values(grupperteFelter)
-    .flat()
-    .reduce((acc, curr) => acc + Number(curr.timer), 0);
-
   const urlSearchParams = new URLSearchParams();
   urlSearchParams.append('fom', periode.fom);
   urlSearchParams.append('tom', periode.tom);
@@ -64,9 +57,14 @@ export const OppsummeringKalender = ({
     <div className={`${styles.fullBleed} ${styles.oppsummeringkalender}`}>
       {visPeriode && (
         <div className={styles.heading}>
-          <Heading size={'medium'} level={'3'}>
+          {heading && (
+            <Heading size={'medium'} level={'3'}>
+              {heading}
+            </Heading>
+          )}
+          <Label>
             Uke {fraDatoUkenummer} - {tilDatoUkenummer}
-          </Heading>
+          </Label>
           <BodyShort>
             {formaterDatoForFrontend(periode.fom)} - {formaterDatoForFrontend(periode.tom)}
           </BodyShort>
@@ -85,25 +83,7 @@ export const OppsummeringKalender = ({
             </div>
           ))}
         </VStack>
-        <VStack gap={'4'}>
-          <OppsummeringTimer timer={timer} />
-          {utbetalt !== null && utbetalt !== undefined && (
-            <OppsummeringRad
-              heading={'Utbetalt for perioden'}
-              label={'Utbetalt'}
-              value={`${formaterTilNok(utbetalt)}`}
-              backgroundColor={'green'}
-            />
-          )}
-          {innsendtDato && (
-            <OppsummeringRad
-              heading={type === 'KORRIGERING' ? 'Korrigert' : 'Innsendt'}
-              label={type === 'KORRIGERING' ? 'Korrigert' : 'Innsendt'}
-              value={formaterDatoForFrontend(innsendtDato)}
-              backgroundColor={'white'}
-            />
-          )}
-        </VStack>
+        {children}
       </div>
     </div>
   );

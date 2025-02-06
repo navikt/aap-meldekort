@@ -10,6 +10,8 @@ import { IngenEndringer } from 'components/flyt/korrigering/steg/seover/ingenend
 import { Form } from 'components/form/Form';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
+import { regnUtTimer } from 'lib/utils/meldekort';
 
 interface FormFields {
   opplysningerStemmer: JaEllerNei[];
@@ -64,7 +66,9 @@ export const SeOver = () => {
         <OppsummeringKalender
           timerArbeidet={korrigering.meldekort.timerArbeidet}
           periode={korrigering.meldekort.meldeperiode}
-        />
+        >
+          <OppsummeringTimer timer={regnUtTimer(korrigering.meldekort.timerArbeidet)} />
+        </OppsummeringKalender>
         <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
       </VStack>
     </Form>

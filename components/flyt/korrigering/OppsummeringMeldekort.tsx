@@ -6,6 +6,11 @@ import { HistoriskMeldekortDetaljer } from 'lib/types/types';
 import { ArrowLeftIcon } from '@navikt/aksel-icons';
 import { useRouter } from 'next/navigation';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
+import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
+import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
+import { formaterTilNok } from 'lib/utils/string';
+import { formaterDatoForFrontend } from 'lib/utils/date';
+import { regnUtTimer } from 'lib/utils/meldekort';
 
 interface Props {
   historiskeMeldekortDetaljer: HistoriskMeldekortDetaljer[];
@@ -48,11 +53,29 @@ export const OppsummeringMeldekort = ({ historiskeMeldekortDetaljer }: Props) =>
               key={index}
               timerArbeidet={historiskMeldekort.timerArbeidet}
               periode={historiskMeldekort.meldeperiode}
-              utbetalt={historiskMeldekort.bruttoBeløp}
-              innsendtDato={historiskMeldekort.innsendtDato}
               kanEndres={historiskMeldekort.kanEndres}
               type={historiskMeldekort.type}
-            />
+            >
+              <VStack gap={'4'}>
+                <OppsummeringTimer timer={regnUtTimer(historiskMeldekort?.timerArbeidet)} />
+                {historiskMeldekort.bruttoBeløp !== null && historiskMeldekort.bruttoBeløp !== undefined && (
+                  <OppsummeringRad
+                    heading={'Utbetalt for perioden'}
+                    label={'Utbetalt'}
+                    value={`${formaterTilNok(historiskMeldekort.bruttoBeløp)}`}
+                    backgroundColor={'green'}
+                  />
+                )}
+                {historiskMeldekort.innsendtDato && (
+                  <OppsummeringRad
+                    heading={historiskMeldekort.type === 'KORRIGERING' ? 'Korrigert' : 'Innsendt'}
+                    label={historiskMeldekort.type === 'KORRIGERING' ? 'Korrigert' : 'Innsendt'}
+                    value={formaterDatoForFrontend(historiskMeldekort.innsendtDato)}
+                    backgroundColor={'white'}
+                  />
+                )}
+              </VStack>
+            </OppsummeringKalender>
           );
         })}
 

@@ -1,13 +1,12 @@
 import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
+import { regnUtProsent } from 'lib/utils/meldekort';
 
 interface Props {
   timer: number;
 }
 
-const antallTimerIMeldepliktPerioden = 37.5 * 2;
-
 export const OppsummeringTimer = ({ timer }: Props) => {
-  const antallTimerIProsent = Math.round((timer / antallTimerIMeldepliktPerioden) * 100);
+  const antallTimerIProsent = regnUtProsent(timer);
 
   return (
     <OppsummeringRad

@@ -1,23 +1,22 @@
 .oppsummeringkalender {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: var(--a-spacing-4);
-  padding: var(--a-spacing-6);
-  background-color: var(--a-gray-100);
+  padding: var(--a-spacing-8);
+  background-color: var(--a-orange-50);
 }
 
 .heading {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--a-spacing-2);
 }
 
 .kalender {
   display: flex;
   width: 100%;
-  padding: var(--a-spacing-8);
+  padding: var(--a-spacing-8) 0;
   flex-direction: column;
   gap: var(--a-spacing-4);
 }
