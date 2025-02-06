@@ -1,8 +1,8 @@
 import { HarDuArbeidetMedDataFetching } from 'components/flyt/innsending/steg/harduarbeidet/HarDuArbeidetMedDataFetching';
-import { UtfyllingMedDataFetching } from 'components/flyt/innsending/steg/timerarbeidet/UtfyllingMedDataFetching';
+import { TimerArbeidetMedDataFetching } from 'components/flyt/innsending/steg/timerarbeidet/TimerArbeidetMedDataFetching';
 import { Steg } from 'lib/types/types';
 import { IntroduksjonMedDataFetching } from 'components/flyt/innsending/steg/introduksjon/IntroduksjonMedDataFetching';
-import { KvitteringMedDataFetching } from 'components/flyt/innsending/steg/kvittering/KvitteringMedDataFetching';
+import { KvitteringInnsendingMedDataFetching } from 'components/flyt/innsending/steg/kvittering/KvitteringInnsendingMedDataFetching';
 import { hentMeldekort } from 'lib/services/meldekortservice';
 import { redirect } from 'next/navigation';
 import { StemmerOpplysningeneMedDataFetching } from 'components/flyt/innsending/steg/stemmeropplysningene/StemmerOpplysningeneMedDataFetching';
@@ -43,9 +43,9 @@ const AktivtStegPage = async (props: Props) => {
     <>
       {aktivtSteg === 'BEKREFT_SVARER_ÆRLIG' && <IntroduksjonMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'JOBBET_I_MELDEPERIODEN' && <HarDuArbeidetMedDataFetching referanse={referanse} />}
-      {aktivtSteg === 'TIMER_ARBEIDET' && <UtfyllingMedDataFetching referanse={referanse} />}
+      {aktivtSteg === 'TIMER_ARBEIDET' && <TimerArbeidetMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'STEMMER_OPPLYSNINGENE' && <StemmerOpplysningeneMedDataFetching referanse={referanse} />}
-      {aktivtSteg === 'KVITTERING' && <KvitteringMedDataFetching referanse={referanse} />}
+      {aktivtSteg === 'KVITTERING' && <KvitteringInnsendingMedDataFetching referanse={referanse} />}
     </>
   );
 };

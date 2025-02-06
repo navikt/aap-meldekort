@@ -5,14 +5,16 @@ import { OppsummeringKalender } from 'components/oppsummeringkalender/Oppsummeri
 import { KommendeMeldekort, MeldekortResponse } from 'lib/types/types';
 import NextLink from 'next/link';
 
-import styles from 'components/flyt/innsending/steg/kvittering/Kvittering.module.css';
+import styles from 'components/flyt/innsending/steg/kvittering/KvitteringInnsending.module.css';
+import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
+import { regnUtTimer } from 'lib/utils/meldekort';
 
 interface Props {
   meldekort: MeldekortResponse;
   kommendeMeldekort?: KommendeMeldekort;
 }
 
-export const Kvittering = ({ meldekort, kommendeMeldekort }: Props) => {
+export const KvitteringInnsending = ({ meldekort, kommendeMeldekort }: Props) => {
   return (
     <HGrid columns={'1'} gap={'4'}>
       <Alert variant="success">
@@ -22,7 +24,9 @@ export const Kvittering = ({ meldekort, kommendeMeldekort }: Props) => {
         <Accordion.Item>
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
           <Accordion.Content>
-            <OppsummeringKalender timerArbeidet={meldekort.meldekort.timerArbeidet} periode={meldekort.periode} />
+            <OppsummeringKalender timerArbeidet={meldekort.meldekort.timerArbeidet} periode={meldekort.periode}>
+              <OppsummeringTimer timer={regnUtTimer(meldekort.meldekort.timerArbeidet)} />
+            </OppsummeringKalender>
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>

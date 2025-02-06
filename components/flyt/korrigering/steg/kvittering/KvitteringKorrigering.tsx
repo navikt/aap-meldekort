@@ -3,10 +3,12 @@
 import { Accordion, Alert, HGrid, Link } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 
-import styles from 'components/flyt/innsending/steg/kvittering/Kvittering.module.css';
+import styles from 'components/flyt/innsending/steg/kvittering/KvitteringInnsending.module.css';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
+import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
+import { regnUtTimer } from 'lib/utils/meldekort';
 
-export const Kvittering = () => {
+export const KvitteringKorrigering = () => {
   const { korrigering } = useKorrigerMeldekort();
 
   return (
@@ -21,7 +23,9 @@ export const Kvittering = () => {
             <OppsummeringKalender
               timerArbeidet={korrigering.meldekort.timerArbeidet}
               periode={korrigering.meldekort.meldeperiode}
-            />
+            >
+              <OppsummeringTimer timer={regnUtTimer(korrigering.meldekort.timerArbeidet)} />
+            </OppsummeringKalender>
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>

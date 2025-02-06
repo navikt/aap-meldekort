@@ -11,7 +11,7 @@ import {
   erGyldigTimer,
   replaceCommasWithDots,
   UtfyllingAvTimerError,
-} from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
+} from 'components/flyt/innsending/steg/timerarbeidet/TimerArbeidet';
 import { Form } from 'components/form/Form';
 
 export interface FormFields {

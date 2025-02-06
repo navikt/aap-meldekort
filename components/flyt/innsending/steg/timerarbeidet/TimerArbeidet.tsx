@@ -30,7 +30,7 @@ export interface UtfyllingAvTimerError {
   harError: boolean;
 }
 
-export const Utfylling = ({ meldekort, referanse }: Props) => {
+export const TimerArbeidet = ({ meldekort, referanse }: Props) => {
   const router = useRouter();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const [errors, setErrors] = useState<UtfyllingAvTimerError[]>([]);

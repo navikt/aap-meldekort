@@ -6,7 +6,7 @@ import { nb } from 'date-fns/locale/nb';
 import { BodyShort, Heading } from '@navikt/ds-react';
 
 import styles from 'components/rapporteringskalender/ukerapportering/UkeRapportering.module.css';
-import { UtfyllingAvTimerError } from 'components/flyt/innsending/steg/timerarbeidet/Utfylling';
+import { UtfyllingAvTimerError } from 'components/flyt/innsending/steg/timerarbeidet/TimerArbeidet';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 
 interface Props {
