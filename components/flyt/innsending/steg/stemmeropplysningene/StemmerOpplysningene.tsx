@@ -88,7 +88,7 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
           <VStack gap={'2'}>
             <Label>Timer ført</Label>
             <OppsummeringKalender timerArbeidet={meldekort.meldekort.timerArbeidet} periode={meldekort.periode} />
-            <MeldekortLenke label={'Endre timer ført'} href={`/${referanse}/JOBBET_I_MELDEPERIODEN`} />
+            <MeldekortLenke label={'Endre timer ført'} href={`/${referanse}/TIMER_ARBEIDET`} />
           </VStack>
         )}
 
