@@ -26,7 +26,7 @@ export const Form = ({
   forrigeStegKnappTekst = 'Tilbake',
 }: Props) => {
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} autoComplete={'off'}>
       {children}
       {errorMessage && <Alert variant={'error'}>{errorMessage}</Alert>}
       <div className={styles.knapper}>
