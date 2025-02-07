@@ -59,7 +59,7 @@ export const HarDuArbeidet = ({ meldekort, referanse }: Props) => {
         <MeldekortLenke label={'Tilbake'} href={`/${referanse}/BEKREFT_SVARER_ÆRLIG`} />
         <div>
           <Heading level={'2'} size={'medium'}>
-            Arbeid i uke {hentUkeNummerForDato(fraDato)} og {hentUkeNummerForDato(tilDato)}
+            {`Arbeid i uke ${hentUkeNummerForDato(fraDato)} og ${hentUkeNummerForDato(tilDato)}`}
           </Heading>
           <BodyShort>{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
         </div>
