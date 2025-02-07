@@ -68,8 +68,8 @@ export const OppsummeringMeldekort = ({ historiskeMeldekortDetaljer }: Props) =>
                 )}
                 {historiskMeldekort.innsendtDato && (
                   <OppsummeringRad
-                    heading={historiskMeldekort.type === 'KORRIGERING' ? 'Korrigert' : 'Innsendt'}
-                    label={historiskMeldekort.type === 'KORRIGERING' ? 'Korrigert' : 'Innsendt'}
+                    heading={historiskMeldekort.type === 'KORRIGERING' ? 'Korrigert' : 'Innsendt av innbygger'}
+                    label={'Dato'}
                     value={formaterDatoForFrontend(historiskMeldekort.innsendtDato)}
                     backgroundColor={'white'}
                   />
