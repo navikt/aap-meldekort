@@ -30,6 +30,14 @@ export const Form = ({
       {children}
       {errorMessage && <Alert variant={'error'}>{errorMessage}</Alert>}
       <div className={styles.knapper}>
+        <Button
+          variant={'primary'}
+          icon={<ArrowRightIcon aria-hidden={'true'} />}
+          iconPosition={'right'}
+          loading={isLoading}
+        >
+          {nesteStegKnappTekst}
+        </Button>
         {forrigeStegOnClick && (
           <Button
             variant={'secondary'}
@@ -41,14 +49,6 @@ export const Form = ({
             {forrigeStegKnappTekst}
           </Button>
         )}
-        <Button
-          variant={'primary'}
-          icon={<ArrowRightIcon aria-hidden={'true'} />}
-          iconPosition={'right'}
-          loading={isLoading}
-        >
-          {nesteStegKnappTekst}
-        </Button>
       </div>
       {avbrytOnClick && (
         <div className={styles.avbryt}>
