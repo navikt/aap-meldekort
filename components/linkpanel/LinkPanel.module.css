@@ -1,9 +1,6 @@
 .link {
-  display: flex;
-  flex-direction: column;
   text-decoration: none;
   border-radius: 10px;
-  width: 100%;
   color: inherit;
 }
 
@@ -17,14 +14,14 @@
   padding: var(--a-spacing-6);
 }
 
-.top {
+.content {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 
-.topright {
+.contentRight {
   display: flex;
   flex-direction: row;
   align-items: center;

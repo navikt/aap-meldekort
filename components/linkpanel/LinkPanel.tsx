@@ -18,16 +18,18 @@ export const LinkPanel = ({ title, href, description, status, variant = 'primary
 
   return (
     <a href={href} className={`${styles.link} ${className}`}>
-      <div className={styles.top}>
-        <BodyShort size={'large'} weight={'semibold'}>
-          {title}
-        </BodyShort>
-        <div className={styles.topright}>
+      <div className={styles.content}>
+        <div>
+          <BodyShort size={'large'} weight={'semibold'}>
+            {title}
+          </BodyShort>
+          <BodyShort>{description}</BodyShort>
+        </div>
+        <div className={styles.contentRight}>
           {status && <MeldekortStatus status={status} />}
           <ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />
         </div>
       </div>
-      <BodyShort>{description}</BodyShort>
     </a>
   );
 };
