@@ -27,6 +27,7 @@ const meldeperiode: MeldekortResponse = {
     ],
   },
   steg: 'TIMER_ARBEIDET',
+  tidligsteInnsendingsDato: '2024-11-18',
 };
 
 const user = userEvent.setup();

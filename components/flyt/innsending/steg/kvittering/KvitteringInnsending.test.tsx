@@ -9,6 +9,7 @@ const meldekort: MeldekortResponse = {
     timerArbeidet: [],
   },
   steg: 'KVITTERING',
+  tidligsteInnsendingsDato: '2024-11-04',
 };
 
 describe('Kvittering', () => {

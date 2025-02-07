@@ -27,6 +27,7 @@ const meldekortUtenArbeid: MeldekortResponse = {
   },
   steg: 'TIMER_ARBEIDET',
   periode: { fom: '2024-11-04', tom: '2024-11-17' },
+  tidligsteInnsendingsDato: '2024-11-04',
 };
 
 const meldekortMedArbeid: MeldekortResponse = {
@@ -50,6 +51,7 @@ const meldekortMedArbeid: MeldekortResponse = {
     ],
   },
   steg: 'TIMER_ARBEIDET',
+  tidligsteInnsendingsDato: '2024-11-04',
   periode: { fom: '2024-11-04', tom: '2024-11-17' },
 };
 

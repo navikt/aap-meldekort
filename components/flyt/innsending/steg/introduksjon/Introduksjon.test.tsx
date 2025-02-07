@@ -15,6 +15,7 @@ const meldekort: MeldekortResponse = {
     timerArbeidet: [],
   },
   steg: 'BEKREFT_SVARER_ÆRLIG',
+  tidligsteInnsendingsDato: '2024-11-04'
 };
 
 describe('generelt', () => {

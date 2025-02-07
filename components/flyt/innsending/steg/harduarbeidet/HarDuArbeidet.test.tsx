@@ -12,6 +12,7 @@ const periode: MeldekortResponse = {
   meldekort: {
     timerArbeidet: [],
   },
+  tidligsteInnsendingsDato: '2024-11-04',
   steg: 'JOBBET_I_MELDEPERIODEN',
 };
 
