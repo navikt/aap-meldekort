@@ -1,6 +1,6 @@
 'use client';
 
-import { Accordion, Alert, Button, HGrid, Link } from '@navikt/ds-react';
+import { Accordion, Alert, Button, HGrid, Link, List } from '@navikt/ds-react';
 import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { KommendeMeldekort, MeldekortResponse } from 'lib/types/types';
 import NextLink from 'next/link';
@@ -20,6 +20,11 @@ export const KvitteringInnsending = ({ meldekort, kommendeMeldekort }: Props) =>
       <Alert variant="success">
         Meldekortet ditt er sendt til Nav, du får beskjed hvis vi trenger noe mer fra deg.
       </Alert>
+      <List>
+        <List.Item>Du kan endre opplysningene hvis du oppdager at du har ført feil.</List.Item>
+        <List.Item>Pengene vil bli utbetalt en til tre virkedager etter at vi har mottatt meldekortet.</List.Item>
+        <List.Item>Du får beskjed hvis vi trenger noe mer fra deg.</List.Item>
+      </List>
       <Accordion className={styles.accordion}>
         <Accordion.Item>
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
