@@ -19,10 +19,10 @@ export const UkeRapportering = ({ felterIUken, errors }: Props) => {
     <div className={styles.rad}>
       <div className={styles.heading}>
         <Heading size={'medium'} level={'3'}>
-          Uke {felterIUken.ukeNummer}
+          {`Uke ${felterIUken.ukeNummer}`}
         </Heading>
         <BodyShort>
-          {formaterDatoForFrontend(felterIUken.ukeStart)} - {formaterDatoForFrontend(felterIUken.ukeSlutt)}
+          {`${formaterDatoForFrontend(felterIUken.ukeStart)} - ${formaterDatoForFrontend(felterIUken.ukeSlutt)}`}
         </BodyShort>
       </div>
       <div className={styles.ukerad}>
@@ -30,7 +30,7 @@ export const UkeRapportering = ({ felterIUken, errors }: Props) => {
           return (
             <div key={felt.id} className={styles.felt}>
               <BodyShort size={'small'} aria-hidden weight={'semibold'} key={felt.dag}>
-                {formaterUkedag(felt.dag)} {format(new Date(felt.dag), 'd')}.
+                {`${formaterUkedag(felt.dag)} ${format(new Date(felt.dag), 'd')}.`}
               </BodyShort>
               <TimerInput
                 index={felt.index}
