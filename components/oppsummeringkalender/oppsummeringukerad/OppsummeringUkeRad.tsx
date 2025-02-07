@@ -19,7 +19,7 @@ export const OppsummeringUkeRad = ({ felterIUken }: Props) => {
         return (
           <div className={styles.dag} key={index}>
             <div className={styles.sronly}>
-              {datoLabel} {field.timer}t
+              {datoLabel} {field.timer} timer
             </div>
             <div aria-hidden>
               <BodyShort size={'small'} weight={'semibold'} aria-hidden>
