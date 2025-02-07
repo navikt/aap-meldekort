@@ -50,6 +50,7 @@ export const OppsummeringMeldekort = ({ historiskeMeldekortDetaljer }: Props) =>
         {historiskeMeldekortDetaljer.map((historiskMeldekort, index) => {
           return (
             <OppsummeringKalender
+              heading={'Oppsummering'}
               key={index}
               timerArbeidet={historiskMeldekort.timerArbeidet}
               periode={historiskMeldekort.meldeperiode}
