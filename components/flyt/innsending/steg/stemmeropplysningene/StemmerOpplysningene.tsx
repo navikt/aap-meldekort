@@ -72,7 +72,9 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
         </BodyShort>
 
         <VStack gap={'2'}>
-          <Heading size={'small'}>Jobb</Heading>
+          <Heading size={'small'} level={'3'}>
+            Jobb
+          </Heading>
           <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)}`}</BodyShort>
           <BodyShort>{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
           <Label>Har du jobbet noe i disse ukene?</Label>
