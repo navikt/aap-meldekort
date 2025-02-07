@@ -1,8 +1,7 @@
 'use client';
 
-import { Link } from '@navikt/ds-react';
 import { ArrowLeftIcon } from '@navikt/aksel-icons';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface Props {
   label: string;
@@ -10,10 +9,8 @@ interface Props {
 }
 
 export const MeldekortLenke = ({ label, href }: Props) => {
-  const router = useRouter();
-
   return (
-    <Link onClick={() => router.push(href)} style={{ cursor: 'pointer' }} role={'link'}>
+    <Link href={href} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
       <ArrowLeftIcon aria-hidden="true" />
       <span>{label}</span>
     </Link>
