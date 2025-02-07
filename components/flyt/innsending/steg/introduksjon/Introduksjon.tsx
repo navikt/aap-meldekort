@@ -24,7 +24,7 @@ export const Introduksjon = ({ meldekort, referanse }: Props) => {
   const { form, formFields } = useConfigForm<FormFields>({
     godkjent: {
       type: 'checkbox',
-      label: 'Er du enig?',
+      label: 'Bekrefter du at du vil fylle ut meldekortet så riktig du kan?',
       hideLabel: true,
       options: [{ label: 'Jeg bekrefter at jeg vil fylle ut meldekortet så riktig jeg kan.', value: JaEllerNei.Ja }],
       rules: { required: 'Du må bekrefte at du vil fylle ut meldekortet så riktig du kan' },
