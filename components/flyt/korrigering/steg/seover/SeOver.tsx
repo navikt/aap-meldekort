@@ -64,7 +64,6 @@ export const SeOver = () => {
         <Alert variant={'warning'}>Meldekortet er ikke sendt inn ennå</Alert>
         <BodyShort spacing>Se over meldekortet ditt og pass på at alt er riktig før du sender inn.</BodyShort>
         <OppsummeringKalender
-          heading={'Oppsummering'}
           timerArbeidet={korrigering.meldekort.timerArbeidet}
           periode={korrigering.meldekort.meldeperiode}
         >
