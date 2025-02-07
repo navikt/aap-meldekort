@@ -62,9 +62,7 @@ export const OppsummeringKalender = ({
               {heading}
             </Heading>
           )}
-          <Label>
-            Uke {fraDatoUkenummer} - {tilDatoUkenummer}
-          </Label>
+          <Label>{`Uke ${fraDatoUkenummer} - ${tilDatoUkenummer}`}</Label>
           <BodyShort>
             {formaterDatoForFrontend(periode.fom)} - {formaterDatoForFrontend(periode.tom)}
           </BodyShort>
