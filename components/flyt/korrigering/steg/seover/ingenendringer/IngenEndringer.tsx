@@ -14,7 +14,7 @@ export const IngenEndringer = () => {
   return (
     <VStack gap={'4'}>
       <Alert variant={'info'}>
-        <Heading level={'3'} size={'small'} spacing>
+        <Heading level={'2'} size={'small'} spacing>
           Du har ikke endret noe
         </Heading>
         <BodyShort spacing>
