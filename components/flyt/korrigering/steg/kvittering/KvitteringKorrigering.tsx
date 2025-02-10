@@ -21,7 +21,7 @@ export const KvitteringKorrigering = () => {
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
           <Accordion.Content>
             <OppsummeringKalender
-              timerArbeidet={korrigering.meldekort.dager}
+              dager={korrigering.meldekort.dager}
               periode={korrigering.meldekort.meldeperiode}
             >
               <OppsummeringTimer timer={regnUtTimer(korrigering.meldekort.dager)} />

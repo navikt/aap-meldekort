@@ -66,7 +66,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
                 ...meldekort.meldekort,
                 dager: data.dager.map((dag) => ({
                   dato: dag.dag,
-                  timer: dag.timer !== null ? Number(replaceCommasWithDots(dag.timer)) : null,
+                  timerArbeidet: dag.timer !== null ? Number(replaceCommasWithDots(dag.timer)) : null,
                 })),
               },
               nåværendeSteg: 'UTFYLLING',

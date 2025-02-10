@@ -12,7 +12,7 @@ interface Props {
   periode: Periode;
   heading?: string;
   children?: ReactNode;
-  timerArbeidet?: DagerInfo[] | null;
+  dager?: DagerInfo[] | null;
   visPeriode?: boolean;
   kanEndres?: boolean;
   type?: HistoriskMeldekortType;
@@ -26,7 +26,7 @@ export interface Dag {
 export const OppsummeringKalender = ({
   periode,
   heading,
-  timerArbeidet,
+  dager,
   children,
   visPeriode = true,
   kanEndres = false,
@@ -39,19 +39,20 @@ export const OppsummeringKalender = ({
 
   const grupperteFelter: Record<string, Dag[]> = {};
 
-  timerArbeidet?.forEach((timer) => {
-    const ukestart = format(startOfWeek(timer.dato, { weekStartsOn: 1 }), 'yyyy-MM-dd');
+  dager?.forEach((dag) => {
+    const ukestart = format(startOfWeek(dag.dato, { weekStartsOn: 1 }), 'yyyy-MM-dd');
     if (!grupperteFelter[ukestart]) {
       grupperteFelter[ukestart] = [];
     }
 
-    grupperteFelter[ukestart].push({ dag: new Date(timer.dato), timer: timer.timerArbeidet ?? 0 });
+    grupperteFelter[ukestart].push({ dag: new Date(dag.dato), timer: dag.timerArbeidet ?? 0 });
   });
 
   const urlSearchParams = new URLSearchParams();
   urlSearchParams.append('fom', periode.fom);
   urlSearchParams.append('tom', periode.tom);
   const url = `/innsendt/periode/korriger?${urlSearchParams}`;
+
 
   return (
     <div className={`${styles.fullBleed} ${styles.oppsummeringkalender}`}>

@@ -22,19 +22,19 @@ const timerArbeider = [
 
 describe('oppsummering kalender', () => {
   it('skal vise ukenummer på perioden', () => {
-    render(<OppsummeringKalender timerArbeidet={timerArbeider} periode={periode} />);
+    render(<OppsummeringKalender dager={timerArbeider} periode={periode} />);
     const ukenummer = screen.getByText('Uke 47 - 48');
     expect(ukenummer).toBeVisible();
   });
 
   it('skal vise fra dato og til dato for perioden', () => {
-    render(<OppsummeringKalender timerArbeidet={timerArbeider} periode={periode} />);
+    render(<OppsummeringKalender dager={timerArbeider} periode={periode} />);
     const datoerForPerioden = screen.getByText('18.11.2024 - 01.12.2024');
     expect(datoerForPerioden).toBeVisible();
   });
 
   it('skal vise dagene i uken som tekst', () => {
-    render(<OppsummeringKalender timerArbeidet={timerArbeider} periode={periode} />);
+    render(<OppsummeringKalender dager={timerArbeider} periode={periode} />);
     const mandag = screen.getByText('ma. 18.');
     expect(mandag).toBeVisible();
 
@@ -58,7 +58,7 @@ describe('oppsummering kalender', () => {
   });
 
   it('skal vise 14 felter som viser timene som  er ført', () => {
-    render(<OppsummeringKalender timerArbeidet={timerArbeider} periode={periode} />);
+    render(<OppsummeringKalender dager={timerArbeider} periode={periode} />);
     for (let i = 0; i < 14; i++) {
       const førteTimer = screen.getAllByText('0t');
       expect(førteTimer).toHaveLength(14);

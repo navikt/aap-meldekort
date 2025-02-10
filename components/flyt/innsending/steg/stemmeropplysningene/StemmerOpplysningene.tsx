@@ -86,7 +86,7 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
           <VStack gap={'2'}>
             <OppsummeringKalender
               heading={'Arbeidstimer'}
-              timerArbeidet={meldekort.meldekort.dager}
+              dager={meldekort.meldekort.dager}
               periode={meldekort.periode}
             />
             <div>

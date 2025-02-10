@@ -51,7 +51,7 @@ export const OppsummeringMeldekort = ({ historiskeMeldekortDetaljer }: Props) =>
           return (
             <OppsummeringKalender
               key={index}
-              timerArbeidet={historiskMeldekort.dager}
+              dager={historiskMeldekort.dager}
               periode={historiskMeldekort.meldeperiode}
               kanEndres={historiskMeldekort.kanEndres}
               type={historiskMeldekort.type}

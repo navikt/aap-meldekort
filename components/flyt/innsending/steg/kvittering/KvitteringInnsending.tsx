@@ -29,7 +29,7 @@ export const KvitteringInnsending = ({ meldekort, kommendeMeldekort }: Props) =>
         <Accordion.Item>
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
           <Accordion.Content>
-            <OppsummeringKalender timerArbeidet={meldekort.meldekort.dager} periode={meldekort.periode}>
+            <OppsummeringKalender dager={meldekort.meldekort.dager} periode={meldekort.periode}>
               <OppsummeringTimer timer={regnUtTimer(meldekort.meldekort.dager)} />
             </OppsummeringKalender>
           </Accordion.Content>
