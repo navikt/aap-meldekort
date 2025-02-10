@@ -8,6 +8,7 @@ import { MeldekortResponse } from 'lib/types/types';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
+import { addDays } from 'date-fns';
 
 interface Props {
   meldekort: MeldekortResponse;
@@ -59,8 +60,7 @@ export const Introduksjon = ({ meldekort, referanse }: Props) => {
         </div>
         <List size={'medium'}>
           <List.Item>
-            Du kan sende dette meldekortet fra {formaterDatoForFrontend(new Date(meldekort.tidligsteInnsendingsDato))},
-            og senest dd.mm for å unngå trekk i utbetalingen.
+            {`Du kan sende dette meldekortet fra ${formaterDatoForFrontend(new Date(meldekort.tidligsteInnsendingsDato))}, og senest ${formaterDatoForFrontend(getSisteInnsendingsdag(new Date(meldekort.tidligsteInnsendingsDato)))} for å unngå trekk i utbetalingen.`}
           </List.Item>
           <List.Item>På meldekortet må du fylle ut hvor mye du har jobbet. </List.Item>
           <List.Item>For å motta AAP må du sende meldekort hver 14. dag.</List.Item>
@@ -78,3 +78,7 @@ export const Introduksjon = ({ meldekort, referanse }: Props) => {
     </Form>
   );
 };
+
+function getSisteInnsendingsdag(innsendingDato: Date) {
+  return addDays(innsendingDato, 8);
+}

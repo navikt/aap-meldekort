@@ -67,7 +67,7 @@ export async function hentMeldekortMock(): Promise<MeldekortResponse> {
           { dato: '2024-11-17' },
         ],
       },
-      tidligsteInnsendingsDato: '2024-11-05',
+      tidligsteInnsendingsDato: '2024-11-16',
       steg: 'BEKREFT_SVARER_ÆRLIG',
       periode: { fom: '2024-11-04', tom: '2024-11-17' },
     };
