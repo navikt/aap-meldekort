@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { HarDuArbeidet } from 'components/flyt/innsending/steg/harduarbeidet/HarDuArbeidet';
+import { SpRsmL } from 'components/flyt/innsending/steg/spørsmål/Spørsmål';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { MeldekortResponse } from 'lib/types/types';
@@ -19,7 +19,7 @@ const periode: MeldekortResponse = {
 const user = userEvent.setup();
 
 describe('Periode', () => {
-  beforeEach(() => render(<HarDuArbeidet meldekort={periode} referanse={'1234'} />));
+  beforeEach(() => render(<SpRsmL meldekort={periode} referanse={'1234'} />));
 
   it('Skal ha en heading', () => {
     const heading = screen.getByRole('heading', { name: 'Arbeid i uke 47 og 48', level: 2 });
