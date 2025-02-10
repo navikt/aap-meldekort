@@ -6,7 +6,7 @@ import { KommendeMeldekort, MeldekortResponse } from 'lib/types/types';
 const meldekort: MeldekortResponse = {
   periode: { fom: '2024-11-18', tom: '2024-12-01' },
   meldekort: {
-    timerArbeidet: [],
+    dager: [],
   },
   steg: 'KVITTERING',
   tidligsteInnsendingsDato: '2024-11-04',

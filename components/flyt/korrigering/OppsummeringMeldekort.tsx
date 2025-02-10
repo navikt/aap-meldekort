@@ -51,13 +51,13 @@ export const OppsummeringMeldekort = ({ historiskeMeldekortDetaljer }: Props) =>
           return (
             <OppsummeringKalender
               key={index}
-              timerArbeidet={historiskMeldekort.timerArbeidet}
+              timerArbeidet={historiskMeldekort.dager}
               periode={historiskMeldekort.meldeperiode}
               kanEndres={historiskMeldekort.kanEndres}
               type={historiskMeldekort.type}
             >
               <VStack gap={'4'}>
-                <OppsummeringTimer timer={regnUtTimer(historiskMeldekort?.timerArbeidet)} />
+                <OppsummeringTimer timer={regnUtTimer(historiskMeldekort?.dager)} />
                 {historiskMeldekort.bruttoBeløp !== null && historiskMeldekort.bruttoBeløp !== undefined && (
                   <OppsummeringRad
                     heading={'Utbetalt for perioden'}

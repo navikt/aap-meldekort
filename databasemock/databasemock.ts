@@ -50,7 +50,7 @@ export async function hentMeldekortMock(): Promise<MeldekortResponse> {
   } catch (err) {
     const meldekort: MeldekortResponse = {
       meldekort: {
-        timerArbeidet: [
+        dager: [
           { dato: '2024-11-04' },
           { dato: '2024-11-05' },
           { dato: '2024-11-06' },
@@ -106,16 +106,16 @@ export async function hentHistoriskMeldekortDetaljerMock(): Promise<HistoriskMel
         kanEndres: true,
         type: 'VANLIG',
         bruttoBeløp: 8745,
-        timerArbeidet: [
+        dager: [
           { dato: '2024-11-04' },
           { dato: '2024-11-05' },
           { dato: '2024-11-06' },
           { dato: '2024-11-07' },
-          { dato: '2024-11-08', timer: 5 },
+          { dato: '2024-11-08', timerArbeidet: 5 },
           { dato: '2024-11-09' },
           { dato: '2024-11-10' },
           { dato: '2024-11-11' },
-          { dato: '2024-11-12', timer: 7.5 },
+          { dato: '2024-11-12', timerArbeidet: 7.5 },
           { dato: '2024-11-13' },
           { dato: '2024-11-14' },
           { dato: '2024-11-15' },
@@ -165,10 +165,10 @@ export async function slettMock() {
 function hentNesteSteg(nåværendeSteg: Steg, jobbetIMeldeperiode: boolean): Steg {
   switch (nåværendeSteg) {
     case 'BEKREFT_SVARER_ÆRLIG':
-      return 'JOBBET_I_MELDEPERIODEN';
-    case 'JOBBET_I_MELDEPERIODEN':
-      return jobbetIMeldeperiode ? 'TIMER_ARBEIDET' : 'STEMMER_OPPLYSNINGENE';
-    case 'TIMER_ARBEIDET':
+      return 'SPØRSMÅL';
+    case 'SPØRSMÅL':
+      return jobbetIMeldeperiode ? 'UTFYLLING' : 'STEMMER_OPPLYSNINGENE';
+    case 'UTFYLLING':
       return 'STEMMER_OPPLYSNINGENE';
     case 'STEMMER_OPPLYSNINGENE':
       return 'KVITTERING';

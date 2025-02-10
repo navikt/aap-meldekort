@@ -499,13 +499,26 @@ export interface components {
             kode: string;
             params?: string[] | null;
         };
+        "no.nav.aap.meldekort.arena.DagerInfoDto": {
+            /**
+             * Format: date
+             * @example 2025-02-10
+             */
+            dato: string;
+            "harV\u00E6rtP\u00E5Ferie"?: boolean | null;
+            "harV\u00E6rtP\u00E5tiltakKursEllerUtdanning"?: boolean | null;
+            "harV\u00E6rtSyk"?: boolean | null;
+            /** Format: double */
+            timerArbeidet?: number | null;
+        };
         "no.nav.aap.meldekort.arena.Feil": components["schemas"]["no.nav.aap.meldekort.arena.InnsendingFeil"];
         "no.nav.aap.meldekort.arena.HistoriskMeldekortDetaljerDto": {
             /** Format: double */
             "bruttoBel\u00F8p"?: number | null;
+            dager?: components["schemas"]["no.nav.aap.meldekort.arena.DagerInfoDto"][] | null;
             /**
              * Format: date
-             * @example 2025-02-07
+             * @example 2025-02-10
              */
             innsendtDato?: string | null;
             kanEndres: boolean;
@@ -514,7 +527,6 @@ export interface components {
             meldeperiode: components["schemas"]["no.nav.aap.meldekort.arena.PeriodeDto"];
             /** @enum {string} */
             status: "OVERSTYRT_AV_ANNET_MELDEKORT" | "INNSENDT" | "FERDIG" | "FEILET";
-            timerArbeidet?: components["schemas"]["no.nav.aap.meldekort.arena.TimerArbeidetDto"][] | null;
             /** @enum {string} */
             type: "VANLIG" | "ETTERREGISTRERING" | "KORRIGERING" | "UKJENT";
         };
@@ -532,30 +544,37 @@ export interface components {
             nesteMeldekort?: components["schemas"]["no.nav.aap.meldekort.arena.NesteMeldekortDto"];
         };
         "no.nav.aap.meldekort.arena.MeldekortKorrigeringRequest": {
-            timerArbeidet: components["schemas"]["no.nav.aap.meldekort.arena.TimerArbeidetDto"][];
+            dager: components["schemas"]["no.nav.aap.meldekort.arena.DagerInfoDto"][];
+            "harDuGjennomf\u00F8rtAvtaltAktivitetKursEllerUtdanning": boolean;
+            harDuHattFerie: boolean;
+            harDuJobbet: boolean;
+            "harDuV\u00E6rtSyk": boolean;
         };
         "no.nav.aap.meldekort.arena.MeldekortRequest": {
             meldekort: components["schemas"]["no.nav.aap.meldekort.arena.MeldekortSkjemaDto"];
             /** @enum {string} */
-            "n\u00E5v\u00E6rendeSteg": "BEKREFT_SVARER_ÆRLIG" | "JOBBET_I_MELDEPERIODEN" | "TIMER_ARBEIDET" | "STEMMER_OPPLYSNINGENE" | "KVITTERING";
+            "n\u00E5v\u00E6rendeSteg": "BEKREFT_SVARER_ÆRLIG" | "SPØRSMÅL" | "UTFYLLING" | "STEMMER_OPPLYSNINGENE" | "KVITTERING";
         };
         "no.nav.aap.meldekort.arena.MeldekortResponse": {
             feil?: components["schemas"]["no.nav.aap.meldekort.arena.Feil"];
             meldekort: components["schemas"]["no.nav.aap.meldekort.arena.MeldekortSkjemaDto"];
             periode: components["schemas"]["no.nav.aap.meldekort.arena.PeriodeDto"];
             /** @enum {string} */
-            steg: "BEKREFT_SVARER_ÆRLIG" | "JOBBET_I_MELDEPERIODEN" | "TIMER_ARBEIDET" | "STEMMER_OPPLYSNINGENE" | "KVITTERING";
+            steg: "BEKREFT_SVARER_ÆRLIG" | "SPØRSMÅL" | "UTFYLLING" | "STEMMER_OPPLYSNINGENE" | "KVITTERING";
             /**
              * Format: date
-             * @example 2025-02-07
+             * @example 2025-02-10
              */
             tidligsteInnsendingsDato: string;
         };
         "no.nav.aap.meldekort.arena.MeldekortSkjemaDto": {
+            dager: components["schemas"]["no.nav.aap.meldekort.arena.DagerInfoDto"][];
+            "harDuGjennomf\u00F8rtAvtaltAktivitetKursEllerUtdanning"?: boolean | null;
+            harDuHattFerie?: boolean | null;
             harDuJobbet?: boolean | null;
+            "harDuV\u00E6rtSyk"?: boolean | null;
             stemmerOpplysningene?: boolean | null;
             svarerDuSant?: boolean | null;
-            timerArbeidet: components["schemas"]["no.nav.aap.meldekort.arena.TimerArbeidetDto"][];
         };
         "no.nav.aap.meldekort.arena.NesteMeldekortDto": {
             kanSendesInn: boolean;
@@ -564,30 +583,21 @@ export interface components {
             meldeperiode: components["schemas"]["no.nav.aap.meldekort.arena.PeriodeDto"];
             /**
              * Format: date
-             * @example 2025-02-07
+             * @example 2025-02-10
              */
             tidligsteInnsendingsDato: string;
         };
         "no.nav.aap.meldekort.arena.PeriodeDto": {
             /**
              * Format: date
-             * @example 2025-02-07
+             * @example 2025-02-10
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-02-07
+             * @example 2025-02-10
              */
             tom: string;
-        };
-        "no.nav.aap.meldekort.arena.TimerArbeidetDto": {
-            /**
-             * Format: date
-             * @example 2025-02-07
-             */
-            dato: string;
-            /** Format: double */
-            timer?: number | null;
         };
         "no.nav.aap.motor.api.JobbInfoDto": {
             /** Format: int32 */
@@ -603,7 +613,7 @@ export interface components {
             navn: string;
             /**
              * Format: date-time
-             * @example 2025-02-07T15:52:19.885183
+             * @example 2025-02-10T15:50:29.792079
              */
             "planlagtKj\u00F8retidspunkt": string;
             /** @enum {string} */

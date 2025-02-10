@@ -32,9 +32,9 @@ export const FyllUtKorrigering = () => {
   const { form } = useConfigForm<FormFields>({
     dager: {
       type: 'fieldArray',
-      defaultValue: korrigering?.meldekort.timerArbeidet?.map((timerArbeidet) => ({
-        dag: timerArbeidet.dato,
-        timer: timerArbeidet.timer == null || timerArbeidet.timer === 0 ? '' : timerArbeidet.timer.toString(),
+      defaultValue: korrigering?.meldekort.dager?.map((dag) => ({
+        dag: dag.dato,
+        timer: dag.timerArbeidet == null || dag.timerArbeidet === 0 ? '' : dag.timerArbeidet.toString(),
       })),
     },
   });
@@ -60,7 +60,7 @@ export const FyllUtKorrigering = () => {
                 endrerMeldekort: true,
                 meldekort: {
                   ...korrigering.meldekort,
-                  timerArbeidet: data.dager.map((dag) => ({
+                  dager: data.dager.map((dag) => ({
                     dato: dag.dag,
                     ...(dag.timer !== '' && dag.timer !== null && { timer: Number(replaceCommasWithDots(dag.timer)) }),
                   })),

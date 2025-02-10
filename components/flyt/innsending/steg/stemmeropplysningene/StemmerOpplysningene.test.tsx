@@ -8,7 +8,7 @@ import { StemmerOpplysningene } from 'components/flyt/innsending/steg/stemmeropp
 const meldekortUtenArbeid: MeldekortResponse = {
   meldekort: {
     harDuJobbet: false,
-    timerArbeidet: [
+    dager: [
       { dato: '2024-11-18' },
       { dato: '2024-11-19' },
       { dato: '2024-11-20' },
@@ -25,7 +25,7 @@ const meldekortUtenArbeid: MeldekortResponse = {
       { dato: '2024-12-01' },
     ],
   },
-  steg: 'TIMER_ARBEIDET',
+  steg: 'UTFYLLING',
   periode: { fom: '2024-11-04', tom: '2024-11-17' },
   tidligsteInnsendingsDato: '2024-11-04',
 };
@@ -33,11 +33,11 @@ const meldekortUtenArbeid: MeldekortResponse = {
 const meldekortMedArbeid: MeldekortResponse = {
   meldekort: {
     harDuJobbet: true,
-    timerArbeidet: [
-      { dato: '2024-11-18', timer: 4 },
+    dager: [
+      { dato: '2024-11-18', timerArbeidet: 4 },
       { dato: '2024-11-19' },
       { dato: '2024-11-20' },
-      { dato: '2024-11-21', timer: 5 },
+      { dato: '2024-11-21', timerArbeidet: 5 },
       { dato: '2024-11-22' },
       { dato: '2024-11-23' },
       { dato: '2024-11-24' },
@@ -50,7 +50,7 @@ const meldekortMedArbeid: MeldekortResponse = {
       { dato: '2024-12-01' },
     ],
   },
-  steg: 'TIMER_ARBEIDET',
+  steg: 'UTFYLLING',
   tidligsteInnsendingsDato: '2024-11-04',
   periode: { fom: '2024-11-04', tom: '2024-11-17' },
 };

@@ -10,10 +10,10 @@ const periode: MeldekortResponse = {
     tom: '2024-12-01',
   },
   meldekort: {
-    timerArbeidet: [],
+    dager: [],
   },
   tidligsteInnsendingsDato: '2024-11-04',
-  steg: 'JOBBET_I_MELDEPERIODEN',
+  steg: 'SPØRSMÅL',
 };
 
 const user = userEvent.setup();

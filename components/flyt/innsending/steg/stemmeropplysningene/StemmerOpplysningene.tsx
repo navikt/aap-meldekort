@@ -38,12 +38,12 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
   const fraDato = new Date(meldekort.periode.fom);
   const tilDato = new Date(meldekort.periode.tom);
 
-  const timer = regnUtTimer(meldekort.meldekort.timerArbeidet);
+  const timer = regnUtTimer(meldekort.meldekort.dager);
 
   return (
     <Form
       forrigeStegOnClick={() =>
-        router.push(`/${referanse}/${meldekort.meldekort.harDuJobbet ? 'TIMER_ARBEIDET' : 'JOBBET_I_MELDEPERIODEN'}`)
+        router.push(`/${referanse}/${meldekort.meldekort.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL'}`)
       }
       nesteStegKnappTekst={'Send inn'}
       onSubmit={form.handleSubmit(async () => {
@@ -61,7 +61,7 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
       <VStack gap={'8'}>
         <MeldekortLenke
           label={'Tilbake'}
-          href={`/${referanse}/${meldekort.meldekort.harDuJobbet ? 'TIMER_ARBEIDET' : 'JOBBET_I_MELDEPERIODEN'}`}
+          href={`/${referanse}/${meldekort.meldekort.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL'}`}
         />
         <Heading size={'large'} level={'2'} spacing>
           Se over og send inn meldekort
@@ -79,14 +79,14 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
           <BodyShort>{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
           <Label>Har du jobbet noe i disse ukene?</Label>
           <BodyShort>{meldekort.meldekort.harDuJobbet ? 'Ja' : 'Nei'}</BodyShort>
-          <MeldekortLenke label={'Endre om du har jobbet disse ukene'} href={`/${referanse}/JOBBET_I_MELDEPERIODEN`} />
+          <MeldekortLenke label={'Endre om du har jobbet disse ukene'} href={`/${referanse}/SPØRSMÅL`} />
         </VStack>
 
         {meldekort.meldekort.harDuJobbet && (
           <VStack gap={'2'}>
             <OppsummeringKalender
               heading={'Arbeidstimer'}
-              timerArbeidet={meldekort.meldekort.timerArbeidet}
+              timerArbeidet={meldekort.meldekort.dager}
               periode={meldekort.periode}
             />
             <div>
@@ -94,7 +94,7 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
               <BodyShort>{timer} timer</BodyShort>
               <BodyShort>{`(${regnUtProsent(timer)}%)`}</BodyShort>
             </div>
-            <MeldekortLenke label={'Endre antall timer du har jobbet'} href={`/${referanse}/TIMER_ARBEIDET`} />
+            <MeldekortLenke label={'Endre antall timer du har jobbet'} href={`/${referanse}/UTFYLLING`} />
           </VStack>
         )}
 

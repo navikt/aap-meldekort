@@ -12,7 +12,7 @@ const meldekort: MeldekortResponse = {
     tom: '2024-12-01',
   },
   meldekort: {
-    timerArbeidet: [],
+    dager: [],
   },
   steg: 'BEKREFT_SVARER_ÆRLIG',
   tidligsteInnsendingsDato: '2024-11-04'

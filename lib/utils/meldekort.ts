@@ -1,11 +1,11 @@
-import { TimerArbeidet } from 'lib/types/types';
+import { DagerInfo } from 'lib/types/types';
 
-export function regnUtTimer(timerArbeidet?: TimerArbeidet[] | null) {
+export function regnUtTimer(timerArbeidet?: DagerInfo[] | null): number {
   if (!timerArbeidet) {
     return 0;
   }
 
-  return timerArbeidet.reduce((acc, dag) => acc + (dag.timer ? Number(dag.timer) : 0), 0);
+  return timerArbeidet.reduce((acc, dag) => acc + (dag.timerArbeidet ? Number(dag.timerArbeidet) : 0), 0);
 }
 
 const antallTimerIMeldepliktPerioden = 37.5 * 2;

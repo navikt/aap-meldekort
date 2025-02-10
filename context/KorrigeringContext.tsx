@@ -34,7 +34,7 @@ export function KorrigeringContextProvider(props: Props) {
   });
 
   function harDetSkjeddEndringer() {
-    return !isEqual(props.meldekort.timerArbeidet, korrigering.meldekort.timerArbeidet);
+    return !isEqual(props.meldekort.dager, korrigering.meldekort.dager);
   }
 
   const context: KorrigeringContextType = {

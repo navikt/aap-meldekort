@@ -4,7 +4,7 @@ import { formaterDatoForFrontend } from 'lib/utils/date';
 import { OppsummeringUkeRad } from 'components/oppsummeringkalender/oppsummeringukerad/OppsummeringUkeRad';
 
 import styles from './OppsummeringKalender.module.css';
-import { HistoriskMeldekortType, Periode, TimerArbeidet } from 'lib/types/types';
+import { HistoriskMeldekortType, Periode, DagerInfo } from 'lib/types/types';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 
@@ -12,7 +12,7 @@ interface Props {
   periode: Periode;
   heading?: string;
   children?: ReactNode;
-  timerArbeidet?: TimerArbeidet[] | null;
+  timerArbeidet?: DagerInfo[] | null;
   visPeriode?: boolean;
   kanEndres?: boolean;
   type?: HistoriskMeldekortType;
@@ -45,7 +45,7 @@ export const OppsummeringKalender = ({
       grupperteFelter[ukestart] = [];
     }
 
-    grupperteFelter[ukestart].push({ dag: new Date(timer.dato), timer: timer.timer ?? 0 });
+    grupperteFelter[ukestart].push({ dag: new Date(timer.dato), timer: timer.timerArbeidet ?? 0 });
   });
 
   const urlSearchParams = new URLSearchParams();

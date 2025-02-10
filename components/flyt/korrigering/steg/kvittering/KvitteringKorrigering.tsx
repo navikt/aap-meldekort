@@ -21,10 +21,10 @@ export const KvitteringKorrigering = () => {
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
           <Accordion.Content>
             <OppsummeringKalender
-              timerArbeidet={korrigering.meldekort.timerArbeidet}
+              timerArbeidet={korrigering.meldekort.dager}
               periode={korrigering.meldekort.meldeperiode}
             >
-              <OppsummeringTimer timer={regnUtTimer(korrigering.meldekort.timerArbeidet)} />
+              <OppsummeringTimer timer={regnUtTimer(korrigering.meldekort.dager)} />
             </OppsummeringKalender>
           </Accordion.Content>
         </Accordion.Item>

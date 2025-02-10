@@ -21,13 +21,7 @@ const AktivtStegPage = async (props: Props) => {
   const meldekort = await hentMeldekort(referanse);
 
   function skalRedirecteTilAktivtSteg() {
-    const steg: Steg[] = [
-      'BEKREFT_SVARER_ÆRLIG',
-      'JOBBET_I_MELDEPERIODEN',
-      'TIMER_ARBEIDET',
-      'STEMMER_OPPLYSNINGENE',
-      'KVITTERING',
-    ];
+    const steg: Steg[] = ['BEKREFT_SVARER_ÆRLIG', 'SPØRSMÅL', 'UTFYLLING', 'STEMMER_OPPLYSNINGENE', 'KVITTERING'];
 
     const aktivtStegIndex = steg.indexOf(aktivtSteg);
     const backendStegIndex = steg.indexOf(meldekort.steg);
@@ -42,8 +36,8 @@ const AktivtStegPage = async (props: Props) => {
   return (
     <>
       {aktivtSteg === 'BEKREFT_SVARER_ÆRLIG' && <IntroduksjonMedDataFetching referanse={referanse} />}
-      {aktivtSteg === 'JOBBET_I_MELDEPERIODEN' && <HarDuArbeidetMedDataFetching referanse={referanse} />}
-      {aktivtSteg === 'TIMER_ARBEIDET' && <TimerArbeidetMedDataFetching referanse={referanse} />}
+      {aktivtSteg === 'SPØRSMÅL' && <HarDuArbeidetMedDataFetching referanse={referanse} />}
+      {aktivtSteg === 'UTFYLLING' && <TimerArbeidetMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'STEMMER_OPPLYSNINGENE' && <StemmerOpplysningeneMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'KVITTERING' && <KvitteringInnsendingMedDataFetching referanse={referanse} />}
     </>

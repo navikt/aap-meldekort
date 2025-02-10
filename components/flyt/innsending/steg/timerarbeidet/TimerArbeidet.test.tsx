@@ -9,7 +9,7 @@ import { nb } from 'date-fns/locale/nb';
 const meldeperiode: MeldekortResponse = {
   periode: { fom: '2024-11-18', tom: '2024-12-01' },
   meldekort: {
-    timerArbeidet: [
+    dager: [
       { dato: '2024-11-18' },
       { dato: '2024-11-19' },
       { dato: '2024-11-20' },
@@ -26,7 +26,7 @@ const meldeperiode: MeldekortResponse = {
       { dato: '2024-12-01' },
     ],
   },
-  steg: 'TIMER_ARBEIDET',
+  steg: 'UTFYLLING',
   tidligsteInnsendingsDato: '2024-11-18',
 };
 
@@ -109,7 +109,7 @@ describe('rapporteringskalender', () => {
   it('skal vise 14 felter for å føre inn timer', () => {
     render(<TimerArbeidet meldekort={meldeperiode} referanse={'1'} />);
     for (let i = 0; i < 14; i++) {
-      const labelTekst = finnLabeltekst(meldeperiode.meldekort.timerArbeidet[i].dato);
+      const labelTekst = finnLabeltekst(meldeperiode.meldekort.dager[i].dato);
       const felt = screen.getByRole('textbox', { name: labelTekst });
       expect(felt).toBeVisible();
     }
@@ -117,7 +117,7 @@ describe('rapporteringskalender', () => {
 
   it('skal vise en feilmelding dersom bruker skriver inn et desimaltall som ikke er en hel eller halv time', async () => {
     render(<TimerArbeidet meldekort={meldeperiode} referanse={'1'} />);
-    const labelTekst = finnLabeltekst(meldeperiode.meldekort.timerArbeidet[0].dato);
+    const labelTekst = finnLabeltekst(meldeperiode.meldekort.dager[0].dato);
     const felt = screen.getByRole('textbox', { name: labelTekst });
     await user.type(felt, '2.3');
 
@@ -134,7 +134,7 @@ describe('rapporteringskalender', () => {
   it('skal vise en feilmelding dersom bruker skriver inn et tall som er over 24 timer', async () => {
     render(<TimerArbeidet meldekort={meldeperiode} referanse={'1'} />);
 
-    const labelTekst = finnLabeltekst(meldeperiode.meldekort.timerArbeidet[0].dato);
+    const labelTekst = finnLabeltekst(meldeperiode.meldekort.dager[0].dato);
     const felt = screen.getByRole('textbox', { name: labelTekst });
     await user.type(felt, '25');
 
@@ -151,7 +151,7 @@ describe('rapporteringskalender', () => {
   it('skal vise en feilmelding dersom bruker skriver inn et tall som ikke er et tall', async () => {
     render(<TimerArbeidet meldekort={meldeperiode} referanse={'1'} />);
 
-    const labelTekst = finnLabeltekst(meldeperiode.meldekort.timerArbeidet[0].dato);
+    const labelTekst = finnLabeltekst(meldeperiode.meldekort.dager[0].dato);
     const felt = screen.getByRole('textbox', { name: labelTekst });
     await user.type(felt, 'attentimerogtredveminutter');
 

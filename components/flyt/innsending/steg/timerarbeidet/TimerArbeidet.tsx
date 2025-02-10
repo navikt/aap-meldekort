@@ -38,9 +38,9 @@ export const TimerArbeidet = ({ meldekort, referanse }: Props) => {
   const { form } = useConfigForm<MeldepliktFormFields>({
     dager: {
       type: 'fieldArray',
-      defaultValue: meldekort.meldekort.timerArbeidet.map((timerArbeidet) => ({
-        dag: timerArbeidet.dato,
-        timer: timerArbeidet.timer == null || timerArbeidet.timer === 0 ? '' : timerArbeidet.timer.toString(),
+      defaultValue: meldekort.meldekort.dager.map((dag) => ({
+        dag: dag.dato,
+        timer: dag.timerArbeidet == null || dag.timerArbeidet === 0 ? '' : dag.timerArbeidet.toString(),
       })),
     },
   });
@@ -48,7 +48,7 @@ export const TimerArbeidet = ({ meldekort, referanse }: Props) => {
   return (
     <FormProvider {...form}>
       <Form
-        forrigeStegOnClick={() => router.push(`/${referanse}/JOBBET_I_MELDEPERIODEN`)}
+        forrigeStegOnClick={() => router.push(`/${referanse}/SPØRSMÅL`)}
         nesteStegKnappTekst={'Neste'}
         onSubmit={form.handleSubmit(async (data) => {
           setErrors([]);
@@ -64,12 +64,12 @@ export const TimerArbeidet = ({ meldekort, referanse }: Props) => {
             løsStegOgGåTilNeste({
               meldekort: {
                 ...meldekort.meldekort,
-                timerArbeidet: data.dager.map((dag) => ({
+                dager: data.dager.map((dag) => ({
                   dato: dag.dag,
                   timer: dag.timer !== null ? Number(replaceCommasWithDots(dag.timer)) : null,
                 })),
               },
-              nåværendeSteg: 'TIMER_ARBEIDET',
+              nåværendeSteg: 'UTFYLLING',
             });
           }
         })}
@@ -77,7 +77,7 @@ export const TimerArbeidet = ({ meldekort, referanse }: Props) => {
         errorMessage={errorMessage}
       >
         <VStack gap={'4'}>
-          <MeldekortLenke label={'Tilbake'} href={`/${referanse}/JOBBET_I_MELDEPERIODEN`} />
+          <MeldekortLenke label={'Tilbake'} href={`/${referanse}/SPØRSMÅL`} />
           <Heading size={'large'} level={'2'}>
             Fyll ut meldekortet
           </Heading>
