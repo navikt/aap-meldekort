@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { TimerArbeidet } from 'components/flyt/innsending/steg/timerarbeidet/TimerArbeidet';
+import { Utfylling } from 'components/flyt/innsending/steg/utfylling/Utfylling';
 import { userEvent } from '@testing-library/user-event';
 import { format } from 'date-fns';
 import { MeldekortResponse } from 'lib/types/types';
@@ -33,7 +33,7 @@ const meldeperiode: MeldekortResponse = {
 const user = userEvent.setup();
 
 describe('Utfylling', () => {
-  beforeEach(() => render(<TimerArbeidet meldekort={meldeperiode} referanse={'1'} />));
+  beforeEach(() => render(<Utfylling meldekort={meldeperiode} referanse={'1'} />));
 
   it('skal ha en heading', () => {
     const heading = screen.getByRole('heading', { name: 'Fyll ut meldekortet', level: 2 });
@@ -71,19 +71,19 @@ describe('Utfylling', () => {
 
 describe('rapporteringskalender', () => {
   it('skal vise ukenummer på perioden', () => {
-    render(<TimerArbeidet meldekort={meldeperiode} referanse={'1'} />);
+    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
     const ukenummer = screen.getByText('Uke 47');
     expect(ukenummer).toBeVisible();
   });
 
   it('skal vise fra dato og til dato for perioden', () => {
-    render(<TimerArbeidet meldekort={meldeperiode} referanse={'1'} />);
+    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
     const datoerForPerioden = screen.getByText('18.11.2024 - 24.11.2024');
     expect(datoerForPerioden).toBeVisible();
   });
 
   it('skal vise dagene og datoen i uken som tekst', () => {
-    render(<TimerArbeidet meldekort={meldeperiode} referanse={'1'} />);
+    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
     const mandag = screen.getByText('ma. 18.');
     expect(mandag).toBeVisible();
 
@@ -107,7 +107,7 @@ describe('rapporteringskalender', () => {
   });
 
   it('skal vise 14 felter for å føre inn timer', () => {
-    render(<TimerArbeidet meldekort={meldeperiode} referanse={'1'} />);
+    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
     for (let i = 0; i < 14; i++) {
       const labelTekst = finnLabeltekst(meldeperiode.meldekort.dager[i].dato);
       const felt = screen.getByRole('textbox', { name: labelTekst });
@@ -116,7 +116,7 @@ describe('rapporteringskalender', () => {
   });
 
   it('skal vise en feilmelding dersom bruker skriver inn et desimaltall som ikke er en hel eller halv time', async () => {
-    render(<TimerArbeidet meldekort={meldeperiode} referanse={'1'} />);
+    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
     const labelTekst = finnLabeltekst(meldeperiode.meldekort.dager[0].dato);
     const felt = screen.getByRole('textbox', { name: labelTekst });
     await user.type(felt, '2.3');
@@ -132,7 +132,7 @@ describe('rapporteringskalender', () => {
   });
 
   it('skal vise en feilmelding dersom bruker skriver inn et tall som er over 24 timer', async () => {
-    render(<TimerArbeidet meldekort={meldeperiode} referanse={'1'} />);
+    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
 
     const labelTekst = finnLabeltekst(meldeperiode.meldekort.dager[0].dato);
     const felt = screen.getByRole('textbox', { name: labelTekst });
@@ -149,7 +149,7 @@ describe('rapporteringskalender', () => {
   });
 
   it('skal vise en feilmelding dersom bruker skriver inn et tall som ikke er et tall', async () => {
-    render(<TimerArbeidet meldekort={meldeperiode} referanse={'1'} />);
+    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
 
     const labelTekst = finnLabeltekst(meldeperiode.meldekort.dager[0].dato);
     const felt = screen.getByRole('textbox', { name: labelTekst });
@@ -166,7 +166,7 @@ describe('rapporteringskalender', () => {
   });
 
   it('skal ha en lenke for å gå tilbake til forrige steg', () => {
-    render(<TimerArbeidet meldekort={meldeperiode} referanse={'1'} />);
+    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
     const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
     expect(tilbakeLenke).toBeVisible();
   });

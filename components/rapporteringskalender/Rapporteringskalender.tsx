@@ -9,7 +9,7 @@ import {
   MeldepliktFormFields,
   replaceCommasWithDots,
   UtfyllingAvTimerError,
-} from 'components/flyt/innsending/steg/timerarbeidet/TimerArbeidet';
+} from 'components/flyt/innsending/steg/utfylling/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 import { useEffect, useState } from 'react';
 import { UkeRapporteringSmall } from 'components/rapporteringskalender/ukerapportering/small/UkeRapporteringSmall';
