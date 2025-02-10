@@ -59,7 +59,8 @@ export const Introduksjon = ({ meldekort, referanse }: Props) => {
         </div>
         <List size={'medium'}>
           <List.Item>
-            Du kan sende dette meldekortet fra dd.mm, og senest dd.mm for å unngå trekk i utbetalingen.
+            Du kan sende dette meldekortet fra {formaterDatoForFrontend(new Date(meldekort.tidligsteInnsendingsDato))},
+            og senest dd.mm for å unngå trekk i utbetalingen.
           </List.Item>
           <List.Item>På meldekortet må du fylle ut hvor mye du har jobbet. </List.Item>
           <List.Item>For å motta AAP må du sende meldekort hver 14. dag.</List.Item>
