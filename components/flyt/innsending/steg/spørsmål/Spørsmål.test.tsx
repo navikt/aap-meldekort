@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { SpRsmL } from 'components/flyt/innsending/steg/spørsmål/Spørsmål';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { MeldekortResponse } from 'lib/types/types';
 
@@ -42,10 +42,11 @@ describe('Periode', () => {
   });
 
   it('skal ha Ja og Nei som options', () => {
-    const jaOption = screen.getByRole('radio', { name: 'Ja' });
+    const felt = screen.getByRole('group', { name: 'Har du arbeidet i perioden?' });
+    const jaOption = within(felt).getByRole('radio', { name: 'Ja' });
     expect(jaOption).toBeVisible();
 
-    const neiOption = screen.getByRole('radio', { name: 'Nei' });
+    const neiOption = within(felt).getByRole('radio', { name: 'Nei' });
     expect(neiOption).toBeVisible();
   });
 
