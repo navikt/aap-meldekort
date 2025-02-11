@@ -67,7 +67,6 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
           });
           setErrors(errors);
 
-          console.log(data.dager);
           if (errors.length === 0) {
             løsStegOgGåTilNeste({
               meldekort: {
@@ -97,7 +96,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
             min = 7,5 timer. 30 min = 0,50 timer
           </BodyLong>
           <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det informasjon</ReadMore>
-          <Rapporteringskalender errors={errors} />
+          <Rapporteringskalender errors={errors} meldekort={meldekort} />
           {errors.length > 0 && (
             <Alert variant={'error'}>
               Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer

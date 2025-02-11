@@ -1,43 +1,111 @@
+'use client';
+
 import { TimerInput } from 'components/rapporteringskalender/timerinput/TimerInput';
 import { MeldeperiodeUke } from 'components/rapporteringskalender/Rapporteringskalender';
 import { format } from 'date-fns';
 import { nb } from 'date-fns/locale/nb';
 
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { BodyShort, Checkbox, Heading, Label } from '@navikt/ds-react';
 
-import styles from 'components/rapporteringskalender/ukerapportering/UkeRapportering.module.css';
 import { UtfyllingAvTimerError } from 'components/flyt/innsending/steg/utfylling/Utfylling';
 import { formaterDatoForFrontend } from 'lib/utils/date';
+import { storForbokstav } from 'lib/utils/string';
+import { useFormContext } from 'react-hook-form';
+import { JaEllerNei } from 'lib/utils/form';
+import { CheckboxWrapper } from 'components/CheckboxWrapper';
+import { MeldekortResponse } from 'lib/types/types';
+
+import styles from 'components/rapporteringskalender/ukerapportering/UkeRapportering.module.css';
 
 interface Props {
+  meldekort: MeldekortResponse;
   felterIUken: MeldeperiodeUke;
   errors: UtfyllingAvTimerError[];
 }
 
-export const UkeRapportering = ({ felterIUken, errors }: Props) => {
+export const UkeRapportering = ({ felterIUken, errors, meldekort }: Props) => {
+  const form = useFormContext();
+
   return (
     <div className={styles.rad}>
       <div className={styles.heading}>
         <Heading size={'medium'} level={'3'}>
-          {`Uke ${felterIUken.ukeNummer}`}
+          Uke {felterIUken.ukeNummer}
         </Heading>
         <BodyShort>
-          {`${formaterDatoForFrontend(felterIUken.ukeStart)} - ${formaterDatoForFrontend(felterIUken.ukeSlutt)}`}
+          {formaterDatoForFrontend(felterIUken.ukeStart)} - {formaterDatoForFrontend(felterIUken.ukeSlutt)}
         </BodyShort>
       </div>
       <div className={styles.ukerad}>
-        {felterIUken.felter.map((felt) => {
+        {felterIUken.felter.map((field) => {
+          const dagINummer = format(new Date(field.dag), 'dd.MM');
           return (
-            <div key={felt.id} className={styles.felt}>
-              <BodyShort size={'small'} aria-hidden weight={'semibold'} key={felt.dag}>
-                {`${formaterUkedag(felt.dag)} ${format(new Date(felt.dag), 'd')}.`}
-              </BodyShort>
-              <TimerInput
-                index={felt.index}
-                harError={Boolean(errors.find((error) => error.index === felt.index)?.harError)}
-                label={format(new Date(felt.dag), 'eeee do MMMM', { locale: nb })}
-                isSmallScreen={false}
-              />
+            <div key={field.dag} className={styles.dag}>
+              <Heading size={'small'} aria-hidden level={'3'}>
+                {`${formaterUkedag(field.dag)} ${dagINummer}`}
+              </Heading>
+              {meldekort.meldekort.harDuJobbet && (
+                <div className={styles.felter}>
+                  <Label>Arbeid</Label>
+                  <TimerInput
+                    index={field.index}
+                    harError={Boolean(errors.find((error) => error.index === field.index)?.harError)}
+                    label={format(new Date(field.dag), 'eeee do MMMM', { locale: nb })}
+                    isSmallScreen={true}
+                  />
+                </div>
+              )}
+
+              {meldekort.meldekort.harDuGjennomførtAvtaltAktivitetKursEllerUtdanning && (
+                <div className={styles.felter}>
+                  <Label>Tiltak/kurs/utdanning </Label>
+                  <CheckboxWrapper
+                    name={`dager.${field.index}.harVærtPåtiltakKursEllerUtdanning`}
+                    control={form.control}
+                    // TODO label={formField.label}
+                    hideLabel={true}
+                    size={'medium'}
+                  >
+                    <Checkbox value={JaEllerNei.Ja} hideLabel>
+                      Tiltak/kurs/utdanning
+                    </Checkbox>
+                  </CheckboxWrapper>
+                </div>
+              )}
+
+              {meldekort.meldekort.harDuHattFerie && (
+                <div className={styles.felter}>
+                  <Label>Ferie og annet fravær enn sykdom</Label>
+                  <CheckboxWrapper
+                    name={`dager.${field.index}.harVærtPåFerie`}
+                    control={form.control}
+                    // TODO label={formField.label}
+                    hideLabel={true}
+                    size={'medium'}
+                  >
+                    <Checkbox value={JaEllerNei.Ja} hideLabel>
+                      Ferie og annet fravær enn sykdom
+                    </Checkbox>
+                  </CheckboxWrapper>
+                </div>
+              )}
+
+              {meldekort.meldekort.harDuVærtSyk && (
+                <div className={styles.felter}>
+                  <Label>Syk</Label>
+                  <CheckboxWrapper
+                    name={`dager.${field.index}.harVærtSyk`}
+                    control={form.control}
+                    // TODO label={formField.label}
+                    hideLabel={true}
+                    size={'medium'}
+                  >
+                    <Checkbox value={JaEllerNei.Ja} hideLabel>
+                      Syk
+                    </Checkbox>
+                  </CheckboxWrapper>
+                </div>
+              )}
             </div>
           );
         })}
@@ -46,7 +114,7 @@ export const UkeRapportering = ({ felterIUken, errors }: Props) => {
   );
 };
 
-export function formaterUkedag(date: string): string {
-  const formatter = new Intl.DateTimeFormat('nb-NO', { weekday: 'short' });
-  return formatter.format(new Date(date)).slice(0, 2) + '.';
+function formaterUkedag(date: string): string {
+  const formatter = new Intl.DateTimeFormat('nb-NO', { weekday: 'long' });
+  return storForbokstav(formatter.format(new Date(date)));
 }
