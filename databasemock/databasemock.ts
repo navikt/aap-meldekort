@@ -34,7 +34,13 @@ export async function hentKommendeMeldekortMock(): Promise<KommendeMeldekort> {
 }
 
 export async function mockNesteSteg(meldekortRequest: MeldekortRequest) {
-  const nesteSteg = hentNesteSteg(meldekortRequest.nåværendeSteg, meldekortRequest?.meldekort?.harDuJobbet || false);
+  const skalTilUtfylling = Boolean(
+    meldekortRequest?.meldekort?.harDuJobbet ||
+      meldekortRequest?.meldekort?.harDuVærtSyk ||
+      meldekortRequest?.meldekort?.harDuHattFerie ||
+      meldekortRequest?.meldekort?.harDuGjennomførtAvtaltAktivitetKursEllerUtdanning
+  );
+  const nesteSteg = hentNesteSteg(meldekortRequest.nåværendeSteg, skalTilUtfylling);
 
   const meldekort = await hentMeldekortMock();
 
@@ -166,12 +172,12 @@ export async function slettMock() {
   await fs.unlink('.historiskMeldekortDetaljer.cache');
 }
 
-function hentNesteSteg(nåværendeSteg: Steg, jobbetIMeldeperiode: boolean): Steg {
+function hentNesteSteg(nåværendeSteg: Steg, skalTilUtfylling: boolean): Steg {
   switch (nåværendeSteg) {
     case 'BEKREFT_SVARER_ÆRLIG':
       return 'SPØRSMÅL';
     case 'SPØRSMÅL':
-      return jobbetIMeldeperiode ? 'UTFYLLING' : 'STEMMER_OPPLYSNINGENE';
+      return skalTilUtfylling ? 'UTFYLLING' : 'STEMMER_OPPLYSNINGENE';
     case 'UTFYLLING':
       return 'STEMMER_OPPLYSNINGENE';
     case 'STEMMER_OPPLYSNINGENE':
