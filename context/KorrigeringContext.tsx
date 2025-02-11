@@ -4,7 +4,7 @@ import { createContext, Dispatch, ReactNode, useState } from 'react';
 import { HistoriskMeldekortDetaljer } from 'lib/types/types';
 import { isEqual } from 'lodash';
 
-type Steg = 'FYLL_TIMER' | 'SE_OVER_TIMER' | 'KVITTERING';
+type Steg = 'SPØRSMÅL' | 'FYLL_TIMER' | 'SE_OVER_TIMER' | 'KVITTERING';
 
 export interface KorrigeringContextType {
   korrigering: Korrigering;
@@ -28,13 +28,13 @@ interface Props {
 export function KorrigeringContextProvider(props: Props) {
   const { children } = props;
   const [korrigering, setKorrigering] = useState<Korrigering>({
-    steg: 'FYLL_TIMER',
+    steg: 'SPØRSMÅL',
     meldekort: props.meldekort,
     endrerMeldekort: false,
   });
 
   function harDetSkjeddEndringer() {
-    return !isEqual(props.meldekort.dager, korrigering.meldekort.dager);
+    return !isEqual(props.meldekort, korrigering.meldekort);
   }
 
   const context: KorrigeringContextType = {

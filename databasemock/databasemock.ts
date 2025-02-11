@@ -122,6 +122,10 @@ export async function hentHistoriskMeldekortDetaljerMock(): Promise<HistoriskMel
           { dato: '2024-11-16' },
           { dato: '2024-11-17' },
         ],
+        harDuGjennomførtAvtaltAktivitetKursEllerUtdanning: false,
+        harDuJobbet: true,
+        harDuVærtSyk: false,
+        harDuHattFerie: false,
       },
       // {
       //   meldekortId: 123456789,
