@@ -10,6 +10,7 @@ import { MeldekortResponse } from 'lib/types/types';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { useRouter } from 'next/navigation';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
+import { JaEllerNei } from 'lib/utils/form';
 
 interface Props {
   meldekort: MeldekortResponse;
@@ -23,6 +24,9 @@ export interface MeldepliktFormFields {
 interface Dag {
   dag: string;
   timer: string | null;
+  harVærtPåtiltakKursEllerUtdanning?: JaEllerNei[];
+  harVærtPåFerie?: JaEllerNei[];
+  harVærtSyk?: JaEllerNei[];
 }
 
 export interface UtfyllingAvTimerError {
@@ -41,6 +45,9 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
       defaultValue: meldekort.meldekort.dager.map((dag) => ({
         dag: dag.dato,
         timer: dag.timerArbeidet == null || dag.timerArbeidet === 0 ? '' : dag.timerArbeidet.toString(),
+        harVærtPåtiltakKursEllerUtdanning: dag.harVærtPåtiltakKursEllerUtdanning === true ? [JaEllerNei.Ja] : undefined,
+        harVærtSyk: dag.harVærtSyk === true ? [JaEllerNei.Ja] : undefined,
+        harVærtPåFerie: dag.harVærtPåFerie === true ? [JaEllerNei.Ja] : undefined,
       })),
     },
   });
@@ -60,13 +67,17 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
           });
           setErrors(errors);
 
+          console.log(data.dager);
           if (errors.length === 0) {
             løsStegOgGåTilNeste({
               meldekort: {
                 ...meldekort.meldekort,
                 dager: data.dager.map((dag) => ({
                   dato: dag.dag,
-                  timerArbeidet: dag.timer !== null ? Number(replaceCommasWithDots(dag.timer)) : null,
+                  timerArbeidet: dag.timer ? Number(replaceCommasWithDots(dag.timer)) : null,
+                  harVærtPåtiltakKursEllerUtdanning: dag.harVærtPåtiltakKursEllerUtdanning?.includes(JaEllerNei.Ja),
+                  harVærtPåFerie: dag.harVærtPåFerie?.includes(JaEllerNei.Ja),
+                  harVærtSyk: dag.harVærtSyk?.includes(JaEllerNei.Ja),
                 })),
               },
               nåværendeSteg: 'UTFYLLING',
