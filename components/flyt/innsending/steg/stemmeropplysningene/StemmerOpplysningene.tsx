@@ -58,7 +58,7 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
       isLoading={isLoading}
       errorMessage={errorMessage}
     >
-      <VStack gap={'8'}>
+      <VStack gap={'6'}>
         <MeldekortLenke
           label={'Tilbake'}
           href={`/${referanse}/${meldekort.meldekort.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL'}`}
@@ -72,18 +72,42 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
         </BodyShort>
 
         <VStack gap={'2'}>
-          <Heading size={'small'} level={'3'}>
-            Jobb
-          </Heading>
           <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)}`}</BodyShort>
           <BodyShort>{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
-          <Label>Har du jobbet noe i disse ukene?</Label>
+        </VStack>
+
+        <VStack gap={'1'}>
+          <Label>Har du vært i arbeid de siste 14 dagene?</Label>
           <BodyShort>{meldekort.meldekort.harDuJobbet ? 'Ja' : 'Nei'}</BodyShort>
           <MeldekortLenke label={'Endre om du har jobbet disse ukene'} href={`/${referanse}/SPØRSMÅL`} />
         </VStack>
+        <VStack gap={'1'}>
+          <Label>Har du deltatt på tiltak eller kurs/utdanning de siste 14 dagene?</Label>
+          <BodyShort>{meldekort.meldekort.harDuGjennomførtAvtaltAktivitetKursEllerUtdanning ? 'Ja' : 'Nei'}</BodyShort>
+          <MeldekortLenke
+            label={'Endre om du har deltatt på tiltak eller kurs/utdanning'}
+            href={`/${referanse}/SPØRSMÅL`}
+          />
+        </VStack>
+        <VStack gap={'1'}>
+          <Label>
+            Har du vært forhindret fra å ta arbeid, delta på tiltak eller være arbeidssøker fordi du har vært for syk de
+            siste 14 dagene?
+          </Label>
+          <BodyShort>{meldekort.meldekort.harDuVærtSyk ? 'Ja' : 'Nei'}</BodyShort>
+          <MeldekortLenke label={'Endre om du har vært syk'} href={`/${referanse}/SPØRSMÅL`} />
+        </VStack>
+        <VStack gap={'1'}>
+          <Label>
+            Har du hatt ferie eller fravær slik at du ikke har kunnet ta arbeid, delta på tiltak eller være arbeidssøker
+            de siste 14 dagene?
+          </Label>
+          <BodyShort>{meldekort.meldekort.harDuHattFerie ? 'Ja' : 'Nei'}</BodyShort>
+          <MeldekortLenke label={'Endre om du har hatt ferie'} href={`/${referanse}/SPØRSMÅL`} />
+        </VStack>
 
         {meldekort.meldekort.harDuJobbet && (
-          <VStack gap={'2'}>
+          <VStack gap={'1'}>
             <OppsummeringKalender
               heading={'Arbeidstimer'}
               dager={meldekort.meldekort.dager}
