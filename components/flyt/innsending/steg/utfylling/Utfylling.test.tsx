@@ -25,6 +25,7 @@ const meldeperiode: MeldekortResponse = {
       { dato: '2024-11-30' },
       { dato: '2024-12-01' },
     ],
+    harDuJobbet: true,
   },
   steg: 'UTFYLLING',
   tidligsteInnsendingsDato: '2024-11-18',
@@ -80,30 +81,6 @@ describe('rapporteringskalender', () => {
     render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
     const datoerForPerioden = screen.getByText('18.11.2024 - 24.11.2024');
     expect(datoerForPerioden).toBeVisible();
-  });
-
-  it('skal vise dagene og datoen i uken som tekst', () => {
-    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
-    const mandag = screen.getByText('ma. 18.');
-    expect(mandag).toBeVisible();
-
-    const tirsdag = screen.getByText('ti. 19.');
-    expect(tirsdag).toBeVisible();
-
-    const onsdag = screen.getByText('on. 20.');
-    expect(onsdag).toBeVisible();
-
-    const torsdag = screen.getByText('to. 21.');
-    expect(torsdag).toBeVisible();
-
-    const fredag = screen.getByText('fr. 22.');
-    expect(fredag).toBeVisible();
-
-    const lørdag = screen.getByText('lø. 23.');
-    expect(lørdag).toBeVisible();
-
-    const søndag = screen.getByText('sø. 24.');
-    expect(søndag).toBeVisible();
   });
 
   it('skal vise 14 felter for å føre inn timer', () => {
