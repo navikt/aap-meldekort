@@ -25,7 +25,12 @@ export type FieldArrayWithIndex = FieldArrayWithId<MeldepliktFormFields> & {
   index: number;
 };
 
-export type MeldeperiodeUke = { ukeStart: Date; ukeSlutt: Date; ukeNummer: number; felter: FieldArrayWithIndex[] };
+export interface MeldeperiodeUke {
+  ukeStart: Date;
+  ukeSlutt: Date;
+  ukeNummer: number;
+  felter: FieldArrayWithIndex[];
+}
 
 export const Rapporteringskalender = ({ errors, meldekort }: Props) => {
   const form = useFormContext<MeldepliktFormFields>();
