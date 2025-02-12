@@ -10,6 +10,8 @@ import { useRouter } from 'next/navigation';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';
+import { nb } from 'date-fns/locale';
+import {storForbokstav} from "lib/utils/string";
 
 interface Props {
   referanse: string;
@@ -137,7 +139,7 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
                   <BodyShort weight={'semibold'}>{`Uke ${uke.ukeNummer}`}</BodyShort>
                   <BodyShort>{`${formaterDatoForFrontend(uke.ukeStart)} - ${formaterDatoForFrontend(uke.ukeSlutt)}`}</BodyShort>
                 </VStack>
-                <div>
+                <VStack gap={'2'}>
                   {uke.dager
                     .filter(
                       (dag) =>
@@ -149,12 +151,14 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
                     .map((dag) => {
                       return (
                         <HStack gap={'2'} key={dag.dato}>
-                          <BodyShort weight={'semibold'}>{formaterDatoForFrontend(dag.dato)}:</BodyShort>
+                          <BodyShort weight={'semibold'}>
+                            {storForbokstav(format(new Date(dag.dato), 'EEEE', { locale: nb }))}:
+                          </BodyShort>
                           <BodyShort>{hentUtfyllingSomString(dag)}</BodyShort>
                         </HStack>
                       );
                     })}
-                </div>
+                </VStack>
               </VStack>
             );
           })}
@@ -168,12 +172,12 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
 };
 
 function hentUtfyllingSomString(dagInfo: DagerInfo): string {
-  const timerArbeidet = dagInfo.timerArbeidet ? `Arbeid ${dagInfo.timerArbeidet}` : undefined;
+  const timerArbeidet = dagInfo.timerArbeidet ? `Arbeid ${dagInfo.timerArbeidet} timer` : undefined;
   const harVærtSyk = dagInfo.harVærtSyk ? 'Syk' : undefined;
   const harVærtPåTiltakKurkEllerUtdanning = dagInfo.harVærtPåtiltakKursEllerUtdanning
     ? 'Tiltak/Kurs/Utdanning'
     : undefined;
-  const harVærtPåFerie = dagInfo.harVærtPåFerie ? 'Ferie' : undefined;
+  const harVærtPåFerie = dagInfo.harVærtPåFerie ? 'Ferie og annet fravær enn sykdom' : undefined;
 
   return [timerArbeidet, harVærtSyk, harVærtPåTiltakKurkEllerUtdanning, harVærtPåFerie].filter(Boolean).join(', ');
 }
