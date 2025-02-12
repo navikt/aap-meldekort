@@ -41,11 +41,11 @@ export const UkeRapportering = ({ felterIUken, errors, meldekort }: Props) => {
           const dagINummer = format(new Date(field.dag), 'dd.MM');
           return (
             <div key={field.dag} className={styles.dag}>
-              <Heading size={'small'} aria-hidden level={'3'}>
+              <Heading size={'small'} aria-hidden level={'3'} spacing>
                 {`${formaterUkedag(field.dag)} ${dagINummer}`}
               </Heading>
               {meldekort.meldekort.harDuJobbet && (
-                <div className={styles.felter}>
+                <div className={`${styles.felter} ${styles.felterBlue}`}>
                   <Label>Arbeid</Label>
                   <TimerInput
                     index={field.index}
@@ -57,7 +57,7 @@ export const UkeRapportering = ({ felterIUken, errors, meldekort }: Props) => {
               )}
 
               {meldekort.meldekort.harDuGjennomførtAvtaltAktivitetKursEllerUtdanning && (
-                <div className={styles.felter}>
+                <div className={`${styles.felter} ${styles.felterYellow}`}>
                   <Label>Tiltak/kurs/utdanning </Label>
                   <CheckboxWrapper
                     name={`dager.${field.index}.harVærtPåtiltakKursEllerUtdanning`}
@@ -74,7 +74,7 @@ export const UkeRapportering = ({ felterIUken, errors, meldekort }: Props) => {
               )}
 
               {meldekort.meldekort.harDuHattFerie && (
-                <div className={styles.felter}>
+                <div className={`${styles.felter} ${styles.felterPurple}`}>
                   <Label>Ferie og annet fravær enn sykdom</Label>
                   <CheckboxWrapper
                     name={`dager.${field.index}.harVærtPåFerie`}
@@ -91,7 +91,7 @@ export const UkeRapportering = ({ felterIUken, errors, meldekort }: Props) => {
               )}
 
               {meldekort.meldekort.harDuVærtSyk && (
-                <div className={styles.felter}>
+                <div className={`${styles.felter} ${styles.felterGreen}`}>
                   <Label>Syk</Label>
                   <CheckboxWrapper
                     name={`dager.${field.index}.harVærtSyk`}

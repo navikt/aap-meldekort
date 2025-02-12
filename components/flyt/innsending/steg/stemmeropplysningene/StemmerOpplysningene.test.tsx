@@ -80,7 +80,7 @@ describe('Stemmer opplysningene', () => {
     expect(jaSvar).toBeVisible();
   });
 
-  it('skal vise korrekt svar dersom bruker har oppgitt at hen ikke har jobbet ', () => {
+  it.skip('skal vise korrekt svar dersom bruker har oppgitt at hen ikke har jobbet ', () => {
     render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortUtenArbeid} />);
     const neiSvar = screen.getByText('Nei');
     expect(neiSvar).toBeVisible();

@@ -3,7 +3,6 @@
 import { Alert, BodyShort, Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
-import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useKorrigerMeldekort } from 'hooks/korrigerMeldekortHook';
 import { useState } from 'react';
@@ -81,7 +80,7 @@ export const FyllUtKorrigering = () => {
               påvirke utbetalingen du fikk.
             </BodyShort>
             <ReadMore header={'Les mer om hvordan endre et meldekort'}>Her kommer det noe tekst</ReadMore>
-            <Rapporteringskalender errors={errors} />
+            {/*<Rapporteringskalender errors={errors} />*/}
             {errors.length > 0 && (
               <Alert variant={'error'}>
                 Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer.

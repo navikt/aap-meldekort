@@ -28,7 +28,7 @@ export type MeldeperiodeUke = { ukeStart: Date; ukeSlutt: Date; ukeNummer: numbe
 
 export const Rapporteringskalender = ({ errors, meldekort }: Props) => {
   const form = useFormContext<MeldepliktFormFields>();
-  // const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(window.innerWidth);
 
   const { fields } = useFieldArray({
     control: form.control,
@@ -56,17 +56,17 @@ export const Rapporteringskalender = ({ errors, meldekort }: Props) => {
     {} as Record<string, MeldeperiodeUke>
   );
 
-  // useEffect(() => {
-  //   function handleResize() {
-  //     setWidth(window.innerWidth);
-  //   }
-  //
-  //   window.addEventListener('resize', handleResize);
-  //
-  //   return () => window.removeEventListener('resize', handleResize);
-  // }, []);
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
 
-  // const isSmallScreen = width < 768;
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  console.log(width);
 
   return (
     <div className={styles.rapporteringskalender}>
