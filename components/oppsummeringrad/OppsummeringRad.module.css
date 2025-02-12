@@ -19,13 +19,21 @@
 }
 
 .green {
-  background-color: var(--a-green-100);
+  background-color: var(--a-green-200);
 }
 
 .blue {
-  background-color: var(--a-blue-100);
+  background-color: var(--a-blue-200);
 }
 
 .white {
   background-color: var(--a-white);
+}
+
+.orange {
+  background-color: var(--a-orange-200);
+}
+
+.purple {
+  background-color: var(--a-purple-200);
 }

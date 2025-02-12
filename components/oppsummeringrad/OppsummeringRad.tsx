@@ -5,7 +5,7 @@ interface Props {
   heading: string;
   label: string;
   value: string;
-  backgroundColor: 'green' | 'white' | 'blue';
+  backgroundColor: 'green' | 'orange' | 'blue' | 'purple' | 'white';
 }
 
 export const OppsummeringRad = ({ heading, label, value, backgroundColor }: Props) => {
@@ -17,6 +17,10 @@ export const OppsummeringRad = ({ heading, label, value, backgroundColor }: Prop
         return styles.blue;
       case 'green':
         return styles.green;
+      case 'orange':
+        return styles.orange;
+      case 'purple':
+        return styles.purple;
     }
   };
 

@@ -14,6 +14,7 @@ import { UkeRapportering } from 'components/rapporteringskalender/ukerapporterin
 import { MeldekortResponse } from 'lib/types/types';
 
 import styles from './Rapporteringskalender.module.css';
+import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
 
 interface Props {
   errors: UtfyllingAvTimerError[];
@@ -76,11 +77,48 @@ export const Rapporteringskalender = ({ errors, meldekort }: Props) => {
         ))}
       </div>
 
-      <OppsummeringTimer
-        timer={form
-          .watch('dager')
-          .reduce((acc, curr) => acc + (curr.timer ? Number(replaceCommasWithDots(curr.timer)) : 0), 0)}
-      />
+      {meldekort.meldekort.harDuJobbet && (
+        <OppsummeringTimer
+          timer={form
+            .watch('dager')
+            .reduce((acc, curr) => acc + (curr.timer ? Number(replaceCommasWithDots(curr.timer)) : 0), 0)}
+        />
+      )}
+      {meldekort.meldekort.harDuGjennomførtAvtaltAktivitetKursEllerUtdanning && (
+        <OppsummeringRad
+          heading={'Tiltak/kurs/utdanning'}
+          label={'Dager'}
+          value={form
+            .watch('dager')
+            .filter((dag) => dag.harVærtPåtiltakKursEllerUtdanning)
+            .length.toString()}
+          backgroundColor={'orange'}
+        />
+      )}
+
+      {meldekort.meldekort.harDuHattFerie && (
+        <OppsummeringRad
+          heading={'Ferie og annet fravær enn sykdom'}
+          label={'Dager'}
+          value={form
+            .watch('dager')
+            .filter((dag) => dag.harVærtPåFerie)
+            .length.toString()}
+          backgroundColor={'purple'}
+        />
+      )}
+
+      {meldekort.meldekort.harDuVærtSyk && (
+        <OppsummeringRad
+          heading={'Syk'}
+          label={'Dager'}
+          value={form
+            .watch('dager')
+            .filter((dag) => dag.harVærtSyk)
+            .length.toString()}
+          backgroundColor={'green'}
+        />
+      )}
     </div>
   );
 };
