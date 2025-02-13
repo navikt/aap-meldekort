@@ -3,11 +3,7 @@
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';
 import { FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form';
 
-import {
-  MeldepliktFormFields,
-  replaceCommasWithDots,
-  UtfyllingAvTimerError,
-} from 'components/flyt/innsending/steg/utfylling/Utfylling';
+import { MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/innsending/steg/utfylling/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 import { useEffect, useState } from 'react';
 import { UkeRapportering } from 'components/rapporteringskalender/ukerapportering/UkeRapportering';
@@ -17,7 +13,6 @@ import styles from './Rapporteringskalender.module.css';
 import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
 
 interface Props {
-  errors: UtfyllingAvTimerError[];
   meldekort: MeldekortResponse;
 }
 
@@ -32,7 +27,7 @@ export interface MeldeperiodeUke {
   felter: FieldArrayWithIndex[];
 }
 
-export const Rapporteringskalender = ({ errors, meldekort }: Props) => {
+export const Rapporteringskalender = ({ meldekort }: Props) => {
   const form = useFormContext<MeldepliktFormFields>();
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -78,7 +73,7 @@ export const Rapporteringskalender = ({ errors, meldekort }: Props) => {
     <div className={styles.rapporteringskalender}>
       <div className={styles.kalender}>
         {Object.entries(meldeperiodeUker).map(([ukeStart, felterIUken]) => (
-          <UkeRapportering key={ukeStart} felterIUken={felterIUken} errors={errors} meldekort={meldekort} />
+          <UkeRapportering key={ukeStart} felterIUken={felterIUken} meldekort={meldekort} />
         ))}
       </div>
 

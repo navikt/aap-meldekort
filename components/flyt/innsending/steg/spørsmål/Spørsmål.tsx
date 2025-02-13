@@ -83,6 +83,12 @@ export const SpRsmL = ({ meldekort, referanse }: Props) => {
               return {
                 dato: dag.dato,
                 timerArbeidet: data.harDuJobbet === JaEllerNei.Nei ? 0 : dag.timerArbeidet,
+                harVærtPåFerie: data.harDuHattFerie === JaEllerNei.Ja ? dag.harVærtPåFerie : undefined,
+                harVærtSyk: data.harDuVærtSyk === JaEllerNei.Ja ? dag.harVærtSyk : undefined,
+                harVærtPåtiltakKursEllerUtdanning:
+                  data.harDuGjennomførtAvtaltAktivitetKursEllerUtdanning === JaEllerNei.Ja
+                    ? dag.harVærtPåtiltakKursEllerUtdanning
+                    : undefined,
               };
             }),
           },

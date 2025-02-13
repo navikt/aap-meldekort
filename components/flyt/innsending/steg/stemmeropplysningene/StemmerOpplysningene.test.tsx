@@ -88,19 +88,13 @@ describe('Stemmer opplysningene', () => {
 
   it('skal ha en lenke tilbake til steget for om du har arbeidet i perioden', () => {
     render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortUtenArbeid} />);
-    const link = screen.getByRole('link', { name: 'Endre om du har jobbet disse ukene' });
+    const link = screen.getByRole('link', { name: 'Endre svar på spørsmålene' });
     expect(link).toBeVisible();
-  });
-
-  it('skal ha en oppsummeringskalender dersom det er oppgitt arbeid', () => {
-    render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortMedArbeid} />);
-    const oppsummeringskalender = screen.getByText('Arbeidstimer');
-    expect(oppsummeringskalender).toBeVisible();
   });
 
   it('skal ha en lenke tilbake til steget hvor bruker fyller inn timer', () => {
     render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortMedArbeid} />);
-    const link = screen.getByRole('link', { name: 'Endre antall timer du har jobbet' });
+    const link = screen.getByRole('link', { name: 'Endre utfylling' });
     expect(link).toBeVisible();
   });
 

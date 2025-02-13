@@ -13,3 +13,8 @@
   flex-direction: row;
   gap: var(--a-spacing-4);
 }
+
+.navds-checkbox--error .navds-checkbox__label {
+  --ac-radio-checkbox-action: var(--a-red-500);
+  forced-color-adjust: none;
+}

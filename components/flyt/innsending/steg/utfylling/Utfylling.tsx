@@ -2,7 +2,7 @@
 
 import { Form } from 'components/form/Form';
 import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
-import { Alert, BodyLong, Heading, ReadMore, VStack } from '@navikt/ds-react';
+import { Alert, BodyLong, Heading, List, ReadMore, VStack } from '@navikt/ds-react';
 import { useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
 import { useState } from 'react';
@@ -29,28 +29,27 @@ interface Dag {
   harVærtSyk?: JaEllerNei[];
 }
 
-export interface UtfyllingAvTimerError {
-  index: number;
-  harError: boolean;
-}
-
 export const Utfylling = ({ meldekort, referanse }: Props) => {
   const router = useRouter();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
-  const [errors, setErrors] = useState<UtfyllingAvTimerError[]>([]);
+  const [errors, setErrors] = useState<string[]>([]);
 
-  const { form } = useConfigForm<MeldepliktFormFields>({
-    dager: {
-      type: 'fieldArray',
-      defaultValue: meldekort.meldekort.dager.map((dag) => ({
-        dag: dag.dato,
-        timer: dag.timerArbeidet == null || dag.timerArbeidet === 0 ? '' : dag.timerArbeidet.toString(),
-        harVærtPåtiltakKursEllerUtdanning: dag.harVærtPåtiltakKursEllerUtdanning === true ? [JaEllerNei.Ja] : undefined,
-        harVærtSyk: dag.harVærtSyk === true ? [JaEllerNei.Ja] : undefined,
-        harVærtPåFerie: dag.harVærtPåFerie === true ? [JaEllerNei.Ja] : undefined,
-      })),
+  const { form } = useConfigForm<MeldepliktFormFields>(
+    {
+      dager: {
+        type: 'fieldArray',
+        defaultValue: meldekort.meldekort.dager.map((dag) => ({
+          dag: dag.dato,
+          timer: dag.timerArbeidet == null || dag.timerArbeidet === 0 ? '' : dag.timerArbeidet.toString(),
+          harVærtPåtiltakKursEllerUtdanning:
+            dag.harVærtPåtiltakKursEllerUtdanning === true ? [JaEllerNei.Ja] : undefined,
+          harVærtSyk: dag.harVærtSyk === true ? [JaEllerNei.Ja] : undefined,
+          harVærtPåFerie: dag.harVærtPåFerie === true ? [JaEllerNei.Ja] : undefined,
+        })),
+      },
     },
-  });
+    { reValidateMode: 'onChange' }
+  );
 
   return (
     <FormProvider {...form}>
@@ -59,15 +58,32 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
         nesteStegKnappTekst={'Neste'}
         onSubmit={form.handleSubmit(async (data) => {
           setErrors([]);
-          const errors: UtfyllingAvTimerError[] = [];
-          data.dager.map((dag, index) => {
-            if (!erGyldigTimer(dag.timer)) {
-              errors.push({ index: index, harError: true });
-            }
-          });
-          setErrors(errors);
+          const skjemaErrors: string[] = [];
 
-          if (errors.length === 0) {
+          if (manglerTimerPåArbeid(data, !!meldekort.meldekort.harDuJobbet)) {
+            skjemaErrors.push('Du må føre timer');
+          }
+
+          if (
+            manglerAvhukingPåTiltakKursEllerUtdanning(
+              data,
+              !!meldekort.meldekort.harDuGjennomførtAvtaltAktivitetKursEllerUtdanning
+            )
+          ) {
+            skjemaErrors.push('Du føre aktivitet, kurs eller utdanning');
+          }
+
+          if (manglerAvhukingPåSykdom(data, !!meldekort.meldekort.harDuVærtSyk)) {
+            skjemaErrors.push('Du må føre sykdom');
+          }
+
+          if (manglerAvhukingPåFerie(data, !!meldekort.meldekort.harDuHattFerie)) {
+            skjemaErrors.push('Du må føre ferie');
+          }
+
+          setErrors(skjemaErrors);
+
+          if (skjemaErrors.length === 0) {
             løsStegOgGåTilNeste({
               meldekort: {
                 ...meldekort.meldekort,
@@ -81,6 +97,8 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
               },
               nåværendeSteg: 'UTFYLLING',
             });
+          } else {
+            window.scrollTo(0, 0);
           }
         })}
         isLoading={isLoading}
@@ -96,17 +114,72 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
             min = 7,5 timer. 30 min = 0,50 timer
           </BodyLong>
           <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det informasjon</ReadMore>
-          <Rapporteringskalender errors={errors} meldekort={meldekort} />
+
           {errors.length > 0 && (
             <Alert variant={'error'}>
-              Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer
+              <List>
+                {errors.map((error, index) => {
+                  return <List.Item key={index}>{error}</List.Item>;
+                })}
+              </List>
             </Alert>
           )}
+          <Rapporteringskalender meldekort={meldekort} />
         </VStack>
       </Form>
     </FormProvider>
   );
 };
+
+/**
+ *
+ * Disse valideringene går på hele skjemaet
+ */
+export function manglerTimerPåArbeid(value: MeldepliktFormFields, harSvartJaPåArbeid: boolean): boolean {
+  if (!harSvartJaPåArbeid) {
+    return false;
+  }
+
+  return value.dager.filter((dag) => dag.timer).length === 0;
+}
+
+export function manglerAvhukingPåSykdom(value: MeldepliktFormFields, harSvartJaPåSyk: boolean): boolean {
+  if (!harSvartJaPåSyk) {
+    return false;
+  }
+
+  return value.dager.filter((dag) => dag.harVærtSyk?.includes(JaEllerNei.Ja)).length === 0;
+}
+
+export function manglerAvhukingPåFerie(value: MeldepliktFormFields, harSvartJaPåFerie: boolean): boolean {
+  if (!harSvartJaPåFerie) {
+    return false;
+  }
+
+  return value.dager.filter((dag) => dag.harVærtPåFerie !== undefined).length === 0;
+}
+
+export function manglerAvhukingPåTiltakKursEllerUtdanning(
+  value: MeldepliktFormFields,
+  harSvartJaPåTiltakKursUtdannning: boolean
+): boolean {
+  if (!harSvartJaPåTiltakKursUtdannning) {
+    return false;
+  }
+
+  return value.dager.filter((dag) => dag.harVærtPåtiltakKursEllerUtdanning?.includes(JaEllerNei.Ja)).length === 0;
+}
+
+/**
+ * Disse valideringene går på hver enkelt dag
+ */
+export function erDetAvhuketSykedagOgFeriePåSammeDag(value: Dag): boolean {
+  return !!value.harVærtSyk?.includes(JaEllerNei.Ja) && !!value.harVærtPåFerie?.includes(JaEllerNei.Ja);
+}
+
+export function erDetFørtTimerOgAvhuketFeriePåSammeDag(value: Dag): boolean {
+  return !!value.harVærtPåFerie?.includes(JaEllerNei.Ja) && value.timer !== '';
+}
 
 export function erGyldigTimer(value: string | null): boolean {
   if (!value || value === '') {

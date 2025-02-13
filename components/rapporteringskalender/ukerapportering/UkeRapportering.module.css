@@ -15,6 +15,7 @@
 .dag {
   display: flex;
   flex-direction: column;
+  gap: var(--a-spacing-4);
   align-items: flex-start;
   background-color: var(--a-orange-50);
   padding: var(--a-spacing-4);
@@ -33,28 +34,28 @@
   gap: var(--a-spacing-2);
 }
 
-.felter {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  align-items: center;
-  padding: var(--a-spacing-2) 0 var(--a-spacing-2) var(--a-spacing-2);
-}
+/*.felter {*/
+/*  display: grid;*/
+/*  grid-template-columns: 250px 1fr;*/
+/*  align-items: center;*/
+/*  padding: var(--a-spacing-2) 0 var(--a-spacing-2) var(--a-spacing-2);*/
+/*}*/
 
-.felterBlue {
-  border-left: 10px solid var(--a-blue-300);
-}
+/*.felterBlue {*/
+/*  border-left: 10px solid var(--a-blue-300);*/
+/*}*/
 
-.felterGreen {
-  border-left: 10px solid var(--a-green-300);
-}
+/*.felterGreen {*/
+/*  border-left: 10px solid var(--a-green-300);*/
+/*}*/
 
-.felterYellow {
-  border-left: 10px solid var(--a-orange-300);
-}
+/*.felterYellow {*/
+/*  border-left: 10px solid var(--a-orange-300);*/
+/*}*/
 
-.felterPurple {
-  border-left: 10px solid var(--a-purple-300);
-}
+/*.felterPurple {*/
+/*  border-left: 10px solid var(--a-purple-300);*/
+/*}*/
 
 @media (max-width: 768px) {
   .rad {

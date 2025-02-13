@@ -1,10 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Utfylling } from 'components/flyt/innsending/steg/utfylling/Utfylling';
-import { userEvent } from '@testing-library/user-event';
-import { format } from 'date-fns';
 import { MeldekortResponse } from 'lib/types/types';
-import { nb } from 'date-fns/locale/nb';
 
 const meldeperiode: MeldekortResponse = {
   periode: { fom: '2024-11-18', tom: '2024-12-01' },
@@ -30,8 +27,6 @@ const meldeperiode: MeldekortResponse = {
   steg: 'UTFYLLING',
   tidligsteInnsendingsDato: '2024-11-18',
 };
-
-const user = userEvent.setup();
 
 describe('Utfylling', () => {
   beforeEach(() => render(<Utfylling meldekort={meldeperiode} referanse={'1'} />));
@@ -82,74 +77,10 @@ describe('rapporteringskalender', () => {
     const datoerForPerioden = screen.getByText('18.11.2024 - 24.11.2024');
     expect(datoerForPerioden).toBeVisible();
   });
-
-  it('skal vise 14 felter for å føre inn timer', () => {
-    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
-    for (let i = 0; i < 14; i++) {
-      const labelTekst = finnLabeltekst(meldeperiode.meldekort.dager[i].dato);
-      const felt = screen.getByRole('textbox', { name: labelTekst });
-      expect(felt).toBeVisible();
-    }
-  });
-
-  it('skal vise en feilmelding dersom bruker skriver inn et desimaltall som ikke er en hel eller halv time', async () => {
-    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
-    const labelTekst = finnLabeltekst(meldeperiode.meldekort.dager[0].dato);
-    const felt = screen.getByRole('textbox', { name: labelTekst });
-    await user.type(felt, '2.3');
-
-    const fullførKnapp = screen.getByRole('button', { name: 'Neste' });
-    await user.click(fullførKnapp);
-
-    const feilmelding = screen.getByText(
-      'Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer'
-    );
-
-    expect(feilmelding).toBeVisible();
-  });
-
-  it('skal vise en feilmelding dersom bruker skriver inn et tall som er over 24 timer', async () => {
-    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
-
-    const labelTekst = finnLabeltekst(meldeperiode.meldekort.dager[0].dato);
-    const felt = screen.getByRole('textbox', { name: labelTekst });
-    await user.type(felt, '25');
-
-    const fullførKnapp = screen.getByRole('button', { name: 'Neste' });
-    await user.click(fullførKnapp);
-
-    const feilmelding = screen.getByText(
-      'Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer'
-    );
-
-    expect(feilmelding).toBeVisible();
-  });
-
-  it('skal vise en feilmelding dersom bruker skriver inn et tall som ikke er et tall', async () => {
-    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
-
-    const labelTekst = finnLabeltekst(meldeperiode.meldekort.dager[0].dato);
-    const felt = screen.getByRole('textbox', { name: labelTekst });
-    await user.type(felt, 'attentimerogtredveminutter');
-
-    const fullførKnapp = screen.getByRole('button', { name: 'Neste' });
-    await user.click(fullførKnapp);
-
-    const feilmelding = screen.getByText(
-      'Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer'
-    );
-
-    expect(feilmelding).toBeVisible();
-  });
-
-  it('skal ha en lenke for å gå tilbake til forrige steg', () => {
-    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
-    const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
-    expect(tilbakeLenke).toBeVisible();
-  });
 });
 
-function finnLabeltekst(dato: string): string {
-  const førsteDag = new Date(dato);
-  return format(førsteDag, 'eeee do MMMM', { locale: nb });
-}
+it('skal ha en lenke for å gå tilbake til forrige steg', () => {
+  render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
+  const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
+  expect(tilbakeLenke).toBeVisible();
+});
