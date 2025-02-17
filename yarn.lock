@@ -2229,7 +2229,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^8.20.0"
     "@vitejs/plugin-react": "npm:^4.3.4"
     "@vitest/coverage-v8": "npm:^3.0.5"
-    csp-header: "npm:^6.0.0"
+    csp-header: "npm:^6.0.1"
     eslint: "npm:^8.57.1"
     eslint-config-next: "npm:15.1.4"
     eslint-config-standard: "npm:^17.1.0"
@@ -2973,10 +2973,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csp-header@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "csp-header@npm:6.0.0"
-  checksum: 10c0/4368e6c5cb41e419e70f75aefb129403b942019a3130d977b5a579239b334074c777902c5709a346d9972d09d81b5a17141870608909a01150c780de7fe2600e
+"csp-header@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "csp-header@npm:6.0.1"
+  checksum: 10c0/9bce746435e7b57fb2a6eea5e6e820b17fc9433f9ae0dd05db4482c96c8ba5e2bfbae68d1ca788082e9e7bbb371981b1a9122c085f8ab57c45e91647e8822659
   languageName: node
   linkType: hard
 
