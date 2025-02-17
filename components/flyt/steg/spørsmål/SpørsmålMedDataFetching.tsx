@@ -1,4 +1,4 @@
-import { SpRsmL } from 'components/flyt/innsending/steg/spørsmål/Spørsmål';
+import { SpRsmL } from 'components/flyt/steg/spørsmål/Spørsmål';
 import { hentMeldekort } from 'lib/services/meldekortservice';
 
 interface Props {

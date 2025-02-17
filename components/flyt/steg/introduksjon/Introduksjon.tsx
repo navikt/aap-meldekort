@@ -40,7 +40,7 @@ export const Introduksjon = ({ meldekort, referanse }: Props) => {
       onSubmit={form.handleSubmit(async (data) => {
         løsStegOgGåTilNeste({
           meldekort: { ...meldekort.meldekort, svarerDuSant: data.godkjent.includes(JaEllerNei.Ja) },
-          nåværendeSteg: 'BEKREFT_SVARER_ÆRLIG',
+          nåværendeSteg: 'INTRODUKSJON',
         });
       })}
       isLoading={isLoading}

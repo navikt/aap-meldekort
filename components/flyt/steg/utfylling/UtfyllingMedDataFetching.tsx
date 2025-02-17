@@ -1,5 +1,5 @@
 import { hentMeldekort } from 'lib/services/meldekortservice';
-import { Utfylling } from 'components/flyt/innsending/steg/utfylling/Utfylling';
+import { Utfylling } from 'components/flyt/steg/utfylling/Utfylling';
 
 interface Props {
   referanse: string;

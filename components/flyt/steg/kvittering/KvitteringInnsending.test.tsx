@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { KvitteringInnsending } from 'components/flyt/innsending/steg/kvittering/KvitteringInnsending';
+import { KvitteringInnsending } from 'components/flyt/steg/kvittering/KvitteringInnsending';
 import { describe, expect, it } from 'vitest';
 import { KommendeMeldekort, MeldekortResponse } from 'lib/types/types';
 

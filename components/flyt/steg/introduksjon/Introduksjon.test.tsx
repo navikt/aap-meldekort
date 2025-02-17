@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { Introduksjon } from 'components/flyt/innsending/steg/introduksjon/Introduksjon';
+import { Introduksjon } from 'components/flyt/steg/introduksjon/Introduksjon';
 import { userEvent } from '@testing-library/user-event';
 import { MeldekortResponse } from 'lib/types/types';
 
@@ -14,7 +14,7 @@ const meldekort: MeldekortResponse = {
   meldekort: {
     dager: [],
   },
-  steg: 'BEKREFT_SVARER_ÆRLIG',
+  steg: 'INTRODUKSJON',
   tidligsteInnsendingsDato: '2024-11-04'
 };
 

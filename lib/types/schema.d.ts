@@ -4,6 +4,76 @@
  */
 
 export interface paths {
+  '/api/ansvarlig-system': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': 'AAP' | 'FELLES';
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/debug/saker': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['kotlin.Any'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/api/arena/skjema/{meldekortId}': {
     parameters: {
       query?: never;
@@ -29,7 +99,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['no.nav.aap.meldekort.arena.MeldekortResponse'];
+            'application/json': components['schemas']['no.nav.aap.meldekort.MeldekortResponse'];
           };
         };
       };
@@ -63,7 +133,7 @@ export interface paths {
       };
       requestBody?: {
         content: {
-          'application/json': components['schemas']['no.nav.aap.meldekort.arena.MeldekortRequest'];
+          'application/json': components['schemas']['no.nav.aap.meldekort.MeldekortRequest'];
         };
       };
       responses: {
@@ -73,7 +143,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['no.nav.aap.meldekort.arena.MeldekortResponse'];
+            'application/json': components['schemas']['no.nav.aap.meldekort.MeldekortResponse'];
           };
         };
       };
@@ -105,7 +175,7 @@ export interface paths {
       };
       requestBody?: {
         content: {
-          'application/json': components['schemas']['no.nav.aap.meldekort.arena.MeldekortRequest'];
+          'application/json': components['schemas']['no.nav.aap.meldekort.MeldekortRequest'];
         };
       };
       responses: {
@@ -115,7 +185,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['no.nav.aap.meldekort.arena.MeldekortResponse'];
+            'application/json': components['schemas']['no.nav.aap.meldekort.MeldekortResponse'];
           };
         };
       };
@@ -148,7 +218,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['no.nav.aap.meldekort.arena.KommendeMeldekortDto'];
+            'application/json': components['schemas']['no.nav.aap.meldekort.KommendeMeldekortDto'];
           };
         };
       };
@@ -183,7 +253,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['no.nav.aap.meldekort.arena.HistoriskMeldekortDto'][];
+            'application/json': components['schemas']['no.nav.aap.meldekort.HistoriskMeldekortDto'][];
           };
         };
       };
@@ -214,7 +284,7 @@ export interface paths {
       };
       requestBody?: {
         content: {
-          'application/json': components['schemas']['no.nav.aap.meldekort.arena.PeriodeDto'];
+          'application/json': components['schemas']['no.nav.aap.meldekort.PeriodeDto'];
         };
       };
       responses: {
@@ -224,7 +294,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['no.nav.aap.meldekort.arena.HistoriskMeldekortDetaljerDto'][];
+            'application/json': components['schemas']['no.nav.aap.meldekort.HistoriskMeldekortDetaljerDto'][];
           };
         };
       };
@@ -256,7 +326,7 @@ export interface paths {
       };
       requestBody?: {
         content: {
-          'application/json': components['schemas']['no.nav.aap.meldekort.arena.MeldekortKorrigeringRequest'];
+          'application/json': components['schemas']['no.nav.aap.meldekort.MeldekortKorrigeringRequest'];
         };
       };
       responses: {
@@ -266,6 +336,352 @@ export interface paths {
             [name: string]: unknown;
           };
           content?: never;
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/arena/test/proxy/meldegrupper': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['kotlin.Any'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/arena/test/proxy/meldekort': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['kotlin.Any'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/arena/test/proxy/historiskemeldekort': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['kotlin.Any'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/arena/test/proxy/meldekortdetaljer/{meldekortId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description meldekortId */
+          meldekortId: number;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['kotlin.Any'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/arena/test/proxy/korrigerte-meldekort/{meldekortId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description meldekortId */
+          meldekortId: number;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['kotlin.Any'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/bruker-info': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['no.nav.aap.meldekort.InfoDto'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/utfylling/tilstand': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['no.nav.aap.meldekort.FlytTilstandDto'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content?: never;
+        };
+      };
+    };
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/utfylling/lagre-neste': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          'application/json': components['schemas']['no.nav.aap.meldekort.NyFlytTilstandDto'];
+        };
+      };
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['no.nav.aap.meldekort.FlytTilstandResponseDto'];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/utfylling/lagre': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          'application/json': components['schemas']['no.nav.aap.meldekort.NyFlytTilstandDto'];
+        };
+      };
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['no.nav.aap.meldekort.FlytTilstandResponseDto'];
+          };
         };
       };
     };
@@ -495,14 +911,15 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
-    'no.nav.aap.meldekort.arena.ArenaInnsendingFeiletException.InnsendingFeil': {
+    'kotlin.Any': Record<string, never>;
+    'no.nav.aap.arena.ArenaInnsendingFeiletException.InnsendingFeil': {
       kode: string;
       params?: string[] | null;
     };
-    'no.nav.aap.meldekort.arena.DagerInfoDto': {
+    'no.nav.aap.meldekort.DagerInfoDto': {
       /**
        * Format: date
-       * @example 2025-02-11
+       * @example 2025-02-17
        */
       dato: string;
       'harV\u00E6rtP\u00E5Ferie'?: boolean | null;
@@ -511,73 +928,98 @@ export interface components {
       /** Format: double */
       timerArbeidet?: number | null;
     };
-    'no.nav.aap.meldekort.arena.Feil': components['schemas']['no.nav.aap.meldekort.arena.InnsendingFeil'];
-    'no.nav.aap.meldekort.arena.HistoriskMeldekortDetaljerDto': {
+    'no.nav.aap.meldekort.Feil': components['schemas']['no.nav.aap.meldekort.InnsendingFeil'];
+    'no.nav.aap.meldekort.FlytTilstandDto': {
+      meldeperiode: components['schemas']['no.nav.aap.meldekort.MeldeperiodeDto'];
+      skjema: components['schemas']['no.nav.aap.meldekort.SkjemaDto'];
+      /** @enum {string} */
+      steg: 'INTRODUKSJON' | 'SPØRSMÅL' | 'UTFYLLING' | 'BEKREFT' | 'KVITTERING';
+    };
+    'no.nav.aap.meldekort.FlytTilstandResponseDto':
+      | components['schemas']['no.nav.aap.meldekort.FlytTilstandResponseDto.Feil']
+      | components['schemas']['no.nav.aap.meldekort.FlytTilstandResponseDto.Ok'];
+    'no.nav.aap.meldekort.FlytTilstandResponseDto.Feil': Record<string, never>;
+    'no.nav.aap.meldekort.FlytTilstandResponseDto.Ok': {
+      flytTilstand: components['schemas']['no.nav.aap.meldekort.FlytTilstandDto'];
+    };
+    'no.nav.aap.meldekort.HistoriskMeldekortDetaljerDto': {
       /** Format: double */
       'bruttoBel\u00F8p'?: number | null;
-      dager?: components['schemas']['no.nav.aap.meldekort.arena.DagerInfoDto'][] | null;
+      dager?: components['schemas']['no.nav.aap.meldekort.DagerInfoDto'][] | null;
       'harDuGjennomf\u00F8rtAvtaltAktivitetKursEllerUtdanning': boolean;
       harDuHattFerie: boolean;
       harDuJobbet: boolean;
       'harDuV\u00E6rtSyk': boolean;
       /**
        * Format: date
-       * @example 2025-02-11
+       * @example 2025-02-17
        */
       innsendtDato?: string | null;
       kanEndres: boolean;
       /** Format: int64 */
       meldekortId: number;
-      meldeperiode: components['schemas']['no.nav.aap.meldekort.arena.PeriodeDto'];
+      meldeperiode: components['schemas']['no.nav.aap.meldekort.PeriodeDto'];
       /** @enum {string} */
       status: 'OVERSTYRT_AV_ANNET_MELDEKORT' | 'INNSENDT' | 'FERDIG' | 'FEILET';
       /** @enum {string} */
       type: 'VANLIG' | 'ETTERREGISTRERING' | 'KORRIGERING' | 'UKJENT';
     };
-    'no.nav.aap.meldekort.arena.HistoriskMeldekortDto': {
-      meldeperiode: components['schemas']['no.nav.aap.meldekort.arena.PeriodeDto'];
+    'no.nav.aap.meldekort.HistoriskMeldekortDto': {
+      meldeperiode: components['schemas']['no.nav.aap.meldekort.PeriodeDto'];
       /** @enum {string} */
       status: 'OVERSTYRT_AV_ANNET_MELDEKORT' | 'INNSENDT' | 'FERDIG' | 'FEILET';
     };
-    'no.nav.aap.meldekort.arena.InnsendingFeil': {
-      innsendingFeil: components['schemas']['no.nav.aap.meldekort.arena.ArenaInnsendingFeiletException.InnsendingFeil'][];
+    'no.nav.aap.meldekort.InfoDto': {
+      forrigeMeldeperiode?: components['schemas']['no.nav.aap.meldekort.MeldeperiodeDto'];
+      nesteMeldeperiode?: components['schemas']['no.nav.aap.meldekort.MeldeperiodeDto'];
+      'n\u00E5v\u00E6rendeMeldeperiode'?: components['schemas']['no.nav.aap.meldekort.MeldeperiodeDto'];
     };
-    'no.nav.aap.meldekort.arena.KommendeMeldekortDto': {
+    'no.nav.aap.meldekort.InnsendingFeil': {
+      innsendingFeil: components['schemas']['no.nav.aap.arena.ArenaInnsendingFeiletException.InnsendingFeil'][];
+    };
+    'no.nav.aap.meldekort.KommendeMeldekortDto': {
       /** Format: int32 */
       antallUbesvarteMeldekort: number;
-      nesteMeldekort?: components['schemas']['no.nav.aap.meldekort.arena.NesteMeldekortDto'];
+      nesteMeldekort?: components['schemas']['no.nav.aap.meldekort.NesteMeldekortDto'];
     };
-    'no.nav.aap.meldekort.arena.MeldekortKorrigeringRequest': {
-      dager: components['schemas']['no.nav.aap.meldekort.arena.DagerInfoDto'][];
+    'no.nav.aap.meldekort.MeldekortKorrigeringRequest': {
+      dager: components['schemas']['no.nav.aap.meldekort.DagerInfoDto'][];
       'harDuGjennomf\u00F8rtAvtaltAktivitetKursEllerUtdanning': boolean;
       harDuHattFerie: boolean;
       harDuJobbet: boolean;
       'harDuV\u00E6rtSyk': boolean;
     };
-    'no.nav.aap.meldekort.arena.MeldekortRequest': {
-      meldekort: components['schemas']['no.nav.aap.meldekort.arena.MeldekortSkjemaDto'];
+    'no.nav.aap.meldekort.MeldekortRequest': {
+      meldekort: components['schemas']['no.nav.aap.meldekort.MeldekortSkjemaDto'];
       /** @enum {string} */
       'n\u00E5v\u00E6rendeSteg':
-        | 'BEKREFT_SVARER_ÆRLIG'
+        | 'INTRODUKSJON'
         | 'SPØRSMÅL'
         | 'UTFYLLING'
         | 'STEMMER_OPPLYSNINGENE'
+        | 'INNSENDING_VANLIG_MELDEKKORT'
         | 'KVITTERING';
     };
-    'no.nav.aap.meldekort.arena.MeldekortResponse': {
-      feil?: components['schemas']['no.nav.aap.meldekort.arena.Feil'];
-      meldekort: components['schemas']['no.nav.aap.meldekort.arena.MeldekortSkjemaDto'];
-      periode: components['schemas']['no.nav.aap.meldekort.arena.PeriodeDto'];
+    'no.nav.aap.meldekort.MeldekortResponse': {
+      feil?: components['schemas']['no.nav.aap.meldekort.Feil'];
+      meldekort: components['schemas']['no.nav.aap.meldekort.MeldekortSkjemaDto'];
+      periode: components['schemas']['no.nav.aap.meldekort.PeriodeDto'];
       /** @enum {string} */
-      steg: 'BEKREFT_SVARER_ÆRLIG' | 'SPØRSMÅL' | 'UTFYLLING' | 'STEMMER_OPPLYSNINGENE' | 'KVITTERING';
+      steg:
+        | 'INTRODUKSJON'
+        | 'SPØRSMÅL'
+        | 'UTFYLLING'
+        | 'STEMMER_OPPLYSNINGENE'
+        | 'INNSENDING_VANLIG_MELDEKKORT'
+        | 'KVITTERING';
       /**
        * Format: date
-       * @example 2025-02-11
+       * @example 2025-02-17
        */
       tidligsteInnsendingsDato: string;
     };
-    'no.nav.aap.meldekort.arena.MeldekortSkjemaDto': {
-      dager: components['schemas']['no.nav.aap.meldekort.arena.DagerInfoDto'][];
+    'no.nav.aap.meldekort.MeldekortSkjemaDto': {
+      dager: components['schemas']['no.nav.aap.meldekort.DagerInfoDto'][];
       'harDuGjennomf\u00F8rtAvtaltAktivitetKursEllerUtdanning'?: boolean | null;
       harDuHattFerie?: boolean | null;
       harDuJobbet?: boolean | null;
@@ -585,28 +1027,55 @@ export interface components {
       stemmerOpplysningene?: boolean | null;
       svarerDuSant?: boolean | null;
     };
-    'no.nav.aap.meldekort.arena.NesteMeldekortDto': {
+    'no.nav.aap.meldekort.MeldeperiodeDto': {
+      /**
+       * Format: date
+       * @example 2025-02-17
+       */
+      fastsattDag: string;
+      innsendingsvindu: components['schemas']['no.nav.aap.meldekort.PeriodeDto'];
+      meldeperiode: components['schemas']['no.nav.aap.meldekort.PeriodeDto'];
+    };
+    'no.nav.aap.meldekort.NesteMeldekortDto': {
       kanSendesInn: boolean;
       /** Format: int64 */
       meldekortId: number;
-      meldeperiode: components['schemas']['no.nav.aap.meldekort.arena.PeriodeDto'];
+      meldeperiode: components['schemas']['no.nav.aap.meldekort.PeriodeDto'];
       /**
        * Format: date
-       * @example 2025-02-11
+       * @example 2025-02-17
        */
       tidligsteInnsendingsDato: string;
     };
-    'no.nav.aap.meldekort.arena.PeriodeDto': {
+    'no.nav.aap.meldekort.NyFlytTilstandDto': {
+      skjema: components['schemas']['no.nav.aap.meldekort.SkjemaDto'];
+      /** @enum {string} */
+      steg: 'INTRODUKSJON' | 'SPØRSMÅL' | 'UTFYLLING' | 'BEKREFT' | 'KVITTERING';
+    };
+    'no.nav.aap.meldekort.PeriodeDto': {
       /**
        * Format: date
-       * @example 2025-02-11
+       * @example 2025-02-17
        */
       fom: string;
       /**
        * Format: date
-       * @example 2025-02-11
+       * @example 2025-02-17
        */
       tom: string;
+    };
+    'no.nav.aap.meldekort.SkjemaDto': {
+      dager: components['schemas']['no.nav.aap.meldekort.SkjemadagDto'][];
+      harDuJobbet?: boolean | null;
+    };
+    'no.nav.aap.meldekort.SkjemadagDto': {
+      /**
+       * Format: date
+       * @example 2025-02-17
+       */
+      dato: string;
+      /** Format: double */
+      timerArbeidet?: number | null;
     };
     'no.nav.aap.motor.api.JobbInfoDto': {
       /** Format: int32 */
@@ -622,7 +1091,7 @@ export interface components {
       navn: string;
       /**
        * Format: date-time
-       * @example 2025-02-11T10:06:32.33662
+       * @example 2025-02-17T10:31:39.594565
        */
       'planlagtKj\u00F8retidspunkt': string;
       /** @enum {string} */

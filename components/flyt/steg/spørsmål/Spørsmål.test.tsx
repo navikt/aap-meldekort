@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { SpRsmL } from 'components/flyt/innsending/steg/spørsmål/Spørsmål';
+import { SpRsmL } from 'components/flyt/steg/spørsmål/Spørsmål';
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { MeldekortResponse } from 'lib/types/types';

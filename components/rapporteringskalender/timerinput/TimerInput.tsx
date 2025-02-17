@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import {
   erDetFørtTimerOgAvhuketFeriePåSammeDag,
   erGyldigTimer,
-} from 'components/flyt/innsending/steg/utfylling/Utfylling';
+} from 'components/flyt/steg/utfylling/Utfylling';
 
 interface Props {
   index: number;

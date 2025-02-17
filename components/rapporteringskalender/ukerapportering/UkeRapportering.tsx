@@ -9,7 +9,7 @@ import { BodyShort, Checkbox, Heading } from '@navikt/ds-react';
 import {
   erDetAvhuketSykedagOgFeriePåSammeDag,
   erDetFørtTimerOgAvhuketFeriePåSammeDag,
-} from 'components/flyt/innsending/steg/utfylling/Utfylling';
+} from 'components/flyt/steg/utfylling/Utfylling';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 import { storForbokstav } from 'lib/utils/string';
 import { useFormContext } from 'react-hook-form';

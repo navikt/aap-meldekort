@@ -1,4 +1,3 @@
-import { OppsummeringMeldekort } from 'components/flyt/korrigering/OppsummeringMeldekort';
 import { hentHistoriskMeldekortDetaljer } from 'lib/services/meldekortservice';
 
 interface Props {
@@ -10,5 +9,5 @@ export default async function HistoriskMeldekortPage(props: Props) {
 
   const hisotriskMeldekortDetaljer = await hentHistoriskMeldekortDetaljer(searchParams);
 
-  return <OppsummeringMeldekort historiskeMeldekortDetaljer={hisotriskMeldekortDetaljer} />;
+  return <div>{JSON.stringify(hisotriskMeldekortDetaljer)}</div>;
 }

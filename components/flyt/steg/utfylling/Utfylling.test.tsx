@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { Utfylling } from 'components/flyt/innsending/steg/utfylling/Utfylling';
+import { Utfylling } from 'components/flyt/steg/utfylling/Utfylling';
 import { MeldekortResponse } from 'lib/types/types';
 
 const meldeperiode: MeldekortResponse = {

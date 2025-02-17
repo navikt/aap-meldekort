@@ -5,7 +5,7 @@ import { OppsummeringKalender } from 'components/oppsummeringkalender/Oppsummeri
 import { KommendeMeldekort, MeldekortResponse } from 'lib/types/types';
 import NextLink from 'next/link';
 
-import styles from 'components/flyt/innsending/steg/kvittering/KvitteringInnsending.module.css';
+import styles from 'components/flyt/steg/kvittering/KvitteringInnsending.module.css';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 import { regnUtTimer } from 'lib/utils/meldekort';
 
@@ -43,7 +43,7 @@ export const KvitteringInnsending = ({ meldekort, kommendeMeldekort }: Props) =>
             </Button>
           </NextLink>
         )}
-        <Link href={`/`} className={styles.link}>
+        <Link href={`/public`} className={styles.link}>
           Gå tilbake til oversikt
         </Link>
       </div>

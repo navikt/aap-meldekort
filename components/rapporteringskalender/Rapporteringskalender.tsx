@@ -3,7 +3,7 @@
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';
 import { FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form';
 
-import { MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/innsending/steg/utfylling/Utfylling';
+import { MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/steg/utfylling/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 import { useEffect, useState } from 'react';
 import { UkeRapportering } from 'components/rapporteringskalender/ukerapportering/UkeRapportering';

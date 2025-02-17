@@ -74,7 +74,7 @@ export async function hentMeldekortMock(): Promise<MeldekortResponse> {
         ],
       },
       tidligsteInnsendingsDato: '2024-11-16',
-      steg: 'BEKREFT_SVARER_ÆRLIG',
+      steg: 'INTRODUKSJON',
       periode: { fom: '2024-11-04', tom: '2024-11-17' },
     };
 
@@ -174,13 +174,15 @@ export async function slettMock() {
 
 function hentNesteSteg(nåværendeSteg: Steg, skalTilUtfylling: boolean): Steg {
   switch (nåværendeSteg) {
-    case 'BEKREFT_SVARER_ÆRLIG':
+    case 'INTRODUKSJON':
       return 'SPØRSMÅL';
     case 'SPØRSMÅL':
       return skalTilUtfylling ? 'UTFYLLING' : 'STEMMER_OPPLYSNINGENE';
     case 'UTFYLLING':
       return 'STEMMER_OPPLYSNINGENE';
     case 'STEMMER_OPPLYSNINGENE':
+      return 'INNSENDING_VANLIG_MELDEKKORT';
+    case 'INNSENDING_VANLIG_MELDEKKORT':
       return 'KVITTERING';
     case 'KVITTERING':
       throw new Error('Det finnes ikke et steg etter kvittering');

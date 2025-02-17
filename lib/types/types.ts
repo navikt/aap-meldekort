@@ -1,26 +1,24 @@
 import { components } from 'lib/types/schema';
 
-export type MeldekortRequest = components['schemas']['no.nav.aap.meldekort.arena.MeldekortRequest'];
-export type MeldekortResponse = components['schemas']['no.nav.aap.meldekort.arena.MeldekortResponse'];
+export type MeldekortRequest = components['schemas']['no.nav.aap.meldekort.MeldekortRequest'];
+export type MeldekortResponse = components['schemas']['no.nav.aap.meldekort.MeldekortResponse'];
 
 export type Steg = MeldekortResponse['steg'];
-export type KommendeMeldekort = components['schemas']['no.nav.aap.meldekort.arena.KommendeMeldekortDto'];
+export type KommendeMeldekort = components['schemas']['no.nav.aap.meldekort.KommendeMeldekortDto'];
 
-export type NesteMeldekort = components['schemas']['no.nav.aap.meldekort.arena.NesteMeldekortDto'];
+export type NesteMeldekort = components['schemas']['no.nav.aap.meldekort.NesteMeldekortDto'];
 
-export type MeldekortKorrigeringRequest =
-  components['schemas']['no.nav.aap.meldekort.arena.MeldekortKorrigeringRequest'];
+export type MeldekortKorrigeringRequest = components['schemas']['no.nav.aap.meldekort.MeldekortKorrigeringRequest'];
 
-export type HistoriskMeldekort = components['schemas']['no.nav.aap.meldekort.arena.HistoriskMeldekortDto'];
+export type HistoriskMeldekort = components['schemas']['no.nav.aap.meldekort.HistoriskMeldekortDto'];
 
-export type HistoriskMeldekortDetaljer =
-  components['schemas']['no.nav.aap.meldekort.arena.HistoriskMeldekortDetaljerDto'];
+export type HistoriskMeldekortDetaljer = components['schemas']['no.nav.aap.meldekort.HistoriskMeldekortDetaljerDto'];
 
-export type Periode = components['schemas']['no.nav.aap.meldekort.arena.PeriodeDto'];
+export type Periode = components['schemas']['no.nav.aap.meldekort.PeriodeDto'];
 
-export type DagerInfo = components['schemas']['no.nav.aap.meldekort.arena.DagerInfoDto'];
+export type DagerInfo = components['schemas']['no.nav.aap.meldekort.DagerInfoDto'];
 
-export type Status = components['schemas']['no.nav.aap.meldekort.arena.HistoriskMeldekortDto']['status'];
+export type Status = components['schemas']['no.nav.aap.meldekort.HistoriskMeldekortDto']['status'];
 
 export type HistoriskMeldekortType =
-  components['schemas']['no.nav.aap.meldekort.arena.HistoriskMeldekortDetaljerDto']['type'];
+  components['schemas']['no.nav.aap.meldekort.HistoriskMeldekortDetaljerDto']['type'];

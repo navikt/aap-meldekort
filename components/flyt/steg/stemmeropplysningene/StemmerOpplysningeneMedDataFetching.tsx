@@ -1,5 +1,5 @@
 import { hentMeldekort } from 'lib/services/meldekortservice';
-import { StemmerOpplysningene } from 'components/flyt/innsending/steg/stemmeropplysningene/StemmerOpplysningene';
+import { StemmerOpplysningene } from 'components/flyt/steg/stemmeropplysningene/StemmerOpplysningene';
 
 interface Props {
   referanse: string;
