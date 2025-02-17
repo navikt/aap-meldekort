@@ -11,7 +11,7 @@ import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';
 import { nb } from 'date-fns/locale';
-import {storForbokstav} from "lib/utils/string";
+import { storForbokstav } from 'lib/utils/string';
 
 interface Props {
   referanse: string;
@@ -108,76 +108,41 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
             <Label>Har du vært i arbeid de siste 14 dagene?</Label>
             <BodyShort>{meldekort.meldekort.harDuJobbet ? 'Ja' : 'Nei'}</BodyShort>
           </VStack>
-          <VStack gap={'1'}>
-            <Label>Har du deltatt på tiltak eller kurs/utdanning de siste 14 dagene?</Label>
-            <BodyShort>
-              {meldekort.meldekort.harDuGjennomførtAvtaltAktivitetKursEllerUtdanning ? 'Ja' : 'Nei'}
-            </BodyShort>
-          </VStack>
-          <VStack gap={'1'}>
-            <Label>
-              Har du vært forhindret fra å ta arbeid, delta på tiltak eller være arbeidssøker fordi du har vært for syk
-              de siste 14 dagene?
-            </Label>
-            <BodyShort>{meldekort.meldekort.harDuVærtSyk ? 'Ja' : 'Nei'}</BodyShort>
-          </VStack>
-          <VStack gap={'1'}>
-            <Label>
-              Har du hatt ferie eller fravær slik at du ikke har kunnet ta arbeid, delta på tiltak eller være
-              arbeidssøker de siste 14 dagene?
-            </Label>
-            <BodyShort>{meldekort.meldekort.harDuHattFerie ? 'Ja' : 'Nei'}</BodyShort>
-          </VStack>
-          <MeldekortLenke label={'Endre svar på spørsmålene'} href={`/${referanse}/SPØRSMÅL`} />
+          <MeldekortLenke label={'Endre om du har arbeidet i perioden'} href={`/${referanse}/SPØRSMÅL`} />
         </VStack>
 
-        <VStack gap={'8'}>
-          {Object.entries(meldeperiodeUker).map(([ukeStart, uke]) => {
-            return (
-              <VStack gap={'4'} key={ukeStart}>
-                <VStack gap={'2'}>
-                  <BodyShort weight={'semibold'}>{`Uke ${uke.ukeNummer}`}</BodyShort>
-                  <BodyShort>{`${formaterDatoForFrontend(uke.ukeStart)} - ${formaterDatoForFrontend(uke.ukeSlutt)}`}</BodyShort>
+        {meldekort.meldekort.harDuJobbet && (
+          <VStack gap={'8'}>
+            {Object.entries(meldeperiodeUker).map(([ukeStart, uke]) => {
+              return (
+                <VStack gap={'4'} key={ukeStart}>
+                  <VStack gap={'2'}>
+                    <BodyShort weight={'semibold'}>{`Uke ${uke.ukeNummer}`}</BodyShort>
+                    <BodyShort>{`${formaterDatoForFrontend(uke.ukeStart)} - ${formaterDatoForFrontend(uke.ukeSlutt)}`}</BodyShort>
+                  </VStack>
+                  <VStack gap={'2'}>
+                    {uke.dager
+                      .filter((dag) => dag.timerArbeidet)
+                      .map((dag) => {
+                        return (
+                          <HStack gap={'2'} key={dag.dato}>
+                            <BodyShort weight={'semibold'}>
+                              {storForbokstav(format(new Date(dag.dato), 'EEEE', { locale: nb }))}:
+                            </BodyShort>
+                            <BodyShort>{`Arbeid ${dag.timerArbeidet} timer`}</BodyShort>
+                          </HStack>
+                        );
+                      })}
+                  </VStack>
                 </VStack>
-                <VStack gap={'2'}>
-                  {uke.dager
-                    .filter(
-                      (dag) =>
-                        dag.harVærtSyk ||
-                        dag.harVærtPåFerie ||
-                        dag.harVærtPåtiltakKursEllerUtdanning ||
-                        dag.timerArbeidet
-                    )
-                    .map((dag) => {
-                      return (
-                        <HStack gap={'2'} key={dag.dato}>
-                          <BodyShort weight={'semibold'}>
-                            {storForbokstav(format(new Date(dag.dato), 'EEEE', { locale: nb }))}:
-                          </BodyShort>
-                          <BodyShort>{hentUtfyllingSomString(dag)}</BodyShort>
-                        </HStack>
-                      );
-                    })}
-                </VStack>
-              </VStack>
-            );
-          })}
-          <MeldekortLenke label={'Endre utfylling'} href={`/${referanse}/UTFYLLING`} />
-        </VStack>
+              );
+            })}
+            <MeldekortLenke label={'Endre antall timer arbeidet'} href={`/${referanse}/UTFYLLING`} />
+          </VStack>
+        )}
 
         <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
       </VStack>
     </Form>
   );
 };
-
-function hentUtfyllingSomString(dagInfo: DagerInfo): string {
-  const timerArbeidet = dagInfo.timerArbeidet ? `Arbeid ${dagInfo.timerArbeidet} timer` : undefined;
-  const harVærtSyk = dagInfo.harVærtSyk ? 'Syk' : undefined;
-  const harVærtPåTiltakKurkEllerUtdanning = dagInfo.harVærtPåtiltakKursEllerUtdanning
-    ? 'Tiltak/Kurs/Utdanning'
-    : undefined;
-  const harVærtPåFerie = dagInfo.harVærtPåFerie ? 'Ferie og annet fravær enn sykdom' : undefined;
-
-  return [timerArbeidet, harVærtSyk, harVærtPåTiltakKurkEllerUtdanning, harVærtPåFerie].filter(Boolean).join(', ');
-}

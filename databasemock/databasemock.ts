@@ -34,13 +34,7 @@ export async function hentKommendeMeldekortMock(): Promise<KommendeMeldekort> {
 }
 
 export async function mockNesteSteg(meldekortRequest: MeldekortRequest) {
-  const skalTilUtfylling = Boolean(
-    meldekortRequest?.meldekort?.harDuJobbet ||
-      meldekortRequest?.meldekort?.harDuVærtSyk ||
-      meldekortRequest?.meldekort?.harDuHattFerie ||
-      meldekortRequest?.meldekort?.harDuGjennomførtAvtaltAktivitetKursEllerUtdanning
-  );
-  const nesteSteg = hentNesteSteg(meldekortRequest.nåværendeSteg, skalTilUtfylling);
+  const nesteSteg = hentNesteSteg(meldekortRequest.nåværendeSteg, !!meldekortRequest.meldekort.harDuJobbet);
 
   const meldekort = await hentMeldekortMock();
 

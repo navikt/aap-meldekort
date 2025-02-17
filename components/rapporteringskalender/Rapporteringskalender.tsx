@@ -7,14 +7,8 @@ import { MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/ste
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 import { useEffect, useState } from 'react';
 import { UkeRapportering } from 'components/rapporteringskalender/ukerapportering/UkeRapportering';
-import { MeldekortResponse } from 'lib/types/types';
 
 import styles from './Rapporteringskalender.module.css';
-import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
-
-interface Props {
-  meldekort: MeldekortResponse;
-}
 
 export type FieldArrayWithIndex = FieldArrayWithId<MeldepliktFormFields> & {
   index: number;
@@ -27,7 +21,7 @@ export interface MeldeperiodeUke {
   felter: FieldArrayWithIndex[];
 }
 
-export const Rapporteringskalender = ({ meldekort }: Props) => {
+export const Rapporteringskalender = () => {
   const form = useFormContext<MeldepliktFormFields>();
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -73,52 +67,15 @@ export const Rapporteringskalender = ({ meldekort }: Props) => {
     <div className={styles.rapporteringskalender}>
       <div className={styles.kalender}>
         {Object.entries(meldeperiodeUker).map(([ukeStart, felterIUken]) => (
-          <UkeRapportering key={ukeStart} felterIUken={felterIUken} meldekort={meldekort} />
+          <UkeRapportering key={ukeStart} felterIUken={felterIUken} />
         ))}
       </div>
 
-      {meldekort.meldekort.harDuJobbet && (
-        <OppsummeringTimer
-          timer={form
-            .watch('dager')
-            .reduce((acc, curr) => acc + (curr.timer ? Number(replaceCommasWithDots(curr.timer)) : 0), 0)}
-        />
-      )}
-      {meldekort.meldekort.harDuGjennomførtAvtaltAktivitetKursEllerUtdanning && (
-        <OppsummeringRad
-          heading={'Tiltak/kurs/utdanning'}
-          label={'Dager'}
-          value={form
-            .watch('dager')
-            .filter((dag) => dag.harVærtPåtiltakKursEllerUtdanning)
-            .length.toString()}
-          backgroundColor={'orange'}
-        />
-      )}
-
-      {meldekort.meldekort.harDuHattFerie && (
-        <OppsummeringRad
-          heading={'Ferie og annet fravær enn sykdom'}
-          label={'Dager'}
-          value={form
-            .watch('dager')
-            .filter((dag) => dag.harVærtPåFerie)
-            .length.toString()}
-          backgroundColor={'purple'}
-        />
-      )}
-
-      {meldekort.meldekort.harDuVærtSyk && (
-        <OppsummeringRad
-          heading={'Syk'}
-          label={'Dager'}
-          value={form
-            .watch('dager')
-            .filter((dag) => dag.harVærtSyk)
-            .length.toString()}
-          backgroundColor={'green'}
-        />
-      )}
+      <OppsummeringTimer
+        timer={form
+          .watch('dager')
+          .reduce((acc, curr) => acc + (curr.timer ? Number(replaceCommasWithDots(curr.timer)) : 0), 0)}
+      />
     </div>
   );
 };
