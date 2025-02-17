@@ -1,6 +1,0 @@
-.buttons {
-  display: flex;
-  flex-direction: row;
-  gap: var(--a-spacing-2);
-  justify-content: center;
-}
