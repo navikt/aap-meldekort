@@ -175,7 +175,7 @@ function hentNesteSteg(nåværendeSteg: Steg, skalTilUtfylling: boolean): Steg {
     case 'UTFYLLING':
       return 'STEMMER_OPPLYSNINGENE';
     case 'STEMMER_OPPLYSNINGENE':
-      return 'INNSENDING_VANLIG_MELDEKKORT';
+      return 'KVITTERING';
     case 'INNSENDING_VANLIG_MELDEKKORT':
       return 'KVITTERING';
     case 'KVITTERING':
