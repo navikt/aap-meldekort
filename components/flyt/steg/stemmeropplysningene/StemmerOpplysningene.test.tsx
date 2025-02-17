@@ -80,7 +80,7 @@ describe('Stemmer opplysningene', () => {
     expect(jaSvar).toBeVisible();
   });
 
-  it.skip('skal vise korrekt svar dersom bruker har oppgitt at hen ikke har jobbet ', () => {
+  it('skal vise korrekt svar dersom bruker har oppgitt at hen ikke har jobbet ', () => {
     render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortUtenArbeid} />);
     const neiSvar = screen.getByText('Nei');
     expect(neiSvar).toBeVisible();
@@ -88,13 +88,13 @@ describe('Stemmer opplysningene', () => {
 
   it('skal ha en lenke tilbake til steget for om du har arbeidet i perioden', () => {
     render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortUtenArbeid} />);
-    const link = screen.getByRole('link', { name: 'Endre svar på spørsmålene' });
+    const link = screen.getByRole('link', { name: 'Endre om du har arbeidet i perioden' });
     expect(link).toBeVisible();
   });
 
   it('skal ha en lenke tilbake til steget hvor bruker fyller inn timer', () => {
     render(<StemmerOpplysningene referanse={'123'} meldekort={meldekortMedArbeid} />);
-    const link = screen.getByRole('link', { name: 'Endre utfylling' });
+    const link = screen.getByRole('link', { name: 'Endre antall timer arbeidet' });
     expect(link).toBeVisible();
   });
 

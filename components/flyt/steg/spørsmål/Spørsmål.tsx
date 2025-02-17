@@ -59,7 +59,7 @@ export const SpRsmL = ({ meldekort, referanse }: Props) => {
       errorMessage={errorMessage}
     >
       <HGrid gap={'8'}>
-        <MeldekortLenke label={'Tilbake'} href={`/${referanse}/BEKREFT_SVARER_ÆRLIG`} />
+        <MeldekortLenke label={'Tilbake'} href={`/${referanse}/INTRODUKSJON`} />
         <div>
           <Heading level={'2'} size={'medium'}>
             {`Arbeid i uke ${hentUkeNummerForDato(fraDato)} og ${hentUkeNummerForDato(tilDato)}`}
