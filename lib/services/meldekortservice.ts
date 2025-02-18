@@ -20,6 +20,11 @@ const meldeKortBaseUrl = process.env.MELDEKORT_API_BASE_URL;
 
 export const isLocal = () => process.env.NEXT_PUBLIC_ENVIRONMENT === 'localhost';
 
+export async function hentAnsvarligSystem(): Promise<unknown> {
+  const url = `${meldeKortBaseUrl}ansvarlig-system`;
+  return await fetcher<unknown>(url, 'GET');
+}
+
 export async function hentKommendeMeldekort(): Promise<KommendeMeldekort> {
   if (isLocal()) {
     return hentKommendeMeldekortMock();

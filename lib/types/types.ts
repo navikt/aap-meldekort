@@ -6,6 +6,7 @@ export type MeldekortResponse = components['schemas']['no.nav.aap.meldekort.Meld
 export type Steg = MeldekortResponse['steg'];
 export type KommendeMeldekort = components['schemas']['no.nav.aap.meldekort.KommendeMeldekortDto'];
 
+
 export type NesteMeldekort = components['schemas']['no.nav.aap.meldekort.NesteMeldekortDto'];
 
 export type MeldekortKorrigeringRequest = components['schemas']['no.nav.aap.meldekort.MeldekortKorrigeringRequest'];
