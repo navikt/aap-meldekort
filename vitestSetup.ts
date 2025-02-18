@@ -5,6 +5,7 @@ import { cleanup } from '@testing-library/react';
 beforeAll(() => {
   vi.mock('i18n/routing', () => ({
     useRouter: vi.fn(),
+    useParams: vi.fn().mockReturnValue({ behandlingsreferanse: '123' }),
   }));
 });
 

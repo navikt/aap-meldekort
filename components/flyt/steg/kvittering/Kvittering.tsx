@@ -5,6 +5,7 @@ import { KommendeMeldekort, MeldekortResponse } from 'lib/types/types';
 import { Link } from 'i18n/routing';
 
 import styles from 'components/flyt/steg/kvittering/Kvittering.module.css';
+import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 
 interface Props {
   meldekort: MeldekortResponse;
@@ -26,7 +27,7 @@ export const Kvittering = ({ meldekort, kommendeMeldekort }: Props) => {
         <Accordion.Item>
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
           <Accordion.Content>
-            <div>{JSON.stringify(meldekort)}</div>
+            <SkjemaOppsummering meldekort={meldekort} />
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
