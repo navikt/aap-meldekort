@@ -26,7 +26,7 @@ export const Kvittering = ({ meldekort, kommendeMeldekort }: Props) => {
         <Accordion.Item>
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
           <Accordion.Content>
-            <div>Hei</div>
+            <div>{JSON.stringify(meldekort)}</div>
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
