@@ -1,20 +1,17 @@
 'use client';
 
 import { Accordion, Alert, Button, HGrid, Link, List } from '@navikt/ds-react';
-import { OppsummeringKalender } from 'components/oppsummeringkalender/OppsummeringKalender';
 import { KommendeMeldekort, MeldekortResponse } from 'lib/types/types';
 import NextLink from 'next/link';
 
-import styles from 'components/flyt/steg/kvittering/KvitteringInnsending.module.css';
-import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
-import { regnUtTimer } from 'lib/utils/meldekort';
+import styles from 'components/flyt/steg/kvittering/Kvittering.module.css';
 
 interface Props {
   meldekort: MeldekortResponse;
   kommendeMeldekort?: KommendeMeldekort;
 }
 
-export const KvitteringInnsending = ({ meldekort, kommendeMeldekort }: Props) => {
+export const Kvittering = ({ meldekort, kommendeMeldekort }: Props) => {
   return (
     <HGrid columns={'1'} gap={'4'}>
       <Alert variant="success">
@@ -29,9 +26,7 @@ export const KvitteringInnsending = ({ meldekort, kommendeMeldekort }: Props) =>
         <Accordion.Item>
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
           <Accordion.Content>
-            <OppsummeringKalender dager={meldekort.meldekort.dager} periode={meldekort.periode}>
-              <OppsummeringTimer timer={regnUtTimer(meldekort.meldekort.dager)} />
-            </OppsummeringKalender>
+            <div>Hei</div>
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
