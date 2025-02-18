@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const OppsummeringRad = ({ heading, label, value, backgroundColor }: Props) => {
-  const backgroudColorClassName = () => {
+  const bakgrunnClassName = () => {
     switch (backgroundColor) {
       case 'white':
         return styles.white;
@@ -29,7 +29,7 @@ export const OppsummeringRad = ({ heading, label, value, backgroundColor }: Prop
       <BodyShort size={'small'} className={styles.heading}>
         {heading}
       </BodyShort>
-      <div className={`${styles.oppsummeringrad} ${backgroudColorClassName()}`}>
+      <div className={`${styles.oppsummeringrad} ${bakgrunnClassName()}`}>
         <Label size={'medium'}>{label}</Label>
         <BodyShort size={'medium'}>{value}</BodyShort>
       </div>

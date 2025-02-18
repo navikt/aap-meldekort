@@ -2,7 +2,7 @@ import { SpRsmLMedDataFetching } from 'components/flyt/steg/spørsmål/Spørsmå
 import { UtfyllingMedDataFetching } from 'components/flyt/steg/utfylling/UtfyllingMedDataFetching';
 import { Steg } from 'lib/types/types';
 import { IntroduksjonMedDataFetching } from 'components/flyt/steg/introduksjon/IntroduksjonMedDataFetching';
-import { KvitteringInnsendingMedDataFetching } from 'components/flyt/steg/kvittering/KvitteringInnsendingMedDataFetching';
+import { KvitteringMedDataFetching } from 'components/flyt/steg/kvittering/KvitteringMedDataFetching';
 import { hentMeldekort } from 'lib/services/meldekortservice';
 import { redirect } from 'next/navigation';
 import { StemmerOpplysningeneMedDataFetching } from 'components/flyt/steg/stemmeropplysningene/StemmerOpplysningeneMedDataFetching';
@@ -46,7 +46,7 @@ const AktivtStegPage = async (props: Props) => {
       {aktivtSteg === 'SPØRSMÅL' && <SpRsmLMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'UTFYLLING' && <UtfyllingMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'STEMMER_OPPLYSNINGENE' && <StemmerOpplysningeneMedDataFetching referanse={referanse} />}
-      {aktivtSteg === 'KVITTERING' && <KvitteringInnsendingMedDataFetching referanse={referanse} />}
+      {aktivtSteg === 'KVITTERING' && <KvitteringMedDataFetching referanse={referanse} />}
     </>
   );
 };
