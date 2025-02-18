@@ -33,8 +33,8 @@ export const Kvittering = ({ meldekort, kommendeMeldekort }: Props) => {
       </Accordion>
       <div className={styles.knapperad}>
         {kommendeMeldekort?.nesteMeldekort && (
-          <Link href={`/${kommendeMeldekort.nesteMeldekort.meldekortId}`} passHref legacyBehavior>
-            <Button variant="primary" type="button" as={'a'}>
+          <Link href={`/${kommendeMeldekort.nesteMeldekort.meldekortId}`}>
+            <Button variant="primary" type="button">
               Gå til neste meldekort
             </Button>
           </Link>
