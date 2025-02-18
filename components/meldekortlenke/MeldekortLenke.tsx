@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowLeftIcon } from '@navikt/aksel-icons';
-import Link from 'next/link';
+import { Link } from 'i18n/routing';
 
 interface Props {
   label: string;

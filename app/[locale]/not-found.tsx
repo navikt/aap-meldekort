@@ -1,9 +1,12 @@
-'use client';
+'use server';
 
-import { Heading, Link } from '@navikt/ds-react';
+import { Heading } from '@navikt/ds-react';
+import { Link } from 'i18n/routing';
+import { getTranslations } from 'next-intl/server';
 
 //404 Page
-const NotFound = () => {
+const NotFound = async () => {
+  const t = await getTranslations();
   return (
     <div
       style={{
@@ -15,9 +18,9 @@ const NotFound = () => {
       }}
     >
       <Heading level="2" size="medium" spacing>
-        Denne siden finnes ikke.
+        {t('page.notFound.heading')}
       </Heading>
-      <Link href={`/`}>Gå tilbake til oversikt</Link>
+      <Link href={`/`}>{t('page.notFound.tilbakeLink')}</Link>
     </div>
   );
 };

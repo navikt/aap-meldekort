@@ -4,13 +4,14 @@ import { Steg } from 'lib/types/types';
 import { IntroduksjonMedDataFetching } from 'components/flyt/steg/introduksjon/IntroduksjonMedDataFetching';
 import { KvitteringMedDataFetching } from 'components/flyt/steg/kvittering/KvitteringMedDataFetching';
 import { hentMeldekort } from 'lib/services/meldekortservice';
-import { redirect } from 'next/navigation';
+import { redirect } from 'i18n/routing';
 import { StemmerOpplysningeneMedDataFetching } from 'components/flyt/steg/stemmeropplysningene/StemmerOpplysningeneMedDataFetching';
 
 interface Props {
   params: Promise<{
     referanse: string;
     aktivtSteg: string;
+    locale: string;
   }>;
 }
 
@@ -37,7 +38,7 @@ const AktivtStegPage = async (props: Props) => {
   }
 
   if (skalRedirecteTilAktivtSteg()) {
-    redirect(`/${referanse}/${meldekort.steg}`);
+    redirect({ href: `/${referanse}/${meldekort.steg}`, locale: params.locale });
   }
 
   return (

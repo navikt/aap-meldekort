@@ -3,6 +3,7 @@
 import { KommendeMeldekort } from 'lib/types/types';
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { LinkPanel } from 'components/linkpanel/LinkPanel';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   kommendeMeldekort?: KommendeMeldekort;
@@ -10,35 +11,37 @@ interface Props {
 }
 
 export const Oversikt = ({ kommendeMeldekort, harInnsendteMeldekort }: Props) => {
+  const t = useTranslations();
+
   if (!kommendeMeldekort) {
-    return <div>Kunne ikke finne noen meldeperioder</div>;
+    return <div>{t('client.oversikt.ingenMeldekort')}</div>;
   }
 
   return (
     <VStack gap={'4'}>
       <BodyShort size={'large'} spacing>
-        For å motta AAP må du sende meldekort hver 14. dag
+        {t('client.oversikt.mottaAAP')}
       </BodyShort>
-      <BodyShort size={'large'}>På meldekortet må du fylle ut hvor mye du har jobbet</BodyShort>
+      <BodyShort size={'large'}>{t('client.oversikt.fylleUtJobb')}</BodyShort>
 
       <VStack gap={'2'}>
         <Heading level={'2'} size={'medium'}>
-          Send meldekort
+          {t('client.oversikt.sendMeldekort.heading')}
         </Heading>
-        <BodyShort size={'large'}>Meldekort som er klare for innsending vises her</BodyShort>
+        <BodyShort size={'large'}>{t('client.oversikt.sendMeldekort.klareMeldekort')}</BodyShort>
         {kommendeMeldekort.nesteMeldekort ? (
           <LinkPanel
             href={`/${kommendeMeldekort.nesteMeldekort.meldekortId}`}
-            title={`${kommendeMeldekort.antallUbesvarteMeldekort} meldekort klare for innsending`}
+            title={t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
+              antall: kommendeMeldekort.antallUbesvarteMeldekort,
+            })}
           />
         ) : (
           <Alert variant={'info'}>
             <BodyShort size={'large'} weight={'semibold'} spacing>
-              Ingen meldekort klare
+              {t('client.oversikt.sendMeldekort.ingenMeldekort')}
             </BodyShort>
-            <BodyShort size={'large'}>
-              Du har ingen meldekort som er åpne for innsending. Nye meldekort vil automatisk vises her.
-            </BodyShort>
+            <BodyShort size={'large'}>{t('client.oversikt.sendMeldekort.nyeMeldekort')}</BodyShort>
           </Alert>
         )}
       </VStack>

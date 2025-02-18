@@ -1,0 +1,40 @@
+{
+    "metadata": {
+        "title": "AAP Meldekort",
+        "description": "Innbyggerflate for å sende inn meldekort"
+    },
+    "page": {
+        "notFound": {
+            "heading": "Denne siden finnes ikke.",
+            "tilbakeLink": "Gå tilbake til oversikt"
+        }
+    },
+    "client": {
+        "page": {
+            "error": {
+                "heading": "Beklager, noe gikk galt.",
+                "description": "En teknisk feil på våre servere gjør at meldekort er utilgjengelig.",
+                "bulletList": {
+                    "title": "Du kan prøve å",
+                    "items": {
+                        "1": "vente noen minutter og <a>laste siden på nytt</a>",
+                        "2": "gå tilbake til <a>meldekort oversikt</a>"
+                    }
+                },
+                "vedvarer": "Hvis problemet vedvarer, kan du <a>kontakte oss (åpnes i ny fane)</a>"
+            }
+        },
+        "oversikt": {
+            "ingenMeldekort": "Kunne ikke finne noen meldeperioder",
+            "mottaAAP": "For å motta AAP må du sende meldekort hver 14. dag",
+            "fylleUtJobb": "På meldekortet må du fylle ut hvor mye du har jobbet",
+            "sendMeldekort": {
+                "heading": "Send meldekort",
+                "klareMeldekort": "Meldekort som er klare for innsending vises her",
+                "antallKlareMeldekort": "{antall} meldekort klare for innsending",
+                "ingenMeldekort": "Ingen meldekort klare",
+                "nyeMeldekort": "Du har ingen meldekort som er åpne for innsending. Nye meldekort vil automatisk vises her."
+            }
+        }
+    }
+}

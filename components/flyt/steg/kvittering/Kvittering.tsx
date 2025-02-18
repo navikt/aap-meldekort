@@ -1,8 +1,8 @@
 'use client';
 
-import { Accordion, Alert, Button, HGrid, Link, List } from '@navikt/ds-react';
+import { Accordion, Alert, Button, HGrid, List } from '@navikt/ds-react';
 import { KommendeMeldekort, MeldekortResponse } from 'lib/types/types';
-import NextLink from 'next/link';
+import { Link } from 'i18n/routing';
 
 import styles from 'components/flyt/steg/kvittering/Kvittering.module.css';
 
@@ -32,13 +32,13 @@ export const Kvittering = ({ meldekort, kommendeMeldekort }: Props) => {
       </Accordion>
       <div className={styles.knapperad}>
         {kommendeMeldekort?.nesteMeldekort && (
-          <NextLink href={`/${kommendeMeldekort.nesteMeldekort.meldekortId}`} passHref legacyBehavior>
+          <Link href={`/${kommendeMeldekort.nesteMeldekort.meldekortId}`} passHref legacyBehavior>
             <Button variant="primary" type="button" as={'a'}>
               Gå til neste meldekort
             </Button>
-          </NextLink>
+          </Link>
         )}
-        <Link href={`/public`} className={styles.link}>
+        <Link href={`/`} className={styles.link}>
           Gå tilbake til oversikt
         </Link>
       </div>

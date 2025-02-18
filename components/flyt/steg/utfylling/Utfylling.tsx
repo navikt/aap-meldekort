@@ -8,7 +8,7 @@ import { FormProvider } from 'react-hook-form';
 import { useState } from 'react';
 import { MeldekortResponse } from 'lib/types/types';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'i18n/routing';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 
 interface Props {

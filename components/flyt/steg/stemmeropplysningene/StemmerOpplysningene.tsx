@@ -6,7 +6,7 @@ import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { JaEllerNei } from 'lib/utils/form';
 import { Form } from 'components/form/Form';
 import { BodyShort, Heading, HStack, Label, VStack } from '@navikt/ds-react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'i18n/routing';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';

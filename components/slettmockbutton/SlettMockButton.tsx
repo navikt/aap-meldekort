@@ -3,7 +3,7 @@
 import { TrashIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import { slettMockClient } from 'lib/client/clientApi';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'i18n/routing';
 
 export const SlettMockButton = () => {
   const router = useRouter();

@@ -2,8 +2,8 @@
 
 import { onLanguageSelect, setAvailableLanguages } from '@navikt/nav-dekoratoren-moduler';
 import { useEffect } from 'react';
-import { availableLanguages } from 'lib/locale/locale';
-import { usePathname, useRouter } from 'next/navigation';
+import { availableLanguages } from 'lib/translations/locale';
+import { usePathname, useRouter } from 'i18n/routing';
 
 export const Språkvelger = () => {
   const router = useRouter();
@@ -18,9 +18,7 @@ export const Språkvelger = () => {
   }, []);
 
   onLanguageSelect((language) => {
-    const pathWithoutLanguage = pathname.substring(3);
-    const url = `/${language.locale}${pathWithoutLanguage}`;
-    router.push(url);
+    router.push(pathname, { locale: language.locale });
   });
 
   return <></>;

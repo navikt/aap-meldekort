@@ -3,6 +3,7 @@ import { BodyShort } from '@navikt/ds-react';
 
 import styles from 'components/linkpanel/LinkPanel.module.css';
 import { MeldekortStatus } from 'components/meldekortstatus/MeldekortStatus';
+import { Link } from 'i18n/routing';
 import { Status } from 'lib/types/types';
 
 interface Props {
@@ -17,7 +18,7 @@ export const LinkPanel = ({ title, href, description, status, variant = 'primary
   const className = variant === 'primary' ? styles.primary : styles.secondary;
 
   return (
-    <a href={href} className={`${styles.link} ${className}`}>
+    <Link href={href} className={`${styles.link} ${className}`}>
       <div className={styles.content}>
         <div>
           <BodyShort size={'large'} weight={'semibold'}>
@@ -30,6 +31,6 @@ export const LinkPanel = ({ title, href, description, status, variant = 'primary
           <ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
