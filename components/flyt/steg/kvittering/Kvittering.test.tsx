@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
 import { Kvittering } from 'components/flyt/steg/kvittering/Kvittering';
 import { describe, expect, it } from 'vitest';
 import { KommendeMeldekort, MeldekortResponse } from 'lib/types/types';
+import { render, screen } from 'lib/utils/test/customRender';
 
 const meldekort: MeldekortResponse = {
   periode: { fom: '2024-11-18', tom: '2024-12-01' },
@@ -12,8 +12,7 @@ const meldekort: MeldekortResponse = {
   tidligsteInnsendingsDato: '2024-11-04',
 };
 
-// TODO: Fikse i18n stuff sånn at testene kjører
-describe.skip('Kvittering', () => {
+describe('Kvittering', () => {
   it('viser en suksess-melding', () => {
     render(<Kvittering meldekort={meldekort} />);
     expect(

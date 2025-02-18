@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen } from 'lib/utils/test/customRender';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { MeldekortResponse } from 'lib/types/types';
 
@@ -52,16 +52,6 @@ const meldekortMedArbeid: MeldekortResponse = {
         timerArbeidet: 5,
       },
     ],
-  },
-  periode: { fom: '2024-11.04', tom: '2024-11-17' },
-  steg: 'KVITTERING',
-  tidligsteInnsendingsDato: '',
-};
-
-const meldekortUtenArbeid: MeldekortResponse = {
-  meldekort: {
-    harDuJobbet: false,
-    dager: [],
   },
   periode: { fom: '2024-11.04', tom: '2024-11-17' },
   steg: 'KVITTERING',

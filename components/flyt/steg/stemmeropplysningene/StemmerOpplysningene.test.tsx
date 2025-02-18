@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen } from 'lib/utils/test/customRender';
 
 import { MeldekortResponse } from 'lib/types/types';
 import { userEvent } from '@testing-library/user-event';
@@ -55,8 +55,7 @@ const meldekortMedArbeid: MeldekortResponse = {
   periode: { fom: '2024-11-04', tom: '2024-11-17' },
 };
 
-// TODO: Fikse i18n stuff sånn at testene kjører
-describe.skip('Stemmer opplysningene', () => {
+describe('Stemmer opplysningene', () => {
   it('skal ha en lenke som fører tilbake til oversikt siden', () => {
     render(<StemmerOpplysningene meldekort={meldekortMedArbeid} referanse={'1234'} />);
     const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });

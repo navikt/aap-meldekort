@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { SpRsmL } from 'components/flyt/steg/spørsmål/Spørsmål';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, within } from 'lib/utils/test/customRender';
 import { userEvent } from '@testing-library/user-event';
 import { MeldekortResponse } from 'lib/types/types';
 
@@ -18,8 +18,7 @@ const periode: MeldekortResponse = {
 
 const user = userEvent.setup();
 
-// TODO: Fikse i18n stuff sånn at testene kjører
-describe.skip('Periode', () => {
+describe('Periode', () => {
   beforeEach(() => render(<SpRsmL meldekort={periode} referanse={'1234'} />));
 
   it('Skal ha en heading', () => {

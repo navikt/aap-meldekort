@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from 'lib/utils/test/customRender';
 import { describe, expect, it } from 'vitest';
 import { Introduksjon } from 'components/flyt/steg/introduksjon/Introduksjon';
 import { userEvent } from '@testing-library/user-event';
@@ -18,8 +18,7 @@ const meldekort: MeldekortResponse = {
   tidligsteInnsendingsDato: '2024-11-04',
 };
 
-// TODO: Fikse i18n stuff sånn at testene kjører
-describe.skip('generelt', () => {
+describe('generelt', () => {
   it('skal ha en lenke til en side som opplyser om viktigheten av å gi riktige opplysninger ', () => {
     render(<Introduksjon meldekort={meldekort} referanse={'1234'} />);
     const link = screen.getByRole('link', { name: 'Les mer om viktigheten av å gi riktige opplysninger' });
@@ -27,8 +26,7 @@ describe.skip('generelt', () => {
   });
 });
 
-// TODO: Fikse i18n stuff sånn at testene kjører
-describe.skip('skjema', () => {
+describe('skjema', () => {
   it('skal ha et felt for å bekrefte at bruker vil fylle ut meldekortet riktig', () => {
     render(<Introduksjon meldekort={meldekort} referanse={'1234'} />);
     const checkbox = screen.getByRole('checkbox', {
@@ -52,8 +50,7 @@ describe.skip('skjema', () => {
   });
 });
 
-// TODO: Fikse i18n stuff sånn at testene kjører
-describe.skip('navigasjon', () => {
+describe('navigasjon', () => {
   it('skal ha en lenke som fører tilbake til oversikt siden', () => {
     render(<Introduksjon meldekort={meldekort} referanse={'1234'} />);
     const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
