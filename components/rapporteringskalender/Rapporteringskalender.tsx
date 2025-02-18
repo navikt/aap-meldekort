@@ -5,7 +5,6 @@ import { FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form
 
 import { MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/steg/utfylling/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
-import { useEffect, useState } from 'react';
 import { UkeRapportering } from 'components/rapporteringskalender/ukerapportering/UkeRapportering';
 
 import styles from './Rapporteringskalender.module.css';
@@ -23,7 +22,6 @@ export interface MeldeperiodeUke {
 
 export const Rapporteringskalender = () => {
   const form = useFormContext<MeldepliktFormFields>();
-  const [width, setWidth] = useState(window.innerWidth);
 
   const { fields } = useFieldArray({
     control: form.control,
@@ -50,18 +48,6 @@ export const Rapporteringskalender = () => {
     },
     {} as Record<string, MeldeperiodeUke>
   );
-
-  useEffect(() => {
-    function handleResize() {
-      setWidth(window.innerWidth);
-    }
-
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  console.log(width);
 
   return (
     <div className={styles.rapporteringskalender}>
