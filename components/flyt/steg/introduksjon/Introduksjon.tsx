@@ -40,7 +40,10 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
         løsStegOgGåTilNeste({
           nyTilstand: {
             aktivtSteg: 'INTRODUKSJON',
-            svar: { ...utfylling.tilstand.svar, vilSvareRiktig: data.godkjent.includes(JaEllerNei.Ja) },
+            svar: {
+              ...utfylling.tilstand.svar,
+              vilSvareRiktig: data.godkjent.includes(JaEllerNei.Ja),
+            },
           },
         });
       })}
