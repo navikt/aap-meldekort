@@ -42,10 +42,6 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
 
           <Button
             onClick={async () => {
-              // TODO
-              // startInnsending();
-              // redirect til flyt
-
               if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
                 const startInnsendingAvMeldekortResponse = await startInnsendingClient(
                   kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode
