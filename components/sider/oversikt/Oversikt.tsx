@@ -14,7 +14,7 @@ interface Props {
 
 export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Props) => {
   const t = useTranslations();
-  // const router = useRouter();
+  const router = useRouter();
 
   if (!kommendeMeldeperiode) {
     return <div>{t('client.oversikt.ingenMeldekort')}</div>;
@@ -52,11 +52,11 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
                 );
 
                 console.log(startInnsendingAvMeldekortResponse);
-                // if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
-                //   router.push(
-                //     `/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
-                //   );
-                // }
+                if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
+                  router.push(
+                    `/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
+                  );
+                }
               }
             }}
           >
