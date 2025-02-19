@@ -2,24 +2,28 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { SpRsmL } from 'components/flyt/steg/spørsmål/Spørsmål';
 import { render, screen, within } from 'lib/utils/test/customRender';
 import { userEvent } from '@testing-library/user-event';
-import { MeldekortResponse } from 'lib/types/types';
+import { UtfyllingResponse } from 'lib/types/types';
 
-const periode: MeldekortResponse = {
-  periode: {
-    fom: '2024-11-18',
-    tom: '2024-12-01',
+const periode: UtfyllingResponse = {
+  tilstand: {
+    aktivtSteg: 'SPØRSMÅL',
+    svar: {
+      dager: [],
+    },
   },
-  meldekort: {
-    dager: [],
+  metadata: {
+    periode: {
+      fom: '2024-11-18',
+      tom: '2024-12-01',
+    },
+    referanse: '123456789',
   },
-  tidligsteInnsendingsDato: '2024-11-04',
-  steg: 'SPØRSMÅL',
 };
 
 const user = userEvent.setup();
 
 describe('Periode', () => {
-  beforeEach(() => render(<SpRsmL meldekort={periode} referanse={'1234'} />));
+  beforeEach(() => render(<SpRsmL utfylling={periode} referanse={'1234'} />));
 
   it('Skal ha en heading', () => {
     const heading = screen.getByRole('heading', { name: 'Arbeid i uke 47 og 48', level: 2 });

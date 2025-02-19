@@ -1,13 +1,13 @@
 'use client';
 
 import { Alert, BodyShort, Heading, HGrid } from '@navikt/ds-react';
-import { HistoriskMeldekort } from 'lib/types/types';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { LinkPanel } from 'components/linkpanel/LinkPanel';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
+import { HistoriskMeldeperiode } from 'lib/types/types';
 
 interface Props {
-  innsendteMeldeperioder: HistoriskMeldekort[];
+  innsendteMeldeperioder: HistoriskMeldeperiode[];
 }
 
 export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {

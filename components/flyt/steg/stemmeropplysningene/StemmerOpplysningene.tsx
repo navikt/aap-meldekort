@@ -1,6 +1,5 @@
 'use client';
 
-import { MeldekortResponse } from 'lib/types/types';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { JaEllerNei } from 'lib/utils/form';
@@ -10,17 +9,18 @@ import { useRouter } from 'i18n/routing';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
+import { UtfyllingResponse } from 'lib/types/types';
 
 interface Props {
   referanse: string;
-  meldekort: MeldekortResponse;
+  utfylling: UtfyllingResponse;
 }
 
 interface FormFields {
   opplysningerStemmer: JaEllerNei[];
 }
 
-export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
+export const StemmerOpplysningene = ({ referanse, utfylling }: Props) => {
   const router = useRouter();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
 
@@ -34,22 +34,24 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
     },
   });
 
-  const fraDato = new Date(meldekort.periode.fom);
-  const tilDato = new Date(meldekort.periode.tom);
+  const fraDato = new Date(utfylling.metadata.periode.fom);
+  const tilDato = new Date(utfylling.metadata.periode.tom);
 
   return (
     <Form
       forrigeStegOnClick={() =>
-        router.push(`/${referanse}/${meldekort.meldekort.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL'}`)
+        router.push(`/${referanse}/${utfylling.tilstand.svar.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL'}`)
       }
       nesteStegKnappTekst={'Send inn'}
       onSubmit={form.handleSubmit(async () => {
         løsStegOgGåTilNeste({
-          meldekort: {
-            ...meldekort.meldekort,
-            stemmerOpplysningene: true,
+          nyTilstand: {
+            aktivtSteg: 'BEKREFT',
+            svar: {
+              ...utfylling.tilstand.svar,
+              stemmerOpplysningene: true,
+            },
           },
-          nåværendeSteg: 'STEMMER_OPPLYSNINGENE',
         });
       })}
       isLoading={isLoading}
@@ -58,7 +60,7 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
       <VStack gap={'6'}>
         <MeldekortLenke
           label={'Tilbake'}
-          href={`/${referanse}/${meldekort.meldekort.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL'}`}
+          href={`/${referanse}/${utfylling.tilstand.svar.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL'}`}
         />
         <Heading size={'large'} level={'2'} spacing>
           Se over og send inn meldekort
@@ -73,7 +75,7 @@ export const StemmerOpplysningene = ({ referanse, meldekort }: Props) => {
           <BodyShort>{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
         </VStack>
 
-        <SkjemaOppsummering meldekort={meldekort} visLenkeTilbakeTilSteg={true} />
+        <SkjemaOppsummering utfylling={utfylling} visLenkeTilbakeTilSteg={true} />
 
         <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
       </VStack>

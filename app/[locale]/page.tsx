@@ -1,12 +1,20 @@
 import { Oversikt } from 'components/sider/oversikt/Oversikt';
-import { hentAnsvarligSystem, hentInnsendteMeldekort, hentKommendeMeldekort } from 'lib/services/meldekortservice';
+import {
+  hentAnsvarligSystem,
+  hentInnsendteMeldeperioder,
+  hentKommendeMeldeperiode,
+} from 'lib/services/meldekortservice';
 
 export default async function Page() {
-  // const innsendteMeldekort = await hentInnsendteMeldekort();
-  // const kommendeMeldekort = await hentKommendeMeldekort();
+  const innsendteMeldeperioder = await hentInnsendteMeldeperioder();
+  const kommendeMeldeperiode = await hentKommendeMeldeperiode();
   const ansvarligSystem = await hentAnsvarligSystem();
 
-  console.log({ansvarligSystem})
-  // return <Oversikt kommendeMeldekort={kommendeMeldekort} harInnsendteMeldekort={innsendteMeldekort.length > 0} />;
-  return null
+  console.log('innsendte meldeperioder', innsendteMeldeperioder);
+  console.log('kommende meldeperiode', kommendeMeldeperiode);
+  console.log('ansvarlig system', ansvarligSystem);
+
+  return (
+    <Oversikt kommendeMeldeperiode={kommendeMeldeperiode} harInnsendteMeldeperioder={innsendteMeldeperioder.length > 0} />
+  );
 }

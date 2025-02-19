@@ -11,11 +11,13 @@ interface Props {
 export const MeldekortStatus = ({ status }: Props) => {
   const hentClassnameForStatus = () => {
     switch (status) {
-      case 'INNSENDT':
+      case 'ARENA_INNSENDT':
         return styles.innsendt;
-      case 'FEILET':
+      case 'ARENA_FEILET':
         return styles.feilet;
-      case 'FERDIG':
+      case 'ARENA_FERDIG':
+        return styles.ferdig;
+      case 'KELVIN':
         return styles.ferdig;
     }
   };

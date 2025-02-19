@@ -1,4 +1,4 @@
-import { hentMeldekort } from 'lib/services/meldekortservice';
+import { hentUtfylling } from 'lib/services/meldekortservice';
 import { Utfylling } from 'components/flyt/steg/utfylling/Utfylling';
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const UtfyllingMedDataFetching = async ({ referanse }: Props) => {
-  const meldekort = await hentMeldekort(referanse);
+  const utfylling = await hentUtfylling(referanse);
 
-  return <Utfylling meldekort={meldekort} referanse={referanse} />;
+  return <Utfylling utfylling={utfylling} referanse={referanse} />;
 };

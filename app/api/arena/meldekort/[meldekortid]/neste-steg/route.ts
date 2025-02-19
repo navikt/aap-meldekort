@@ -1,21 +1,21 @@
 import { NextRequest } from 'next/server';
 import { gåTilNesteSteg, isLocal } from 'lib/services/meldekortservice';
-import { MeldekortRequest } from 'lib/types/types';
 import { hentMeldekortMock, mockNesteSteg } from 'databasemock/databasemock';
 import { logError, logInfo } from '@navikt/aap-felles-utils';
+import { EndreUtfyllingRequest } from 'lib/types/types';
 
 export async function POST(req: NextRequest, props: { params: Promise<{ meldekortid: string }> }) {
   const params = await props.params;
-  const meldekortRequest: MeldekortRequest = await req.json();
+  const utfyllingRequest: EndreUtfyllingRequest = await req.json();
 
   if (isLocal()) {
-    await mockNesteSteg(meldekortRequest);
+    await mockNesteSteg(utfyllingRequest);
     const meldekortResponse = await hentMeldekortMock();
     return new Response(JSON.stringify(meldekortResponse), { status: 200 });
   }
 
   try {
-    const meldekort = await gåTilNesteSteg(params.meldekortid, meldekortRequest);
+    const meldekort = await gåTilNesteSteg(params.meldekortid, utfyllingRequest);
 
     logInfo('meldekortet fra neste steg i respons ser slik ut' + JSON.stringify(meldekort));
     return new Response(JSON.stringify(meldekort), { status: 200 });

@@ -21,8 +21,11 @@ const hentLocalToken = async () => {
   }
 };
 
-
-export async function fetcher<ResponseBody>(url: string, method: 'GET' | 'POST', body?: Object): Promise<ResponseBody> {
+export async function fetcher<ResponseBody>(
+  url: string,
+  method: 'GET' | 'POST' | 'DELETE',
+  body?: Object
+): Promise<ResponseBody> {
   if (!AUDIENCE) {
     throw new Error('AUDIENCE er ikke satt');
   }

@@ -1,6 +1,6 @@
-import { DagerInfo } from 'lib/types/types';
+import { DagSvar } from 'lib/types/types';
 
-export function regnUtTimer(timerArbeidet?: DagerInfo[] | null): number {
+export function regnUtTimer(timerArbeidet?: DagSvar[] | null): number {
   if (!timerArbeidet) {
     return 0;
   }

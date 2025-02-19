@@ -4,14 +4,13 @@ import { BodyShort, Heading, Link, List } from '@navikt/ds-react';
 import { Form } from 'components/form/Form';
 import { JaEllerNei } from 'lib/utils/form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
-import { MeldekortResponse } from 'lib/types/types';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
-import { addDays } from 'date-fns';
+import { UtfyllingResponse } from 'lib/types/types';
 
 interface Props {
-  meldekort: MeldekortResponse;
+  utfylling: UtfyllingResponse;
   referanse: string;
 }
 
@@ -19,7 +18,7 @@ interface FormFields {
   godkjent: JaEllerNei[];
 }
 
-export const Introduksjon = ({ meldekort, referanse }: Props) => {
+export const Introduksjon = ({ utfylling, referanse }: Props) => {
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
 
   const { form, formFields } = useConfigForm<FormFields>({
@@ -32,15 +31,17 @@ export const Introduksjon = ({ meldekort, referanse }: Props) => {
     },
   });
 
-  const fraDato = new Date(meldekort.periode.fom);
-  const tilDato = new Date(meldekort.periode.tom);
+  const fraDato = new Date(utfylling.metadata.periode.fom);
+  const tilDato = new Date(utfylling.metadata.periode.tom);
 
   return (
     <Form
       onSubmit={form.handleSubmit(async (data) => {
         løsStegOgGåTilNeste({
-          meldekort: { ...meldekort.meldekort, svarerDuSant: data.godkjent.includes(JaEllerNei.Ja) },
-          nåværendeSteg: 'INTRODUKSJON',
+          nyTilstand: {
+            aktivtSteg: 'INTRODUKSJON',
+            svar: { ...utfylling, vilSvareRiktig: data.godkjent.includes(JaEllerNei.Ja), dager: [] },
+          },
         });
       })}
       isLoading={isLoading}
@@ -59,9 +60,9 @@ export const Introduksjon = ({ meldekort, referanse }: Props) => {
           >{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
         </div>
         <List size={'medium'}>
-          <List.Item>
-            {`Du kan sende dette meldekortet fra ${formaterDatoForFrontend(new Date(meldekort.tidligsteInnsendingsDato))}, og senest ${formaterDatoForFrontend(getSisteInnsendingsdag(new Date(meldekort.tidligsteInnsendingsDato)))} for å unngå trekk i utbetalingen.`}
-          </List.Item>
+          {/*<List.Item>*/}
+          {/*  {`Du kan sende dette meldekortet fra ${formaterDatoForFrontend(new Date(utfylling.tidligsteInnsendingsDato))}, og senest ${formaterDatoForFrontend(getSisteInnsendingsdag(new Date(utfylling.tidligsteInnsendingsDato)))} for å unngå trekk i utbetalingen.`}*/}
+          {/*</List.Item>*/}
           <List.Item>På meldekortet må du fylle ut hvor mye du har jobbet. </List.Item>
           <List.Item>For å motta AAP må du sende meldekort hver 14. dag.</List.Item>
         </List>
@@ -79,6 +80,6 @@ export const Introduksjon = ({ meldekort, referanse }: Props) => {
   );
 };
 
-function getSisteInnsendingsdag(innsendingDato: Date) {
-  return addDays(innsendingDato, 8);
-}
+// function getSisteInnsendingsdag(innsendingDato: Date) {
+//   return addDays(innsendingDato, 8);
+// }

@@ -1,19 +1,22 @@
 'use client';
 
 import { KommendeMeldekort } from 'lib/types/types';
-import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
 import { LinkPanel } from 'components/linkpanel/LinkPanel';
 import { useTranslations } from 'next-intl';
+import { startInnsendingClient } from 'lib/client/clientApi';
+import { useRouter } from 'i18n/routing';
 
 interface Props {
-  kommendeMeldekort?: KommendeMeldekort;
-  harInnsendteMeldekort: boolean;
+  kommendeMeldeperiode?: KommendeMeldekort;
+  harInnsendteMeldeperioder: boolean;
 }
 
-export const Oversikt = ({ kommendeMeldekort, harInnsendteMeldekort }: Props) => {
+export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Props) => {
   const t = useTranslations();
+  // const router = useRouter();
 
-  if (!kommendeMeldekort) {
+  if (!kommendeMeldeperiode) {
     return <div>{t('client.oversikt.ingenMeldekort')}</div>;
   }
 
@@ -29,13 +32,38 @@ export const Oversikt = ({ kommendeMeldekort, harInnsendteMeldekort }: Props) =>
           {t('client.oversikt.sendMeldekort.heading')}
         </Heading>
         <BodyShort size={'large'}>{t('client.oversikt.sendMeldekort.klareMeldekort')}</BodyShort>
-        {kommendeMeldekort.nesteMeldekort ? (
-          <LinkPanel
-            href={`/${kommendeMeldekort.nesteMeldekort.meldekortId}`}
-            title={t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
-              antall: kommendeMeldekort.antallUbesvarteMeldekort,
+        {kommendeMeldeperiode.nesteMeldeperiode ? (
+          // <LinkPanel
+          //   href={`/hei`} // TODO Legg inn korrekt lenke her
+          //   title={t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
+          //     antall: kommendeMeldeperiode.antallUbesvarteMeldeperioder,
+          //   })}
+          // />
+
+          <Button
+            onClick={async () => {
+              // TODO
+              // startInnsending();
+              // redirect til flyt
+
+              if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
+                const startInnsendingAvMeldekortResponse = await startInnsendingClient(
+                  kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode
+                );
+
+                console.log(startInnsendingAvMeldekortResponse);
+                // if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
+                //   router.push(
+                //     `/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
+                //   );
+                // }
+              }
+            }}
+          >
+            {t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
+              antall: kommendeMeldeperiode.antallUbesvarteMeldeperioder,
             })}
-          />
+          </Button>
         ) : (
           <Alert variant={'info'}>
             <BodyShort size={'large'} weight={'semibold'} spacing>
@@ -51,7 +79,7 @@ export const Oversikt = ({ kommendeMeldekort, harInnsendteMeldekort }: Props) =>
           Tidligere innsendte meldekort
         </Heading>
         <BodyShort size={'large'}>Her kan du se og endre meldekort</BodyShort>
-        {harInnsendteMeldekort ? (
+        {harInnsendteMeldeperioder ? (
           <LinkPanel title={'Gå til innsendte meldekort'} href={`/innsendt`} />
         ) : (
           <Alert variant={'info'}>

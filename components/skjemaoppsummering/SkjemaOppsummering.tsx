@@ -1,4 +1,4 @@
-import { DagerInfo, MeldekortResponse } from 'lib/types/types';
+import { DagSvar, UtfyllingResponse } from 'lib/types/types';
 import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { formaterDatoForFrontend } from 'lib/utils/date';
@@ -8,7 +8,7 @@ import { nb } from 'date-fns/locale';
 import { useParamsMedType } from 'lib/utils/url';
 
 interface Props {
-  meldekort: MeldekortResponse;
+  utfylling: UtfyllingResponse;
   visLenkeTilbakeTilSteg?: boolean;
 }
 
@@ -16,13 +16,13 @@ interface OppsummeringMeldeperiodeUke {
   ukeStart: Date;
   ukeSlutt: Date;
   ukeNummer: number;
-  dager: DagerInfo[];
+  dager: DagSvar[];
 }
 
-export const SkjemaOppsummering = ({ meldekort, visLenkeTilbakeTilSteg = false }: Props) => {
+export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }: Props) => {
   const params = useParamsMedType();
 
-  const meldeperiodeUker: Record<string, OppsummeringMeldeperiodeUke> = meldekort.meldekort.dager.reduce(
+  const meldeperiodeUker: Record<string, OppsummeringMeldeperiodeUke> = utfylling.tilstand.svar.dager.reduce(
     (acc, dag) => {
       const ukeStart = format(startOfWeek(new Date(dag.dato), { weekStartsOn: 1 }), 'yyyy-MM-dd');
 
@@ -48,14 +48,14 @@ export const SkjemaOppsummering = ({ meldekort, visLenkeTilbakeTilSteg = false }
       <VStack gap={'6'}>
         <VStack gap={'1'}>
           <Label>Har du vært i arbeid de siste 14 dagene?</Label>
-          <BodyShort>{meldekort.meldekort.harDuJobbet ? 'Ja' : 'Nei'}</BodyShort>
+          <BodyShort>{utfylling.tilstand.svar.harDuJobbet ? 'Ja' : 'Nei'}</BodyShort>
         </VStack>
         {visLenkeTilbakeTilSteg && (
           <MeldekortLenke label={'Endre om du har arbeidet i perioden'} href={`/${params.referanse}/SPØRSMÅL`} />
         )}
       </VStack>
 
-      {meldekort.meldekort.harDuJobbet && (
+      {utfylling.tilstand.svar.harDuJobbet && (
         <VStack gap={'8'}>
           {Object.entries(meldeperiodeUker).map(([ukeStart, uke]) => {
             return (

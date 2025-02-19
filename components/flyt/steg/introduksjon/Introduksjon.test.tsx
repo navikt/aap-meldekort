@@ -2,25 +2,29 @@ import { render, screen } from 'lib/utils/test/customRender';
 import { describe, expect, it } from 'vitest';
 import { Introduksjon } from 'components/flyt/steg/introduksjon/Introduksjon';
 import { userEvent } from '@testing-library/user-event';
-import { MeldekortResponse } from 'lib/types/types';
+import { UtfyllingResponse } from 'lib/types/types';
 
 const user = userEvent.setup();
 
-const meldekort: MeldekortResponse = {
-  periode: {
-    fom: '2024-11-18',
-    tom: '2024-12-01',
+const meldekort: UtfyllingResponse = {
+  metadata: {
+    periode: {
+      fom: '2024-11-18',
+      tom: '2024-12-01',
+    },
+    referanse: '123456789',
   },
-  meldekort: {
-    dager: [],
+  tilstand: {
+    aktivtSteg: 'INTRODUKSJON',
+    svar: {
+      dager: [],
+    },
   },
-  steg: 'INTRODUKSJON',
-  tidligsteInnsendingsDato: '2024-11-04',
 };
 
 describe('generelt', () => {
   it('skal ha en lenke til en side som opplyser om viktigheten av å gi riktige opplysninger ', () => {
-    render(<Introduksjon meldekort={meldekort} referanse={'1234'} />);
+    render(<Introduksjon utfylling={meldekort} referanse={'1234'} />);
     const link = screen.getByRole('link', { name: 'Les mer om viktigheten av å gi riktige opplysninger' });
     expect(link).toBeVisible();
   });
@@ -28,7 +32,7 @@ describe('generelt', () => {
 
 describe('skjema', () => {
   it('skal ha et felt for å bekrefte at bruker vil fylle ut meldekortet riktig', () => {
-    render(<Introduksjon meldekort={meldekort} referanse={'1234'} />);
+    render(<Introduksjon utfylling={meldekort} referanse={'1234'} />);
     const checkbox = screen.getByRole('checkbox', {
       name: 'Jeg bekrefter at jeg vil fylle ut meldekortet så riktig jeg kan.',
     });
@@ -36,13 +40,13 @@ describe('skjema', () => {
   });
 
   it('skal ha en knapp for å gå videre til neste steg', () => {
-    render(<Introduksjon meldekort={meldekort} referanse={'1234'} />);
+    render(<Introduksjon utfylling={meldekort} referanse={'1234'} />);
     const button = screen.getByRole('button', { name: 'Neste' });
     expect(button).toBeVisible();
   });
 
   it('skal vise en feilmelding dersom man ikke bekrefter', async () => {
-    render(<Introduksjon meldekort={meldekort} referanse={'1234'} />);
+    render(<Introduksjon utfylling={meldekort} referanse={'1234'} />);
     const button = screen.getByRole('button', { name: 'Neste' });
     await user.click(button);
     const feilmelding = screen.getByText('Du må bekrefte at du vil fylle ut meldekortet så riktig du kan');
@@ -52,7 +56,7 @@ describe('skjema', () => {
 
 describe('navigasjon', () => {
   it('skal ha en lenke som fører tilbake til oversikt siden', () => {
-    render(<Introduksjon meldekort={meldekort} referanse={'1234'} />);
+    render(<Introduksjon utfylling={meldekort} referanse={'1234'} />);
     const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
     expect(tilbakeLenke).toBeVisible();
   });

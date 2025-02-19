@@ -1,26 +1,26 @@
 import { useState } from 'react';
 import { useRouter } from 'i18n/routing';
-import { MeldekortRequest } from 'lib/types/types';
+import { EndreUtfyllingRequest } from 'lib/types/types';
 import { gåTilNesteStegClient } from 'lib/client/clientApi';
 
 export function useLøsStegOgGåTilNesteSteg(referanse: string): {
   isLoading: boolean;
-  løsStegOgGåTilNeste: (meldekort: MeldekortRequest) => void;
+  løsStegOgGåTilNeste: (meldekort: EndreUtfyllingRequest) => void;
   errorMessage?: string;
 } {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>();
 
-  const løsStegOgGåTilNeste = async (meldekort: MeldekortRequest) => {
+  const løsStegOgGåTilNeste = async (meldekort: EndreUtfyllingRequest) => {
     setIsLoading(true);
     const meldekortResponse = await gåTilNesteStegClient(referanse, meldekort);
 
     if (!meldekortResponse || meldekortResponse?.feil) {
-      setErrorMessage('Kunne ikke gå videre på grunn av: ' + JSON.stringify(meldekortResponse?.feil?.innsendingFeil));
+      setErrorMessage('Kunne ikke gå videre på grunn av: ' + meldekortResponse?.feil);
       setIsLoading(false);
     } else {
-      router.push(`/${referanse}/${meldekortResponse?.steg}`);
+      router.push(`/${referanse}/${meldekortResponse?.tilstand.aktivtSteg}`);
     }
   };
 

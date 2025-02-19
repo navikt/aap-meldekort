@@ -6,13 +6,13 @@ import { Alert, BodyLong, Heading, List, ReadMore, VStack } from '@navikt/ds-rea
 import { useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
 import { useState } from 'react';
-import { MeldekortResponse } from 'lib/types/types';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { useRouter } from 'i18n/routing';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
+import { UtfyllingResponse } from 'lib/types/types';
 
 interface Props {
-  meldekort: MeldekortResponse;
+  utfylling: UtfyllingResponse;
   referanse: string;
 }
 
@@ -25,7 +25,7 @@ interface Dag {
   timer: string | null;
 }
 
-export const Utfylling = ({ meldekort, referanse }: Props) => {
+export const Utfylling = ({ utfylling, referanse }: Props) => {
   const router = useRouter();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const [errors, setErrors] = useState<string[]>([]);
@@ -33,7 +33,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
   const { form } = useConfigForm<MeldepliktFormFields>({
     dager: {
       type: 'fieldArray',
-      defaultValue: meldekort.meldekort.dager.map((dag) => ({
+      defaultValue: utfylling.tilstand.svar.dager.map((dag) => ({
         dag: dag.dato,
         timer: dag.timerArbeidet == null || dag.timerArbeidet === 0 ? '' : dag.timerArbeidet.toString(),
       })),
@@ -49,7 +49,7 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
           setErrors([]);
           const skjemaErrors: string[] = [];
 
-          if (manglerTimerPåArbeid(data, !!meldekort.meldekort.harDuJobbet)) {
+          if (manglerTimerPåArbeid(data, !!utfylling.tilstand.svar.harDuJobbet)) {
             skjemaErrors.push('Du må føre timer');
           }
 
@@ -57,14 +57,16 @@ export const Utfylling = ({ meldekort, referanse }: Props) => {
 
           if (skjemaErrors.length === 0) {
             løsStegOgGåTilNeste({
-              meldekort: {
-                ...meldekort.meldekort,
-                dager: data.dager.map((dag) => ({
-                  dato: dag.dag,
-                  timerArbeidet: dag.timer ? Number(replaceCommasWithDots(dag.timer)) : null,
-                })),
+              nyTilstand: {
+                aktivtSteg: 'UTFYLLING',
+                svar: {
+                  ...utfylling.tilstand.svar,
+                  dager: data.dager.map((dag) => ({
+                    dato: dag.dag,
+                    timerArbeidet: dag.timer ? Number(replaceCommasWithDots(dag.timer)) : null,
+                  })),
+                },
               },
-              nåværendeSteg: 'UTFYLLING',
             });
           } else {
             window.scrollTo(0, 0);

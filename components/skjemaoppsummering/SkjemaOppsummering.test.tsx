@@ -1,66 +1,70 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from 'lib/utils/test/customRender';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
-import { MeldekortResponse } from 'lib/types/types';
+import { UtfyllingResponse } from 'lib/types/types';
 
-const meldekortMedArbeid: MeldekortResponse = {
-  meldekort: {
-    harDuJobbet: true,
-    dager: [
-      {
-        dato: '2024-11-04',
-        timerArbeidet: 7.5,
-      },
-      {
-        dato: '2024-11-05',
-      },
-      {
-        dato: '2024-11-06',
-      },
-      {
-        dato: '2024-11-07',
-      },
-      {
-        dato: '2024-11-08',
-      },
-      {
-        dato: '2024-11-09',
-      },
-      {
-        dato: '2024-11-10',
-      },
-      {
-        dato: '2024-11-11',
-      },
-      {
-        dato: '2024-11-12',
-      },
-      {
-        dato: '2024-11-13',
-      },
-      {
-        dato: '2024-11-14',
-      },
-      {
-        dato: '2024-11-15',
-      },
-      {
-        dato: '2024-11-16',
-      },
-      {
-        dato: '2024-11-17',
-        timerArbeidet: 5,
-      },
-    ],
+const meldekortMedArbeid: UtfyllingResponse = {
+  metadata: {
+    referanse: '123456789',
+    periode: { fom: '2024-11.04', tom: '2024-11-17' },
   },
-  periode: { fom: '2024-11.04', tom: '2024-11-17' },
-  steg: 'KVITTERING',
-  tidligsteInnsendingsDato: '',
+  tilstand: {
+    aktivtSteg: 'KVITTERING',
+    svar: {
+      harDuJobbet: true,
+      dager: [
+        {
+          dato: '2024-11-04',
+          timerArbeidet: 7.5,
+        },
+        {
+          dato: '2024-11-05',
+        },
+        {
+          dato: '2024-11-06',
+        },
+        {
+          dato: '2024-11-07',
+        },
+        {
+          dato: '2024-11-08',
+        },
+        {
+          dato: '2024-11-09',
+        },
+        {
+          dato: '2024-11-10',
+        },
+        {
+          dato: '2024-11-11',
+        },
+        {
+          dato: '2024-11-12',
+        },
+        {
+          dato: '2024-11-13',
+        },
+        {
+          dato: '2024-11-14',
+        },
+        {
+          dato: '2024-11-15',
+        },
+        {
+          dato: '2024-11-16',
+        },
+        {
+          dato: '2024-11-17',
+          timerArbeidet: 5,
+        },
+      ],
+    },
+  },
 };
 
 describe('skjema oppsummering', () => {
   it('skal ha et felt for å vise hva som er besvart på om innbygger har vært i arbeid siste 14 dager', () => {
-    render(<SkjemaOppsummering meldekort={meldekortMedArbeid} />);
+    render(<SkjemaOppsummering utfylling={meldekortMedArbeid} />);
 
     const label = screen.getByText('Har du vært i arbeid de siste 14 dagene?');
     expect(label).toBeVisible();
@@ -69,7 +73,7 @@ describe('skjema oppsummering', () => {
   });
 
   it('skal vise ukenummer og datoer for den første uken i perioden med tilhørende timer registrert', () => {
-    render(<SkjemaOppsummering meldekort={meldekortMedArbeid} />);
+    render(<SkjemaOppsummering utfylling={meldekortMedArbeid} />);
 
     const ukenummer = screen.getByText('Uke 45');
     expect(ukenummer).toBeVisible();
@@ -84,7 +88,7 @@ describe('skjema oppsummering', () => {
   });
 
   it('skal vise ukenummer og datoer for den andre uken i perioden med tilhørende timer registrert', () => {
-    render(<SkjemaOppsummering meldekort={meldekortMedArbeid} />);
+    render(<SkjemaOppsummering utfylling={meldekortMedArbeid} />);
 
     const ukenummer = screen.getByText('Uke 46');
     expect(ukenummer).toBeVisible();
@@ -99,7 +103,7 @@ describe('skjema oppsummering', () => {
   });
 
   it('skal vise lenker tilbake til stegene dersom flagget for å vise lenker er satt til true', () => {
-    render(<SkjemaOppsummering meldekort={meldekortMedArbeid} visLenkeTilbakeTilSteg={true} />);
+    render(<SkjemaOppsummering utfylling={meldekortMedArbeid} visLenkeTilbakeTilSteg={true} />);
 
     const endreOmDuHarArbeidetLink = screen.getByRole('link', { name: 'Endre om du har arbeidet i perioden' });
     expect(endreOmDuHarArbeidetLink).toBeVisible();
@@ -109,7 +113,7 @@ describe('skjema oppsummering', () => {
   });
 
   it('skal ikke vise lenker tilbake til stegene dersom flagget for å vise lenker er satt til false', () => {
-    render(<SkjemaOppsummering meldekort={meldekortMedArbeid} visLenkeTilbakeTilSteg={false} />);
+    render(<SkjemaOppsummering utfylling={meldekortMedArbeid} visLenkeTilbakeTilSteg={false} />);
 
     const endreOmDuHarArbeidetLink = screen.queryByRole('link', { name: 'Endre om du har arbeidet i perioden' });
     expect(endreOmDuHarArbeidetLink).not.toBeInTheDocument();

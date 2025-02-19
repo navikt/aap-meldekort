@@ -1,4 +1,4 @@
-import { hentHistoriskMeldekortDetaljer } from 'lib/services/meldekortservice';
+import { hentHistoriskMeldeperiodeDetaljer } from 'lib/services/meldekortservice';
 import { BodyShort, VStack } from '@navikt/ds-react';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 export default async function HistoriskMeldekortPage(props: Props) {
   const searchParams = await props.searchParams;
 
-  const hisotriskMeldekortDetaljer = await hentHistoriskMeldekortDetaljer(searchParams);
+  const hisotriskMeldekortDetaljer = await hentHistoriskMeldeperiodeDetaljer(searchParams);
 
   return (
     <VStack gap={'8'}>

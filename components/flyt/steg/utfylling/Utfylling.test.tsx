@@ -1,35 +1,39 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from 'lib/utils/test/customRender';
 import { Utfylling } from 'components/flyt/steg/utfylling/Utfylling';
-import { MeldekortResponse } from 'lib/types/types';
+import { UtfyllingResponse } from 'lib/types/types';
 
-const meldeperiode: MeldekortResponse = {
-  periode: { fom: '2024-11-18', tom: '2024-12-01' },
-  meldekort: {
-    dager: [
-      { dato: '2024-11-18' },
-      { dato: '2024-11-19' },
-      { dato: '2024-11-20' },
-      { dato: '2024-11-21' },
-      { dato: '2024-11-22' },
-      { dato: '2024-11-23' },
-      { dato: '2024-11-24' },
-      { dato: '2024-11-25' },
-      { dato: '2024-11-26' },
-      { dato: '2024-11-27' },
-      { dato: '2024-11-28' },
-      { dato: '2024-11-29' },
-      { dato: '2024-11-30' },
-      { dato: '2024-12-01' },
-    ],
-    harDuJobbet: true,
+const meldeperiode: UtfyllingResponse = {
+  metadata: {
+    periode: { fom: '2024-11-18', tom: '2024-12-01' },
+    referanse: '123456789',
   },
-  steg: 'UTFYLLING',
-  tidligsteInnsendingsDato: '2024-11-18',
+  tilstand: {
+    aktivtSteg: 'UTFYLLING',
+    svar: {
+      dager: [
+        { dato: '2024-11-18' },
+        { dato: '2024-11-19' },
+        { dato: '2024-11-20' },
+        { dato: '2024-11-21' },
+        { dato: '2024-11-22' },
+        { dato: '2024-11-23' },
+        { dato: '2024-11-24' },
+        { dato: '2024-11-25' },
+        { dato: '2024-11-26' },
+        { dato: '2024-11-27' },
+        { dato: '2024-11-28' },
+        { dato: '2024-11-29' },
+        { dato: '2024-11-30' },
+        { dato: '2024-12-01' },
+      ],
+      harDuJobbet: true,
+    },
+  },
 };
 
 describe('Utfylling', () => {
-  beforeEach(() => render(<Utfylling meldekort={meldeperiode} referanse={'1'} />));
+  beforeEach(() => render(<Utfylling utfylling={meldeperiode} referanse={'1'} />));
 
   it('skal ha en heading', () => {
     const heading = screen.getByRole('heading', { name: 'Fyll ut meldekortet', level: 2 });
@@ -67,20 +71,20 @@ describe('Utfylling', () => {
 
 describe('rapporteringskalender', () => {
   it('skal vise ukenummer på perioden', () => {
-    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
+    render(<Utfylling utfylling={meldeperiode} referanse={'1'} />);
     const ukenummer = screen.getByText('Uke 47');
     expect(ukenummer).toBeVisible();
   });
 
   it('skal vise fra dato og til dato for perioden', () => {
-    render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
+    render(<Utfylling utfylling={meldeperiode} referanse={'1'} />);
     const datoerForPerioden = screen.getByText('18.11.2024 - 24.11.2024');
     expect(datoerForPerioden).toBeVisible();
   });
 });
 
 it('skal ha en lenke for å gå tilbake til forrige steg', () => {
-  render(<Utfylling meldekort={meldeperiode} referanse={'1'} />);
+  render(<Utfylling utfylling={meldeperiode} referanse={'1'} />);
   const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
   expect(tilbakeLenke).toBeVisible();
 });

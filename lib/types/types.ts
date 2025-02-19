@@ -1,25 +1,23 @@
 import { components } from 'lib/types/schema';
 
-export type MeldekortRequest = components['schemas']['no.nav.aap.meldekort.MeldekortRequest'];
-export type MeldekortResponse = components['schemas']['no.nav.aap.meldekort.MeldekortResponse'];
+export type KommendeMeldekort = components['schemas']['no.nav.aap.meldekort.KommendeMeldeperioderDto'];
 
-export type Steg = MeldekortResponse['steg'];
-export type KommendeMeldekort = components['schemas']['no.nav.aap.meldekort.KommendeMeldekortDto'];
-
-
-export type NesteMeldekort = components['schemas']['no.nav.aap.meldekort.NesteMeldekortDto'];
-
-export type MeldekortKorrigeringRequest = components['schemas']['no.nav.aap.meldekort.MeldekortKorrigeringRequest'];
-
-export type HistoriskMeldekort = components['schemas']['no.nav.aap.meldekort.HistoriskMeldekortDto'];
-
-export type HistoriskMeldekortDetaljer = components['schemas']['no.nav.aap.meldekort.HistoriskMeldekortDetaljerDto'];
+export type HistoriskMeldeperiode = components['schemas']['no.nav.aap.meldekort.HistoriskMeldeperiodeDto'];
+export type HistoriskMeldeperiodeDetaljer = components['schemas']['no.nav.aap.meldekort.PeriodeDetaljerDto'];
 
 export type Periode = components['schemas']['no.nav.aap.meldekort.PeriodeDto'];
 
-export type DagerInfo = components['schemas']['no.nav.aap.meldekort.DagerInfoDto'];
+export type DagSvar = components['schemas']['no.nav.aap.meldekort.DagSvarDto'];
 
-export type Status = components['schemas']['no.nav.aap.meldekort.HistoriskMeldekortDto']['status'];
+export type Status = components['schemas']['no.nav.aap.meldekort.HistoriskMeldeperiodeDto']['status'];
 
-export type HistoriskMeldekortType =
-  components['schemas']['no.nav.aap.meldekort.HistoriskMeldekortDetaljerDto']['type'];
+export type StartUtfyllingRequest = components['schemas']['no.nav.aap.meldekort.StartUtfyllingRequest'];
+export type StartUtfyllingResponse = components['schemas']['no.nav.aap.meldekort.StartUtfyllingResponse'];
+
+export type EndreUtfyllingRequest = components['schemas']['no.nav.aap.meldekort.EndreUtfyllingRequest'];
+
+export type UtfyllingResponse = components['schemas']['no.nav.aap.meldekort.UtfyllingResponseDto'];
+
+export type UtfyllingTilstandDto = components['schemas']['no.nav.aap.meldekort.UtfyllingTilstandDto'];
+
+export type Steg = UtfyllingResponse['tilstand']['aktivtSteg'];

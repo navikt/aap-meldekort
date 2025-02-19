@@ -1,91 +1,116 @@
 import { fetcher } from 'lib/services/fetchProxy';
 import {
-  HistoriskMeldekort,
-  HistoriskMeldekortDetaljer,
+  EndreUtfyllingRequest,
+  HistoriskMeldeperiode,
   KommendeMeldekort,
-  MeldekortKorrigeringRequest,
-  MeldekortRequest,
-  MeldekortResponse,
   Periode,
+  StartUtfyllingRequest,
+  StartUtfyllingResponse,
+  UtfyllingResponse,
 } from 'lib/types/types';
-import {
-  hentHistoriskMeldekortDetaljerMock,
-  hentHistoriskMeldekortMock,
-  hentKommendeMeldekortMock,
-  hentMeldekortMock,
-  mockNesteSteg,
-} from 'databasemock/databasemock';
 
 const meldeKortBaseUrl = process.env.MELDEKORT_API_BASE_URL;
 
 export const isLocal = () => process.env.NEXT_PUBLIC_ENVIRONMENT === 'localhost';
 
-export async function hentAnsvarligSystem(): Promise<unknown> {
-  const url = `${meldeKortBaseUrl}ansvarlig-system`;
-  return await fetcher<unknown>(url, 'GET');
+/**
+ * Flyt for innsending/korrigering
+ */
+
+export async function startInnsending(request: StartUtfyllingRequest): Promise<StartUtfyllingResponse> {
+  // if (isLocal()) {
+  //   return hentMeldekortMock();
+  // }
+
+  const url = `${meldeKortBaseUrl}/api/start-innsending`;
+  return await fetcher<StartUtfyllingResponse>(url, 'POST', request);
 }
 
-export async function hentKommendeMeldekort(): Promise<KommendeMeldekort> {
-  if (isLocal()) {
-    return hentKommendeMeldekortMock();
-  }
+export async function startKorrigering(request: StartUtfyllingRequest): Promise<StartUtfyllingResponse> {
+  // if (isLocal()) {
+  //   return hentMeldekortMock();
+  // }
 
-  const url = `${meldeKortBaseUrl}/api/arena/meldekort/neste`;
-  return await fetcher<KommendeMeldekort>(url, 'GET');
+  const url = `${meldeKortBaseUrl}/api/start-korrigering`;
+  return await fetcher<StartUtfyllingResponse>(url, 'POST', request);
 }
 
-export async function hentInnsendteMeldekort(): Promise<HistoriskMeldekort[]> {
-  if (isLocal()) {
-    return hentHistoriskMeldekortMock();
-  }
+export async function gåTilNesteSteg(referanse: string, request: EndreUtfyllingRequest): Promise<UtfyllingResponse> {
+  // if (isLocal()) {
+  //   await mockNesteSteg(request);
+  //   return await hentMeldekortMock();
+  // }
 
-  const url = `${meldeKortBaseUrl}/api/arena/meldekort/historisk`;
-  return await fetcher<HistoriskMeldekort[]>(url, 'GET');
+  const url = `${meldeKortBaseUrl}/api/utfylling/${referanse}/lagre-neste`;
+  return fetcher(url, 'POST', request);
 }
 
-export async function hentHistoriskMeldekortDetaljer(periode: Periode): Promise<HistoriskMeldekortDetaljer[]> {
-  if (isLocal()) {
-    return hentHistoriskMeldekortDetaljerMock();
-  }
+export async function mellomlagreUtfylling(
+  referanse: string,
+  request: EndreUtfyllingRequest
+): Promise<UtfyllingResponse> {
+  // if (isLocal()) {
+  //   await mockNesteSteg(request);
+  //   return await hentMeldekortMock();
+  // }
 
-  const url = `${meldeKortBaseUrl}/api/arena/meldekort/historisk/meldeperiode`;
-  return await fetcher<HistoriskMeldekortDetaljer[]>(url, 'POST', periode);
+  const url = `${meldeKortBaseUrl}/api/utfylling/${referanse}/lagre`;
+  return fetcher(url, 'POST', request);
 }
 
-export async function korrigerMeldekort(
-  meldekortId: string,
-  meldekortKorrigeringRequest: MeldekortKorrigeringRequest
-): Promise<boolean> {
-  if (isLocal()) {
-    return true;
-  }
+export async function hentUtfylling(referanse: string): Promise<UtfyllingResponse> {
+  // if (isLocal()) {
+  //   await mockNesteSteg(request);
+  //   return await hentMeldekortMock();
+  // }
 
-  const url = `${meldeKortBaseUrl}/api/arena/meldekort/${meldekortId}`;
-  return fetcher(url, 'POST', meldekortKorrigeringRequest);
+  const url = `${meldeKortBaseUrl}/api/utfylling/${referanse}`;
+  return fetcher<UtfyllingResponse>(url, 'GET');
+}
+
+export async function slettUtfylling(referanse: string) {
+  const url = `${meldeKortBaseUrl}/api/utfylling/${referanse}`;
+  return fetcher(url, 'DELETE');
 }
 
 /**
- * Disse endepunktene brukes for førstegangsregistrering av meldekort
+ * Forside
  */
 
-export async function hentMeldekort(referanse: string): Promise<MeldekortResponse> {
-  if (isLocal()) {
-    return hentMeldekortMock();
-  }
+export async function hentKommendeMeldeperiode(): Promise<KommendeMeldekort> {
+  // if (isLocal()) {
+  //   return hentKommendeMeldekortMock();
+  // }
 
-  const url = `${meldeKortBaseUrl}/api/arena/skjema/${referanse}`;
-  return await fetcher<MeldekortResponse>(url, 'GET');
+  const url = `${meldeKortBaseUrl}/api/meldeperiode/kommende`;
+  return await fetcher<KommendeMeldekort>(url, 'GET');
 }
 
-export async function gåTilNesteSteg(
-  meldekortId: string,
-  meldekortRequest: MeldekortRequest
-): Promise<MeldekortResponse> {
-  if (isLocal()) {
-    await mockNesteSteg(meldekortRequest);
-    return await hentMeldekortMock();
-  }
+/**
+ * Innsendte meldekort side
+ */
+export async function hentInnsendteMeldeperioder(): Promise<HistoriskMeldeperiode[]> {
+  // if (isLocal()) {
+  //   return hentHistoriskMeldekortMock();
+  // }
 
-  const url = `${meldeKortBaseUrl}/api/arena/skjema/${meldekortId}/neste-steg`;
-  return fetcher(url, 'POST', meldekortRequest);
+  const url = `${meldeKortBaseUrl}/api/meldeperiode/historiske`;
+  return await fetcher<HistoriskMeldeperiode[]>(url, 'GET');
+}
+
+export async function hentHistoriskMeldeperiodeDetaljer(periode: Periode): Promise<HistoriskMeldeperiode> {
+  // if (isLocal()) {
+  //   return hentHistoriskMeldekortDetaljerMock();
+  // }
+
+  const url = `${meldeKortBaseUrl}/api/meldeperiode/detaljer`;
+  return await fetcher<HistoriskMeldeperiode>(url, 'POST', periode);
+}
+
+/**
+ * Redirect til gammel meldekortløsning eller kelvin-meldekort
+ */
+export async function hentAnsvarligSystem(): Promise<'AAP' | 'FELLES'> {
+  const url = `${meldeKortBaseUrl}/api/ansvarlig-system`;
+  return await fetcher<'AAP' | 'FELLES'>(url, 'GET');
 }

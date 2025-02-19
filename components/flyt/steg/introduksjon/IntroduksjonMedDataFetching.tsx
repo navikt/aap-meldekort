@@ -1,12 +1,12 @@
 import { Introduksjon } from 'components/flyt/steg/introduksjon/Introduksjon';
-import { hentMeldekort } from 'lib/services/meldekortservice';
+import {hentUtfylling} from "lib/services/meldekortservice";
 
 interface Props {
   referanse: string;
 }
 
 export const IntroduksjonMedDataFetching = async ({ referanse }: Props) => {
-  const meldekort = await hentMeldekort(referanse);
+  const utfylling = await hentUtfylling(referanse);
 
-  return <Introduksjon meldekort={meldekort} referanse={referanse} />;
+  return <Introduksjon utfylling={utfylling} referanse={referanse} />;
 };

@@ -1,11 +1,11 @@
 import fs from 'fs/promises';
 
 import {
-  HistoriskMeldekort,
-  HistoriskMeldekortDetaljer,
+  EndreUtfyllingRequest,
+  UtfyllingResponse,
+  HistoriskMeldeperiode,
+  HistoriskMeldeperiodeDetaljer,
   KommendeMeldekort,
-  MeldekortRequest,
-  MeldekortResponse,
   Steg,
 } from 'lib/types/types';
 
@@ -19,13 +19,11 @@ export async function hentKommendeMeldekortMock(): Promise<KommendeMeldekort> {
     return JSON.parse(await fs.readFile('.kommendeMeldekort.cache', 'utf8')) as unknown as KommendeMeldekort;
   } catch (err) {
     const kommendeMeldekort: KommendeMeldekort = {
-      nesteMeldekort: {
+      antallUbesvarteMeldeperioder: 1,
+      nesteMeldeperiode: {
         meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' },
-        meldekortId: 123456,
-        tidligsteInnsendingsDato: '2024-11-05',
-        kanSendesInn: true,
+        innsendingsvindu: { fom: '2024-11-04', tom: '2024-11-04' },
       },
-      antallUbesvarteMeldekort: 1,
     };
 
     await fs.writeFile('.kommendeMeldekort.cache', JSON.stringify(kommendeMeldekort));
@@ -33,79 +31,69 @@ export async function hentKommendeMeldekortMock(): Promise<KommendeMeldekort> {
   }
 }
 
-export async function mockNesteSteg(meldekortRequest: MeldekortRequest) {
-  const nesteSteg = hentNesteSteg(meldekortRequest.nåværendeSteg, !!meldekortRequest.meldekort.harDuJobbet);
-
-  const meldekort = await hentMeldekortMock();
-
-  await fs.writeFile(
-    '.meldekort.cache',
-    JSON.stringify({ ...meldekort, steg: nesteSteg, meldekort: meldekortRequest.meldekort })
-  );
+export async function mockNesteSteg(meldekortRequest: EndreUtfyllingRequest) {
+  await fs.writeFile('.meldekort.cache', JSON.stringify({ meldekortRequest }));
 }
 
-export async function hentMeldekortMock(): Promise<MeldekortResponse> {
+export async function hentMeldekortMock(): Promise<UtfyllingResponse> {
   try {
-    return JSON.parse(await fs.readFile('.meldekort.cache', 'utf8')) as unknown as MeldekortResponse;
+    return JSON.parse(await fs.readFile('.meldekort.cache', 'utf8')) as unknown as UtfyllingResponse;
   } catch (err) {
-    const meldekort: MeldekortResponse = {
-      meldekort: {
-        dager: [
-          { dato: '2024-11-04' },
-          { dato: '2024-11-05' },
-          { dato: '2024-11-06' },
-          { dato: '2024-11-07' },
-          { dato: '2024-11-08' },
-          { dato: '2024-11-09' },
-          { dato: '2024-11-10' },
-          { dato: '2024-11-11' },
-          { dato: '2024-11-12' },
-          { dato: '2024-11-13' },
-          { dato: '2024-11-14' },
-          { dato: '2024-11-15' },
-          { dato: '2024-11-16' },
-          { dato: '2024-11-17' },
-        ],
+    const meldekort: UtfyllingResponse = {
+      metadata: { referanse: '123456789', periode: { fom: '2024-11-04', tom: '2024-11-17' } },
+      tilstand: {
+        aktivtSteg: 'INTRODUKSJON',
+        svar: {
+          dager: [
+            { dato: '2024-11-04' },
+            { dato: '2024-11-05' },
+            { dato: '2024-11-06' },
+            { dato: '2024-11-07' },
+            { dato: '2024-11-08' },
+            { dato: '2024-11-09' },
+            { dato: '2024-11-10' },
+            { dato: '2024-11-11' },
+            { dato: '2024-11-12' },
+            { dato: '2024-11-13' },
+            { dato: '2024-11-14' },
+            { dato: '2024-11-15' },
+            { dato: '2024-11-16' },
+            { dato: '2024-11-17' },
+          ],
+        },
       },
-      tidligsteInnsendingsDato: '2024-11-16',
-      steg: 'INTRODUKSJON',
-      periode: { fom: '2024-11-04', tom: '2024-11-17' },
     };
 
-    return (await fs.writeFile('.meldekort.cache', JSON.stringify(meldekort))) as unknown as MeldekortResponse;
+    return (await fs.writeFile('.meldekort.cache', JSON.stringify(meldekort))) as unknown as UtfyllingResponse;
   }
 }
 
-export async function hentHistoriskMeldekortMock(): Promise<HistoriskMeldekort[]> {
+export async function hentHistoriskMeldekortMock(): Promise<HistoriskMeldeperiode[]> {
   try {
-    return JSON.parse(await fs.readFile('.historiskMeldekort.cache', 'utf8')) as unknown as HistoriskMeldekort[];
+    return JSON.parse(await fs.readFile('.historiskMeldekort.cache', 'utf8')) as unknown as HistoriskMeldeperiode[];
   } catch (err) {
-    const meldekort: HistoriskMeldekort[] = [
-      { meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' }, status: 'INNSENDT' },
+    const meldekort: HistoriskMeldeperiode[] = [
+      { meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' }, status: 'KELVIN' },
     ];
 
     return (await fs.writeFile(
       '.historiskMeldekort.cache',
       JSON.stringify(meldekort)
-    )) as unknown as HistoriskMeldekort[];
+    )) as unknown as HistoriskMeldeperiode[];
   }
 }
 
-export async function hentHistoriskMeldekortDetaljerMock(): Promise<HistoriskMeldekortDetaljer[]> {
+export async function hentHistoriskMeldekortDetaljerMock(): Promise<HistoriskMeldeperiodeDetaljer> {
   try {
     return JSON.parse(
       await fs.readFile('.historiskMeldekortDetaljer.cache', 'utf8')
-    ) as unknown as HistoriskMeldekortDetaljer[];
+    ) as unknown as HistoriskMeldeperiodeDetaljer;
   } catch (err) {
-    const meldekort: HistoriskMeldekortDetaljer[] = [
-      {
-        meldekortId: 123456789,
-        meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' },
-        status: 'INNSENDT',
-        innsendtDato: new Date().toString(),
-        kanEndres: true,
-        type: 'VANLIG',
-        bruttoBeløp: 8745,
+    const meldekort1: HistoriskMeldeperiodeDetaljer = {
+      kanEndres: true,
+      periode: { fom: '2024-11-04', tom: '2024-11-17' },
+      status: 'KELVIN',
+      svar: {
         dager: [
           { dato: '2024-11-04' },
           { dato: '2024-11-05' },
@@ -122,40 +110,15 @@ export async function hentHistoriskMeldekortDetaljerMock(): Promise<HistoriskMel
           { dato: '2024-11-16' },
           { dato: '2024-11-17' },
         ],
-        harDuGjennomførtAvtaltAktivitetKursEllerUtdanning: false,
         harDuJobbet: true,
-        harDuVærtSyk: false,
-        harDuHattFerie: false,
       },
-      // {
-      //   meldekortId: 123456789,
-      //   meldeperiode: { fom: '2024-11-04', tom: '2024-11-17' },
-      //   status: 'INNSENDT',
-      //   innsendtDato: subDays(new Date(), 2).toString(),
-      //   kanEndres: true,
-      //   bruttoBeløp: 8745,
-      //   timerArbeidet: [
-      //     { dato: '2024-11-04' },
-      //     { dato: '2024-11-05' },
-      //     { dato: '2024-11-06' },
-      //     { dato: '2024-11-07', timer: 5 },
-      //     { dato: '2024-11-08' },
-      //     { dato: '2024-11-09' },
-      //     { dato: '2024-11-10' },
-      //     { dato: '2024-11-11' },
-      //     { dato: '2024-11-12' },
-      //     { dato: '2024-11-13' },
-      //     { dato: '2024-11-14' },
-      //     { dato: '2024-11-15' },
-      //     { dato: '2024-11-16' },
-      //     { dato: '2024-11-17' },
-      //   ],
-      // },
-    ];
+      type: 'KELVIN',
+    };
+
     return (await fs.writeFile(
       '.historiskMeldekortDetaljer.cache',
-      JSON.stringify(meldekort)
-    )) as unknown as HistoriskMeldekortDetaljer[];
+      JSON.stringify(meldekort1)
+    )) as unknown as HistoriskMeldeperiodeDetaljer;
   }
 }
 
@@ -171,12 +134,10 @@ function hentNesteSteg(nåværendeSteg: Steg, skalTilUtfylling: boolean): Steg {
     case 'INTRODUKSJON':
       return 'SPØRSMÅL';
     case 'SPØRSMÅL':
-      return skalTilUtfylling ? 'UTFYLLING' : 'STEMMER_OPPLYSNINGENE';
+      return skalTilUtfylling ? 'UTFYLLING' : 'BEKREFT';
     case 'UTFYLLING':
-      return 'STEMMER_OPPLYSNINGENE';
-    case 'STEMMER_OPPLYSNINGENE':
-      return 'KVITTERING';
-    case 'INNSENDING_VANLIG_MELDEKKORT':
+      return 'BEKREFT';
+    case 'BEKREFT':
       return 'KVITTERING';
     case 'KVITTERING':
       throw new Error('Det finnes ikke et steg etter kvittering');
