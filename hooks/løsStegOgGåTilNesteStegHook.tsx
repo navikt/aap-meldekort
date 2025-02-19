@@ -16,14 +16,14 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
     setIsLoading(true);
     console.log('kaller løs steg med, ' + meldekort);
 
-    const meldekortResponse = await gåTilNesteStegClient(referanse, meldekort);
+    const utfyllingResponse = await gåTilNesteStegClient(referanse, meldekort);
 
-    console.log('hehehe', meldekortResponse);
-    if (!meldekortResponse || meldekortResponse?.feil) {
-      setErrorMessage('Kunne ikke gå videre på grunn av: ' + meldekortResponse?.feil);
+    console.log('Svar fra lagre og gå til neste ', utfyllingResponse);
+    if (!utfyllingResponse || utfyllingResponse?.feil) {
+      setErrorMessage('Kunne ikke gå videre på grunn av: ' + utfyllingResponse?.feil);
       setIsLoading(false);
     } else {
-      router.push(`/${referanse}/${meldekortResponse?.tilstand.aktivtSteg}`);
+      router.push(`/${referanse}/${utfyllingResponse?.tilstand.aktivtSteg}`);
     }
   };
 
