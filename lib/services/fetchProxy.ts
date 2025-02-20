@@ -6,10 +6,6 @@ import { isLocal } from './meldekortservice';
 const AUDIENCE = process.env.MELDEKORT_AUDIENCE;
 
 const hentLocalToken = async () => {
-  // Må hente headers for å tvinge dynamic route ved lokal utvikling
-  // TODO: Revurder i next 15
-  await headers();
-
   const url = 'http://localhost:8081/token';
   try {
     return fetch(url, { method: 'POST', next: { revalidate: 0 } })
