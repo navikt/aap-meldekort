@@ -33,13 +33,6 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
         </Heading>
         <BodyShort size={'large'}>{t('client.oversikt.sendMeldekort.klareMeldekort')}</BodyShort>
         {kommendeMeldeperiode.nesteMeldeperiode ? (
-          // <LinkPanel
-          //   href={''}
-          //   title={t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
-          //     antall: kommendeMeldeperiode.antallUbesvarteMeldeperioder,
-          //   })}
-          // />
-
           <NavigationPanel
             type={'button'}
             variant={'primary'}
