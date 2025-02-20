@@ -45,7 +45,7 @@ export const Spørsmål = ({ utfylling, referanse }: Props) => {
           nyTilstand: {
             aktivtSteg: 'SPØRSMÅL',
             svar: {
-              ...utfylling,
+              ...utfylling.tilstand.svar,
               dager: utfylling.tilstand.svar.dager.map((dag) => {
                 return {
                   dato: dag.dato,
