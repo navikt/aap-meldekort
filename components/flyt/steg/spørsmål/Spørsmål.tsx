@@ -39,7 +39,7 @@ export const Spørsmål = ({ utfylling, referanse }: Props) => {
 
   return (
     <Form
-      forrigeStegOnClick={() => router.push(`/${referanse}/BEKREFT_SVARER_ÆRLIG`)}
+      forrigeStegOnClick={() => router.push(`/${referanse}/INTRODUKSJON`)}
       onSubmit={form.handleSubmit(async (data) => {
         løsStegOgGåTilNeste({
           nyTilstand: {

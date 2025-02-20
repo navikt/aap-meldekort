@@ -1,8 +1,8 @@
 import {
   EndreUtfyllingRequest,
-  UtfyllingResponse,
   StartUtfyllingRequest,
   StartUtfyllingResponse,
+  UtfyllingResponse,
 } from 'lib/types/types';
 
 async function fetchProxy<ResponseBody>(
@@ -33,28 +33,13 @@ export async function gåTilNesteStegClient(
   meldekortId: string,
   meldekortRequest: EndreUtfyllingRequest
 ): Promise<UtfyllingResponse | undefined> {
-  return await fetchProxy<UtfyllingResponse>(
-    `/api/arena/meldekort/${meldekortId}/neste-steg`,
-    'POST',
-    meldekortRequest
-  );
+  return await fetchProxy<UtfyllingResponse>(`/api/${meldekortId}/neste-steg`, 'POST', meldekortRequest);
 }
 
 export async function startInnsendingClient(
   startInnsendingRequest: StartUtfyllingRequest
 ): Promise<StartUtfyllingResponse | undefined> {
   return await fetchProxy<StartUtfyllingResponse>(`/api/meldeperiode/start-innsending`, 'POST', startInnsendingRequest);
-}
-
-export async function lagreMeldekortClient(
-  meldekortId: string,
-  meldekortRequest: EndreUtfyllingRequest
-): Promise<UtfyllingResponse | undefined> {
-  return await fetchProxy<UtfyllingResponse>(
-    `/api/arena/meldekort/${meldekortId}/lagre`,
-    'POST',
-    meldekortRequest
-  );
 }
 
 export async function slettMockClient() {

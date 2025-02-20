@@ -14,7 +14,7 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
 
   const løsStegOgGåTilNeste = async (meldekort: EndreUtfyllingRequest) => {
     setIsLoading(true);
-    console.log('kaller løs steg med, ' + meldekort);
+    console.log('kaller løs steg med', meldekort);
 
     const utfyllingResponse = await gåTilNesteStegClient(referanse, meldekort);
 
