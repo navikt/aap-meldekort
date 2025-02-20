@@ -4,7 +4,7 @@ import { Steg } from 'lib/types/types';
 import { IntroduksjonMedDataFetching } from 'components/flyt/steg/introduksjon/IntroduksjonMedDataFetching';
 import { KvitteringMedDataFetching } from 'components/flyt/steg/kvittering/KvitteringMedDataFetching';
 import { redirect } from 'i18n/routing';
-import { StemmerOpplysningeneMedDataFetching } from 'components/flyt/steg/stemmeropplysningene/StemmerOpplysningeneMedDataFetching';
+import { BekreftMedDataFetching } from 'components/flyt/steg/bekreft/BekreftMedDataFetching';
 import { hentUtfylling } from 'lib/services/meldekortservice';
 
 interface Props {
@@ -39,7 +39,7 @@ const AktivtStegPage = async (props: Props) => {
       {aktivtSteg === 'INTRODUKSJON' && <IntroduksjonMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'SPØRSMÅL' && <SpørsmåLMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'UTFYLLING' && <UtfyllingMedDataFetching referanse={referanse} />}
-      {aktivtSteg === 'BEKREFT' && <StemmerOpplysningeneMedDataFetching referanse={referanse} />}
+      {aktivtSteg === 'BEKREFT' && <BekreftMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'KVITTERING' && <KvitteringMedDataFetching referanse={referanse} />}
     </>
   );

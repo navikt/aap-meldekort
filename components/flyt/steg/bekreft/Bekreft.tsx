@@ -20,7 +20,7 @@ interface FormFields {
   opplysningerStemmer: JaEllerNei[];
 }
 
-export const StemmerOpplysningene = ({ referanse, utfylling }: Props) => {
+export const Bekreft = ({ referanse, utfylling }: Props) => {
   const router = useRouter();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
 

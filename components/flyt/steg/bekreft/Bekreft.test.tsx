@@ -3,7 +3,7 @@ import { render, screen } from 'lib/utils/test/customRender';
 
 import { UtfyllingResponse } from 'lib/types/types';
 import { userEvent } from '@testing-library/user-event';
-import { StemmerOpplysningene } from 'components/flyt/steg/stemmeropplysningene/StemmerOpplysningene';
+import { Bekreft } from 'components/flyt/steg/bekreft/Bekreft';
 
 const meldekortUtenArbeid: UtfyllingResponse = {
   tilstand: {
@@ -65,55 +65,55 @@ const meldekortMedArbeid: UtfyllingResponse = {
 
 describe('Stemmer opplysningene', () => {
   it('skal ha en lenke som fører tilbake til oversikt siden', () => {
-    render(<StemmerOpplysningene utfylling={meldekortMedArbeid} referanse={'1234'} />);
+    render(<Bekreft utfylling={meldekortMedArbeid} referanse={'1234'} />);
     const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
     expect(tilbakeLenke).toBeVisible();
   });
 
   it('skal ha en overskrift', () => {
-    render(<StemmerOpplysningene referanse={'123'} utfylling={meldekortUtenArbeid} />);
+    render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
     const heading = screen.getByRole('heading', { name: 'Se over og send inn meldekort', level: 2 });
     expect(heading).toBeVisible();
   });
 
   it('skal vise perioden med datoer', () => {
-    render(<StemmerOpplysningene referanse={'123'} utfylling={meldekortUtenArbeid} />);
+    render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
     const datoer = screen.getByText('04.11.2024 - 17.11.2024');
     expect(datoer).toBeVisible();
   });
 
   it('skal vise korrekt svar dersom bruker har oppgitt at hen har jobbet ', () => {
-    render(<StemmerOpplysningene referanse={'123'} utfylling={meldekortMedArbeid} />);
+    render(<Bekreft referanse={'123'} utfylling={meldekortMedArbeid} />);
     const jaSvar = screen.getByText('Ja');
     expect(jaSvar).toBeVisible();
   });
 
   it('skal vise korrekt svar dersom bruker har oppgitt at hen ikke har jobbet ', () => {
-    render(<StemmerOpplysningene referanse={'123'} utfylling={meldekortUtenArbeid} />);
+    render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
     const neiSvar = screen.getByText('Nei');
     expect(neiSvar).toBeVisible();
   });
 
   it('skal ha en lenke tilbake til steget for om du har arbeidet i perioden', () => {
-    render(<StemmerOpplysningene referanse={'123'} utfylling={meldekortUtenArbeid} />);
+    render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
     const link = screen.getByRole('link', { name: 'Endre om du har arbeidet i perioden' });
     expect(link).toBeVisible();
   });
 
   it('skal ha en lenke tilbake til steget hvor bruker fyller inn timer', () => {
-    render(<StemmerOpplysningene referanse={'123'} utfylling={meldekortMedArbeid} />);
+    render(<Bekreft referanse={'123'} utfylling={meldekortMedArbeid} />);
     const link = screen.getByRole('link', { name: 'Endre antall timer arbeidet' });
     expect(link).toBeVisible();
   });
 
   it('skal ha et felt for å bekrefte at opplysningene stemmer', () => {
-    render(<StemmerOpplysningene referanse={'123'} utfylling={meldekortUtenArbeid} />);
+    render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
     const bekreftOption = screen.getByRole('checkbox', { name: 'Jeg bekrefter at disse opplysningene stemmer' });
     expect(bekreftOption).toBeVisible();
   });
 
   it('skal gi en feilmelding dersom feltet for å bekrefte at opplysningene stemmer ikke er huket av', async () => {
-    render(<StemmerOpplysningene referanse={'123'} utfylling={meldekortUtenArbeid} />);
+    render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
     const user = userEvent.setup();
     const sendInnKnapp = screen.getByRole('button', { name: 'Send inn' });
 
