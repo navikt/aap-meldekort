@@ -1,4 +1,4 @@
-import { SpRsmLMedDataFetching } from 'components/flyt/steg/spørsmål/SpørsmålMedDataFetching';
+import { SpørsmåLMedDataFetching } from 'components/flyt/steg/spørsmål/SpørsmålMedDataFetching';
 import { UtfyllingMedDataFetching } from 'components/flyt/steg/utfylling/UtfyllingMedDataFetching';
 import { Steg } from 'lib/types/types';
 import { IntroduksjonMedDataFetching } from 'components/flyt/steg/introduksjon/IntroduksjonMedDataFetching';
@@ -37,7 +37,7 @@ const AktivtStegPage = async (props: Props) => {
   return (
     <>
       {aktivtSteg === 'INTRODUKSJON' && <IntroduksjonMedDataFetching referanse={referanse} />}
-      {aktivtSteg === 'SPØRSMÅL' && <SpRsmLMedDataFetching referanse={referanse} />}
+      {aktivtSteg === 'SPØRSMÅL' && <SpørsmåLMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'UTFYLLING' && <UtfyllingMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'BEKREFT' && <StemmerOpplysningeneMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'KVITTERING' && <KvitteringMedDataFetching referanse={referanse} />}

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { SpRsmL } from 'components/flyt/steg/spørsmål/Spørsmål';
+import { Spørsmål } from 'components/flyt/steg/spørsmål/Spørsmål';
 import { render, screen, within } from 'lib/utils/test/customRender';
 import { userEvent } from '@testing-library/user-event';
 import { UtfyllingResponse } from 'lib/types/types';
@@ -23,7 +23,7 @@ const periode: UtfyllingResponse = {
 const user = userEvent.setup();
 
 describe('Periode', () => {
-  beforeEach(() => render(<SpRsmL utfylling={periode} referanse={'1234'} />));
+  beforeEach(() => render(<Spørsmål utfylling={periode} referanse={'1234'} />));
 
   it('Skal ha en heading', () => {
     const heading = screen.getByRole('heading', { name: 'Arbeid i uke 47 og 48', level: 2 });

@@ -19,7 +19,7 @@ interface FormFields {
   harDuJobbet: JaEllerNei;
 }
 
-export const SpRsmL = ({ utfylling, referanse }: Props) => {
+export const Spørsmål = ({ utfylling, referanse }: Props) => {
   const { isLoading, løsStegOgGåTilNeste, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
 
   const { form, formFields } = useConfigForm<FormFields>({
