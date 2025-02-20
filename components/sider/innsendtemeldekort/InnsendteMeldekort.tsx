@@ -2,7 +2,7 @@
 
 import { Alert, BodyShort, Heading, HGrid } from '@navikt/ds-react';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
-import { LinkPanel } from 'components/linkpanel/LinkPanel';
+import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { HistoriskMeldeperiode } from 'lib/types/types';
 
@@ -31,8 +31,9 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
             const url = `/innsendt/periode?${urlSearchParams}`;
 
             return (
-              <LinkPanel
+              <NavigationPanel
                 key={key}
+                type={'link'}
                 variant={'secondary'}
                 title={`${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.tom)}`}
                 href={url}

@@ -1,8 +1,8 @@
 'use client';
 
 import { KommendeMeldekort } from 'lib/types/types';
-import { Alert, BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
-import { LinkPanel } from 'components/linkpanel/LinkPanel';
+import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { useTranslations } from 'next-intl';
 import { startInnsendingClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
@@ -34,13 +34,18 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
         <BodyShort size={'large'}>{t('client.oversikt.sendMeldekort.klareMeldekort')}</BodyShort>
         {kommendeMeldeperiode.nesteMeldeperiode ? (
           // <LinkPanel
-          //   href={`/hei`} // TODO Legg inn korrekt lenke her
+          //   href={''}
           //   title={t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
           //     antall: kommendeMeldeperiode.antallUbesvarteMeldeperioder,
           //   })}
           // />
 
-          <Button
+          <NavigationPanel
+            type={'button'}
+            variant={'primary'}
+            title={t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
+              antall: kommendeMeldeperiode.antallUbesvarteMeldeperioder,
+            })}
             onClick={async () => {
               if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
                 const startInnsendingAvMeldekortResponse = await startInnsendingClient(
@@ -55,11 +60,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
                 }
               }
             }}
-          >
-            {t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
-              antall: kommendeMeldeperiode.antallUbesvarteMeldeperioder,
-            })}
-          </Button>
+          />
         ) : (
           <Alert variant={'info'}>
             <BodyShort size={'large'} weight={'semibold'} spacing>
@@ -76,7 +77,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
         </Heading>
         <BodyShort size={'large'}>Her kan du se og endre meldekort</BodyShort>
         {harInnsendteMeldeperioder ? (
-          <LinkPanel title={'Gå til innsendte meldekort'} href={`/innsendt`} />
+          <NavigationPanel type={'link'} variant={'primary'} title={'Gå til innsendte meldekort'} href={`/innsendt`} />
         ) : (
           <Alert variant={'info'}>
             <BodyShort size={'large'} weight={'semibold'} spacing>

@@ -2,6 +2,10 @@
   text-decoration: none;
   border-radius: 10px;
   color: inherit;
+  padding: 0;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
 }
 
 .secondary {
