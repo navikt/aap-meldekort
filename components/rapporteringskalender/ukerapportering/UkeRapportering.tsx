@@ -40,12 +40,19 @@ export const UkeRapportering = ({ felterIUken }: Props) => {
           const dagINummer = format(new Date(dag), 'dd.MM');
           const eksisterendeFelt = felterMap.get(dagStr);
 
+          const classNameForFeltSomHarBlittFyltUt = form.watch(`dager.${eksisterendeFelt?.index}.timer`)
+            ? styles.harverdi
+            : '';
+
           if (erLitenSkjerm && !eksisterendeFelt) {
             return null;
           }
 
           return (
-            <div key={dag.toString()} className={`${styles.dag} ${!eksisterendeFelt && styles.ikkeeksisterendefelt}`}>
+            <div
+              key={dag.toString()}
+              className={`${styles.dag} ${!eksisterendeFelt && styles.ikkeeksisterendefelt} ${form.watch(`dager.${eksisterendeFelt?.index}.timer`) && styles.erutfylt}`}
+            >
               <div className={`${styles.dagheading}`}>
                 <Detail>{formaterUkedag(dag)}</Detail>
                 <Heading size={'small'}>{dagINummer}</Heading>

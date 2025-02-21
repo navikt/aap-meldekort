@@ -48,16 +48,24 @@
   gap: var(--a-spacing-2);
 }
 
+.erutfylt {
+  background-color: var(--a-blue-100);
+}
+
+.harFeilmelding {
+  background-color: var(--a-red-100);
+}
+
 @media (max-width: 768px) {
   .rad {
     margin: 0 calc(50% - 50vw);
-    padding: 0  0.5rem;
+    padding: 0 0.5rem;
   }
 
   .ukerad {
     flex-direction: column;
     border: 2px solid var(--a-gray-200);
-    padding: 1rem;
+    padding: 1rem 0;
     border-radius: 15px;
   }
 
@@ -73,7 +81,7 @@
     border-left: none;
   }
 
-  .dag:last-child{
+  .dag:last-child {
     border-bottom: none;
   }
 }
