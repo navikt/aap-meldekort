@@ -1,17 +1,16 @@
 'use client';
 
 import { MeldeperiodeUke } from 'components/rapporteringskalender/Rapporteringskalender';
-import { format } from 'date-fns';
+import { eachDayOfInterval, format } from 'date-fns';
 
-import { BodyShort, Heading } from '@navikt/ds-react';
-
-import { formaterDatoForFrontend } from 'lib/utils/date';
+import { Detail, Heading } from '@navikt/ds-react';
 import { storForbokstav } from 'lib/utils/string';
 
 import styles from 'components/rapporteringskalender/ukerapportering/UkeRapportering.module.css';
 import { TextFieldWrapper } from '@navikt/aap-felles-react';
 import { erGyldigTimer } from 'components/flyt/steg/utfylling/Utfylling';
 import { useFormContext } from 'react-hook-form';
+import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 
 interface Props {
   felterIUken: MeldeperiodeUke;
@@ -19,6 +18,14 @@ interface Props {
 
 export const UkeRapportering = ({ felterIUken }: Props) => {
   const form = useFormContext();
+  const { erLitenSkjerm } = useSkjermBredde();
+
+  const alleDagerIUken = eachDayOfInterval({
+    start: new Date(felterIUken.ukeStart),
+    end: new Date(felterIUken.ukeSlutt),
+  });
+
+  const felterMap = new Map(felterIUken.felter.map((field) => [field.dag, field]));
 
   return (
     <div className={styles.rad}>
@@ -26,42 +33,51 @@ export const UkeRapportering = ({ felterIUken }: Props) => {
         <Heading size={'medium'} level={'3'}>
           Uke {felterIUken.ukeNummer}
         </Heading>
-        <BodyShort>
-          {formaterDatoForFrontend(felterIUken.ukeStart)} - {formaterDatoForFrontend(felterIUken.ukeSlutt)}
-        </BodyShort>
       </div>
       <div className={styles.ukerad}>
-        {felterIUken.felter.map((field) => {
-          const dagINummer = format(new Date(field.dag), 'dd.MM');
+        {alleDagerIUken.map((dag) => {
+          const dagStr = format(dag, 'yyyy-MM-dd');
+          const dagINummer = format(new Date(dag), 'dd.MM');
+          const eksisterendeFelt = felterMap.get(dagStr);
+
+          if (erLitenSkjerm && !eksisterendeFelt) {
+            return null;
+          }
 
           return (
-            <div key={field.dag} className={styles.dag}>
-              <Heading size={'small'} aria-hidden level={'3'} spacing>
-                {`${formaterUkedag(field.dag)} ${dagINummer}`}
-              </Heading>
-              <TextFieldWrapper
-                control={form.control}
-                name={`dager.${field.index}.timer`}
-                type={'text'}
-                size={'medium'}
-                label={'Arbeid'}
-                rules={{
-                  validate: (value) => {
-                    if (!erGyldigTimer(value)) {
-                      return 'Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer';
-                    }
-                  },
-                }}
-              />
+            <div key={dag.toString()} className={`${styles.dag} ${!eksisterendeFelt && styles.ikkeeksisterendefelt}`}>
+              <div className={`${styles.dagheading}`}>
+                <Detail>{formaterUkedag(dag)}</Detail>
+                <Heading size={'small'}>{dagINummer}</Heading>
+              </div>
+              {eksisterendeFelt && (
+                <TextFieldWrapper
+                  control={form.control}
+                  name={`dager.${eksisterendeFelt.index}.timer`}
+                  type={'text'}
+                  size={'medium'}
+                  hideLabel
+                  label={'Arbeid'}
+                  rules={{
+                    validate: (value) => {
+                      if (!erGyldigTimer(value)) {
+                        return 'Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer';
+                      }
+                    },
+                  }}
+                />
+              )}
             </div>
           );
         })}
       </div>
     </div>
   );
-};
 
-function formaterUkedag(date: string): string {
-  const formatter = new Intl.DateTimeFormat('nb-NO', { weekday: 'long' });
-  return storForbokstav(formatter.format(new Date(date)));
-}
+  function formaterUkedag(date: string | Date): string {
+    const formatter = new Intl.DateTimeFormat('nb-NO', { weekday: 'long' });
+    return erLitenSkjerm
+      ? storForbokstav(formatter.format(new Date(date)))
+      : storForbokstav(formatter.format(new Date(date))).substring(0, 3) + '.';
+  }
+};
