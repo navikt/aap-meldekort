@@ -54,6 +54,7 @@
 
 .harFeilmelding {
   background-color: var(--a-red-100);
+  border-bottom: none;
 }
 
 @media (max-width: 768px) {
