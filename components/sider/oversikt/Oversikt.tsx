@@ -25,7 +25,6 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
       <BodyShort size={'large'} spacing>
         {t('client.oversikt.mottaAAP')}
       </BodyShort>
-      <BodyShort size={'large'}>{t('client.oversikt.fylleUtJobb')}</BodyShort>
 
       <VStack gap={'2'}>
         <Heading level={'2'} size={'medium'}>

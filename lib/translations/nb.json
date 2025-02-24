@@ -26,8 +26,7 @@
         },
         "oversikt": {
             "ingenMeldekort": "Kunne ikke finne noen meldeperioder",
-            "mottaAAP": "For å motta AAP må du sende meldekort hver 14. dag",
-            "fylleUtJobb": "På meldekortet må du fylle ut hvor mye du har jobbet",
+            "mottaAAP": "For å motta AAP må du sende meldekort hver 14. dag. På meldekortet må du fylle ut om du har arbeidet og hvor mye du har jobbet",
             "sendMeldekort": {
                 "heading": "Send meldekort",
                 "klareMeldekort": "Meldekort som er klare for innsending vises her",
