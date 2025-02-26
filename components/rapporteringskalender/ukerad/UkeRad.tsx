@@ -4,7 +4,6 @@ import { MeldeperiodeUke } from 'components/rapporteringskalender/Rapporteringsk
 import { eachDayOfInterval } from 'date-fns';
 
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
-import { storForbokstav } from 'lib/utils/string';
 
 import styles from 'components/rapporteringskalender/ukerad/UkeRad.module.css';
 

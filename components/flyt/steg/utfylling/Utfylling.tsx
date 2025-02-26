@@ -8,7 +8,6 @@ import { FormProvider } from 'react-hook-form';
 import { useState } from 'react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { useRouter } from 'i18n/routing';
-import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { UtfyllingResponse } from 'lib/types/types';
 
 interface Props {

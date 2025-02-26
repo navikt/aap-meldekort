@@ -6,7 +6,6 @@ import { JaEllerNei } from 'lib/utils/form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
-import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { UtfyllingResponse } from 'lib/types/types';
 
 interface Props {

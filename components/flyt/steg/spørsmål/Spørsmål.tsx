@@ -7,7 +7,6 @@ import { BodyShort, Heading, HGrid } from '@navikt/ds-react';
 import { formaterDatoForFrontend, hentUkeNummerForDato } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { useRouter } from 'i18n/routing';
-import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { UtfyllingResponse } from 'lib/types/types';
 
 interface Props {

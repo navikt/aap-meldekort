@@ -83,7 +83,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
             </FormSummary.Label>
             <FormSummary.Value>
               <FormSummary.Answers>
-                {Object.entries(meldeperiodeUker).map(([ukeStart, uke], index) => {
+                {Object.entries(meldeperiodeUker).map(([, uke], index) => {
                   return (
                     <FormSummary.Answer key={index}>
                       <FormSummary.Label>{`Uke ${hentUkeNummerForDato(uke.ukeStart)} (${formaterDatoForFrontend(uke.ukeStart)} - ${formaterDatoForFrontend(uke.ukeSlutt)})`}</FormSummary.Label>

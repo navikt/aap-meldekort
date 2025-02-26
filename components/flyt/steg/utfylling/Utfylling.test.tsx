@@ -76,9 +76,3 @@ describe('rapporteringskalender', () => {
     expect(ukenummer).toBeVisible();
   });
 });
-
-it('skal ha en lenke for å gå tilbake til forrige steg', () => {
-  render(<Utfylling utfylling={meldeperiode} referanse={'1'} />);
-  const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
-  expect(tilbakeLenke).toBeVisible();
-});

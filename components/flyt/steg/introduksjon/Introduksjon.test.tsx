@@ -53,11 +53,3 @@ describe('skjema', () => {
     expect(feilmelding).toBeVisible();
   });
 });
-
-describe('navigasjon', () => {
-  it('skal ha en lenke som fører tilbake til oversikt siden', () => {
-    render(<Introduksjon utfylling={meldekort} referanse={'1234'} />);
-    const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
-    expect(tilbakeLenke).toBeVisible();
-  });
-});

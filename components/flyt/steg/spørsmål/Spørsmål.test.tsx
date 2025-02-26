@@ -60,9 +60,4 @@ describe('Periode', () => {
     const feilmelding = screen.getByText('Du må svare på om du har arbeidet i perioden');
     expect(feilmelding).toBeVisible();
   });
-
-  it('skal ha en lenke for å gå tilbake til forrige steg', () => {
-    const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
-    expect(tilbakeLenke).toBeVisible();
-  });
 });

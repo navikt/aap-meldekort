@@ -64,22 +64,10 @@ const meldekortMedArbeid: UtfyllingResponse = {
 };
 
 describe('Stemmer opplysningene', () => {
-  it('skal ha en lenke som fører tilbake til oversikt siden', () => {
-    render(<Bekreft utfylling={meldekortMedArbeid} referanse={'1234'} />);
-    const tilbakeLenke = screen.getByRole('link', { name: 'Tilbake' });
-    expect(tilbakeLenke).toBeVisible();
-  });
-
   it('skal ha en overskrift', () => {
     render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
     const heading = screen.getByRole('heading', { name: 'Se over og send inn meldekort', level: 2 });
     expect(heading).toBeVisible();
-  });
-
-  it('skal vise perioden med datoer', () => {
-    render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
-    const datoer = screen.getByText('04.11.2024 - 17.11.2024');
-    expect(datoer).toBeVisible();
   });
 
   it('skal vise korrekt svar dersom bruker har oppgitt at hen har jobbet ', () => {
@@ -92,12 +80,6 @@ describe('Stemmer opplysningene', () => {
     render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
     const neiSvar = screen.getByText('Nei');
     expect(neiSvar).toBeVisible();
-  });
-
-  it('skal ha en lenke tilbake til steget for om du har arbeidet i perioden', () => {
-    render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
-    const link = screen.getByRole('link', { name: 'Endre om du har arbeidet i perioden' });
-    expect(link).toBeVisible();
   });
 
   it('skal ha en lenke tilbake til steget hvor bruker fyller inn timer', () => {
