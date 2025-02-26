@@ -5,7 +5,7 @@ import {
   UtfyllingResponse,
 } from 'lib/types/types';
 
-async function fetchProxy<ResponseBody>(
+async function clientFetch<ResponseBody>(
   url: string,
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE',
   body?: object
@@ -33,15 +33,29 @@ export async function gåTilNesteStegClient(
   meldekortId: string,
   meldekortRequest: EndreUtfyllingRequest
 ): Promise<UtfyllingResponse | undefined> {
-  return await fetchProxy<UtfyllingResponse>(`/api/${meldekortId}/neste-steg`, 'POST', meldekortRequest);
+  return await clientFetch<UtfyllingResponse>(`/api/${meldekortId}/neste-steg`, 'POST', meldekortRequest);
 }
 
 export async function startInnsendingClient(
   startInnsendingRequest: StartUtfyllingRequest
 ): Promise<StartUtfyllingResponse | undefined> {
-  return await fetchProxy<StartUtfyllingResponse>(`/api/meldeperiode/start-innsending`, 'POST', startInnsendingRequest);
+  return await clientFetch<StartUtfyllingResponse>(
+    `/api/meldeperiode/start-innsending`,
+    'POST',
+    startInnsendingRequest
+  );
+}
+
+export async function startKorrigeringClient(
+  startInnsendingRequest: StartUtfyllingRequest
+): Promise<StartUtfyllingResponse | undefined> {
+  return await clientFetch<StartUtfyllingResponse>(
+    `/api/meldeperiode/start-korrigering`,
+    'POST',
+    startInnsendingRequest
+  );
 }
 
 export async function slettMockClient() {
-  await fetchProxy('/api/mock/slett', 'GET');
+  await clientFetch('/api/mock/slett', 'GET');
 }

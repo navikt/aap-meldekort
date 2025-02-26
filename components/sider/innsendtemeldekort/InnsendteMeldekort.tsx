@@ -8,12 +8,16 @@ import { HistoriskMeldeperiode } from 'lib/types/types';
 import { PencilIcon } from '@navikt/aksel-icons';
 
 import styles from './InnsendteMeldekort.module.css';
+import { startKorrigeringClient } from 'lib/client/clientApi';
+import { useRouter } from 'i18n/routing';
 
 interface Props {
   innsendteMeldeperioder: HistoriskMeldeperiode[];
 }
 
 export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
+  const router = useRouter();
+
   return (
     <HGrid gap={'4'}>
       <MeldekortLenke label={'Tilbake til oversikten'} href={`/`} />
@@ -28,15 +32,21 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
       {innsendteMeldeperioder.length > 0 ? (
         <>
           {innsendteMeldeperioder.map((innsendtMeldekort, key) => {
-            const urlSearchParams = new URLSearchParams();
-            urlSearchParams.append('fom', innsendtMeldekort.meldeperiode.fom);
-            urlSearchParams.append('tom', innsendtMeldekort.meldeperiode.tom);
-            const url = `/innsendt/periode?${urlSearchParams}`;
-
             return (
               <NavigationPanel
                 key={key}
-                type={'link'}
+                type={'button'}
+                onClick={async () => {
+                  const startInnsendingAvMeldekortResponse = await startKorrigeringClient(
+                    innsendtMeldekort.meldeperiode
+                  );
+
+                  if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
+                    router.push(
+                      `/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
+                    );
+                  }
+                }}
                 rightIcon={
                   <div className={styles.endreicon}>
                     <PencilIcon aria-hidden="true" />
@@ -44,7 +54,6 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
                   </div>
                 }
                 title={`${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.tom)}`}
-                href={url}
                 description={`Uke ${hentUkeNummerForPeriode(
                   new Date(innsendtMeldekort.meldeperiode.fom),
                   new Date(innsendtMeldekort.meldeperiode.tom)
