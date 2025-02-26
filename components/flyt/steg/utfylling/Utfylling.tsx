@@ -2,7 +2,7 @@
 
 import { Form } from 'components/form/Form';
 import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
-import { Alert, BodyLong, Heading, List, ReadMore, VStack } from '@navikt/ds-react';
+import { Alert, BodyLong, ErrorSummary, Heading, List, ReadMore, VStack } from '@navikt/ds-react';
 import { useConfigForm } from '@navikt/aap-felles-react';
 import { FormProvider } from 'react-hook-form';
 import { useState } from 'react';
@@ -39,6 +39,16 @@ export const Utfylling = ({ utfylling, referanse }: Props) => {
       })),
     },
   });
+
+  const meldeperiodeUtfyllingErrors =
+    form.formState.errors?.dager && Array.isArray(form.formState.errors.dager)
+      ? form.formState.errors.dager
+          .filter((dag) => dag?.timer)
+          .map((dag) => ({
+            ref: dag.timer.ref.name,
+            message: dag.timer.message,
+          }))
+      : [];
 
   return (
     <FormProvider {...form}>
@@ -85,6 +95,16 @@ export const Utfylling = ({ utfylling, referanse }: Props) => {
             min = 7,5 timer. 30 min = 0,50 timer
           </BodyLong>
           <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det informasjon</ReadMore>
+
+          {meldeperiodeUtfyllingErrors.length > 0 && (
+            <ErrorSummary>
+              {meldeperiodeUtfyllingErrors.map((error) => (
+                <ErrorSummary.Item key={error.ref} href={`#${encodeURIComponent(error.ref)}`}>
+                  {error.message}
+                </ErrorSummary.Item>
+              ))}
+            </ErrorSummary>
+          )}
 
           {errors.length > 0 && (
             <Alert variant={'error'}>

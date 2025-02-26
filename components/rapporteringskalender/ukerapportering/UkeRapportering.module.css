@@ -24,13 +24,11 @@
 .dag {
   display: flex;
   flex-direction: column;
-  gap: var(--a-spacing-2);
   border-top: 2px solid var(--a-gray-100);
   border-bottom: 2px solid var(--a-gray-100);
   border-right: 2px solid var(--a-gray-100);
   align-items: flex-start;
   padding: var(--a-spacing-4);
-  width: 100%;
 }
 
 .dag:first-child {
@@ -57,6 +55,22 @@
   border-bottom: none;
 }
 
+.tekstfeltFeilmelding {
+  border: 2px solid var(--a-border-danger);
+}
+
+.error {
+  padding: var(--a-spacing-2);
+  display: flex;
+  flex-direction: row;
+  gap: var(--a-spacing-4);
+  align-items: center;
+}
+
+.errorIcon {
+  color: var(--a-icon-danger);
+}
+
 @media (max-width: 768px) {
   .rad {
     margin: 0 calc(50% - 50vw);
@@ -73,7 +87,7 @@
   .dag {
     flex-direction: row;
     justify-content: space-between;
-    border-bottom: 2px solid var(--a-gray-100);
+    border-bottom: none;
     border-top: none;
     border-right: none;
   }
@@ -83,6 +97,6 @@
   }
 
   .dag:last-child {
-    border-bottom: none;
+    /*border-bottom: none;*/
   }
 }

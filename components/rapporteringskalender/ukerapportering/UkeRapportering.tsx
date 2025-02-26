@@ -3,21 +3,23 @@
 import { MeldeperiodeUke } from 'components/rapporteringskalender/Rapporteringskalender';
 import { eachDayOfInterval, format } from 'date-fns';
 
-import { Detail, Heading, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Detail, Heading, VStack } from '@navikt/ds-react';
 import { storForbokstav } from 'lib/utils/string';
 
 import styles from 'components/rapporteringskalender/ukerapportering/UkeRapportering.module.css';
-import { TextFieldWrapper } from '@navikt/aap-felles-react';
-import { erGyldigTimer } from 'components/flyt/steg/utfylling/Utfylling';
+
+import { erGyldigTimer, MeldepliktFormFields } from 'components/flyt/steg/utfylling/Utfylling';
 import { useFormContext } from 'react-hook-form';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
+import { TextFieldWrapper } from 'components/textfieldwrapper/TextFieldWrapper';
+import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 
 interface Props {
   felterIUken: MeldeperiodeUke;
 }
 
 export const UkeRapportering = ({ felterIUken }: Props) => {
-  const form = useFormContext();
+  const form = useFormContext<MeldepliktFormFields>();
   const { erLitenSkjerm } = useSkjermBredde();
 
   const alleDagerIUken = eachDayOfInterval({
@@ -27,7 +29,23 @@ export const UkeRapportering = ({ felterIUken }: Props) => {
 
   const felterMap = new Map(felterIUken.felter.map((field) => [field.dag, field]));
 
-  // console.log('errors', form.formState.errors);
+  const ukeUtfyllingErrors =
+    form.formState.errors?.dager && Array.isArray(form.formState.errors.dager)
+      ? form.formState.errors.dager
+          .filter((dag) => dag?.timer)
+          .map((dag) => ({
+            ref: dag.timer.ref.name,
+            message: dag.timer.message,
+          }))
+          .filter((error) => {
+            // Henter ut index fra ref (dager.3.timer)
+            const index = parseInt(error.ref.split('.')[1]);
+            return Array.from(felterMap.values()).some((field) => field.index === index);
+          })
+      : [];
+
+  const ukeUtfyllingErrorMeldinger = Array.from(new Set(ukeUtfyllingErrors.map((error) => error.message)));
+
   return (
     <div className={styles.rad}>
       <div className={styles.heading}>
@@ -41,42 +59,60 @@ export const UkeRapportering = ({ felterIUken }: Props) => {
             const dagStr = format(dag, 'yyyy-MM-dd');
             const dagINummer = format(new Date(dag), 'dd.MM');
             const eksisterendeFelt = felterMap.get(dagStr);
+            const harFeilmelding =
+              eksisterendeFelt?.index !== undefined
+                ? form.formState.errors?.dager?.[eksisterendeFelt.index]?.timer
+                : undefined;
 
             if (erLitenSkjerm && !eksisterendeFelt) {
               return null;
             }
 
+            const harVerdi = form.watch(`dager.${eksisterendeFelt?.index!}.timer`);
+
             return (
               <div
                 key={dag.toString()}
-                className={`${styles.dag} ${!eksisterendeFelt && styles.ikkeeksisterendefelt} ${form.watch(`dager.${eksisterendeFelt?.index}.timer`) && styles.erutfylt}`}
+                className={`${!eksisterendeFelt && styles.ikkeeksisterendefelt} ${harVerdi && styles.erutfylt} ${harFeilmelding && styles.harFeilmelding}`}
               >
-                <div className={`${styles.dagheading}`}>
-                  <Detail>{formaterUkedag(dag)}</Detail>
-                  <Heading size={'small'}>{dagINummer}</Heading>
+                <div className={styles.dag}>
+                  <div className={`${styles.dagheading}`}>
+                    <Detail>{formaterUkedag(dag)}</Detail>
+                    <Heading size={'small'}>{dagINummer}</Heading>
+                  </div>
+                  {eksisterendeFelt && (
+                    <TextFieldWrapper
+                      control={form.control}
+                      name={`dager.${eksisterendeFelt.index}.timer`}
+                      label={'Arbeid'}
+                      className={harFeilmelding ? styles.tekstfeltFeilmelding : ''}
+                      rules={{
+                        validate: (value) => {
+                          if (!erGyldigTimer(value as string)) {
+                            return 'Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer';
+                          }
+                        },
+                      }}
+                    />
+                  )}
                 </div>
-                {eksisterendeFelt && (
-                  <TextFieldWrapper
-                    control={form.control}
-                    name={`dager.${eksisterendeFelt.index}.timer`}
-                    type={'text'}
-                    size={'medium'}
-                    hideLabel
-                    label={'Arbeid'}
-                    rules={{
-                      validate: (value) => {
-                        if (!erGyldigTimer(value)) {
-                          return 'Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer';
-                        }
-                      },
-                    }}
-                  />
+                {harFeilmelding && erLitenSkjerm && (
+                  <div className={styles.error}>
+                    <XMarkOctagonFillIcon className={styles.errorIcon} fontSize={'2rem'} />
+                    <BodyShort>{harFeilmelding.message}</BodyShort>
+                  </div>
                 )}
               </div>
             );
           })}
         </div>
-        {/*<Alert variant={'error'}>Dette er en feilmelding som skal ligge tett opp til raden</Alert>*/}
+        {!erLitenSkjerm && ukeUtfyllingErrors.length > 0 && (
+          <Alert variant={'error'}>
+            {ukeUtfyllingErrorMeldinger.map((error, index) => {
+              return <BodyShort key={index}>{error}</BodyShort>;
+            })}
+          </Alert>
+        )}
       </VStack>
     </div>
   );
