@@ -86,7 +86,6 @@ export const Utfylling = ({ utfylling, referanse }: Props) => {
         errorMessage={errorMessage}
       >
         <VStack gap={'4'}>
-          <MeldekortLenke label={'Tilbake'} href={`/${referanse}/SPØRSMÅL`} />
           <Heading size={'large'} level={'2'}>
             Fyll ut meldekortet
           </Heading>
@@ -129,7 +128,6 @@ export function manglerTimerPåArbeid(value: MeldepliktFormFields, harSvartJaPå
 
   return value.dager.filter((dag) => dag.timer).length === 0;
 }
-
 
 export function replaceCommasWithDots(input: string): string {
   return input.replace(/,/g, '.');

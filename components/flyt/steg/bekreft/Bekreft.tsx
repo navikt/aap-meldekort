@@ -6,7 +6,6 @@ import { JaEllerNei } from 'lib/utils/form';
 import { Form } from 'components/form/Form';
 import { BodyShort, Heading, HStack, VStack } from '@navikt/ds-react';
 import { useRouter } from 'i18n/routing';
-import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { UtfyllingResponse } from 'lib/types/types';

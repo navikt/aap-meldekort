@@ -51,7 +51,6 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
       errorMessage={errorMessage}
     >
       <section className={'flex-column'}>
-        <MeldekortLenke label={'Tilbake'} href={`/`} />
         <div>
           <Heading
             level={'2'}
