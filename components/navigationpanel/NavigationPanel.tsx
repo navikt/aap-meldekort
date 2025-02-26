@@ -1,18 +1,16 @@
-import { ChevronRightIcon } from '@navikt/aksel-icons';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, HStack, VStack } from '@navikt/ds-react';
 
 import styles from 'components/navigationpanel/NavigationPanel.module.css';
-import { MeldekortStatus } from 'components/meldekortstatus/MeldekortStatus';
 import { Link } from 'i18n/routing';
-import { Status } from 'lib/types/types';
+import { ReactNode } from 'react';
 
 type Props = NavigationPanelButton | NavigationPanelLink;
 
 interface BaseNavigationPanel {
   title: string;
-  variant?: 'primary' | 'secondary';
   description?: string;
-  status?: Status;
+  rightIcon: ReactNode;
+  leftIcon?: ReactNode;
 }
 
 interface NavigationPanelButton extends BaseNavigationPanel {
@@ -25,30 +23,29 @@ interface NavigationPanelLink extends BaseNavigationPanel {
   href: string;
 }
 
-const NavigationPanelContent = ({ title, description, status }: BaseNavigationPanel) => (
-  <div className={styles.content}>
-    <div>
-      <BodyShort size={'large'} weight={'semibold'}>
-        {title}
-      </BodyShort>
-      {description && <BodyShort>{description}</BodyShort>}
-    </div>
-    <div className={styles.contentRight}>
-      {status && <MeldekortStatus status={status} />}
-      <ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />
-    </div>
-  </div>
+const NavigationPanelContent = ({ title, description, leftIcon, rightIcon }: BaseNavigationPanel) => (
+  <HStack justify={'space-between'} align={'center'}>
+    <HStack align={'center'} gap={'0 4'}>
+      {leftIcon && <div className={styles.icon}>{leftIcon}</div>}
+      <VStack align={'start'} gap={'1'}>
+        <BodyShort size={'large'} weight={'semibold'}>
+          {title}
+        </BodyShort>
+        {description && <BodyShort>{description}</BodyShort>}
+      </VStack>
+    </HStack>
+    {rightIcon}
+    {/*<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />*/}
+  </HStack>
 );
 
 export const NavigationPanel = (props: Props) => {
-  const className = props.variant === 'primary' ? styles.primary : styles.secondary;
-
   return props.type === 'link' ? (
-    <Link href={props.href} className={`${styles.link} ${className}`}>
+    <Link href={props.href} className={styles.link}>
       <NavigationPanelContent {...props} />
     </Link>
   ) : (
-    <button onClick={props.onClick} className={`${styles.link} ${className}`}>
+    <button onClick={props.onClick} className={styles.link}>
       <NavigationPanelContent {...props} />
     </button>
   );

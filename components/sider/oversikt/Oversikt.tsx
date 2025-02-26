@@ -6,6 +6,8 @@ import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { useTranslations } from 'next-intl';
 import { startInnsendingClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
+import { formaterDatoForFrontend } from 'lib/utils/date';
+import { ChevronRightIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons';
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
@@ -26,18 +28,19 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
         {t('client.oversikt.mottaAAP')}
       </BodyShort>
 
-      <VStack gap={'2'}>
+      <VStack gap={'4'}>
         <Heading level={'2'} size={'medium'}>
           {t('client.oversikt.sendMeldekort.heading')}
         </Heading>
-        <BodyShort size={'large'}>{t('client.oversikt.sendMeldekort.klareMeldekort')}</BodyShort>
         {kommendeMeldeperiode.nesteMeldeperiode ? (
           <NavigationPanel
             type={'button'}
-            variant={'primary'}
             title={t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
               antall: kommendeMeldeperiode.antallUbesvarteMeldeperioder,
             })}
+            description={`${formaterDatoForFrontend(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom)} - ${formaterDatoForFrontend(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)}`}
+            rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
+            leftIcon={<TasklistIcon fontSize={'2rem'} />}
             onClick={async () => {
               if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
                 const startInnsendingAvMeldekortResponse = await startInnsendingClient(
@@ -63,13 +66,18 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
         )}
       </VStack>
 
-      <VStack gap={'2'}>
+      <VStack gap={'4'}>
         <Heading level={'2'} size={'medium'}>
-          Tidligere innsendte meldekort
+          Se innsendte meldekort
         </Heading>
-        <BodyShort size={'large'}>Her kan du se og endre meldekort</BodyShort>
         {harInnsendteMeldeperioder ? (
-          <NavigationPanel type={'link'} variant={'primary'} title={'Gå til innsendte meldekort'} href={`/innsendt`} />
+          <NavigationPanel
+            type={'link'}
+            title={'Se og endre meldekort'}
+            href={`/innsendt`}
+            leftIcon={<PencilIcon fontSize={'2rem'} />}
+            rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
+          />
         ) : (
           <Alert variant={'info'}>
             <BodyShort size={'large'} weight={'semibold'} spacing>

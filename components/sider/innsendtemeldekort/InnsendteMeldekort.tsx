@@ -5,6 +5,9 @@ import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date
 import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { HistoriskMeldeperiode } from 'lib/types/types';
+import { PencilIcon } from '@navikt/aksel-icons';
+
+import styles from './InnsendteMeldekort.module.css';
 
 interface Props {
   innsendteMeldeperioder: HistoriskMeldeperiode[];
@@ -15,11 +18,11 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
     <HGrid gap={'4'}>
       <MeldekortLenke label={'Tilbake til oversikten'} href={`/`} />
       <Heading size={'medium'} level={'2'} spacing>
-        Oversikt over innsendte meldekort
+        Dine innsendte meldekort
       </Heading>
       <BodyShort>
-        Her kan du se alle tidligere meldekort du har sendt til Nav. Du kan endre et meldekort ved å klikke på
-        oversikten under.
+        Du kan endre innsendte meldekort 20 uker tilbake i tid. Hvis du endrer et meldekort vi allerede har utbetalt,
+        vil vi vurdere om du har rett på mer penger eller om du har fått for mye utbetalt.
       </BodyShort>
 
       {innsendteMeldeperioder.length > 0 ? (
@@ -34,14 +37,18 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
               <NavigationPanel
                 key={key}
                 type={'link'}
-                variant={'secondary'}
+                rightIcon={
+                  <div className={styles.endreicon}>
+                    <PencilIcon aria-hidden="true" />
+                    <span>Endre</span>
+                  </div>
+                }
                 title={`${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.tom)}`}
                 href={url}
                 description={`Uke ${hentUkeNummerForPeriode(
                   new Date(innsendtMeldekort.meldeperiode.fom),
                   new Date(innsendtMeldekort.meldeperiode.tom)
                 )}`}
-                status={innsendtMeldekort.status}
               />
             );
           })}

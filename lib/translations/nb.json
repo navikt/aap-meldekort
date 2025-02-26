@@ -29,7 +29,6 @@
             "mottaAAP": "For å motta AAP må du sende meldekort hver 14. dag. På meldekortet må du fylle ut om du har arbeidet og hvor mye du har jobbet",
             "sendMeldekort": {
                 "heading": "Send meldekort",
-                "klareMeldekort": "Meldekort som er klare for innsending vises her",
                 "antallKlareMeldekort": "{antall} meldekort klare for innsending",
                 "ingenMeldekort": "Ingen meldekort klare",
                 "nyeMeldekort": "Du har ingen meldekort som er åpne for innsending. Nye meldekort vil automatisk vises her."

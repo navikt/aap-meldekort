@@ -2,38 +2,22 @@
   text-decoration: none;
   border-radius: 10px;
   color: inherit;
-  padding: 0;
-  border: none;
   background-color: inherit;
   cursor: pointer;
-}
-
-.secondary {
-  border: 1px solid var(--a-gray-400);
-  padding: var(--a-spacing-4);
-}
-
-.primary {
-  background-color: var(--a-blue-100);
   padding: var(--a-spacing-6);
-}
-
-.content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.contentRight {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: var(--a-spacing-1);
+  border: 1px solid var(--a-gray-400);
 }
 
 .link:hover {
   box-shadow: var(--a-shadow-small);
   border-color: var(--a-border-action-hover);
   color: var(--a-text-action-hover);
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  background-color: var(--a-blue-100);
+  padding: var(--a-spacing-3);
+  border-radius: 50%;
 }
