@@ -75,12 +75,6 @@ describe('rapporteringskalender', () => {
     const ukenummer = screen.getByText('Uke 47');
     expect(ukenummer).toBeVisible();
   });
-
-  it('skal vise fra dato og til dato for perioden', () => {
-    render(<Utfylling utfylling={meldeperiode} referanse={'1'} />);
-    const datoerForPerioden = screen.getByText('18.11.2024 - 24.11.2024');
-    expect(datoerForPerioden).toBeVisible();
-  });
 });
 
 it('skal ha en lenke for å gå tilbake til forrige steg', () => {

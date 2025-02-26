@@ -130,17 +130,6 @@ export function manglerTimerPåArbeid(value: MeldepliktFormFields, harSvartJaPå
   return value.dager.filter((dag) => dag.timer).length === 0;
 }
 
-export function erGyldigTimer(value: string | null): boolean {
-  if (!value || value === '') {
-    return true;
-  }
-
-  const valueAsNumber = Number(replaceCommasWithDots(value));
-
-  if (isNaN(valueAsNumber) || valueAsNumber < 0 || valueAsNumber > 24) {
-    return false;
-  } else return (valueAsNumber * 10) % 5 === 0;
-}
 
 export function replaceCommasWithDots(input: string): string {
   return input.replace(/,/g, '.');

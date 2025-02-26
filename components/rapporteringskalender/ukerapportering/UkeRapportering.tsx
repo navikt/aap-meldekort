@@ -8,7 +8,7 @@ import { storForbokstav } from 'lib/utils/string';
 
 import styles from 'components/rapporteringskalender/ukerapportering/UkeRapportering.module.css';
 
-import { erGyldigTimer, MeldepliktFormFields } from 'components/flyt/steg/utfylling/Utfylling';
+import { MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/steg/utfylling/Utfylling';
 import { useFormContext } from 'react-hook-form';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { TextFieldWrapper } from 'components/textfieldwrapper/TextFieldWrapper';
@@ -88,8 +88,16 @@ export const UkeRapportering = ({ felterIUken }: Props) => {
                       className={harFeilmelding ? styles.tekstfeltFeilmelding : ''}
                       rules={{
                         validate: (value) => {
-                          if (!erGyldigTimer(value as string)) {
-                            return 'Du må fylle inn et tall mellom 0 og 24, og kan bare være hele eller halve timer';
+                          if (!value || value === '') {
+                            return true;
+                          }
+
+                          const valueAsNumber = Number(replaceCommasWithDots(value as string));
+
+                          if (isNaN(valueAsNumber) || valueAsNumber < 0 || valueAsNumber > 24) {
+                            return 'Du kan bare skrive tall mellom 0 og 24';
+                          } else if ((valueAsNumber * 10) % 5 !== 0) {
+                            return 'Du kan bare skrive inn hele eller halve timer.';
                           }
                         },
                       }}
