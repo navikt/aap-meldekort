@@ -66,7 +66,7 @@ describe('skjema oppsummering', () => {
   it('skal ha et felt for å vise hva som er besvart på om innbygger har vært i arbeid siste 14 dager', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedArbeid} />);
 
-    const label = screen.getByText('Har du vært i arbeid de siste 14 dagene?');
+    const label = screen.getByText('Har du arbeidet i perioden?');
     expect(label).toBeVisible();
     const JaSvar = screen.getByText('Ja');
     expect(JaSvar).toBeVisible();
@@ -75,37 +75,31 @@ describe('skjema oppsummering', () => {
   it('skal vise ukenummer og datoer for den første uken i perioden med tilhørende timer registrert', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedArbeid} />);
 
-    const ukenummer = screen.getByText('Uke 45');
-    expect(ukenummer).toBeVisible();
-
-    const periode = screen.getByText('04.11.2024 - 10.11.2024');
-    expect(periode).toBeVisible();
+    const label = screen.getByText('Uke 45 (04.11.2024 - 10.11.2024)');
+    expect(label).toBeVisible();
 
     const dag = screen.getByText('Mandag:');
     expect(dag).toBeVisible();
-    const timerArbeidet = screen.getByText('Arbeid 7.5 timer');
+    const timerArbeidet = screen.getByText('7.5 timer');
     expect(timerArbeidet).toBeVisible();
   });
 
   it('skal vise ukenummer og datoer for den andre uken i perioden med tilhørende timer registrert', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedArbeid} />);
 
-    const ukenummer = screen.getByText('Uke 46');
-    expect(ukenummer).toBeVisible();
-
-    const periode = screen.getByText('11.11.2024 - 17.11.2024');
-    expect(periode).toBeVisible();
+    const label = screen.getByText('Uke 46 (11.11.2024 - 17.11.2024)');
+    expect(label).toBeVisible();
 
     const dag = screen.getByText('Søndag:');
     expect(dag).toBeVisible();
-    const timerArbeidet = screen.getByText('Arbeid 5 timer');
+    const timerArbeidet = screen.getByText('5 timer');
     expect(timerArbeidet).toBeVisible();
   });
 
   it('skal vise lenker tilbake til stegene dersom flagget for å vise lenker er satt til true', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedArbeid} visLenkeTilbakeTilSteg={true} />);
 
-    const endreOmDuHarArbeidetLink = screen.getByRole('link', { name: 'Endre om du har arbeidet i perioden' });
+    const endreOmDuHarArbeidetLink = screen.getByRole('link', { name: 'Endre om du har arbeidet' });
     expect(endreOmDuHarArbeidetLink).toBeVisible();
 
     const endreAntallTimerArbeidetLink = screen.getByRole('link', { name: 'Endre antall timer arbeidet' });
