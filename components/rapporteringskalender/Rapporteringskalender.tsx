@@ -5,7 +5,7 @@ import { FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form
 
 import { MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/steg/utfylling/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
-import { UkeRapportering } from 'components/rapporteringskalender/ukerapportering/UkeRapportering';
+import { UkeRad } from 'components/rapporteringskalender/ukerad/UkeRad';
 
 import styles from './Rapporteringskalender.module.css';
 
@@ -53,7 +53,7 @@ export const Rapporteringskalender = () => {
     <div className={styles.rapporteringskalender}>
       <div className={styles.kalender}>
         {Object.entries(meldeperiodeUker).map(([ukeStart, felterIUken]) => (
-          <UkeRapportering key={ukeStart} felterIUken={felterIUken} />
+          <UkeRad key={ukeStart} felterIUken={felterIUken} />
         ))}
       </div>
 
