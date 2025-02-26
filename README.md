@@ -21,6 +21,8 @@ I tillegg må du kopiere `.env-template` til `.env.local` for å kunne kjøre lo
 
 ### Kjøre lokalt
 
+Kjør opp lokal backend ved å klone repoet meldekort-backend og kjøre det opp lokalt. 
+
 ```
 yarn dev
 ```
