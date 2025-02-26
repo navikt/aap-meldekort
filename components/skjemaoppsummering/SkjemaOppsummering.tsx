@@ -6,6 +6,7 @@ import { useParamsMedType } from 'lib/utils/url';
 import { formaterDatoForFrontend, hentUkeNummerForDato } from 'lib/utils/date';
 import { storForbokstav } from 'lib/utils/string';
 import { nb } from 'date-fns/locale';
+import { regnUtTimer } from 'lib/utils/meldekort';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -43,6 +44,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
     {} as Record<string, OppsummeringMeldeperiodeUke>
   );
 
+  console.log(meldeperiodeUker);
   return (
     <FormSummary>
       <FormSummary.Header>
@@ -54,7 +56,9 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
           <FormSummary.Label>
             <HStack justify={'space-between'}>
               <BodyShort weight={'semibold'}>Har du arbeidet i perioden?</BodyShort>
-              {visLenkeTilbakeTilSteg && <MeldekortLenke label={'Endre svar'} href={`/${params.referanse}/SPØRSMÅL`} visIcon={false}/>}
+              {visLenkeTilbakeTilSteg && (
+                <MeldekortLenke label={'Endre svar'} href={`/${params.referanse}/SPØRSMÅL`} visIcon={false} />
+              )}
             </HStack>
           </FormSummary.Label>
           <FormSummary.Value>{utfylling.tilstand.svar.harDuJobbet ? 'Ja' : 'Nei'}</FormSummary.Value>
@@ -66,7 +70,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
               <HStack justify={'space-between'}>
                 <BodyShort weight={'semibold'}>Antall timer arbeidet</BodyShort>
                 {visLenkeTilbakeTilSteg && (
-                  <MeldekortLenke label={'Endre svar'} href={`/${params.referanse}/UTFYLLING`} visIcon={false}/>
+                  <MeldekortLenke label={'Endre svar'} href={`/${params.referanse}/UTFYLLING`} visIcon={false} />
                 )}
               </HStack>
             </FormSummary.Label>
@@ -93,6 +97,10 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                     </FormSummary.Answer>
                   );
                 })}
+                <FormSummary.Answer>
+                  <FormSummary.Label>Sammenlagt for perioden</FormSummary.Label>
+                  <FormSummary.Value>{`${regnUtTimer(Object.values(meldeperiodeUker).flatMap((uke) => uke.dager))} timer arbeidet`}</FormSummary.Value>
+                </FormSummary.Answer>
               </FormSummary.Answers>
             </FormSummary.Value>
           </FormSummary.Answer>
