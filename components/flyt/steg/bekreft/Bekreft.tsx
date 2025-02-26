@@ -4,7 +4,7 @@ import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHoo
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { JaEllerNei } from 'lib/utils/form';
 import { Form } from 'components/form/Form';
-import { BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, HStack, VStack } from '@navikt/ds-react';
 import { useRouter } from 'i18n/routing';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
@@ -57,22 +57,16 @@ export const Bekreft = ({ referanse, utfylling }: Props) => {
       isLoading={isLoading}
       errorMessage={errorMessage}
     >
-      <VStack gap={'6'}>
-        <MeldekortLenke
-          label={'Tilbake'}
-          href={`/${referanse}/${utfylling.tilstand.svar.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL'}`}
-        />
-        <Heading size={'large'} level={'2'} spacing>
-          Se over og send inn meldekort
-        </Heading>
-
-        <BodyShort spacing>
-          Se over opplysningene på meldekortet ditt og pass på at alt er riktig før du sender inn.
-        </BodyShort>
-
+      <VStack gap={'4'}>
         <VStack gap={'2'}>
-          <BodyShort weight={'semibold'}>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)}`}</BodyShort>
-          <BodyShort>{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
+          <Heading size={'large'} level={'2'} spacing>
+            Se over og send inn meldekort
+          </Heading>
+
+          <HStack gap={'2'}>
+            <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)}`}</BodyShort>
+            <BodyShort>{`(${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
+          </HStack>
         </VStack>
 
         <SkjemaOppsummering utfylling={utfylling} visLenkeTilbakeTilSteg={true} />

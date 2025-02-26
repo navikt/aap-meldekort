@@ -6,12 +6,13 @@ import { Link } from 'i18n/routing';
 interface Props {
   label: string;
   href: string;
+  visIcon?: boolean;
 }
 
-export const MeldekortLenke = ({ label, href }: Props) => {
+export const MeldekortLenke = ({ label, href, visIcon = true }: Props) => {
   return (
     <Link href={href} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-      <ArrowLeftIcon aria-hidden="true" />
+      {visIcon && <ArrowLeftIcon aria-hidden="true" />}
       <span>{label}</span>
     </Link>
   );

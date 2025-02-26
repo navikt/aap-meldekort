@@ -1,11 +1,11 @@
 import { DagSvar, UtfyllingResponse } from 'lib/types/types';
-import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
+import { BodyShort, FormSummary, HStack } from '@navikt/ds-react';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
-import { formaterDatoForFrontend } from 'lib/utils/date';
-import { storForbokstav } from 'lib/utils/string';
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';
-import { nb } from 'date-fns/locale';
 import { useParamsMedType } from 'lib/utils/url';
+import { formaterDatoForFrontend, hentUkeNummerForDato } from 'lib/utils/date';
+import { storForbokstav } from 'lib/utils/string';
+import { nb } from 'date-fns/locale';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -44,50 +44,60 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
   );
 
   return (
-    <VStack gap={'6'}>
-      <VStack gap={'6'}>
-        <VStack gap={'1'}>
-          <Label>Har du vært i arbeid de siste 14 dagene?</Label>
-          <BodyShort>{utfylling.tilstand.svar.harDuJobbet ? 'Ja' : 'Nei'}</BodyShort>
-        </VStack>
-        {visLenkeTilbakeTilSteg && (
-          <MeldekortLenke label={'Endre om du har arbeidet i perioden'} href={`/${params.referanse}/SPØRSMÅL`} />
-        )}
-      </VStack>
+    <FormSummary>
+      <FormSummary.Header>
+        <FormSummary.Heading level={'3'}>Oppsummering</FormSummary.Heading>
+      </FormSummary.Header>
 
-      {utfylling.tilstand.svar.harDuJobbet && (
-        <VStack gap={'8'}>
-          {Object.entries(meldeperiodeUker).map(([ukeStart, uke]) => {
-            return (
-              <VStack gap={'4'} key={ukeStart}>
-                <VStack gap={'2'}>
-                  <BodyShort weight={'semibold'}>{`Uke ${uke.ukeNummer}`}</BodyShort>
-                  <BodyShort>{`${formaterDatoForFrontend(uke.ukeStart)} - ${formaterDatoForFrontend(uke.ukeSlutt)}`}</BodyShort>
-                </VStack>
-                <VStack gap={'4'}>
-                  <VStack gap={'2'}>
-                    {uke.dager
-                      .filter((dag) => dag.timerArbeidet)
-                      .map((dag) => {
-                        return (
-                          <HStack gap={'2'} key={dag.dato}>
-                            <BodyShort weight={'semibold'}>
-                              {storForbokstav(format(new Date(dag.dato), 'EEEE', { locale: nb }))}:
-                            </BodyShort>
-                            <BodyShort>{`Arbeid ${dag.timerArbeidet} timer`}</BodyShort>
-                          </HStack>
-                        );
-                      })}
-                  </VStack>
-                </VStack>
-              </VStack>
-            );
-          })}
-          {visLenkeTilbakeTilSteg && (
-            <MeldekortLenke label={'Endre antall timer arbeidet'} href={`/${params.referanse}/UTFYLLING`} />
-          )}
-        </VStack>
-      )}
-    </VStack>
+      <FormSummary.Answers>
+        <FormSummary.Answer>
+          <FormSummary.Label>
+            <HStack justify={'space-between'}>
+              <BodyShort weight={'semibold'}>Har du arbeidet i perioden?</BodyShort>
+              {visLenkeTilbakeTilSteg && <MeldekortLenke label={'Endre svar'} href={`/${params.referanse}/SPØRSMÅL`} visIcon={false}/>}
+            </HStack>
+          </FormSummary.Label>
+          <FormSummary.Value>{utfylling.tilstand.svar.harDuJobbet ? 'Ja' : 'Nei'}</FormSummary.Value>
+        </FormSummary.Answer>
+
+        {utfylling.tilstand.svar.harDuJobbet && (
+          <FormSummary.Answer>
+            <FormSummary.Label>
+              <HStack justify={'space-between'}>
+                <BodyShort weight={'semibold'}>Antall timer arbeidet</BodyShort>
+                {visLenkeTilbakeTilSteg && (
+                  <MeldekortLenke label={'Endre svar'} href={`/${params.referanse}/UTFYLLING`} visIcon={false}/>
+                )}
+              </HStack>
+            </FormSummary.Label>
+            <FormSummary.Value>
+              <FormSummary.Answers>
+                {Object.entries(meldeperiodeUker).map(([ukeStart, uke], index) => {
+                  return (
+                    <FormSummary.Answer key={index}>
+                      <FormSummary.Label>{`Uke ${hentUkeNummerForDato(uke.ukeStart)} (${formaterDatoForFrontend(uke.ukeStart)} - ${formaterDatoForFrontend(uke.ukeSlutt)})`}</FormSummary.Label>
+                      <FormSummary.Value>
+                        {uke.dager
+                          .filter((dag) => dag.timerArbeidet)
+                          .map((dag) => {
+                            return (
+                              <HStack gap={'2'} key={dag.dato}>
+                                <BodyShort>
+                                  {storForbokstav(format(new Date(dag.dato), 'EEEE', { locale: nb }))}:
+                                </BodyShort>
+                                <BodyShort>{`${dag.timerArbeidet} timer`}</BodyShort>
+                              </HStack>
+                            );
+                          })}
+                      </FormSummary.Value>
+                    </FormSummary.Answer>
+                  );
+                })}
+              </FormSummary.Answers>
+            </FormSummary.Value>
+          </FormSummary.Answer>
+        )}
+      </FormSummary.Answers>
+    </FormSummary>
   );
 };
