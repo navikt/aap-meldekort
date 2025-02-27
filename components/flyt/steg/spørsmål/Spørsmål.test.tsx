@@ -26,12 +26,12 @@ describe('Periode', () => {
   beforeEach(() => render(<Spørsmål utfylling={periode} referanse={'1234'} />));
 
   it('Skal ha en heading', () => {
-    const heading = screen.getByRole('heading', { name: 'Arbeid i uke 47 og 48', level: 2 });
+    const heading = screen.getByRole('heading', { name: 'Fyll ut meldekort', level: 2 });
     expect(heading).toBeVisible();
   });
 
-  it('skal vise startdato og sluttdato for perioden', () => {
-    const tekst = screen.getByText('18.11.2024 - 01.12.2024');
+  it('skal vise dato og uker for perioden', () => {
+    const tekst = screen.getByText('Uke 47 - 48 (18.11.2024 - 01.12.2024)');
     expect(tekst).toBeVisible();
   });
 

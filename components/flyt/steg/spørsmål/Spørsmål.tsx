@@ -4,7 +4,7 @@ import { Form } from 'components/form/Form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { getJaNeiEllerUndefined, JaEllerNei, JaEllerNeiOptions } from 'lib/utils/form';
 import { BodyShort, Heading, HGrid } from '@navikt/ds-react';
-import { formaterDatoForFrontend, hentUkeNummerForDato } from 'lib/utils/date';
+import { formaterDatoForFrontend, hentUkeNummerForDato, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { useRouter } from 'i18n/routing';
 import { UtfyllingResponse } from 'lib/types/types';
@@ -61,10 +61,10 @@ export const Spørsmål = ({ utfylling, referanse }: Props) => {
     >
       <HGrid gap={'8'}>
         <div>
-          <Heading level={'2'} size={'medium'}>
-            {`Arbeid i uke ${hentUkeNummerForDato(fraDato)} og ${hentUkeNummerForDato(tilDato)}`}
+          <Heading level={'2'} size={'large'} spacing>
+            Fyll ut meldekort
           </Heading>
-          <BodyShort>{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
+          <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
         </div>
         <FormField form={form} formField={formFields.harDuJobbet} size={'medium'} />
       </HGrid>

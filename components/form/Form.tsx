@@ -23,7 +23,7 @@ export const Form = ({
   errorMessage,
   isLoading = false,
   nesteStegKnappTekst = 'Neste',
-  forrigeStegKnappTekst = 'Tilbake',
+  forrigeStegKnappTekst = 'Forrige',
 }: Props) => {
   return (
     <form onSubmit={onSubmit} autoComplete={'off'}>
