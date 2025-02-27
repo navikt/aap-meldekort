@@ -1,10 +1,7 @@
 import { render, screen } from 'lib/utils/test/customRender';
 import { describe, expect, it } from 'vitest';
 import { Introduksjon } from 'components/flyt/steg/introduksjon/Introduksjon';
-import { userEvent } from '@testing-library/user-event';
 import { UtfyllingResponse } from 'lib/types/types';
-
-const user = userEvent.setup();
 
 const meldekort: UtfyllingResponse = {
   metadata: {

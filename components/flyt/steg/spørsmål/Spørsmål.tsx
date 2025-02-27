@@ -4,7 +4,7 @@ import { Form } from 'components/form/Form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { getJaNeiEllerUndefined, JaEllerNei, JaEllerNeiOptions } from 'lib/utils/form';
 import { BodyShort, Heading, HGrid } from '@navikt/ds-react';
-import { formaterDatoForFrontend, hentUkeNummerForDato, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { useRouter } from 'i18n/routing';
 import { UtfyllingResponse } from 'lib/types/types';
