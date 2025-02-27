@@ -8,6 +8,10 @@
   opacity: 0.5;
 }
 
+.dagwrapper {
+  flex: 1;
+}
+
 .dag {
   display: flex;
   flex-direction: column;

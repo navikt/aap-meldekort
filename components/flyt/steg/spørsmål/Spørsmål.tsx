@@ -59,7 +59,7 @@ export const Spørsmål = ({ utfylling, referanse }: Props) => {
       isLoading={isLoading}
       errorMessage={errorMessage}
     >
-      <HGrid gap={'8'}>
+      <HGrid gap={'6'}>
         <div>
           <Heading level={'2'} size={'large'} spacing>
             Fyll ut meldekort

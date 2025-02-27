@@ -32,7 +32,7 @@ export const UkeDag = ({ dag, felterMap }: Props) => {
 
   return (
     <div
-      className={`${!eksisterendeFelt && styles.ikkeeksisterendefelt} ${harVerdi && styles.erutfylt} ${harFeilmelding && styles.harFeilmelding}`}
+      className={`${styles.dagwrapper} ${!eksisterendeFelt && styles.ikkeeksisterendefelt} ${harVerdi && styles.erutfylt} ${harFeilmelding && styles.harFeilmelding}`}
     >
       <div className={styles.dag}>
         <div className={`${styles.dagheading}`}>
