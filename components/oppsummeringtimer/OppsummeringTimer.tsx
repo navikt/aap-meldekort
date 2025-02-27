@@ -8,12 +8,5 @@ interface Props {
 export const OppsummeringTimer = ({ timer }: Props) => {
   const antallTimerIProsent = regnUtProsent(timer);
 
-  return (
-    <OppsummeringRad
-      heading={'Sammenlagt for perioden'}
-      label={'Jobb'}
-      value={`${timer} timer (${antallTimerIProsent}%)`}
-      backgroundColor={'blue'}
-    />
-  );
+  return <OppsummeringRad label={'Sammenlagt for perioden'} value={`${timer} timer (${antallTimerIProsent}%)`} />;
 };

@@ -60,6 +60,7 @@ export const Rapporteringskalender = () => {
       <OppsummeringTimer
         timer={form
           .watch('dager')
+          .filter((value) => Number(value.timer))
           .reduce((acc, curr) => acc + (curr.timer ? Number(replaceCommasWithDots(curr.timer)) : 0), 0)}
       />
     </div>

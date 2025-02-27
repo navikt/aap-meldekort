@@ -3,19 +3,12 @@ import { render, screen } from '@testing-library/react';
 import { OppsummeringRad } from 'components/oppsummeringrad/OppsummeringRad';
 
 beforeEach(() => {
-  render(
-    <OppsummeringRad
-      heading={'Sammenlagt for perioden'}
-      label={'Jobb'}
-      value={'26 timer (35%)'}
-      backgroundColor={'blue'}
-    />
-  );
+  render(<OppsummeringRad label={'Sammenlagt for perioden'} value={'26 timer (35%)'} />);
 });
 
 describe('oppsummeringrad', () => {
   it('skal ha en label', () => {
-    const label = screen.getByText('Jobb');
+    const label = screen.getByText('Sammenlagt for perioden');
     expect(label).toBeVisible();
   });
 
