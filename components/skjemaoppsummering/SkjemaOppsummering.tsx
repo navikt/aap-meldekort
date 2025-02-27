@@ -56,11 +56,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
             <HStack justify={'space-between'}>
               <BodyShort weight={'semibold'}>Har du arbeidet i perioden?</BodyShort>
               {visLenkeTilbakeTilSteg && (
-                <MeldekortLenke
-                  label={'Endre om du har arbeidet'}
-                  href={`/${params.referanse}/SPØRSMÅL`}
-                  visIcon={false}
-                />
+                <MeldekortLenke label={'Endre'} href={`/${params.referanse}/SPØRSMÅL`} visIcon={false} />
               )}
             </HStack>
           </FormSummary.Label>
@@ -73,11 +69,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
               <HStack justify={'space-between'}>
                 <BodyShort weight={'semibold'}>Antall timer arbeidet</BodyShort>
                 {visLenkeTilbakeTilSteg && (
-                  <MeldekortLenke
-                    label={'Endre antall timer arbeidet'}
-                    href={`/${params.referanse}/UTFYLLING`}
-                    visIcon={false}
-                  />
+                  <MeldekortLenke label={'Endre'} href={`/${params.referanse}/UTFYLLING`} visIcon={false} />
                 )}
               </HStack>
             </FormSummary.Label>

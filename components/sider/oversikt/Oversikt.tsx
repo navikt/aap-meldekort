@@ -1,7 +1,7 @@
 'use client';
 
 import { KommendeMeldekort } from 'lib/types/types';
-import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { useTranslations } from 'next-intl';
 import { startInnsendingClient } from 'lib/client/clientApi';
@@ -18,21 +18,15 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
   const t = useTranslations();
   const router = useRouter();
 
-  if (!kommendeMeldeperiode) {
-    return <div>{t('client.oversikt.ingenMeldekort')}</div>;
-  }
-
   return (
     <VStack gap={'4'}>
-      <BodyShort size={'large'} spacing>
-        {t('client.oversikt.mottaAAP')}
-      </BodyShort>
+      <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>
 
       <VStack gap={'4'}>
         <Heading level={'2'} size={'medium'}>
           {t('client.oversikt.sendMeldekort.heading')}
         </Heading>
-        {kommendeMeldeperiode.nesteMeldeperiode ? (
+        {kommendeMeldeperiode?.nesteMeldeperiode ? (
           <NavigationPanel
             type={'button'}
             title={t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
@@ -57,20 +51,15 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
             }}
           />
         ) : (
-          <Alert variant={'info'}>
-            <BodyShort size={'large'} weight={'semibold'} spacing>
-              {t('client.oversikt.sendMeldekort.ingenMeldekort')}
-            </BodyShort>
-            <BodyShort size={'large'}>{t('client.oversikt.sendMeldekort.nyeMeldekort')}</BodyShort>
-          </Alert>
+          <BodyShort spacing>{t('client.oversikt.sendMeldekort.ingenMeldekort')}</BodyShort>
         )}
       </VStack>
 
-      <VStack gap={'4'}>
-        <Heading level={'2'} size={'medium'}>
-          Se innsendte meldekort
-        </Heading>
-        {harInnsendteMeldeperioder ? (
+      {harInnsendteMeldeperioder && (
+        <VStack gap={'4'}>
+          <Heading level={'2'} size={'medium'}>
+            Se innsendte meldekort
+          </Heading>
           <NavigationPanel
             type={'link'}
             title={'Se og endre meldekort'}
@@ -78,18 +67,8 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
             leftIcon={<PencilIcon fontSize={'2rem'} />}
             rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
           />
-        ) : (
-          <Alert variant={'info'}>
-            <BodyShort size={'large'} weight={'semibold'} spacing>
-              Ingen meldekort innsendt
-            </BodyShort>
-            <BodyShort size={'large'}>
-              Du har ingen innsendte meldekort. Hvis du nettopp har sendt et meldekort, kan det ta en stund før det
-              vises her.
-            </BodyShort>
-          </Alert>
-        )}
-      </VStack>
+        </VStack>
+      )}
     </VStack>
   );
 };
