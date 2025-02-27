@@ -1,14 +1,14 @@
 'use client';
 
 import { Form } from 'components/form/Form';
-import { Rapporteringskalender } from 'components/rapporteringskalender/Rapporteringskalender';
-import { Alert, BodyLong, ErrorSummary, Heading, List, ReadMore, VStack } from '@navikt/ds-react';
-import { useConfigForm } from '@navikt/aap-felles-react';
-import { FormProvider } from 'react-hook-form';
+import { Rapporteringskalender, rapporteringskalenderId } from 'components/rapporteringskalender/Rapporteringskalender';
+import { BodyLong, BodyShort, ErrorSummary, Heading, ReadMore, VStack } from '@navikt/ds-react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { useRouter } from 'i18n/routing';
 import { UtfyllingResponse } from 'lib/types/types';
+import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -27,19 +27,18 @@ interface Dag {
 export const Utfylling = ({ utfylling, referanse }: Props) => {
   const router = useRouter();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
-  const [errors, setErrors] = useState<string[]>([]);
+  const [skjemaError, setSkjemaError] = useState<string>();
 
-  const { form } = useConfigForm<MeldepliktFormFields>({
-    dager: {
-      type: 'fieldArray',
-      defaultValue: utfylling.tilstand.svar.dager.map((dag) => ({
+  const form = useForm<MeldepliktFormFields>({
+    defaultValues: {
+      dager: utfylling.tilstand.svar.dager.map((dag) => ({
         dag: dag.dato,
         timer: dag.timerArbeidet == null || dag.timerArbeidet === 0 ? '' : dag.timerArbeidet.toString(),
       })),
     },
   });
 
-  const meldeperiodeUtfyllingErrors =
+  const feltErrors =
     form.formState.errors?.dager && Array.isArray(form.formState.errors.dager)
       ? form.formState.errors.dager
           .filter((dag) => dag?.timer)
@@ -49,22 +48,24 @@ export const Utfylling = ({ utfylling, referanse }: Props) => {
           }))
       : [];
 
+  const feilmeldinger = skjemaError
+    ? [...[{ ref: rapporteringskalenderId, message: skjemaError }], ...feltErrors]
+    : feltErrors;
+
+  const fraDato = new Date(utfylling.metadata.periode.fom);
+  const tilDato = new Date(utfylling.metadata.periode.tom);
+
   return (
     <FormProvider {...form}>
       <Form
         forrigeStegOnClick={() => router.push(`/${referanse}/SPØRSMÅL`)}
         nesteStegKnappTekst={'Neste'}
         onSubmit={form.handleSubmit(async (data) => {
-          setErrors([]);
-          const skjemaErrors: string[] = [];
+          setSkjemaError(undefined);
 
           if (manglerTimerPåArbeid(data, !!utfylling.tilstand.svar.harDuJobbet)) {
-            skjemaErrors.push('Du må føre timer');
-          }
-
-          setErrors(skjemaErrors);
-
-          if (skjemaErrors.length === 0) {
+            setSkjemaError('Du har svart at du har arbeidet i perioden, og må dermed føre timer.');
+          } else {
             løsStegOgGåTilNeste({
               nyTilstand: {
                 aktivtSteg: 'UTFYLLING',
@@ -77,43 +78,35 @@ export const Utfylling = ({ utfylling, referanse }: Props) => {
                 },
               },
             });
-          } else {
-            window.scrollTo(0, 0);
           }
         })}
         isLoading={isLoading}
         errorMessage={errorMessage}
       >
-        <VStack gap={'4'}>
-          <Heading size={'large'} level={'2'}>
-            Fyll ut meldekortet
-          </Heading>
+        <VStack gap={'6'}>
+          <div>
+            <Heading level={'2'} size={'large'} spacing>
+              Fyll ut meldekort
+            </Heading>
+            <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
+          </div>
           <BodyLong>
-            Fyll inn timene du har arbeidet i perioden. Timer skrives med desimal til nærmeste halvtime. 7 timer og 30
-            min = 7,5 timer. 30 min = 0,50 timer
+            Skriv inn timene du har arbeidet for perioden. Timer skrives med desimal til nærmeste halvtime. For eksempel
+            blir 7 timer og 30 min = 7,5 timer.
           </BodyLong>
           <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det informasjon</ReadMore>
 
-          {meldeperiodeUtfyllingErrors.length > 0 && (
+          <Rapporteringskalender />
+
+          {feilmeldinger.length > 0 && (
             <ErrorSummary>
-              {meldeperiodeUtfyllingErrors.map((error) => (
+              {feilmeldinger.map((error) => (
                 <ErrorSummary.Item key={error.ref} href={`#${encodeURIComponent(error.ref)}`}>
                   {error.message}
                 </ErrorSummary.Item>
               ))}
             </ErrorSummary>
           )}
-
-          {errors.length > 0 && (
-            <Alert variant={'error'}>
-              <List>
-                {errors.map((error, index) => {
-                  return <List.Item key={index}>{error}</List.Item>;
-                })}
-              </List>
-            </Alert>
-          )}
-          <Rapporteringskalender />
         </VStack>
       </Form>
     </FormProvider>

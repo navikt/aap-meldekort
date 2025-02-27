@@ -20,6 +20,8 @@ export interface MeldeperiodeUke {
   felter: FieldArrayWithIndex[];
 }
 
+export const rapporteringskalenderId = 'rapporteringskalender';
+
 export const Rapporteringskalender = () => {
   const form = useFormContext<MeldepliktFormFields>();
 
@@ -50,7 +52,7 @@ export const Rapporteringskalender = () => {
   );
 
   return (
-    <div className={styles.rapporteringskalender}>
+    <div className={styles.rapporteringskalender} id={rapporteringskalenderId}>
       <div className={styles.kalender}>
         {Object.entries(meldeperiodeUker).map(([ukeStart, felterIUken]) => (
           <UkeRad key={ukeStart} felterIUken={felterIUken} />
