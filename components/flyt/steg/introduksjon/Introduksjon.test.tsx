@@ -23,33 +23,27 @@ const meldekort: UtfyllingResponse = {
 };
 
 describe('generelt', () => {
+  it('skal vise en heading med meldeperioden', () => {
+    render(<Introduksjon utfylling={meldekort} referanse={'1234'} />);
+    const heading = screen.getByRole('heading', { name: 'Meldekort for uke 47 - 48' });
+    expect(heading).toBeVisible();
+  });
+
+  it('skal vise en meldeperioden med dato', () => {
+    render(<Introduksjon utfylling={meldekort} referanse={'1234'} />);
+    const meldeperiode = screen.getByText('18.11.2024 - 01.12.2024');
+    expect(meldeperiode).toBeVisible();
+  });
+
   it('skal ha en lenke til en side som opplyser om viktigheten av å gi riktige opplysninger ', () => {
     render(<Introduksjon utfylling={meldekort} referanse={'1234'} />);
     const link = screen.getByRole('link', { name: 'Les mer om viktigheten av å gi riktige opplysninger' });
     expect(link).toBeVisible();
-  });
-});
-
-describe('skjema', () => {
-  it('skal ha et felt for å bekrefte at bruker vil fylle ut meldekortet riktig', () => {
-    render(<Introduksjon utfylling={meldekort} referanse={'1234'} />);
-    const checkbox = screen.getByRole('checkbox', {
-      name: 'Jeg bekrefter at jeg vil fylle ut meldekortet så riktig jeg kan.',
-    });
-    expect(checkbox).toBeVisible();
   });
 
   it('skal ha en knapp for å gå videre til neste steg', () => {
     render(<Introduksjon utfylling={meldekort} referanse={'1234'} />);
     const button = screen.getByRole('button', { name: 'Neste' });
     expect(button).toBeVisible();
-  });
-
-  it('skal vise en feilmelding dersom man ikke bekrefter', async () => {
-    render(<Introduksjon utfylling={meldekort} referanse={'1234'} />);
-    const button = screen.getByRole('button', { name: 'Neste' });
-    await user.click(button);
-    const feilmelding = screen.getByText('Du må bekrefte at du vil fylle ut meldekortet så riktig du kan');
-    expect(feilmelding).toBeVisible();
   });
 });
