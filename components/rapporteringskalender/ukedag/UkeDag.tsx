@@ -42,6 +42,7 @@ export const UkeDag = ({ dag, felterMap }: Props) => {
         {eksisterendeFelt && (
           <TextFieldWrapper
             control={form.control}
+            id={`dager${eksisterendeFelt.index}timer`}
             name={`dager.${eksisterendeFelt.index}.timer`}
             label={'Arbeid'}
             className={harFeilmelding ? styles.tekstfeltFeilmelding : ''}

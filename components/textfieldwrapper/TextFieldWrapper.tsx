@@ -4,6 +4,7 @@ import { Control, Controller, FieldPath, FieldValues, RegisterOptions } from 're
 
 export interface TextFieldProps<FormFieldValues extends FieldValues> {
   name: FieldPath<FormFieldValues>;
+  id: string;
   label?: string;
   hideLabel?: boolean;
   control: Control<FormFieldValues>;
@@ -17,6 +18,7 @@ export const TextFieldWrapper = <FormFieldValues extends FieldValues>({
   control,
   rules,
   className,
+  id,
 }: TextFieldProps<FormFieldValues>) => (
   <Controller
     name={name}
@@ -24,7 +26,7 @@ export const TextFieldWrapper = <FormFieldValues extends FieldValues>({
     rules={rules}
     render={({ field: { name, value, onChange } }) => (
       <TextField
-        id={name}
+        id={id}
         name={name}
         size={'medium'}
         label={label}

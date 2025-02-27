@@ -101,7 +101,7 @@ export const Utfylling = ({ utfylling, referanse }: Props) => {
           {feilmeldinger.length > 0 && (
             <ErrorSummary>
               {feilmeldinger.map((error) => (
-                <ErrorSummary.Item key={error.ref} href={`#${encodeURIComponent(error.ref)}`}>
+                <ErrorSummary.Item key={error.ref} href={`#${removeDots(error.ref)}`}>
                   {error.message}
                 </ErrorSummary.Item>
               ))}
@@ -123,4 +123,8 @@ export function manglerTimerPåArbeid(value: MeldepliktFormFields, harSvartJaPå
 
 export function replaceCommasWithDots(input: string): string {
   return input.replace(/,/g, '.');
+}
+
+function removeDots(input: string): string {
+  return input.replace(/\./g, '');
 }
