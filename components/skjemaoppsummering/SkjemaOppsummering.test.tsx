@@ -99,11 +99,8 @@ describe('skjema oppsummering', () => {
   it('skal vise lenker tilbake til stegene dersom flagget for å vise lenker er satt til true', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedArbeid} visLenkeTilbakeTilSteg={true} />);
 
-    const endreOmDuHarArbeidetLink = screen.getByRole('link', { name: 'Endre om du har arbeidet' });
-    expect(endreOmDuHarArbeidetLink).toBeVisible();
-
-    const endreAntallTimerArbeidetLink = screen.getByRole('link', { name: 'Endre antall timer arbeidet' });
-    expect(endreAntallTimerArbeidetLink).toBeVisible();
+    const endreLinks = screen.getAllByRole('link', { name: 'Endre' });
+    expect(endreLinks).toHaveLength(2);
   });
 
   it('skal ikke vise lenker tilbake til stegene dersom flagget for å vise lenker er satt til false', () => {

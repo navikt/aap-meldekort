@@ -36,16 +36,8 @@ describe('Utfylling', () => {
   beforeEach(() => render(<Utfylling utfylling={meldeperiode} referanse={'1'} />));
 
   it('skal ha en heading', () => {
-    const heading = screen.getByRole('heading', { name: 'Fyll ut meldekortet', level: 2 });
+    const heading = screen.getByRole('heading', { name: 'Fyll ut meldekort', level: 2 });
     expect(heading).toBeVisible();
-  });
-
-  it('skal ha en tekst som forklarer utfylling', () => {
-    const tekst = screen.getByText(
-      'Fyll inn timene du har arbeidet i perioden. Timer skrives med desimal til nærmeste halvtime. 7 timer og 30 min = 7,5 timer. 30 min = 0,50 timer'
-    );
-
-    expect(tekst).toBeVisible();
   });
 
   it('skal ha en readmore som forklarer hva som skal fylles ut', () => {

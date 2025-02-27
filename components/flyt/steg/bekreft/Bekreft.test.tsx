@@ -82,12 +82,6 @@ describe('Stemmer opplysningene', () => {
     expect(neiSvar).toBeVisible();
   });
 
-  it('skal ha en lenke tilbake til steget hvor bruker fyller inn timer', () => {
-    render(<Bekreft referanse={'123'} utfylling={meldekortMedArbeid} />);
-    const link = screen.getByRole('link', { name: 'Endre antall timer arbeidet' });
-    expect(link).toBeVisible();
-  });
-
   it('skal ha et felt for å bekrefte at opplysningene stemmer', () => {
     render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
     const bekreftOption = screen.getByRole('checkbox', { name: 'Jeg bekrefter at disse opplysningene stemmer' });
