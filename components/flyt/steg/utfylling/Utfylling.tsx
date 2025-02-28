@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { UtfyllingResponse } from 'lib/types/types';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
-import { useGåTilSteg, useParamsMedType } from 'lib/utils/url';
+import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -24,7 +24,7 @@ interface Dag {
 }
 
 export const Utfylling = ({ utfylling }: Props) => {
-  const { referanse } = useParamsMedType();
+  const { referanse, innsendingtype } = useParamsMedType();
   const { gåTilSteg } = useGåTilSteg();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const [skjemaError, setSkjemaError] = useState<string>();
@@ -86,7 +86,7 @@ export const Utfylling = ({ utfylling }: Props) => {
         <VStack gap={'6'}>
           <div>
             <Heading level={'2'} size={'large'} spacing>
-              Fyll ut meldekort
+              {innsendingtype === InnsendingType.INNSENDING ? 'Fyll ut meldekort' : 'Endre meldekort'}
             </Heading>
             <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
           </div>

@@ -7,14 +7,14 @@ import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { UtfyllingResponse } from 'lib/types/types';
 import { useState } from 'react';
-import { useGåTilSteg, useParamsMedType } from 'lib/utils/url';
+import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 
 interface Props {
   utfylling: UtfyllingResponse;
 }
 
 export const Bekreft = ({ utfylling }: Props) => {
-  const { referanse } = useParamsMedType();
+  const { referanse, innsendingtype } = useParamsMedType();
   const { gåTilSteg } = useGåTilSteg();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const [stemmerOpplysningene, setStemmerOpplysningene] = useState(false);
@@ -26,7 +26,7 @@ export const Bekreft = ({ utfylling }: Props) => {
   return (
     <Form
       forrigeStegOnClick={() => gåTilSteg(utfylling.tilstand.svar.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL')}
-      nesteStegKnappTekst={'Send inn'}
+      nesteStegKnappTekst={innsendingtype === InnsendingType.INNSENDING ? 'Send inn' : 'Send inn endringene'}
       onSubmit={(formEvent) => {
         formEvent.preventDefault();
         setFormError(undefined);
@@ -51,7 +51,9 @@ export const Bekreft = ({ utfylling }: Props) => {
       <VStack gap={'4'}>
         <VStack gap={'2'}>
           <Heading size={'large'} level={'2'} spacing>
-            Se over og send inn meldekort
+            {innsendingtype === InnsendingType.INNSENDING
+              ? 'Se over og send inn meldekort'
+              : 'Se over og send inn endringene'}
           </Heading>
 
           <HStack gap={'2'}>

@@ -7,7 +7,7 @@ import { BodyShort, Heading, HGrid } from '@navikt/ds-react';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { UtfyllingResponse } from 'lib/types/types';
-import { useGåTilSteg, useParamsMedType } from 'lib/utils/url';
+import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -18,7 +18,7 @@ interface FormFields {
 }
 
 export const Spørsmål = ({ utfylling }: Props) => {
-  const { referanse } = useParamsMedType();
+  const { referanse, innsendingtype } = useParamsMedType();
   const { gåTilSteg } = useGåTilSteg();
   const { isLoading, løsStegOgGåTilNeste, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
 
@@ -61,7 +61,7 @@ export const Spørsmål = ({ utfylling }: Props) => {
       <HGrid gap={'6'}>
         <div>
           <Heading level={'2'} size={'large'} spacing>
-            Fyll ut meldekort
+            {innsendingtype === InnsendingType.INNSENDING ? 'Fyll ut meldekort' : 'Endre meldekort'}
           </Heading>
           <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
         </div>

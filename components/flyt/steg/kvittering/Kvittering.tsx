@@ -6,6 +6,7 @@ import { Link } from 'i18n/routing';
 
 import styles from 'components/flyt/steg/kvittering/Kvittering.module.css';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
+import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -13,9 +14,15 @@ interface Props {
 }
 
 export const Kvittering = ({ utfylling }: Props) => {
+  const { innsendingtype } = useParamsMedType();
+
   return (
     <HGrid columns={'1'} gap={'4'}>
-      <Alert variant="success">Vi har mottatt meldekortet ditt.</Alert>
+      <Alert variant="success">
+        {innsendingtype === InnsendingType.INNSENDING
+          ? 'Vi har mottatt meldekortet ditt.'
+          : 'Vi har mottatt endringene på meldekortet'}
+      </Alert>
       <List>
         <List.Item>Du kan endre opplysningene hvis du oppdager at du har ført feil.</List.Item>
         <List.Item>Du vil få utbetalt AAP om cirka 2 til 3 virkerdager.</List.Item>
