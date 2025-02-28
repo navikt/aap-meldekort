@@ -1,4 +1,4 @@
-import { BodyShort, Detail, Heading } from '@navikt/ds-react';
+import { BodyShort, Detail, Heading, VStack } from '@navikt/ds-react';
 import { TextFieldWrapper } from 'components/textfieldwrapper/TextFieldWrapper';
 import { MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/steg/utfylling/Utfylling';
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
@@ -30,46 +30,57 @@ export const UkeDag = ({ dag, felterMap }: Props) => {
 
   const harVerdi = form.watch(`dager.${eksisterendeFelt?.index!}.timer`);
 
+  const containerClassNames = [
+    !eksisterendeFelt && styles.ikkeeksisterendefelt,
+    harVerdi && styles.erutfylt,
+    harFeilmelding && styles.harFeilmelding,
+    styles.dagcontainer,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
-    <div
-      className={`${styles.dagwrapper} ${!eksisterendeFelt && styles.ikkeeksisterendefelt} ${harVerdi && styles.erutfylt} ${harFeilmelding && styles.harFeilmelding}`}
-    >
-      <div className={styles.dag}>
-        <div className={`${styles.dagheading}`}>
-          <Detail>{formaterUkedag(dag)}</Detail>
-          <Heading size={'small'}>{dagINummer}</Heading>
+    <div className={containerClassNames}>
+      <div className={styles.inputwrapper}>
+        <div className={styles.dag}>
+          <div className={styles.timerinput}>
+            <VStack>
+              <Detail>{formaterUkedag(dag)}</Detail>
+              <Heading size={'small'}>{dagINummer}</Heading>
+            </VStack>
+            {eksisterendeFelt && (
+              <TextFieldWrapper
+                control={form.control}
+                id={`dager${eksisterendeFelt.index}timer`}
+                name={`dager.${eksisterendeFelt.index}.timer`}
+                label={'Arbeid'}
+                className={harFeilmelding ? styles.tekstfeltFeilmelding : ''}
+                rules={{
+                  validate: (value) => {
+                    if (!value || value === '') {
+                      return true;
+                    }
+
+                    const valueAsNumber = Number(replaceCommasWithDots(value as string));
+
+                    if (isNaN(valueAsNumber) || valueAsNumber < 0 || valueAsNumber > 24) {
+                      return 'Du kan bare skrive tall mellom 0 og 24';
+                    } else if ((valueAsNumber * 10) % 5 !== 0) {
+                      return 'Du kan bare skrive inn hele eller halve timer.';
+                    }
+                  },
+                }}
+              />
+            )}
+          </div>
+          {harFeilmelding && erLitenSkjerm && (
+            <div className={styles.error}>
+              <XMarkOctagonFillIcon className={styles.errorIcon} fontSize={'2rem'} />
+              <BodyShort>{harFeilmelding.message}</BodyShort>
+            </div>
+          )}
         </div>
-        {eksisterendeFelt && (
-          <TextFieldWrapper
-            control={form.control}
-            id={`dager${eksisterendeFelt.index}timer`}
-            name={`dager.${eksisterendeFelt.index}.timer`}
-            label={'Arbeid'}
-            className={harFeilmelding ? styles.tekstfeltFeilmelding : ''}
-            rules={{
-              validate: (value) => {
-                if (!value || value === '') {
-                  return true;
-                }
-
-                const valueAsNumber = Number(replaceCommasWithDots(value as string));
-
-                if (isNaN(valueAsNumber) || valueAsNumber < 0 || valueAsNumber > 24) {
-                  return 'Du kan bare skrive tall mellom 0 og 24';
-                } else if ((valueAsNumber * 10) % 5 !== 0) {
-                  return 'Du kan bare skrive inn hele eller halve timer.';
-                }
-              },
-            }}
-          />
-        )}
       </div>
-      {harFeilmelding && erLitenSkjerm && (
-        <div className={styles.error}>
-          <XMarkOctagonFillIcon className={styles.errorIcon} fontSize={'2rem'} />
-          <BodyShort>{harFeilmelding.message}</BodyShort>
-        </div>
-      )}
     </div>
   );
 

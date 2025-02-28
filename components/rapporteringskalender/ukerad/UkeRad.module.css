@@ -9,6 +9,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  border: 2px solid var(--a-gray-100);
+  border-radius: 10px;
 }
 
 .tekst {
@@ -31,7 +33,6 @@
   .ukerad {
     flex-direction: column;
     border: 2px solid var(--a-gray-200);
-    padding: 1rem 0;
     border-radius: 15px;
   }
 }

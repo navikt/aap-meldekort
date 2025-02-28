@@ -1,32 +1,44 @@
-.dagheading {
-  display: flex;
-  flex-direction: column;
-}
-
 .ikkeeksisterendefelt {
   background-color: var(--a-gray-50);
   opacity: 0.5;
 }
 
-.dagwrapper {
+.dagcontainer {
   flex: 1;
+}
+
+.dagcontainer:last-child {
+  border-bottom-right-radius: 7px;
+  border-top-right-radius: 7px;
+}
+
+.dagcontainer:first-child {
+  border-bottom-left-radius: 7px;
+  border-top-left-radius: 7px;
+}
+
+.inputwrapper {
+  border-right: 2px solid var(--a-gray-200);
+  padding: 0 var(--a-spacing-4);
+}
+
+.noneborderright {
+  border-right: none;
 }
 
 .dag {
   display: flex;
   flex-direction: column;
-  border-top: 2px solid var(--a-gray-100);
-  border-bottom: 2px solid var(--a-gray-100);
-  border-right: 2px solid var(--a-gray-100);
   align-items: flex-start;
-  padding: var(--a-spacing-4);
+  margin: var(--a-spacing-4) 0;
 }
 
-.dag:first-child {
-  border-left: 2px solid var(--a-gray-100);
+.timerinput {
+  display: flex;
+  flex-direction: column;
 }
 
-.tekstfeltFeilmelding {
+.dag .tekstfeltFeilmelding {
   border: 2px solid var(--a-border-danger);
 }
 
@@ -36,7 +48,6 @@
 
 .harFeilmelding {
   background-color: var(--a-red-100);
-  border-bottom: none;
 }
 
 .error {
@@ -52,18 +63,43 @@
 }
 
 @media (max-width: 768px) {
-  .dag {
-    flex-direction: row;
-    justify-content: space-between;
+  .dagcontainer {
+    border-bottom: 2px solid var(--a-gray-100);
+  }
+
+  .inputwrapper {
+    padding: var(--a-spacing-4);
+    margin: 0 var(--a-spacing-4);
+    border-bottom: none;
     border-top: none;
     border-right: none;
   }
 
-  .dag:first-child {
-    border-left: none;
+  .inputwrapper:last-child {
+    border-bottom: none;
   }
 
-  .dag:last-child {
-    /*border-bottom: none;*/
+  .timerinput {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .dagcontainer:last-child {
+    border-bottom: none;
+    border-bottom-right-radius: 13px;
+    border-bottom-left-radius: 13px;
+  }
+
+  .dagcontainer:first-child {
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+  }
+
+  .dag {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--a-spacing-4);
+    margin: 0;
+    padding-bottom: var(--a-spacing-4);
   }
 }
