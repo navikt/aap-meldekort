@@ -55,7 +55,3 @@ export async function startKorrigeringClient(
     startInnsendingRequest
   );
 }
-
-export async function slettMockClient() {
-  await clientFetch('/api/mock/slett', 'GET');
-}

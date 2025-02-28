@@ -8,8 +8,6 @@ import { getEnvironment } from 'lib/utils/environments';
 import styles from 'app/[locale]/layout.module.css';
 import { Heading } from '@navikt/ds-react';
 import { Språkvelger } from 'components/språkvelger/Språkvelger';
-import { SlettMockButton } from 'components/slettmockbutton/SlettMockButton';
-import { isLocal } from 'lib/services/meldekortservice';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { redirect, routing } from 'i18n/routing';
 import { NextIntlClientProvider } from 'next-intl';
@@ -55,7 +53,6 @@ export default async function RootLayout({
               <Heading level={'1'} size={'xlarge'}>
                 Meldekort - AAP
               </Heading>
-              {isLocal() && <SlettMockButton />}
               <Språkvelger />
             </div>
           </div>
