@@ -10,7 +10,3 @@
   display: flex;
   justify-content: center;
 }
-
-.accordion {
-  background-color: var(--a-orange-50);
-}

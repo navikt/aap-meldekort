@@ -15,15 +15,12 @@ interface Props {
 export const Kvittering = ({ utfylling }: Props) => {
   return (
     <HGrid columns={'1'} gap={'4'}>
-      <Alert variant="success">
-        Meldekortet ditt er sendt til Nav, du får beskjed hvis vi trenger noe mer fra deg.
-      </Alert>
+      <Alert variant="success">Vi har mottatt meldekortet ditt.</Alert>
       <List>
         <List.Item>Du kan endre opplysningene hvis du oppdager at du har ført feil.</List.Item>
-        <List.Item>Pengene vil bli utbetalt en til tre virkedager etter at vi har mottatt meldekortet.</List.Item>
-        <List.Item>Du får beskjed hvis vi trenger noe mer fra deg.</List.Item>
+        <List.Item>Du vil få utbetalt AAP om cirka 2 til 3 virkerdager.</List.Item>
       </List>
-      <Accordion className={styles.accordion}>
+      <Accordion>
         <Accordion.Item>
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
           <Accordion.Content>
