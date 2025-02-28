@@ -2,7 +2,7 @@ import { DagSvar, UtfyllingResponse } from 'lib/types/types';
 import { BodyShort, FormSummary, HStack } from '@navikt/ds-react';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';
-import { useParamsMedType } from 'lib/utils/url';
+import { useGåTilSteg } from 'lib/utils/url';
 import { formaterDatoForFrontend, hentUkeNummerForDato } from 'lib/utils/date';
 import { storForbokstav } from 'lib/utils/string';
 import { nb } from 'date-fns/locale';
@@ -21,7 +21,7 @@ interface OppsummeringMeldeperiodeUke {
 }
 
 export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }: Props) => {
-  const params = useParamsMedType();
+  const { hentUrlForSteg } = useGåTilSteg();
 
   const meldeperiodeUker: Record<string, OppsummeringMeldeperiodeUke> = utfylling.tilstand.svar.dager.reduce(
     (acc, dag) => {
@@ -56,7 +56,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
             <HStack justify={'space-between'}>
               <BodyShort weight={'semibold'}>Har du arbeidet i perioden?</BodyShort>
               {visLenkeTilbakeTilSteg && (
-                <MeldekortLenke label={'Endre'} href={`/${params.referanse}/SPØRSMÅL`} visIcon={false} />
+                <MeldekortLenke label={'Endre'} href={hentUrlForSteg('SPØRSMÅL')} visIcon={false} />
               )}
             </HStack>
           </FormSummary.Label>
@@ -69,7 +69,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
               <HStack justify={'space-between'}>
                 <BodyShort weight={'semibold'}>Antall timer arbeidet</BodyShort>
                 {visLenkeTilbakeTilSteg && (
-                  <MeldekortLenke label={'Endre'} href={`/${params.referanse}/UTFYLLING`} visIcon={false} />
+                  <MeldekortLenke label={'Endre'} href={hentUrlForSteg('UTFYLLING')} visIcon={false} />
                 )}
               </HStack>
             </FormSummary.Label>

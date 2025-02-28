@@ -1,26 +1,21 @@
 'use client';
 
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import { JaEllerNei } from 'lib/utils/form';
 import { Form } from 'components/form/Form';
 import { BodyShort, ConfirmationPanel, Heading, HStack, VStack } from '@navikt/ds-react';
-import { useRouter } from 'i18n/routing';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { UtfyllingResponse } from 'lib/types/types';
 import { useState } from 'react';
+import { useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 
 interface Props {
-  referanse: string;
   utfylling: UtfyllingResponse;
 }
 
-interface FormFields {
-  opplysningerStemmer: JaEllerNei[];
-}
-
-export const Bekreft = ({ referanse, utfylling }: Props) => {
-  const router = useRouter();
+export const Bekreft = ({ utfylling }: Props) => {
+  const { referanse } = useParamsMedType();
+  const { gåTilSteg } = useGåTilSteg();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const [stemmerOpplysningene, setStemmerOpplysningene] = useState(false);
   const [formError, setFormError] = useState<string>();
@@ -30,9 +25,7 @@ export const Bekreft = ({ referanse, utfylling }: Props) => {
 
   return (
     <Form
-      forrigeStegOnClick={() =>
-        router.push(`/${referanse}/${utfylling.tilstand.svar.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL'}`)
-      }
+      forrigeStegOnClick={() => gåTilSteg(utfylling.tilstand.svar.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL')}
       nesteStegKnappTekst={'Send inn'}
       onSubmit={(formEvent) => {
         formEvent.preventDefault();

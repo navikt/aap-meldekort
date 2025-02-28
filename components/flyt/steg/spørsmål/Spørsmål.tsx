@@ -6,19 +6,20 @@ import { getJaNeiEllerUndefined, JaEllerNei, JaEllerNeiOptions } from 'lib/utils
 import { BodyShort, Heading, HGrid } from '@navikt/ds-react';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import { useRouter } from 'i18n/routing';
 import { UtfyllingResponse } from 'lib/types/types';
+import { useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 
 interface Props {
   utfylling: UtfyllingResponse;
-  referanse: string;
 }
 
 interface FormFields {
   harDuJobbet: JaEllerNei;
 }
 
-export const Spørsmål = ({ utfylling, referanse }: Props) => {
+export const Spørsmål = ({ utfylling }: Props) => {
+  const { referanse } = useParamsMedType();
+  const { gåTilSteg } = useGåTilSteg();
   const { isLoading, løsStegOgGåTilNeste, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
 
   const { form, formFields } = useConfigForm<FormFields>({
@@ -34,11 +35,9 @@ export const Spørsmål = ({ utfylling, referanse }: Props) => {
   const fraDato = new Date(utfylling.metadata.periode.fom);
   const tilDato = new Date(utfylling.metadata.periode.tom);
 
-  const router = useRouter();
-
   return (
     <Form
-      forrigeStegOnClick={() => router.push(`/${referanse}/INTRODUKSJON`)}
+      forrigeStegOnClick={() => gåTilSteg('INTRODUKSJON')}
       onSubmit={form.handleSubmit(async (data) => {
         løsStegOgGåTilNeste({
           nyTilstand: {

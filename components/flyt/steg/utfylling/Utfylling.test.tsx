@@ -33,7 +33,7 @@ const meldeperiode: UtfyllingResponse = {
 };
 
 describe('Utfylling', () => {
-  beforeEach(() => render(<Utfylling utfylling={meldeperiode} referanse={'1'} />));
+  beforeEach(() => render(<Utfylling utfylling={meldeperiode} />));
 
   it('skal ha en heading', () => {
     const heading = screen.getByRole('heading', { name: 'Fyll ut meldekort', level: 2 });
@@ -63,7 +63,7 @@ describe('Utfylling', () => {
 
 describe('rapporteringskalender', () => {
   it('skal vise ukenummer på perioden', () => {
-    render(<Utfylling utfylling={meldeperiode} referanse={'1'} />);
+    render(<Utfylling utfylling={meldeperiode} />);
     const ukenummer = screen.getByText('Uke 47');
     expect(ukenummer).toBeVisible();
   });

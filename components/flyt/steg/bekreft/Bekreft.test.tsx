@@ -65,31 +65,31 @@ const meldekortMedArbeid: UtfyllingResponse = {
 
 describe('Stemmer opplysningene', () => {
   it('skal ha en overskrift', () => {
-    render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
+    render(<Bekreft utfylling={meldekortUtenArbeid} />);
     const heading = screen.getByRole('heading', { name: 'Se over og send inn meldekort', level: 2 });
     expect(heading).toBeVisible();
   });
 
   it('skal vise korrekt svar dersom bruker har oppgitt at hen har jobbet ', () => {
-    render(<Bekreft referanse={'123'} utfylling={meldekortMedArbeid} />);
+    render(<Bekreft utfylling={meldekortMedArbeid} />);
     const jaSvar = screen.getByText('Ja');
     expect(jaSvar).toBeVisible();
   });
 
   it('skal vise korrekt svar dersom bruker har oppgitt at hen ikke har jobbet ', () => {
-    render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
+    render(<Bekreft utfylling={meldekortUtenArbeid} />);
     const neiSvar = screen.getByText('Nei');
     expect(neiSvar).toBeVisible();
   });
 
   it('skal ha et felt for å bekrefte at opplysningene stemmer', () => {
-    render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
-    const bekreftOption = screen.getByRole('checkbox', { name: 'Jeg bekrefter at disse opplysningene stemmer' });
+    render(<Bekreft utfylling={meldekortUtenArbeid} />);
+    const bekreftOption = screen.getByRole('checkbox', { name: 'Jeg bekrefter at jeg har gitt riktige opplysninger' });
     expect(bekreftOption).toBeVisible();
   });
 
   it('skal gi en feilmelding dersom feltet for å bekrefte at opplysningene stemmer ikke er huket av', async () => {
-    render(<Bekreft referanse={'123'} utfylling={meldekortUtenArbeid} />);
+    render(<Bekreft utfylling={meldekortUtenArbeid} />);
     const user = userEvent.setup();
     const sendInnKnapp = screen.getByRole('button', { name: 'Send inn' });
 

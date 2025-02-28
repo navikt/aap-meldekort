@@ -20,7 +20,7 @@ describe('Kvittering', () => {
   it('viser en suksess-melding', () => {
     render(<Kvittering utfylling={meldekort} />);
     expect(
-      screen.getByText('Meldekortet ditt er sendt til Nav, du får beskjed hvis vi trenger noe mer fra deg.')
+      screen.getByText('Vi har mottatt meldekortet ditt.')
     ).toBeVisible();
   });
 

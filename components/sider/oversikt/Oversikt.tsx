@@ -8,6 +8,7 @@ import { startInnsendingClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
 import { formaterDatoForFrontend } from 'lib/utils/date';
 import { ChevronRightIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons';
+import { InnsendingType } from 'lib/utils/url';
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
@@ -44,7 +45,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
                 console.log(startInnsendingAvMeldekortResponse);
                 if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
                   router.push(
-                    `/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
+                    `/${InnsendingType.INNSENDING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
                   );
                 }
               }

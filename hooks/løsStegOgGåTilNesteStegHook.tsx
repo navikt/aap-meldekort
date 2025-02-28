@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { useRouter } from 'i18n/routing';
 import { EndreUtfyllingRequest } from 'lib/types/types';
 import { gåTilNesteStegClient } from 'lib/client/clientApi';
+import { useGåTilSteg } from 'lib/utils/url';
 
 export function useLøsStegOgGåTilNesteSteg(referanse: string): {
   isLoading: boolean;
   løsStegOgGåTilNeste: (meldekort: EndreUtfyllingRequest) => void;
   errorMessage?: string;
 } {
-  const router = useRouter();
+  const { gåTilSteg } = useGåTilSteg();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>();
 
@@ -23,7 +23,7 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
       setErrorMessage('Kunne ikke gå videre på grunn av: ' + utfyllingResponse?.feil);
       setIsLoading(false);
     } else {
-      router.push(`/${referanse}/${utfyllingResponse?.tilstand.aktivtSteg}`);
+      gåTilSteg(utfyllingResponse.tilstand.aktivtSteg);
     }
   };
 

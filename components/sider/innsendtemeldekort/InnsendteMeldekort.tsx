@@ -10,6 +10,7 @@ import { PencilIcon } from '@navikt/aksel-icons';
 import styles from './InnsendteMeldekort.module.css';
 import { startKorrigeringClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
+import { InnsendingType } from 'lib/utils/url';
 
 interface Props {
   innsendteMeldeperioder: HistoriskMeldeperiode[];
@@ -43,7 +44,7 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
 
                   if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
                     router.push(
-                      `/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
+                      `/${InnsendingType.KORRIGERING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
                     );
                   }
                 }}

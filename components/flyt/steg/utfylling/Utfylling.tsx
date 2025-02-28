@@ -6,13 +6,12 @@ import { BodyLong, BodyShort, ErrorSummary, Heading, ReadMore, VStack } from '@n
 import { FormProvider, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import { useRouter } from 'i18n/routing';
 import { UtfyllingResponse } from 'lib/types/types';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 
 interface Props {
   utfylling: UtfyllingResponse;
-  referanse: string;
 }
 
 export interface MeldepliktFormFields {
@@ -24,8 +23,9 @@ interface Dag {
   timer: string | null;
 }
 
-export const Utfylling = ({ utfylling, referanse }: Props) => {
-  const router = useRouter();
+export const Utfylling = ({ utfylling }: Props) => {
+  const { referanse } = useParamsMedType();
+  const { gåTilSteg } = useGåTilSteg();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const [skjemaError, setSkjemaError] = useState<string>();
 
@@ -58,7 +58,7 @@ export const Utfylling = ({ utfylling, referanse }: Props) => {
   return (
     <FormProvider {...form}>
       <Form
-        forrigeStegOnClick={() => router.push(`/${referanse}/SPØRSMÅL`)}
+        forrigeStegOnClick={() => gåTilSteg('SPØRSMÅL')}
         nesteStegKnappTekst={'Neste'}
         onSubmit={form.handleSubmit(async (data) => {
           setSkjemaError(undefined);
