@@ -1,5 +1,5 @@
 import styles from './OppsummeringRad.module.css';
-import { BodyShort, Label } from '@navikt/ds-react';
+import {BodyShort, HStack, Label, VStack} from '@navikt/ds-react';
 
 interface Props {
   label: string;
@@ -8,9 +8,9 @@ interface Props {
 
 export const OppsummeringRad = ({ label, value }: Props) => {
   return (
-    <div className={styles.oppsummering}>
+    <HStack className={styles.oppsummering} justify={"space-between"}>
       <Label size={'medium'}>{label}</Label>
       <BodyShort size={'medium'}>{value}</BodyShort>
-    </div>
+    </HStack>
   );
 };
