@@ -1,14 +1,14 @@
 'use client';
 
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { JaEllerNei } from 'lib/utils/form';
 import { Form } from 'components/form/Form';
-import { BodyShort, Heading, HStack, VStack } from '@navikt/ds-react';
+import { BodyShort, ConfirmationPanel, Heading, HStack, VStack } from '@navikt/ds-react';
 import { useRouter } from 'i18n/routing';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { UtfyllingResponse } from 'lib/types/types';
+import { useState } from 'react';
 
 interface Props {
   referanse: string;
@@ -22,16 +22,8 @@ interface FormFields {
 export const Bekreft = ({ referanse, utfylling }: Props) => {
   const router = useRouter();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
-
-  const { form, formFields } = useConfigForm<FormFields>({
-    opplysningerStemmer: {
-      type: 'checkbox',
-      label: 'Bekreft at opplysningene stemmer',
-      hideLabel: true,
-      options: [{ label: 'Jeg bekrefter at disse opplysningene stemmer', value: JaEllerNei.Ja }],
-      rules: { required: 'Du må bekrefte at disse opplysningene stemmer' },
-    },
-  });
+  const [stemmerOpplysningene, setStemmerOpplysningene] = useState(false);
+  const [formError, setFormError] = useState<string>();
 
   const fraDato = new Date(utfylling.metadata.periode.fom);
   const tilDato = new Date(utfylling.metadata.periode.tom);
@@ -42,17 +34,24 @@ export const Bekreft = ({ referanse, utfylling }: Props) => {
         router.push(`/${referanse}/${utfylling.tilstand.svar.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL'}`)
       }
       nesteStegKnappTekst={'Send inn'}
-      onSubmit={form.handleSubmit(async () => {
-        løsStegOgGåTilNeste({
-          nyTilstand: {
-            aktivtSteg: 'BEKREFT',
-            svar: {
-              ...utfylling.tilstand.svar,
-              stemmerOpplysningene: true,
+      onSubmit={(formEvent) => {
+        formEvent.preventDefault();
+        setFormError(undefined);
+
+        if (stemmerOpplysningene) {
+          løsStegOgGåTilNeste({
+            nyTilstand: {
+              aktivtSteg: 'BEKREFT',
+              svar: {
+                ...utfylling.tilstand.svar,
+                stemmerOpplysningene: true,
+              },
             },
-          },
-        });
-      })}
+          });
+        } else {
+          setFormError('Du må bekrefte at disse opplysningene stemmer');
+        }
+      }}
       isLoading={isLoading}
       errorMessage={errorMessage}
     >
@@ -70,7 +69,12 @@ export const Bekreft = ({ referanse, utfylling }: Props) => {
 
         <SkjemaOppsummering utfylling={utfylling} visLenkeTilbakeTilSteg={true} />
 
-        <FormField form={form} formField={formFields.opplysningerStemmer} size={'medium'} />
+        <ConfirmationPanel
+          checked={stemmerOpplysningene}
+          label="Jeg bekrefter at jeg har gitt riktige opplysninger"
+          onChange={() => setStemmerOpplysningene((value) => !value)}
+          error={!stemmerOpplysningene && formError}
+        />
       </VStack>
     </Form>
   );
