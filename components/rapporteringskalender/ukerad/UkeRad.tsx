@@ -42,7 +42,7 @@ export const UkeRad = ({ felterIUken }: Props) => {
           })
       : [];
 
-  const ukeUtfyllingErrorMeldinger = Array.from(new Set(ukeUtfyllingErrors.map((error) => error.message)));
+  const ukeUtfyllingErrorMeldinger = ukeUtfyllingErrors.map((error) => error.message);
 
   return (
     <div className={styles.rad}>

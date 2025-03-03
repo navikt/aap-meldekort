@@ -64,9 +64,9 @@ export const UkeDag = ({ dag, felterMap }: Props) => {
                     const valueAsNumber = Number(replaceCommasWithDots(value as string));
 
                     if (isNaN(valueAsNumber) || valueAsNumber < 0 || valueAsNumber > 24) {
-                      return 'Du kan bare skrive tall mellom 0 og 24';
+                      return `Du kan bare skrive tall mellom 0 og 24 (${dagINummer}).`;
                     } else if ((valueAsNumber * 10) % 5 !== 0) {
-                      return 'Du kan bare skrive inn hele eller halve timer.';
+                      return `Du kan bare skrive inn hele eller halve timer (${dagINummer}).`;
                     }
                   },
                 }}
