@@ -4,7 +4,7 @@ import { cleanup } from '@testing-library/react';
 
 beforeAll(() => {
   vi.mock('next/navigation', () => ({
-    useParams: vi.fn().mockReturnValue({ referanse: '123' }),
+    useParams: vi.fn().mockReturnValue({ referanse: '123', innsendingtype: 'innsending' }),
     useRouter: vi.fn().mockReturnValue({ prefetch: () => null }),
   }));
 
