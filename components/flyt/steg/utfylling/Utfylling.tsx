@@ -4,7 +4,7 @@ import { Form } from 'components/form/Form';
 import { Rapporteringskalender, rapporteringskalenderId } from 'components/rapporteringskalender/Rapporteringskalender';
 import { BodyLong, BodyShort, ErrorSummary, Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { UtfyllingResponse } from 'lib/types/types';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
@@ -55,6 +55,12 @@ export const Utfylling = ({ utfylling }: Props) => {
   const fraDato = new Date(utfylling.metadata.periode.fom);
   const tilDato = new Date(utfylling.metadata.periode.tom);
 
+  useEffect(() => {
+    if (!manglerTimerPåArbeid(form.watch('dager'), true)) {
+      setSkjemaError(undefined);
+    }
+  }, [form.watch()]);
+
   return (
     <FormProvider {...form}>
       <Form
@@ -63,7 +69,7 @@ export const Utfylling = ({ utfylling }: Props) => {
         onSubmit={form.handleSubmit(async (data) => {
           setSkjemaError(undefined);
 
-          if (manglerTimerPåArbeid(data, !!utfylling.tilstand.svar.harDuJobbet)) {
+          if (manglerTimerPåArbeid(data.dager, !!utfylling.tilstand.svar.harDuJobbet)) {
             setSkjemaError('Du har svart at du har arbeidet i perioden, og må dermed føre timer.');
           } else {
             løsStegOgGåTilNeste({
@@ -113,12 +119,12 @@ export const Utfylling = ({ utfylling }: Props) => {
   );
 };
 
-export function manglerTimerPåArbeid(value: MeldepliktFormFields, harSvartJaPåArbeid: boolean): boolean {
+export function manglerTimerPåArbeid(dager: Dag[], harSvartJaPåArbeid: boolean): boolean {
   if (!harSvartJaPåArbeid) {
     return false;
   }
 
-  return value.dager.filter((dag) => dag.timer).length === 0;
+  return dager.filter((dag) => dag.timer).length === 0;
 }
 
 export function replaceCommasWithDots(input: string): string {
