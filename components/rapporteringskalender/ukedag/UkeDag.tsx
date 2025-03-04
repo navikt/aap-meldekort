@@ -76,7 +76,7 @@ export const UkeDag = ({ dag, felterMap }: Props) => {
           {harFeilmelding && erLitenSkjerm && (
             <div className={styles.error}>
               <XMarkOctagonFillIcon className={styles.errorIcon} fontSize={'2rem'} />
-              <BodyShort>{harFeilmelding.message}</BodyShort>
+              <BodyShort size={"small"}>{harFeilmelding.message}</BodyShort>
             </div>
           )}
         </div>
