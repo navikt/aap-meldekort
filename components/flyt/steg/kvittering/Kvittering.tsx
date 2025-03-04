@@ -1,6 +1,6 @@
 'use client';
 
-import { Accordion, Alert, HGrid, List } from '@navikt/ds-react';
+import { Accordion, Alert, HGrid, HStack, List, VStack } from '@navikt/ds-react';
 import { KommendeMeldekort, UtfyllingResponse } from 'lib/types/types';
 import { Link } from 'i18n/routing';
 
@@ -17,16 +17,18 @@ export const Kvittering = ({ utfylling }: Props) => {
   const { innsendingtype } = useParamsMedType();
 
   return (
-    <HGrid columns={'1'} gap={'4'}>
+    <VStack gap={'8'}>
       <Alert variant="success">
         {innsendingtype === InnsendingType.INNSENDING
           ? 'Vi har mottatt meldekortet ditt.'
           : 'Vi har mottatt endringene på meldekortet'}
       </Alert>
+
       <List>
         <List.Item>Du kan endre opplysningene hvis du oppdager at du har ført feil.</List.Item>
         <List.Item>Du vil få utbetalt AAP om cirka 2 til 3 virkerdager.</List.Item>
       </List>
+
       <Accordion>
         <Accordion.Item>
           <Accordion.Header>Se hva du sendte inn</Accordion.Header>
@@ -35,18 +37,10 @@ export const Kvittering = ({ utfylling }: Props) => {
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
-      <div className={styles.knapperad}>
-        {/*{kommendeMeldekort?.nesteMeldeperiode && (*/}
-        {/*  <Link href={`/${kommendeMeldekort..meldekortId}`}>*/}
-        {/*    <Button variant="primary" type="button">*/}
-        {/*      Gå til neste meldekort*/}
-        {/*    </Button>*/}
-        {/*  </Link>*/}
-        {/*)}*/}
-        <Link href={`/`} className={styles.link}>
-          Gå tilbake til oversikt
-        </Link>
-      </div>
-    </HGrid>
+
+      <Link href={`/`} className={styles.link}>
+        Gå tilbake til oversikt
+      </Link>
+    </VStack>
   );
 };
