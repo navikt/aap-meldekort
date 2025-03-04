@@ -23,7 +23,11 @@ const periode: UtfyllingResponse = {
 const user = userEvent.setup();
 
 describe('Periode', () => {
-  beforeEach(() => render(<Spørsmål utfylling={periode} />));
+  beforeEach(() => {
+    fetchMock.resetMocks();
+    fetchMock.mockResponse(JSON.stringify({ message: 'Success' }), { status: 200 });
+    render(<Spørsmål utfylling={periode} />);
+  });
 
   it('Skal ha en heading', () => {
     const heading = screen.getByRole('heading', { name: 'Fyll ut meldekort', level: 2 });

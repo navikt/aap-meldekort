@@ -33,7 +33,11 @@ const meldeperiode: UtfyllingResponse = {
 };
 
 describe('Utfylling', () => {
-  beforeEach(() => render(<Utfylling utfylling={meldeperiode} />));
+  beforeEach(() => {
+    fetchMock.resetMocks();
+    fetchMock.mockResponse(JSON.stringify({ message: 'Success' }), { status: 200 });
+    render(<Utfylling utfylling={meldeperiode} />);
+  });
 
   it('skal ha en heading', () => {
     const heading = screen.getByRole('heading', { name: 'Fyll ut meldekort', level: 2 });

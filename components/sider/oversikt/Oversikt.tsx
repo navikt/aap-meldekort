@@ -42,7 +42,6 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
                   kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode
                 );
 
-                console.log(startInnsendingAvMeldekortResponse);
                 if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
                   router.push(
                     `/${InnsendingType.INNSENDING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`

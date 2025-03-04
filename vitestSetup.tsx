@@ -2,6 +2,13 @@ import { afterEach, beforeAll, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/react';
 
+import createFetchMock from 'vitest-fetch-mock';
+
+const fetchMocker = createFetchMock(vi);
+fetchMocker.enableMocks();
+
+fetchMocker.mockResponse({ status: 200 });
+
 beforeAll(() => {
   vi.mock('next/navigation', () => ({
     useParams: vi.fn().mockReturnValue({ referanse: '123', innsendingtype: 'innsending' }),
