@@ -1,6 +1,6 @@
 'use client';
 
-import {Alert, BodyLong, BodyShort, Heading, HGrid, VStack} from '@navikt/ds-react';
+import { Alert, BodyLong, Heading, VStack } from '@navikt/ds-react';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';

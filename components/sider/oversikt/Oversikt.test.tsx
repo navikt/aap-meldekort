@@ -29,7 +29,7 @@ describe('Oversikt', () => {
 
   it('skal vise en button til neste utfylling dersom det finnes', () => {
     render(<Oversikt harInnsendteMeldeperioder={false} kommendeMeldeperiode={kommendeMeldekort} />);
-    const button = screen.getByRole('button', { name: '1 meldekort klare for innsending 17.02.2025 - 03.03.2025' });
+    const button = screen.getByText('Fyll ut og send meldekort for uke 8 - 10');
     expect(button).toBeVisible();
   });
 

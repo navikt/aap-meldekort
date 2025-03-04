@@ -3,7 +3,7 @@
 import { Form } from 'components/form/Form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { getJaNeiEllerUndefined, JaEllerNei, JaEllerNeiOptions } from 'lib/utils/form';
-import {BodyShort, Heading, HGrid, VStack} from '@navikt/ds-react';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { UtfyllingResponse } from 'lib/types/types';
@@ -51,7 +51,7 @@ export const Spørsmål = ({ utfylling }: Props) => {
         },
       },
     });
-  }, [harDuJobbetValue]);
+  }, [harDuJobbetValue, mellomlagreMeldekort, utfylling.tilstand.svar]);
 
   return (
     <Form
