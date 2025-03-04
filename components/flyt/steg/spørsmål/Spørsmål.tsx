@@ -3,7 +3,7 @@
 import { Form } from 'components/form/Form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { getJaNeiEllerUndefined, JaEllerNei, JaEllerNeiOptions } from 'lib/utils/form';
-import { BodyShort, Heading, HGrid } from '@navikt/ds-react';
+import {BodyShort, Heading, HGrid, VStack} from '@navikt/ds-react';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { UtfyllingResponse } from 'lib/types/types';
@@ -77,15 +77,15 @@ export const Spørsmål = ({ utfylling }: Props) => {
       isLoading={isLoading}
       errorMessage={errorMessage}
     >
-      <HGrid gap={'6'}>
-        <div>
-          <Heading level={'2'} size={'large'} spacing>
+      <VStack gap={'8'}>
+        <VStack gap={'2'}>
+          <Heading level={'2'} size={'large'}>
             {innsendingtype === InnsendingType.INNSENDING ? 'Fyll ut meldekort' : 'Endre meldekort'}
           </Heading>
           <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
-        </div>
+        </VStack>
         <FormField form={form} formField={formFields.harDuJobbet} size={'medium'} />
-      </HGrid>
+      </VStack>
     </Form>
   );
 };
