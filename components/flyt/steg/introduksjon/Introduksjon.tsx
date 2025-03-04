@@ -19,33 +19,32 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
 
   return (
     <section>
-      <VStack gap={'6'}>
-        <div>
-          <Heading
-            level={'2'}
-            size={'large'}
-            spacing
-          >{`Meldekort for uke ${hentUkeNummerForPeriode(fraDato, tilDato)}`}</Heading>
-          <BodyShort
-            size={'large'}
-          >{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
-        </div>
-        <List size={'medium'}>
-          <List.Item>
-            Du kan sende dette meldekortet fra dd.mm, og senest dd.mm for å unngå trekk i utbetalingen.
-          </List.Item>
-          <List.Item>Du vil får utbetalt AAP cirka 2 til 3 virkedager etter at du har levert meldekortet.</List.Item>
-        </List>
+      <VStack gap={'8'}>
+        <VStack gap={'4'}>
+          <VStack gap={'2'}>
+            <Heading
+              level={'2'}
+              size={'large'}
+            >{`Meldekort for uke ${hentUkeNummerForPeriode(fraDato, tilDato)}`}</Heading>
+            <BodyShort
+              size={'large'}
+            >{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
+          </VStack>
+          <List size={'medium'}>
+            <List.Item>
+              Du kan sende dette meldekortet fra dd.mm, og senest dd.mm for å unngå trekk i utbetalingen.
+            </List.Item>
+            <List.Item>Du vil får utbetalt AAP cirka 2 til 3 virkedager etter at du har levert meldekortet.</List.Item>
+          </List>
+        </VStack>
 
-        <div>
-          <BodyShort spacing weight={'semibold'}>
-            Takk for at du er ærlig
-          </BodyShort>
+        <VStack gap={'2'}>
+          <BodyShort weight={'semibold'}>Takk for at du er ærlig</BodyShort>
           <BodyShort>Det er viktig at du gir oss riktige opplysninger.</BodyShort>
           <Link href={'https://www.nav.no/endringer'} target={'_blank'}>
             Les mer om viktigheten av å gi riktige opplysninger
           </Link>
-        </div>
+        </VStack>
 
         {errorMessage && <Alert variant={'error'}>{errorMessage}</Alert>}
 
