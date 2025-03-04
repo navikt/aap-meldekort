@@ -43,6 +43,17 @@ export async function mellomlagreMeldekortClient(
   return await clientFetch<UtfyllingResponse>(`/api/${meldekortId}/lagre`, 'POST', meldekortRequest);
 }
 
+export async function slettMeldekortUtfyllingClient(meldekortId: string): Promise<boolean> {
+  const res = await fetch(`/api/utfylling/${meldekortId}/slett`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return res.ok;
+}
+
 export async function startInnsendingClient(
   startInnsendingRequest: StartUtfyllingRequest
 ): Promise<StartUtfyllingResponse | undefined> {
@@ -62,4 +73,3 @@ export async function startKorrigeringClient(
     startInnsendingRequest
   );
 }
-

@@ -1,10 +1,10 @@
-import { Alert, BodyShort, Button, Detail } from '@navikt/ds-react';
-import { FormEvent, ReactNode } from 'react';
+import { Alert, Button, Detail } from '@navikt/ds-react';
+import { FormEvent, ReactNode, useRef } from 'react';
 
 import styles from './Form.module.css';
 import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
-import { useParamsMedType } from 'lib/utils/url';
 import { formaterDatoMedTidspunktForFrontend } from 'lib/utils/date';
+import { SlettMeldekortModal } from 'components/slettmeldekortmodal/SlettMeldekortModal';
 
 interface Props {
   children: ReactNode;
@@ -15,7 +15,6 @@ interface Props {
   forrigeStegOnClick?: () => void;
   nesteStegKnappTekst?: string;
   forrigeStegKnappTekst?: string;
-  avbrytOnClick?: () => void;
 }
 
 export const Form = ({
@@ -23,12 +22,13 @@ export const Form = ({
   onSubmit,
   forrigeStegOnClick,
   sistLagret,
-  avbrytOnClick,
   errorMessage,
   isLoading = false,
   nesteStegKnappTekst = 'Neste',
   forrigeStegKnappTekst = 'Forrige',
 }: Props) => {
+  const modalRef = useRef<HTMLDialogElement>(null);
+
   return (
     <form onSubmit={onSubmit} autoComplete={'off'} className={styles.form}>
       {children}
@@ -57,9 +57,10 @@ export const Form = ({
       <div className={styles.formfooter}>
         {sistLagret && <Detail>Sist lagret: {formaterDatoMedTidspunktForFrontend(sistLagret)}</Detail>}
         <div className={styles.avbryt}>
-          <Button variant={'tertiary'} onClick={avbrytOnClick} type={'button'}>
+          <Button variant={'tertiary'} onClick={() => modalRef.current?.showModal()} type={'button'}>
             Avbryt
           </Button>
+          <SlettMeldekortModal ref={modalRef} />
         </div>
       </div>
     </form>
