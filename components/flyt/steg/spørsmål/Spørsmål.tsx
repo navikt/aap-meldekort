@@ -51,7 +51,7 @@ export const Spørsmål = ({ utfylling }: Props) => {
         },
       },
     });
-  }, [harDuJobbetValue, mellomlagreMeldekort, utfylling.tilstand.svar]);
+  }, [harDuJobbetValue]);
 
   return (
     <Form

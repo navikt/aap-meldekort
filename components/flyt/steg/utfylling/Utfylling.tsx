@@ -75,7 +75,7 @@ export const Utfylling = ({ utfylling }: Props) => {
         },
       },
     });
-  }, [dager, mellomlagreMeldekort, utfylling.tilstand.svar]);
+  }, [dager]);
 
   return (
     <FormProvider {...form}>
