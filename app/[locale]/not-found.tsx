@@ -17,7 +17,7 @@ const NotFound = async () => {
         marginBlockStart: '2rem',
       }}
     >
-      <Heading level="2" size="medium" spacing>
+      <Heading level="2" size="large" spacing>
         {t('page.notFound.heading')}
       </Heading>
       <Link href={`/`}>{t('page.notFound.tilbakeLink')}</Link>

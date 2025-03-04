@@ -1,6 +1,6 @@
 'use client';
 
-import { Accordion, Alert, HGrid, HStack, List, VStack } from '@navikt/ds-react';
+import { Accordion, Alert, List, VStack } from '@navikt/ds-react';
 import { KommendeMeldekort, UtfyllingResponse } from 'lib/types/types';
 import { Link } from 'i18n/routing';
 
