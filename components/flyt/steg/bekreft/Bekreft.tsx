@@ -48,14 +48,13 @@ export const Bekreft = ({ utfylling }: Props) => {
       isLoading={isLoading}
       errorMessage={errorMessage}
     >
-      <VStack gap={'4'}>
+      <VStack gap={'8'}>
         <VStack gap={'2'}>
-          <Heading size={'large'} level={'2'} spacing>
+          <Heading size={'large'} level={'2'}>
             {innsendingtype === InnsendingType.INNSENDING
               ? 'Se over og send inn meldekort'
               : 'Se over og send inn endringene'}
           </Heading>
-
           <HStack gap={'2'}>
             <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)}`}</BodyShort>
             <BodyShort>{`(${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
