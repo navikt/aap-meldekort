@@ -51,12 +51,10 @@ export const Rapporteringskalender = () => {
   );
 
   return (
-    <VStack gap={'4'} id={rapporteringskalenderId}>
-      <VStack gap={'8'}>
-        {Object.entries(meldeperiodeUker).map(([ukeStart, felterIUken]) => (
-          <UkeRad key={ukeStart} felterIUken={felterIUken} />
-        ))}
-      </VStack>
+    <VStack gap={'8'} id={rapporteringskalenderId}>
+      {Object.entries(meldeperiodeUker).map(([ukeStart, felterIUken]) => (
+        <UkeRad key={ukeStart} felterIUken={felterIUken} />
+      ))}
 
       <OppsummeringTimer
         timer={form
