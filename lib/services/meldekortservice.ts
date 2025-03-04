@@ -18,29 +18,16 @@ export const isLocal = () => process.env.NEXT_PUBLIC_ENVIRONMENT === 'localhost'
  */
 
 export async function startInnsending(request: StartUtfyllingRequest): Promise<StartUtfyllingResponse> {
-  // if (isLocal()) {
-  //   return hentMeldekortMock();
-  // }
-
   const url = `${meldeKortBaseUrl}/api/start-innsending`;
   return await fetcher<StartUtfyllingResponse>(url, 'POST', request);
 }
 
 export async function startKorrigering(request: StartUtfyllingRequest): Promise<StartUtfyllingResponse> {
-  // if (isLocal()) {
-  //   return hentMeldekortMock();
-  // }
-
   const url = `${meldeKortBaseUrl}/api/start-korrigering`;
   return await fetcher<StartUtfyllingResponse>(url, 'POST', request);
 }
 
 export async function gåTilNesteSteg(referanse: string, request: EndreUtfyllingRequest): Promise<UtfyllingResponse> {
-  // if (isLocal()) {
-  //   await mockNesteSteg(request);
-  //   return await hentMeldekortMock();
-  // }
-
   const url = `${meldeKortBaseUrl}/api/utfylling/${referanse}/lagre-neste`;
   return fetcher(url, 'POST', request);
 }
@@ -49,21 +36,11 @@ export async function mellomlagreUtfylling(
   referanse: string,
   request: EndreUtfyllingRequest
 ): Promise<UtfyllingResponse> {
-  // if (isLocal()) {
-  //   await mockNesteSteg(request);
-  //   return await hentMeldekortMock();
-  // }
-
   const url = `${meldeKortBaseUrl}/api/utfylling/${referanse}/lagre`;
   return fetcher(url, 'POST', request);
 }
 
 export async function hentUtfylling(referanse: string): Promise<UtfyllingResponse> {
-  // if (isLocal()) {
-  //   await mockNesteSteg(request);
-  //   return await hentMeldekortMock();
-  // }
-
   const url = `${meldeKortBaseUrl}/api/utfylling/${referanse}`;
   return fetcher<UtfyllingResponse>(url, 'GET');
 }
@@ -78,10 +55,6 @@ export async function slettUtfylling(referanse: string) {
  */
 
 export async function hentKommendeMeldeperiode(): Promise<KommendeMeldekort> {
-  // if (isLocal()) {
-  //   return hentKommendeMeldekortMock();
-  // }
-
   const url = `${meldeKortBaseUrl}/api/meldeperiode/kommende`;
   return await fetcher<KommendeMeldekort>(url, 'GET');
 }
@@ -90,19 +63,11 @@ export async function hentKommendeMeldeperiode(): Promise<KommendeMeldekort> {
  * Innsendte meldekort side
  */
 export async function hentInnsendteMeldeperioder(): Promise<HistoriskMeldeperiode[]> {
-  // if (isLocal()) {
-  //   return hentHistoriskMeldekortMock();
-  // }
-
   const url = `${meldeKortBaseUrl}/api/meldeperiode/historiske`;
   return await fetcher<HistoriskMeldeperiode[]>(url, 'GET');
 }
 
 export async function hentHistoriskMeldeperiodeDetaljer(periode: Periode): Promise<HistoriskMeldeperiode> {
-  // if (isLocal()) {
-  //   return hentHistoriskMeldekortDetaljerMock();
-  // }
-
   const url = `${meldeKortBaseUrl}/api/meldeperiode/detaljer`;
   return await fetcher<HistoriskMeldeperiode>(url, 'POST', periode);
 }
