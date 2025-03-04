@@ -106,18 +106,20 @@ export const Utfylling = ({ utfylling }: Props) => {
         isLoading={isLoading}
         errorMessage={errorMessage}
       >
-        <VStack gap={'6'}>
-          <div>
-            <Heading level={'2'} size={'large'} spacing>
-              {innsendingtype === InnsendingType.INNSENDING ? 'Fyll ut meldekort' : 'Endre meldekort'}
-            </Heading>
-            <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
-          </div>
-          <BodyLong>
-            Skriv inn timene du har arbeidet for perioden. Timer skrives med desimal til nærmeste halvtime. For eksempel
-            blir 7 timer og 30 min = 7,5 timer.
-          </BodyLong>
-          <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det informasjon</ReadMore>
+        <VStack gap={'8'}>
+          <VStack gap={'4'}>
+            <VStack gap={'2'}>
+              <Heading level={'2'} size={'large'}>
+                {innsendingtype === InnsendingType.INNSENDING ? 'Fyll ut meldekort' : 'Endre meldekort'}
+              </Heading>
+              <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
+            </VStack>
+            <BodyLong>
+              Skriv inn timene du har arbeidet for perioden. Timer skrives med desimal til nærmeste halvtime. For
+              eksempel blir 7 timer og 30 min = 7,5 timer.
+            </BodyLong>
+            <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det informasjon</ReadMore>
+          </VStack>
 
           <Rapporteringskalender />
 

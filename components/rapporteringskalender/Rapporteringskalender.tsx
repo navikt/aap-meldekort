@@ -6,8 +6,7 @@ import { FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form
 import { MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/steg/utfylling/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 import { UkeRad } from 'components/rapporteringskalender/ukerad/UkeRad';
-
-import styles from './Rapporteringskalender.module.css';
+import { VStack } from '@navikt/ds-react';
 
 export type FieldArrayWithIndex = FieldArrayWithId<MeldepliktFormFields> & {
   index: number;
@@ -52,12 +51,12 @@ export const Rapporteringskalender = () => {
   );
 
   return (
-    <div className={styles.rapporteringskalender} id={rapporteringskalenderId}>
-      <div className={styles.kalender}>
+    <VStack gap={'4'} id={rapporteringskalenderId}>
+      <VStack gap={'8'}>
         {Object.entries(meldeperiodeUker).map(([ukeStart, felterIUken]) => (
           <UkeRad key={ukeStart} felterIUken={felterIUken} />
         ))}
-      </div>
+      </VStack>
 
       <OppsummeringTimer
         timer={form
@@ -65,6 +64,6 @@ export const Rapporteringskalender = () => {
           .filter((value) => Number(value.timer))
           .reduce((acc, curr) => acc + (curr.timer ? Number(replaceCommasWithDots(curr.timer)) : 0), 0)}
       />
-    </div>
+    </VStack>
   );
 };
