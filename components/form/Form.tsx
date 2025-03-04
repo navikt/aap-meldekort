@@ -1,12 +1,15 @@
-import { Alert, Button } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Detail } from '@navikt/ds-react';
 import { FormEvent, ReactNode } from 'react';
 
 import styles from './Form.module.css';
 import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
+import { useParamsMedType } from 'lib/utils/url';
+import { formaterDatoMedTidspunktForFrontend } from 'lib/utils/date';
 
 interface Props {
   children: ReactNode;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  sistLagret?: Date;
   isLoading?: boolean;
   errorMessage?: string;
   forrigeStegOnClick?: () => void;
@@ -19,6 +22,7 @@ export const Form = ({
   children,
   onSubmit,
   forrigeStegOnClick,
+  sistLagret,
   avbrytOnClick,
   errorMessage,
   isLoading = false,
@@ -26,7 +30,7 @@ export const Form = ({
   forrigeStegKnappTekst = 'Forrige',
 }: Props) => {
   return (
-    <form onSubmit={onSubmit} autoComplete={'off'}>
+    <form onSubmit={onSubmit} autoComplete={'off'} className={styles.form}>
       {children}
       {errorMessage && <Alert variant={'error'}>{errorMessage}</Alert>}
       <div className={styles.knapper}>
@@ -50,13 +54,14 @@ export const Form = ({
           </Button>
         )}
       </div>
-      {avbrytOnClick && (
+      <div className={styles.formfooter}>
+        {sistLagret && <Detail>Sist lagret: {formaterDatoMedTidspunktForFrontend(sistLagret)}</Detail>}
         <div className={styles.avbryt}>
           <Button variant={'tertiary'} onClick={avbrytOnClick} type={'button'}>
             Avbryt
           </Button>
         </div>
-      )}
+      </div>
     </form>
   );
 };

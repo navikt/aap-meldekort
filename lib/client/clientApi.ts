@@ -36,6 +36,13 @@ export async function gåTilNesteStegClient(
   return await clientFetch<UtfyllingResponse>(`/api/${meldekortId}/neste-steg`, 'POST', meldekortRequest);
 }
 
+export async function mellomlagreMeldekortClient(
+  meldekortId: string,
+  meldekortRequest: EndreUtfyllingRequest
+): Promise<UtfyllingResponse | undefined> {
+  return await clientFetch<UtfyllingResponse>(`/api/${meldekortId}/lagre`, 'POST', meldekortRequest);
+}
+
 export async function startInnsendingClient(
   startInnsendingRequest: StartUtfyllingRequest
 ): Promise<StartUtfyllingResponse | undefined> {
@@ -55,3 +62,4 @@ export async function startKorrigeringClient(
     startInnsendingRequest
   );
 }
+

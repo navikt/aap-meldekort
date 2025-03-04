@@ -3,12 +3,13 @@
 import { Form } from 'components/form/Form';
 import { Rapporteringskalender, rapporteringskalenderId } from 'components/rapporteringskalender/Rapporteringskalender';
 import { BodyLong, BodyShort, ErrorSummary, Heading, ReadMore, VStack } from '@navikt/ds-react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { UtfyllingResponse } from 'lib/types/types';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
+import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -27,6 +28,7 @@ export const Utfylling = ({ utfylling }: Props) => {
   const { referanse, innsendingtype } = useParamsMedType();
   const { gåTilSteg } = useGåTilSteg();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
+  const { mellomlagreMeldekort, sistLagret } = useMellomlagring();
   const [skjemaError, setSkjemaError] = useState<string>();
 
   const form = useForm<MeldepliktFormFields>({
@@ -55,17 +57,32 @@ export const Utfylling = ({ utfylling }: Props) => {
   const fraDato = new Date(utfylling.metadata.periode.fom);
   const tilDato = new Date(utfylling.metadata.periode.tom);
 
+  const dager = useWatch({ control: form.control, name: 'dager' });
   useEffect(() => {
-    if (!manglerTimerPåArbeid(form.watch('dager'), true)) {
+    if (!manglerTimerPåArbeid(dager, true)) {
       setSkjemaError(undefined);
     }
-  }, [form.watch()]);
+
+    mellomlagreMeldekort({
+      nyTilstand: {
+        aktivtSteg: 'UTFYLLING',
+        svar: {
+          ...utfylling.tilstand.svar,
+          dager: dager.map((dag) => ({
+            dato: dag.dag,
+            timerArbeidet: dag.timer ? Number(replaceCommasWithDots(dag.timer)) : null,
+          })),
+        },
+      },
+    });
+  }, [dager]);
 
   return (
     <FormProvider {...form}>
       <Form
         forrigeStegOnClick={() => gåTilSteg('SPØRSMÅL')}
         nesteStegKnappTekst={'Neste'}
+        sistLagret={sistLagret}
         onSubmit={form.handleSubmit(async (data) => {
           setSkjemaError(undefined);
 
