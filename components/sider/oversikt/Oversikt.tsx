@@ -6,7 +6,7 @@ import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { useTranslations } from 'next-intl';
 import { startInnsendingClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
-import { formaterDatoForFrontend } from 'lib/utils/date';
+import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { ChevronRightIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons';
 import { InnsendingType } from 'lib/utils/url';
 
@@ -20,7 +20,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
   const router = useRouter();
 
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'8'}>
       <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>
 
       <VStack gap={'4'}>
@@ -31,7 +31,10 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
           <NavigationPanel
             type={'button'}
             title={t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
-              antall: kommendeMeldeperiode.antallUbesvarteMeldeperioder,
+              uker: hentUkeNummerForPeriode(
+                new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
+                new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
+              ),
             })}
             description={`${formaterDatoForFrontend(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom)} - ${formaterDatoForFrontend(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)}`}
             rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
