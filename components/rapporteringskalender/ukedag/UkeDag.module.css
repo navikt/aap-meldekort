@@ -1,32 +1,45 @@
 .ikkeeksisterendefelt {
-  background-color: var(--a-gray-50);
-  opacity: 0.5;
+  background-color: var(--a-surface-subtle);
+  opacity: 0.4;
 }
 
-.dagcontainer {
+.dagcontainer,
+.dagcontainerharerror {
   flex: 1;
 }
 
-.dagcontainer:last-child {
-  border-bottom-right-radius: 7px;
-  border-top-right-radius: 7px;
+.dagcontainer:first-child,
+.dagcontainerharerror:first-child {
+  border-top-left-radius: 6px;
+}
+
+.dagcontainer:last-child,
+.dagcontainerharerror:last-child {
+  border-top-right-radius: 6px;
 }
 
 .dagcontainer:first-child {
-  border-bottom-left-radius: 7px;
-  border-top-left-radius: 7px;
+  border-bottom-left-radius: 6px;
+}
+
+.dagcontainer:last-child {
+  border-bottom-right-radius: 6px;
 }
 
 .inputwrapper {
-  border-right: 2px solid var(--a-gray-200);
-  padding: 0 var(--a-spacing-4);
+  border-right: 1px solid var(--a-border-divider);
+  padding: 0 var(--a-spacing-5);
+}
+
+.inputwrapperutenborder {
+  padding: 0 var(--a-spacing-5);
 }
 
 .dag {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: var(--a-spacing-4) 0;
+  margin: var(--a-spacing-4) 0 var(--a-spacing-5) 0;
 }
 
 .timerinput {
@@ -35,23 +48,20 @@
   gap: var(--a-spacing-2);
 }
 
-.dag .tekstfeltFeilmelding {
-  border: 2px solid var(--a-border-danger);
-}
-
 .erutfylt {
-  background-color: var(--a-surface-action-subtle);
+  background-color: var(--a-surface-selected);
 }
 
 .harFeilmelding {
-  background-color: var(--a-red-100);
+  background-color: var(--a-surface-danger-subtle);
 }
 
 .error {
   display: flex;
   flex-direction: row;
-  gap: var(--a-spacing-4);
+  gap: var(--a-spacing-2);
   align-items: center;
+  padding: var(--a-spacing-2) 0;
 }
 
 .errorIcon {
@@ -60,15 +70,18 @@
 
 @media (max-width: 768px) {
   .dagcontainer {
-    border-bottom: 2px solid var(--a-gray-100);
+    border-bottom: 1px solid var(--a-border-divider);
   }
 
   .inputwrapper {
-    padding: var(--a-spacing-4) var(--a-spacing-2);
-    margin: 0 var(--a-spacing-4);
+    padding: var(--a-spacing-3) var(--a-spacing-5);
     border-bottom: none;
     border-top: none;
     border-right: none;
+  }
+
+  .inputwrapperutenborder {
+    padding: var(--a-spacing-3) var(--a-spacing-5);
   }
 
   .inputwrapper:last-child {
@@ -94,7 +107,6 @@
   .dag {
     flex-direction: column;
     align-items: stretch;
-    gap: var(--a-spacing-4);
     margin: 0;
   }
 }

@@ -52,9 +52,17 @@ export const UkeRad = ({ felterIUken }: Props) => {
         </Heading>
       </div>
       <VStack>
-        <div className={styles.ukerad}>
-          {alleDagerIUken.map((dag) => {
-            return <UkeDag key={dag.toString()} dag={dag} felterMap={felterMap} />;
+        <div className={ukeUtfyllingErrorMeldinger.length > 0 ? styles.ukeradmederror : styles.ukerad}>
+          {alleDagerIUken.map((dag, index) => {
+            return (
+              <UkeDag
+                key={dag.toString()}
+                dag={dag}
+                felterMap={felterMap}
+                erSisteFeltiRaden={alleDagerIUken.length === index + 1}
+                radHarError={ukeUtfyllingErrorMeldinger.length > 0}
+              />
+            );
           })}
         </div>
         {!erLitenSkjerm && ukeUtfyllingErrors.length > 0 && (

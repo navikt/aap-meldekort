@@ -13,9 +13,11 @@ import styles from './UkeDag.module.css';
 interface Props {
   dag: Date;
   felterMap: Map<string, FieldArrayWithIndex>;
+  erSisteFeltiRaden: boolean;
+  radHarError: boolean;
 }
 
-export const UkeDag = ({ dag, felterMap }: Props) => {
+export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props) => {
   const form = useFormContext<MeldepliktFormFields>();
   const { erLitenSkjerm } = useSkjermBredde();
   const dagStr = format(dag, 'yyyy-MM-dd');
@@ -34,14 +36,14 @@ export const UkeDag = ({ dag, felterMap }: Props) => {
     !eksisterendeFelt && styles.ikkeeksisterendefelt,
     harVerdi && styles.erutfylt,
     harFeilmelding && styles.harFeilmelding,
-    styles.dagcontainer,
+    radHarError ? styles.dagcontainerharerror : styles.dagcontainer,
   ]
     .filter(Boolean)
     .join(' ');
 
   return (
     <div className={containerClassNames}>
-      <div className={styles.inputwrapper}>
+      <div className={erSisteFeltiRaden ? styles.inputwrapperutenborder : styles.inputwrapper}>
         <div className={styles.dag}>
           <div className={styles.timerinput}>
             <VStack>
@@ -54,7 +56,7 @@ export const UkeDag = ({ dag, felterMap }: Props) => {
                 id={`dager${eksisterendeFelt.index}timer`}
                 name={`dager.${eksisterendeFelt.index}.timer`}
                 label={'Arbeid'}
-                className={harFeilmelding ? styles.tekstfeltFeilmelding : ''}
+                className={harFeilmelding ? 'navds-text-field--error' : ''}
                 rules={{
                   validate: (value) => {
                     if (!value || value === '') {
@@ -76,7 +78,7 @@ export const UkeDag = ({ dag, felterMap }: Props) => {
           {harFeilmelding && erLitenSkjerm && (
             <div className={styles.error}>
               <XMarkOctagonFillIcon className={styles.errorIcon} fontSize={'2rem'} />
-              <BodyShort size={"small"}>{harFeilmelding.message}</BodyShort>
+              <BodyShort size={'small'}>{harFeilmelding.message}</BodyShort>
             </div>
           )}
         </div>
