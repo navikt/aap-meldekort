@@ -90,6 +90,6 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
     const formatter = new Intl.DateTimeFormat('nb-NO', { weekday: 'long' });
     return erLitenSkjerm
       ? storForbokstav(formatter.format(new Date(date)))
-      : storForbokstav(formatter.format(new Date(date))).substring(0, 3) + '.';
+      : storForbokstav(formatter.format(new Date(date))).substring(0, 2) + '.';
   }
 };
