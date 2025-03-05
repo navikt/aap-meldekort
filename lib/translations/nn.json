@@ -31,7 +31,72 @@
         "heading": "Send meldekort",
         "antallKlareMeldekort": "Fyll ut og send meldekort for uke {uker}",
         "ingenMeldekort": "Du har ingen meldekort å sende inn nå. Vi sender deg en melding når det er klart for utfylling."
+      },
+      "innsendteMeldekort": {
+        "heading": "Se innsendte meldekort",
+        "title": "Se og endre meldekort"
       }
+    },
+    "steg": {
+      "introduksjon": {
+        "heading": "Meldekort for uke {uker}",
+        "bulletList": {
+          "item": {
+            "1": "Du kan sende dette meldekortet fra {tidligsteDato}, og senest {senesteDato} for å unngå trekk i utbetalingen.",
+            "2": "Du vil få utbetalt AAP cirka 2 til 3 virkedager etter at du har levert meldekortet."
+          }
+        },
+        "informasjonomriktigopplysninger": {
+          "heading": "Takk for at du er ærlig",
+          "riktigopplysninger": "Det er viktig at du gir oss riktige opplysninger.",
+          "link": "<a>Les mer om viktigheten av å gi riktige opplysninger</a>"
+        }
+      },
+      "spørsmål": {
+        "korrigering": {
+          "heading": "Endre meldekort"
+        },
+        "innsending": {
+          "heading": "Fyll ut meldekort"
+        },
+        "periode": "Uke {uker} ({periode})",
+        "skjema": {
+          "felter": {
+            "harDuArbeidet": {
+              "label": "Har du arbeidet i perioden?",
+              "error": "Du må svare på om du har arbeidet i perioden."
+            }
+          }
+        }
+      },
+      "utfylling": {
+        "korrigering": {
+          "heading": "Endre meldekort"
+        },
+        "innsending": {
+          "heading": "Fyll ut meldekort"
+        },
+        "periode": "Uke {uker} ({periode})",
+        "beskrivelse": "Skriv inn timene du har arbeidet for perioden. Timer skrives med desimal til nærmeste halvtime. For eksempel blir 7 timer og 30 min = 7,5 timer.",
+        "readmore": {
+          "label": "Les mer om hva som skal fylles ut",
+          "content": "Alle aktiviteter som er betalt, eller som normalt ville ha vært betalt, regnes som arbeid og skal føres på meldekortet. For eksempel regnes gratisarbeid for andre som vanligvis er betalt, frilansarbeid og lønnede verv som arbeid.",
+          "link": "<a>Les mer om hva som regnes som arbeid.</a>"
+        },
+        "skjema": {
+          "felter": {
+            "dager": {
+              "validering": {
+                "barenummer": "Du kan bare skrive tall mellom 0 og 24 ({dato}).",
+                "helehalvetimer": "Du kan bare skrive inn hele eller halve timer ({dato}).",
+                "ikkeførttimer": "Du må føre timer."
+              }
+            }
+          }
+        }
+      },
+      "bekreft": {},
+      "kvittering": {}
     }
   }
 }
