@@ -2,7 +2,7 @@
 
 import { Form } from 'components/form/Form';
 import { Rapporteringskalender, rapporteringskalenderId } from 'components/rapporteringskalender/Rapporteringskalender';
-import { BodyLong, BodyShort, ErrorSummary, Heading, ReadMore, VStack } from '@navikt/ds-react';
+import { BodyLong, BodyShort, ErrorSummary, Heading, Link, ReadMore, VStack } from '@navikt/ds-react';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
@@ -118,7 +118,14 @@ export const Utfylling = ({ utfylling }: Props) => {
               Skriv inn timene du har arbeidet for perioden. Timer skrives med desimal til nærmeste halvtime. For
               eksempel blir 7 timer og 30 min = 7,5 timer.
             </BodyLong>
-            <ReadMore header={'Les mer om hva som skal fylles ut'}>Her kommer det informasjon</ReadMore>
+            <ReadMore header={'Les mer om hva som skal fylles ut'}>
+              Alle aktiviteter som er betalt, eller som normalt ville ha vært betalt, regnes som arbeid og skal føres på
+              meldekortet. For eksempel regnes gratisarbeid for andre som vanligvis er betalt, frilansarbeid og lønnede
+              verv som arbeid.{' '}
+              <Link href="https://www.nav.no/send-meldekort-aap#arbeid" target="_blank">
+                Les mer om hva som regnes som arbeid.
+              </Link>
+            </ReadMore>
           </VStack>
 
           <Rapporteringskalender />
