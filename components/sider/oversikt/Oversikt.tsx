@@ -61,11 +61,11 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
       {harInnsendteMeldeperioder && (
         <VStack gap={'4'}>
           <Heading level={'2'} size={'medium'}>
-            Se innsendte meldekort
+            {t('client.oversikt.innsendteMeldekort.heading')}
           </Heading>
           <NavigationPanel
             type={'link'}
-            title={'Se og endre meldekort'}
+            title={t('client.oversikt.innsendteMeldekort.title')}
             href={`/innsendt`}
             leftIcon={<PencilIcon fontSize={'2rem'} />}
             rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}

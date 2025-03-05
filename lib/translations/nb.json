@@ -31,6 +31,10 @@
         "heading": "Send meldekort",
         "antallKlareMeldekort": "Fyll ut og send meldekort for uke {uker}",
         "ingenMeldekort": "Du har ingen meldekort å sende inn nå. Vi sender deg en melding når det er klart for utfylling."
+      },
+      "innsendteMeldekort": {
+        "heading": "Se innsendte meldekort",
+        "title": "Se og endre meldekort"
       }
     }
   }
