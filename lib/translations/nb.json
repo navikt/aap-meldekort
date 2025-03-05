@@ -52,7 +52,23 @@
           "link": "<a>Les mer om viktigheten av å gi riktige opplysninger</a>"
         }
       },
-      "spørsmål": {},
+      "spørsmål": {
+        "korrigering": {
+          "heading": "Endre meldekort"
+        },
+        "innsending": {
+          "heading": "Fyll ut meldekort"
+        },
+        "periode": "Uke {uker} ({periode})",
+        "skjema": {
+          "felter": {
+            "harDuArbeidet": {
+              "label": "Har du arbeidet i perioden?",
+              "error": "Du må svare på om du har arbeidet i perioden."
+            }
+          }
+        }
+      },
       "utfylling": {},
       "bekreft": {},
       "kvittering": {}

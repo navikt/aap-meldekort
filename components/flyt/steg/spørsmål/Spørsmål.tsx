@@ -11,6 +11,7 @@ import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
 import { useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -21,6 +22,7 @@ interface FormFields {
 }
 
 export const Spørsmål = ({ utfylling }: Props) => {
+  const t = useTranslations();
   const { referanse, innsendingtype } = useParamsMedType();
   const { gåTilSteg } = useGåTilSteg();
   const { isLoading, løsStegOgGåTilNeste, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
@@ -31,8 +33,8 @@ export const Spørsmål = ({ utfylling }: Props) => {
       type: 'radio',
       options: JaEllerNeiOptions,
       defaultValue: getJaNeiEllerUndefined(utfylling.tilstand.svar.harDuJobbet),
-      label: 'Har du arbeidet i perioden?',
-      rules: { required: 'Du må svare på om du har arbeidet i perioden' },
+      label: t('client.steg.spørsmål.skjema.felter.harDuArbeidet.label'),
+      rules: { required: t('client.steg.spørsmål.skjema.felter.harDuArbeidet.error') },
     },
   });
 
@@ -80,9 +82,16 @@ export const Spørsmål = ({ utfylling }: Props) => {
       <VStack gap={'8'}>
         <VStack gap={'2'}>
           <Heading level={'2'} size={'large'}>
-            {innsendingtype === InnsendingType.INNSENDING ? 'Fyll ut meldekort' : 'Endre meldekort'}
+            {innsendingtype === InnsendingType.INNSENDING
+              ? t('client.steg.spørsmål.innsending.heading')
+              : t('client.steg.spørsmål.korrigering.heading')}
           </Heading>
-          <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
+          <BodyShort>
+            {t('client.steg.spørsmål.periode', {
+              uker: hentUkeNummerForPeriode(fraDato, tilDato),
+              periode: `${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`,
+            })}
+          </BodyShort>
         </VStack>
         <FormField form={form} formField={formFields.harDuJobbet} size={'medium'} />
       </VStack>
