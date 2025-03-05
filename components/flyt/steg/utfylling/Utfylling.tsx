@@ -10,6 +10,7 @@ import { UtfyllingResponse } from 'lib/types/types';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -25,6 +26,7 @@ interface Dag {
 }
 
 export const Utfylling = ({ utfylling }: Props) => {
+  const t = useTranslations();
   const { referanse, innsendingtype } = useParamsMedType();
   const { gåTilSteg } = useGåTilSteg();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
@@ -110,21 +112,29 @@ export const Utfylling = ({ utfylling }: Props) => {
           <VStack gap={'4'}>
             <VStack gap={'2'}>
               <Heading level={'2'} size={'large'}>
-                {innsendingtype === InnsendingType.INNSENDING ? 'Fyll ut meldekort' : 'Endre meldekort'}
+                {innsendingtype === InnsendingType.INNSENDING
+                  ? t('client.steg.utfylling.innsending.heading')
+                  : t('client.steg.utfylling.korrigering.heading')}
               </Heading>
-              <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)} (${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
+              <BodyShort>
+                {t('client.steg.spørsmål.periode', {
+                  uker: hentUkeNummerForPeriode(fraDato, tilDato),
+                  periode: `${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`,
+                })}
+              </BodyShort>
             </VStack>
-            <BodyLong>
-              Skriv inn timene du har arbeidet for perioden. Timer skrives med desimal til nærmeste halvtime. For
-              eksempel blir 7 timer og 30 min = 7,5 timer.
-            </BodyLong>
-            <ReadMore header={'Les mer om hva som skal fylles ut'}>
-              Alle aktiviteter som er betalt, eller som normalt ville ha vært betalt, regnes som arbeid og skal føres på
-              meldekortet. For eksempel regnes gratisarbeid for andre som vanligvis er betalt, frilansarbeid og lønnede
-              verv som arbeid.{' '}
-              <Link href="https://www.nav.no/send-meldekort-aap#arbeid" target="_blank">
-                Les mer om hva som regnes som arbeid.
-              </Link>
+            <BodyLong>{t('client.steg.utfylling.beskrivelse')}</BodyLong>
+            <ReadMore header={t('client.steg.utfylling.readmore.label')}>
+              <BodyShort>
+                {t('client.steg.utfylling.readmore.content')}{' '}
+                {t.rich('client.steg.utfylling.readmore.link', {
+                  a: (chunks) => (
+                    <Link href="https://www.nav.no/send-meldekort-aap#arbeid" target="_blank">
+                      {chunks}
+                    </Link>
+                  ),
+                })}
+              </BodyShort>
             </ReadMore>
           </VStack>
 

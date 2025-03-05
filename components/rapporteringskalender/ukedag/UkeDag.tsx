@@ -9,6 +9,7 @@ import { FieldArrayWithIndex } from 'components/rapporteringskalender/Rapporteri
 import { storForbokstav } from 'lib/utils/string';
 
 import styles from './UkeDag.module.css';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   dag: Date;
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props) => {
+  const t = useTranslations();
   const form = useFormContext<MeldepliktFormFields>();
   const { erLitenSkjerm } = useSkjermBredde();
   const dagStr = format(dag, 'yyyy-MM-dd');
@@ -66,9 +68,13 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
                     const valueAsNumber = Number(replaceCommasWithDots(value as string));
 
                     if (isNaN(valueAsNumber) || valueAsNumber < 0 || valueAsNumber > 24) {
-                      return `Du kan bare skrive tall mellom 0 og 24 (${dagINummer}).`;
+                      return t('client.steg.utfylling.skjema.felter.dager.validering.barenummer', {
+                        dato: dagINummer,
+                      });
                     } else if ((valueAsNumber * 10) % 5 !== 0) {
-                      return `Du kan bare skrive inn hele eller halve timer (${dagINummer}).`;
+                      return t('client.steg.utfylling.skjema.felter.dager.validering.helehalvetimer', {
+                        dato: dagINummer,
+                      });
                     }
                   },
                 }}
