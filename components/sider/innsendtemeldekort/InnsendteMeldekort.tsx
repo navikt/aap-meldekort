@@ -21,8 +21,7 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
   const t = useTranslations();
   const router = useRouter();
 
-
-  console.log(innsendteMeldeperioder)
+  console.log(innsendteMeldeperioder);
   return (
     <VStack gap={'8'}>
       <MeldekortLenke label={'Tilbake til oversikten'} href={`/`} />
@@ -58,11 +57,16 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
                       <span>Endre</span>
                     </div>
                   }
-                  title={`${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.tom)}`}
-                  description={`Uke ${hentUkeNummerForPeriode(
-                    new Date(innsendtMeldekort.meldeperiode.fom),
-                    new Date(innsendtMeldekort.meldeperiode.tom)
-                  )}`}
+                  title={t('client.innsendteMeldekort.innsendtMeldekort.title', {
+                    uker: hentUkeNummerForPeriode(
+                      new Date(innsendtMeldekort.meldeperiode.fom),
+                      new Date(innsendtMeldekort.meldeperiode.tom)
+                    ),
+                    datoperiode: `${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.tom)}`,
+                  })}
+                  description={t('client.innsendteMeldekort.innsendtMeldekort.description', {
+                    timer: innsendtMeldekort.antallTimerArbeidetIPerioden,
+                  })}
                 />
               );
             })}
