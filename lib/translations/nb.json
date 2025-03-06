@@ -51,9 +51,9 @@
             "2": "Du vil få utbetalt AAP cirka 2 til 3 virkedager etter at du har levert meldekortet."
           }
         },
-        "informasjonomriktigopplysninger": {
+        "informasjonOmRiktigeOpplysninger": {
           "heading": "Takk for at du er ærlig",
-          "riktigopplysninger": "Det er viktig at du gir oss riktige opplysninger.",
+          "riktigOpplysninger": "Det er viktig at du gir oss riktige opplysninger.",
           "link": "<a>Les mer om viktigheten av å gi riktige opplysninger</a>"
         }
       },
@@ -92,9 +92,9 @@
           "felter": {
             "dager": {
               "validering": {
-                "barenummer": "Du kan bare skrive tall mellom 0 og 24 ({dato}).",
-                "helehalvetimer": "Du kan bare skrive inn hele eller halve timer ({dato}).",
-                "ikkeførttimer": "Du må føre timer."
+                "bareNummer": "Du kan bare skrive tall mellom 0 og 24 ({dato}).",
+                "heleHalveTimer": "Du kan bare skrive inn hele eller halve timer ({dato}).",
+                "ikkeFørtTimer": "Du må føre timer."
               }
             }
           }
@@ -110,12 +110,12 @@
         "periode": "Uke {uker} ({periode})",
         "oppsummering": {
           "heading": "Oppsummering",
-          "timerArebdiet": {
+          "harDuArbeidet": {
             "label": "Har du arbeidet i perioden?"
           },
           "antallTimerArbeidet": {
             "label": "Antall timer arbeidet",
-            "periodelabel": "Uke {ukenummer} ({periode})",
+            "periodeLabel": "Uke {ukenummer} ({periode})",
             "timerArbeidet": "{timer} timer arbeidet",
             "sammenlagt": "sammenlagt for perioden"
           }
@@ -140,7 +140,7 @@
             "2": "Du vil få utbetalt AAP om cirka 2 til 3 virkerdager."
           }
         },
-        "sehvadusendteinn": "Se hva du sendte inn",
+        "seHvaDuSendteInn": "Se hva du sendte inn",
         "link": "<a>Gå tilbake til oversikt</a>"
       }
     }

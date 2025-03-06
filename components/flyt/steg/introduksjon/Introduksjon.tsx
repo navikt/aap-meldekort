@@ -47,10 +47,9 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
 
         <VStack gap={'2'}>
           <BodyShort weight={'semibold'}>
-            {t('client.steg.introduksjon.informasjonomriktigopplysninger.heading')}
+            {t('client.steg.introduksjon.informasjonOmRiktigeOpplysninger.riktigOpplysninger')}
           </BodyShort>
-          <BodyShort>{t('client.steg.introduksjon.informasjonomriktigopplysninger.riktigopplysninger')}</BodyShort>
-          {t.rich('client.steg.introduksjon.informasjonomriktigopplysninger.link', {
+          {t.rich('client.steg.introduksjon.informasjonOmRiktigeOpplysninger.link', {
             a: (chunks) => (
               <Link href={'https://www.nav.no/endringer'} target="_blank">
                 {chunks}

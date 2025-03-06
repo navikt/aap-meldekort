@@ -84,7 +84,7 @@ describe('Stemmer opplysningene', () => {
 
   it('skal ha et felt for å bekrefte at opplysningene stemmer', () => {
     render(<Bekreft utfylling={meldekortUtenArbeid} />);
-    const bekreftOption = screen.getByRole('checkbox', { name: 'Jeg bekrefter at jeg har gitt riktige opplysninger' });
+    const bekreftOption = screen.getByRole('checkbox', { name: 'Jeg bekrefter at jeg har gitt riktige opplysninger.' });
     expect(bekreftOption).toBeVisible();
   });
 
@@ -95,7 +95,7 @@ describe('Stemmer opplysningene', () => {
 
     await user.click(sendInnKnapp);
 
-    const feilmelding = screen.getByText('Du må bekrefte at disse opplysningene stemmer');
+    const feilmelding = screen.getByText('Du må bekrefte at disse opplysningene stemmer.');
     expect(feilmelding).toBeVisible();
   });
 });

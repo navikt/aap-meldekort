@@ -44,7 +44,7 @@ export const Bekreft = ({ utfylling }: Props) => {
             },
           });
         } else {
-          setFormError(t('client.steg.spørsmål.skjema.felter.harDuArbeidet.error'));
+          setFormError(t('client.steg.bekreft.skjema.error'));
         }
       }}
       isLoading={isLoading}

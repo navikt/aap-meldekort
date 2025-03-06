@@ -33,7 +33,7 @@ export const Kvittering = ({ utfylling }: Props) => {
 
       <Accordion>
         <Accordion.Item>
-          <Accordion.Header>{t('client.steg.kvittering.sehvadusendteinn')}</Accordion.Header>
+          <Accordion.Header>{t('client.steg.kvittering.seHvaDuSendteInn')}</Accordion.Header>
           <Accordion.Content>
             <SkjemaOppsummering utfylling={utfylling} />
           </Accordion.Content>

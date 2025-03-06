@@ -80,7 +80,7 @@ describe('skjema oppsummering', () => {
 
     const dag = screen.getByText('Mandag:');
     expect(dag).toBeVisible();
-    const timerArbeidet = screen.getByText('7.5 timer');
+    const timerArbeidet = screen.getByText('7.5 timer arbeidet');
     expect(timerArbeidet).toBeVisible();
   });
 
@@ -92,7 +92,7 @@ describe('skjema oppsummering', () => {
 
     const dag = screen.getByText('Søndag:');
     expect(dag).toBeVisible();
-    const timerArbeidet = screen.getByText('5 timer');
+    const timerArbeidet = screen.getByText('5 timer arbeidet');
     expect(timerArbeidet).toBeVisible();
   });
 

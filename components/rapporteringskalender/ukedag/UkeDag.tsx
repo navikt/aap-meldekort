@@ -68,11 +68,11 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
                     const valueAsNumber = Number(replaceCommasWithDots(value as string));
 
                     if (isNaN(valueAsNumber) || valueAsNumber < 0 || valueAsNumber > 24) {
-                      return t('client.steg.utfylling.skjema.felter.dager.validering.barenummer', {
+                      return t('client.steg.utfylling.skjema.felter.dager.validering.bareNummer', {
                         dato: dagINummer,
                       });
                     } else if ((valueAsNumber * 10) % 5 !== 0) {
-                      return t('client.steg.utfylling.skjema.felter.dager.validering.helehalvetimer', {
+                      return t('client.steg.utfylling.skjema.felter.dager.validering.heleHalveTimer', {
                         dato: dagINummer,
                       });
                     }

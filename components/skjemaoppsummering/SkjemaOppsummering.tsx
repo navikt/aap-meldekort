@@ -57,7 +57,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
           <FormSummary.Label>
             <HStack justify={'space-between'}>
               <BodyShort weight={'semibold'}>
-                {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.label')}
+                {t('client.steg.bekreft.oppsummering.harDuArbeidet.label')}
               </BodyShort>
               {visLenkeTilbakeTilSteg && (
                 <MeldekortLenke label={'Endre'} href={hentUrlForSteg('SPØRSMÅL')} visIcon={false} />
@@ -85,7 +85,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                   return (
                     <FormSummary.Answer key={index}>
                       <FormSummary.Label>
-                        {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.periodelabel', {
+                        {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.periodeLabel', {
                           ukenummer: hentUkeNummerForDato(uke.ukeStart),
                           periode: `${formaterDatoForFrontend(uke.ukeStart)} - ${formaterDatoForFrontend(uke.ukeSlutt)}`,
                         })}

@@ -37,6 +37,11 @@
         "title": "Se og endre meldekort"
       }
     },
+    "innsendteMeldekort": {
+      "heading": "Dine innsendte meldekort",
+      "info": "Du kan endre innsendte meldekort 20 uker tilbake i tid. Hvis du endrer et meldekort vi allerede har utbetalt,\n          vil vi vurdere om du har rett på mer penger eller om du har fått for mye utbetalt.",
+      "ingenInnsendteMeldekort": "Du har ingen innsendte meldekort."
+    },
     "steg": {
       "introduksjon": {
         "heading": "Meldekort for uke {uker}",
@@ -46,9 +51,9 @@
             "2": "Du vil få utbetalt AAP cirka 2 til 3 virkedager etter at du har levert meldekortet."
           }
         },
-        "informasjonomriktigopplysninger": {
+        "informasjonOmRiktigeOpplysninger": {
           "heading": "Takk for at du er ærlig",
-          "riktigopplysninger": "Det er viktig at du gir oss riktige opplysninger.",
+          "riktigOpplysninger": "Det er viktig at du gir oss riktige opplysninger.",
           "link": "<a>Les mer om viktigheten av å gi riktige opplysninger</a>"
         }
       },
@@ -87,16 +92,57 @@
           "felter": {
             "dager": {
               "validering": {
-                "barenummer": "Du kan bare skrive tall mellom 0 og 24 ({dato}).",
-                "helehalvetimer": "Du kan bare skrive inn hele eller halve timer ({dato}).",
-                "ikkeførttimer": "Du må føre timer."
+                "bareNummer": "Du kan bare skrive tall mellom 0 og 24 ({dato}).",
+                "heleHalveTimer": "Du kan bare skrive inn hele eller halve timer ({dato}).",
+                "ikkeFørtTimer": "Du må føre timer."
               }
             }
           }
         }
       },
-      "bekreft": {},
-      "kvittering": {}
+      "bekreft": {
+        "korrigering": {
+          "heading": "Se over og send inn endringene"
+        },
+        "innsending": {
+          "heading": "Se over og send inn meldekort"
+        },
+        "periode": "Uke {uker} ({periode})",
+        "oppsummering": {
+          "heading": "Oppsummering",
+          "harDuArbeidet": {
+            "label": "Har du arbeidet i perioden?"
+          },
+          "antallTimerArbeidet": {
+            "label": "Antall timer arbeidet",
+            "periodeLabel": "Uke {ukenummer} ({periode})",
+            "timerArbeidet": "{timer} timer arbeidet",
+            "sammenlagt": "sammenlagt for perioden"
+          }
+        },
+        "skjema": {
+          "label": "Jeg bekrefter at jeg har gitt riktige opplysninger.",
+          "error": "Du må bekrefte at disse opplysningene stemmer."
+        }
+      },
+      "kvittering": {
+        "alert": {
+          "korrigering": {
+            "label": "Vi har mottatt endringene på meldekortet."
+          },
+          "innsending": {
+            "label": "Vi har mottatt meldekortet ditt."
+          }
+        },
+        "bulletList": {
+          "items": {
+            "1": "Du kan endre opplysningene hvis du oppdager at du har ført feil.",
+            "2": "Du vil få utbetalt AAP om cirka 2 til 3 virkerdager."
+          }
+        },
+        "seHvaDuSendteInn": "Se hva du sendte inn",
+        "link": "<a>Gå tilbake til oversikt</a>"
+      }
     }
   }
 }
