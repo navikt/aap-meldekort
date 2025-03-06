@@ -37,6 +37,11 @@
         "title": "Se og endre meldekort"
       }
     },
+    "innsendteMeldekort": {
+      "heading": "Dine innsendte meldekort",
+      "info": "Du kan endre innsendte meldekort 20 uker tilbake i tid. Hvis du endrer et meldekort vi allerede har utbetalt,\n          vil vi vurdere om du har rett på mer penger eller om du har fått for mye utbetalt.",
+      "ingenInnsendteMeldekort": "Du har ingen innsendte meldekort."
+    },
     "steg": {
       "introduksjon": {
         "heading": "Meldekort for uke {uker}",

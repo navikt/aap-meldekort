@@ -11,12 +11,14 @@ import styles from './InnsendteMeldekort.module.css';
 import { startKorrigeringClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
 import { InnsendingType } from 'lib/utils/url';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   innsendteMeldeperioder: HistoriskMeldeperiode[];
 }
 
 export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
+  const t = useTranslations();
   const router = useRouter();
 
   return (
@@ -24,12 +26,9 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
       <MeldekortLenke label={'Tilbake til oversikten'} href={`/`} />
       <VStack gap={'4'}>
         <Heading size={'large'} level={'2'}>
-          Dine innsendte meldekort
+          {t('client.innsendteMeldekort.heading')}
         </Heading>
-        <BodyLong>
-          Du kan endre innsendte meldekort 20 uker tilbake i tid. Hvis du endrer et meldekort vi allerede har utbetalt,
-          vil vi vurdere om du har rett på mer penger eller om du har fått for mye utbetalt.
-        </BodyLong>
+        <BodyLong>{t('client.innsendteMeldekort.info')}</BodyLong>
       </VStack>
 
       <VStack gap={'4'}>
@@ -67,7 +66,7 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
             })}
           </>
         ) : (
-          <Alert variant={'info'}>Du har ingen innsendte meldekort</Alert>
+          <Alert variant={'info'}>{t('client.innsendteMeldekort.ingenInnsendteMeldekort')}</Alert>
         )}
       </VStack>
     </VStack>
