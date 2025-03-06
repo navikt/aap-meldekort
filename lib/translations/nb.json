@@ -141,7 +141,8 @@
           }
         },
         "seHvaDuSendteInn": "Se hva du sendte inn",
-        "link": "<a>Gå tilbake til oversikt</a>"
+        "linkTilOversikt": "<a>Gå tilbake til oversikt</a>",
+        "linkTilNesteMeldekort": "<a>Gå til neste meldekort {meldeperiode} </a>"
       }
     }
   }

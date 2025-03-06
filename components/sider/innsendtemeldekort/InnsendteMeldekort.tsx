@@ -21,6 +21,8 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
   const t = useTranslations();
   const router = useRouter();
 
+
+  console.log(innsendteMeldeperioder)
   return (
     <VStack gap={'8'}>
       <MeldekortLenke label={'Tilbake til oversikten'} href={`/`} />

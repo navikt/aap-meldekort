@@ -14,10 +14,11 @@ interface Props {
   kommendeMeldekort?: KommendeMeldekort;
 }
 
-export const Kvittering = ({ utfylling }: Props) => {
+export const Kvittering = ({ utfylling, kommendeMeldekort }: Props) => {
   const t = useTranslations();
   const { innsendingtype } = useParamsMedType();
 
+  console.log(kommendeMeldekort);
   return (
     <VStack gap={'8'}>
       <Alert variant="success">
@@ -40,7 +41,20 @@ export const Kvittering = ({ utfylling }: Props) => {
         </Accordion.Item>
       </Accordion>
 
-      {t.rich('client.steg.kvittering.link', {
+      {/*{InnsendingType.INNSENDING &&*/}
+      {/*  kommendeMeldekort?.nesteMeldeperiode &&*/}
+      {/*  t.rich('client.steg.kvittering.linkTilNesteMeldekort', {*/}
+      {/*    a: (chunks) => {*/}
+      {/*      return (*/}
+      {/*        <Link href={`/innsending`} className={styles.link}>*/}
+      {/*          {chunks}*/}
+      {/*        </Link>*/}
+      {/*      );*/}
+      {/*    },*/}
+      {/*    meldeperiode: `${hentUkeNummerForPeriode(new Date(kommendeMeldekort.nesteMeldeperiode.meldeperiode.fom), new Date(kommendeMeldekort.nesteMeldeperiode.meldeperiode.tom))}`,*/}
+      {/*  })}*/}
+
+      {t.rich('client.steg.kvittering.linkTilOversikt', {
         a: (chunks) => {
           return (
             <Link href={`/`} className={styles.link}>
