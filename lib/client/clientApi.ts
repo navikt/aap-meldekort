@@ -44,13 +44,12 @@ export async function mellomlagreMeldekortClient(
 }
 
 export async function slettMeldekortUtfyllingClient(meldekortId: string): Promise<boolean> {
-  const res = await fetch(`/api/utfylling/${meldekortId}/slett`, {
+  const res = await fetch(`/api/${meldekortId}/slett`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   });
-
   return res.ok;
 }
 
