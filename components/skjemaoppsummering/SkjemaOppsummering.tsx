@@ -7,6 +7,7 @@ import { formaterDatoForFrontend, hentUkeNummerForDato } from 'lib/utils/date';
 import { storForbokstav } from 'lib/utils/string';
 import { nb } from 'date-fns/locale';
 import { regnUtTimer } from 'lib/utils/meldekort';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -21,6 +22,7 @@ interface OppsummeringMeldeperiodeUke {
 }
 
 export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }: Props) => {
+  const t = useTranslations();
   const { hentUrlForSteg } = useGåTilSteg();
 
   const meldeperiodeUker: Record<string, OppsummeringMeldeperiodeUke> = utfylling.tilstand.svar.dager.reduce(
@@ -47,14 +49,16 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
   return (
     <FormSummary>
       <FormSummary.Header>
-        <FormSummary.Heading level={'3'}>Oppsummering</FormSummary.Heading>
+        <FormSummary.Heading level={'3'}>{t('client.steg.bekreft.oppsummering.heading')}</FormSummary.Heading>
       </FormSummary.Header>
 
       <FormSummary.Answers>
         <FormSummary.Answer>
           <FormSummary.Label>
             <HStack justify={'space-between'}>
-              <BodyShort weight={'semibold'}>Har du arbeidet i perioden?</BodyShort>
+              <BodyShort weight={'semibold'}>
+                {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.label')}
+              </BodyShort>
               {visLenkeTilbakeTilSteg && (
                 <MeldekortLenke label={'Endre'} href={hentUrlForSteg('SPØRSMÅL')} visIcon={false} />
               )}
@@ -67,7 +71,9 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
           <FormSummary.Answer>
             <FormSummary.Label>
               <HStack justify={'space-between'}>
-                <BodyShort weight={'semibold'}>Antall timer arbeidet</BodyShort>
+                <BodyShort weight={'semibold'}>
+                  {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.label')}
+                </BodyShort>
                 {visLenkeTilbakeTilSteg && (
                   <MeldekortLenke label={'Endre'} href={hentUrlForSteg('UTFYLLING')} visIcon={false} />
                 )}
@@ -78,7 +84,13 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                 {Object.entries(meldeperiodeUker).map(([, uke], index) => {
                   return (
                     <FormSummary.Answer key={index}>
-                      <FormSummary.Label>{`Uke ${hentUkeNummerForDato(uke.ukeStart)} (${formaterDatoForFrontend(uke.ukeStart)} - ${formaterDatoForFrontend(uke.ukeSlutt)})`}</FormSummary.Label>
+                      <FormSummary.Label>
+                        {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.periodelabel', {
+                          ukenummer: hentUkeNummerForDato(uke.ukeStart),
+                          periode: `${formaterDatoForFrontend(uke.ukeStart)} - ${formaterDatoForFrontend(uke.ukeSlutt)}`,
+                        })}
+                      </FormSummary.Label>
+
                       <FormSummary.Value>
                         {uke.dager
                           .filter((dag) => dag.timerArbeidet)
@@ -88,7 +100,11 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                                 <BodyShort>
                                   {storForbokstav(format(new Date(dag.dato), 'EEEE', { locale: nb }))}:
                                 </BodyShort>
-                                <BodyShort>{`${dag.timerArbeidet} timer`}</BodyShort>
+                                <BodyShort>
+                                  {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.timerArbeidet', {
+                                    timer: dag.timerArbeidet,
+                                  })}
+                                </BodyShort>
                               </HStack>
                             );
                           })}
@@ -97,8 +113,14 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                   );
                 })}
                 <FormSummary.Answer>
-                  <FormSummary.Label>Sammenlagt for perioden</FormSummary.Label>
-                  <FormSummary.Value>{`${regnUtTimer(Object.values(meldeperiodeUker).flatMap((uke) => uke.dager))} timer arbeidet`}</FormSummary.Value>
+                  <FormSummary.Label>
+                    {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.sammenlagt')}
+                  </FormSummary.Label>
+                  <FormSummary.Value>
+                    {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.timerArbeidet', {
+                      timer: regnUtTimer(Object.values(meldeperiodeUker).flatMap((uke) => uke.dager)),
+                    })}
+                  </FormSummary.Value>
                 </FormSummary.Answer>
               </FormSummary.Answers>
             </FormSummary.Value>

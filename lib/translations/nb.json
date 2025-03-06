@@ -95,7 +95,31 @@
           }
         }
       },
-      "bekreft": {},
+      "bekreft": {
+        "korrigering": {
+          "heading": "Se over og send inn endringene"
+        },
+        "innsending": {
+          "heading": "Se over og send inn meldekort"
+        },
+        "periode": "Uke {uker} ({periode})",
+        "oppsummering": {
+          "heading": "Oppsummering",
+          "timerArebdiet": {
+            "label": "Har du arbeidet i perioden?"
+          },
+          "antallTimerArbeidet": {
+            "label": "Antall timer arbeidet",
+            "periodelabel": "Uke {ukenummer} ({periode})",
+            "timerArbeidet": "{timer} timer arbeidet",
+            "sammenlagt": "sammenlagt for perioden"
+          }
+        },
+        "skjema": {
+          "label": "Jeg bekrefter at jeg har gitt riktige opplysninger.",
+          "error": "Du må bekrefte at disse opplysningene stemmer."
+        }
+      },
       "kvittering": {}
     }
   }

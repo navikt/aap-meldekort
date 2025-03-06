@@ -8,12 +8,14 @@ import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsumme
 import { UtfyllingResponse } from 'lib/types/types';
 import { useState } from 'react';
 import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   utfylling: UtfyllingResponse;
 }
 
 export const Bekreft = ({ utfylling }: Props) => {
+  const t = useTranslations();
   const { referanse, innsendingtype } = useParamsMedType();
   const { gåTilSteg } = useGåTilSteg();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
@@ -42,7 +44,7 @@ export const Bekreft = ({ utfylling }: Props) => {
             },
           });
         } else {
-          setFormError('Du må bekrefte at disse opplysningene stemmer');
+          setFormError(t('client.steg.spørsmål.skjema.felter.harDuArbeidet.error'));
         }
       }}
       isLoading={isLoading}
@@ -52,12 +54,16 @@ export const Bekreft = ({ utfylling }: Props) => {
         <VStack gap={'2'}>
           <Heading size={'large'} level={'2'}>
             {innsendingtype === InnsendingType.INNSENDING
-              ? 'Se over og send inn meldekort'
-              : 'Se over og send inn endringene'}
+              ? t('client.steg.bekreft.innsending.heading')
+              : t('client.steg.bekreft.korrigering.heading')}
           </Heading>
           <HStack gap={'2'}>
-            <BodyShort>{`Uke ${hentUkeNummerForPeriode(fraDato, tilDato)}`}</BodyShort>
-            <BodyShort>{`(${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)})`}</BodyShort>
+            <BodyShort>
+              {t('client.steg.bekreft.periode', {
+                uker: hentUkeNummerForPeriode(fraDato, tilDato),
+                periode: `${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`,
+              })}
+            </BodyShort>
           </HStack>
         </VStack>
 
@@ -65,7 +71,7 @@ export const Bekreft = ({ utfylling }: Props) => {
 
         <ConfirmationPanel
           checked={stemmerOpplysningene}
-          label="Jeg bekrefter at jeg har gitt riktige opplysninger"
+          label={t('client.steg.bekreft.skjema.label')}
           onChange={() => setStemmerOpplysningene((value) => !value)}
           error={!stemmerOpplysningene && formError}
         />

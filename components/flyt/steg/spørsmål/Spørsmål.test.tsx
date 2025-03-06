@@ -61,7 +61,7 @@ describe('Periode', () => {
   it('skal vise en feilmelding dersom feltet ikke er besvart', async () => {
     const fullførKnapp = screen.getByRole('button', { name: 'Neste' });
     await user.click(fullførKnapp);
-    const feilmelding = screen.getByText('Du må svare på om du har arbeidet i perioden');
+    const feilmelding = screen.getByText('Du må svare på om du har arbeidet i perioden.');
     expect(feilmelding).toBeVisible();
   });
 });
