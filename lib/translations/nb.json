@@ -120,7 +120,24 @@
           "error": "Du må bekrefte at disse opplysningene stemmer."
         }
       },
-      "kvittering": {}
+      "kvittering": {
+        "alert": {
+          "korrigering": {
+            "label": "Vi har mottatt endringene på meldekortet."
+          },
+          "innsending": {
+            "label": "Vi har mottatt meldekortet ditt."
+          }
+        },
+        "bulletList": {
+          "items": {
+            "1": "Du kan endre opplysningene hvis du oppdager at du har ført feil.",
+            "2": "Du vil få utbetalt AAP om cirka 2 til 3 virkerdager."
+          }
+        },
+        "sehvadusendteinn": "Se hva du sendte inn",
+        "link": "<a>Gå tilbake til oversikt</a>"
+      }
     }
   }
 }
