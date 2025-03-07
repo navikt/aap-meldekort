@@ -26,10 +26,10 @@
     },
     "oversikt": {
       "ingenMeldekort": "Kunne ikke finne noen meldeperioder",
-      "mottaAAP": "For å motta AAP må du sende meldekort hver 14. dag. På meldekortet må du fylle ut om du har arbeidet og hvor mye du har jobbet.",
+      "mottaAAP": "For å motta AAP må du sende meldekort hver 14. dag. På meldekortet må du fylle ut hvor mange timer du har arbeidet.",
       "sendMeldekort": {
         "heading": "Send meldekort",
-        "antallKlareMeldekort": "Fyll ut og send meldekort for uke {uker}",
+        "antallKlareMeldekort": "Send meldekort for uke {uker}",
         "ingenMeldekort": "Du har ingen meldekort å sende inn nå. Vi sender deg en melding når det er klart for utfylling."
       },
       "innsendteMeldekort": {
@@ -121,7 +121,7 @@
             "label": "Antall timer arbeidet",
             "periodeLabel": "Uke {ukenummer} ({periode})",
             "timerArbeidet": "{timer} timer arbeidet",
-            "sammenlagt": "sammenlagt for perioden"
+            "sammenlagt": "Sammenlagt for perioden"
           }
         },
         "skjema": {
