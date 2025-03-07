@@ -3,7 +3,7 @@ import { BodyShort, FormSummary, HStack } from '@navikt/ds-react';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';
 import { useGåTilSteg } from 'lib/utils/url';
-import { formaterDatoForFrontend, hentUkeNummerForDato } from 'lib/utils/date';
+import { formaterDatoMedÅrForFrontend, hentUkeNummerForDato } from 'lib/utils/date';
 import { storForbokstav } from 'lib/utils/string';
 import { nb } from 'date-fns/locale';
 import { regnUtTimer } from 'lib/utils/meldekort';
@@ -87,7 +87,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                       <FormSummary.Label>
                         {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.periodeLabel', {
                           ukenummer: hentUkeNummerForDato(uke.ukeStart),
-                          periode: `${formaterDatoForFrontend(uke.ukeStart)} - ${formaterDatoForFrontend(uke.ukeSlutt)}`,
+                          periode: `${formaterDatoMedÅrForFrontend(uke.ukeStart)} - ${formaterDatoMedÅrForFrontend(uke.ukeSlutt)}`,
                         })}
                       </FormSummary.Label>
 

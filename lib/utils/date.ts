@@ -2,14 +2,18 @@ import { format, getISOWeek, isValid, parse } from 'date-fns';
 import { nb } from 'date-fns/locale';
 
 export const DATO_FORMATER = {
+  ddMM: 'dd.MM',
   ddMMyyyy: 'dd.MM.yyyy',
   ddMMMyyyy: 'dd. MMM yyyy',
   ddMMyyyy_HHmm: 'dd.MM.yyyy HH:mm',
   ddMMyyyy_HHmmss: 'dd.MM.yyyy HH:mm:ss',
 };
 
-export function formaterDatoForFrontend(dato: Date | string): string {
+export function formaterDatoMedÅrForFrontend(dato: Date | string): string {
   return format(dato, DATO_FORMATER.ddMMyyyy, { locale: nb });
+}
+export function formaterDatoUtenÅrForFrontend(dato: Date | string): string {
+  return format(dato, DATO_FORMATER.ddMM, { locale: nb });
 }
 
 export function formaterDatoMedTidspunktForFrontend(dato: Date | string): string {

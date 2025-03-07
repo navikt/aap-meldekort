@@ -1,7 +1,7 @@
 'use client';
 
 import { Alert, BodyLong, Heading, VStack } from '@navikt/ds-react';
-import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { HistoriskMeldeperiode } from 'lib/types/types';
@@ -54,7 +54,7 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
                       new Date(innsendtMeldekort.meldeperiode.fom),
                       new Date(innsendtMeldekort.meldeperiode.tom)
                     ),
-                    datoperiode: `${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoForFrontend(innsendtMeldekort.meldeperiode.tom)}`,
+                    datoperiode: `${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.tom)}`,
                   })}
                   description={t('client.innsendteMeldekort.innsendtMeldekort.description', {
                     timer: innsendtMeldekort.antallTimerArbeidetIPerioden,

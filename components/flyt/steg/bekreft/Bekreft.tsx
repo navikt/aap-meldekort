@@ -3,7 +3,7 @@
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { Form } from 'components/form/Form';
 import { BodyShort, ConfirmationPanel, Heading, HStack, VStack } from '@navikt/ds-react';
-import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { UtfyllingResponse } from 'lib/types/types';
 import { useState } from 'react';
@@ -59,7 +59,7 @@ export const Bekreft = ({ utfylling }: Props) => {
             <BodyShort>
               {t('client.steg.bekreft.periode', {
                 uker: hentUkeNummerForPeriode(fraDato, tilDato),
-                periode: `${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`,
+                periode: `${formaterDatoMedÅrForFrontend(fraDato)} - ${formaterDatoMedÅrForFrontend(tilDato)}`,
               })}
             </BodyShort>
           </HStack>

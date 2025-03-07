@@ -7,7 +7,7 @@ import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { UtfyllingResponse } from 'lib/types/types';
-import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
 import { useTranslations } from 'next-intl';
@@ -119,7 +119,7 @@ export const Utfylling = ({ utfylling }: Props) => {
               <BodyShort>
                 {t('client.steg.spørsmål.periode', {
                   uker: hentUkeNummerForPeriode(fraDato, tilDato),
-                  periode: `${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`,
+                  periode: `${formaterDatoMedÅrForFrontend(fraDato)} - ${formaterDatoMedÅrForFrontend(tilDato)}`,
                 })}
               </BodyShort>
             </VStack>

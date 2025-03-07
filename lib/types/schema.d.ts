@@ -808,7 +808,7 @@ export interface components {
         "no.nav.aap.meldekort.DagSvarDto": {
             /**
              * Format: date
-             * @example 2025-03-06
+             * @example 2025-03-07
              */
             dato: string;
             /** Format: double */
@@ -838,7 +838,7 @@ export interface components {
             "bruttoBel\u00F8p"?: number | null;
             /**
              * Format: date
-             * @example 2025-03-06
+             * @example 2025-03-07
              */
             innsendtDato?: string | null;
             kanEndres: boolean;
@@ -852,24 +852,24 @@ export interface components {
         "no.nav.aap.meldekort.PeriodeDto": {
             /**
              * Format: date
-             * @example 2025-03-06
+             * @example 2025-03-07
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-03-06
+             * @example 2025-03-07
              */
             tom: string;
         };
         "no.nav.aap.meldekort.StartUtfyllingRequest": {
             /**
              * Format: date
-             * @example 2025-03-06
+             * @example 2025-03-07
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-03-06
+             * @example 2025-03-07
              */
             tom: string;
         };
@@ -885,9 +885,20 @@ export interface components {
             vilSvareRiktig?: boolean | null;
         };
         "no.nav.aap.meldekort.UtfyllingMetadataDto": {
+            /**
+             * Format: date-time
+             * @example 2025-03-07T14:34:27.551523
+             */
+            fristForInnsending?: string | null;
+            kanSendesInn: boolean;
             periode: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
             /** Format: uuid */
             referanse: string;
+            /**
+             * Format: date-time
+             * @example 2025-03-07T14:34:27.551523
+             */
+            tidligsteInnsendingstidspunkt?: string | null;
         };
         "no.nav.aap.meldekort.UtfyllingResponseDto": {
             feil?: string | null;
@@ -913,7 +924,7 @@ export interface components {
             navn: string;
             /**
              * Format: date-time
-             * @example 2025-03-06T13:50:45.240407
+             * @example 2025-03-07T14:34:27.551523
              */
             "planlagtKj\u00F8retidspunkt": string;
             /** @enum {string} */

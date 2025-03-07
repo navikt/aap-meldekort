@@ -2,10 +2,11 @@
 
 import { Alert, BodyShort, Heading, Link, List, VStack } from '@navikt/ds-react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import {formaterDatoMedÅrForFrontend, formaterDatoUtenÅrForFrontend, hentUkeNummerForPeriode} from 'lib/utils/date';
 import { UtfyllingResponse } from 'lib/types/types';
 import { useTranslations } from 'next-intl';
 import { Form } from 'components/form/Form';
+import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -14,6 +15,7 @@ interface Props {
 
 export const Introduksjon = ({ utfylling, referanse }: Props) => {
   const t = useTranslations();
+  const { innsendingtype } = useParamsMedType();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
 
   const fraDato = new Date(utfylling.metadata.periode.fom);
@@ -48,15 +50,19 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
 
             <BodyShort
               size={'large'}
-            >{`${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`}</BodyShort>
+            >{`${formaterDatoMedÅrForFrontend(fraDato)} - ${formaterDatoMedÅrForFrontend(tilDato)}`}</BodyShort>
           </VStack>
           <List size={'medium'}>
-            <List.Item>
-              {t('client.steg.introduksjon.bulletList.item.1', {
-                tidligsteDato: 'TODO',
-                senesteDato: 'TODO',
-              })}
-            </List.Item>
+            {innsendingtype === InnsendingType.INNSENDING &&
+              utfylling.metadata.fristForInnsending &&
+              utfylling.metadata.tidligsteInnsendingstidspunkt && (
+                <List.Item>
+                  {t('client.steg.introduksjon.bulletList.item.1', {
+                    tidligsteDato: formaterDatoUtenÅrForFrontend(new Date(utfylling.metadata.tidligsteInnsendingstidspunkt)),
+                    senesteDato: formaterDatoUtenÅrForFrontend(new Date(utfylling.metadata.fristForInnsending)),
+                  })}
+                </List.Item>
+              )}
             <List.Item>{t('client.steg.introduksjon.bulletList.item.2')}</List.Item>
           </List>
         </VStack>

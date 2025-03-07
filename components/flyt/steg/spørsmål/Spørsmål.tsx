@@ -4,7 +4,7 @@ import { Form } from 'components/form/Form';
 import { FormField, useConfigForm } from '@navikt/aap-felles-react';
 import { getJaNeiEllerUndefined, JaEllerNei, JaEllerNeiOptions } from 'lib/utils/form';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
-import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { UtfyllingResponse } from 'lib/types/types';
 import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
@@ -89,7 +89,7 @@ export const Spørsmål = ({ utfylling }: Props) => {
           <BodyShort>
             {t('client.steg.spørsmål.periode', {
               uker: hentUkeNummerForPeriode(fraDato, tilDato),
-              periode: `${formaterDatoForFrontend(fraDato)} - ${formaterDatoForFrontend(tilDato)}`,
+              periode: `${formaterDatoMedÅrForFrontend(fraDato)} - ${formaterDatoMedÅrForFrontend(tilDato)}`,
             })}
           </BodyShort>
         </VStack>
