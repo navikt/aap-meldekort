@@ -27,7 +27,6 @@ export const Bekreft = ({ utfylling }: Props) => {
 
   return (
     <Form
-      forrigeStegOnClick={() => gåTilSteg(utfylling.tilstand.svar.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL')}
       nesteStegKnappTekst={innsendingtype === InnsendingType.INNSENDING ? 'Send inn' : 'Send inn endringene'}
       onSubmit={(formEvent) => {
         formEvent.preventDefault();
