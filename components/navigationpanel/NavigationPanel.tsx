@@ -23,21 +23,22 @@ interface NavigationPanelLink extends BaseNavigationPanel {
   href: string;
 }
 
-const NavigationPanelContent = ({ title, description, leftIcon, rightIcon }: BaseNavigationPanel) => (
-  <HStack justify={'space-between'} align={'center'}>
-    <HStack align={'center'} gap={'0 4'}>
-      {leftIcon && <div className={styles.icon}>{leftIcon}</div>}
-      <VStack align={'start'} gap={'1'}>
-        <BodyShort size={'large'} weight={'semibold'}>
-          {title}
-        </BodyShort>
-        {description && <BodyShort>{description}</BodyShort>}
-      </VStack>
+const NavigationPanelContent = ({ title, description, leftIcon, rightIcon }: BaseNavigationPanel) => {
+  return (
+    <HStack justify={'space-between'} align={'center'}>
+      <HStack align={'center'} gap={'0 4'}>
+        {leftIcon && <div className={styles.icon}>{leftIcon}</div>}
+        <VStack align={'start'} gap={'1'}>
+          <BodyShort size={'large'} weight={'semibold'}>
+            {title}
+          </BodyShort>
+          {description && <BodyShort size={'large'}>{description}</BodyShort>}
+        </VStack>
+      </HStack>
+      {rightIcon}
     </HStack>
-    {rightIcon}
-    {/*<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />*/}
-  </HStack>
-);
+  );
+};
 
 export const NavigationPanel = (props: Props) => {
   return props.type === 'link' ? (
