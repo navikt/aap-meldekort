@@ -12,6 +12,7 @@ const periode: UtfyllingResponse = {
     },
   },
   metadata: {
+    kanSendesInn: true,
     periode: {
       fom: '2024-11-18',
       tom: '2024-12-01',

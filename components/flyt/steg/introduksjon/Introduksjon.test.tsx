@@ -5,6 +5,7 @@ import { UtfyllingResponse } from 'lib/types/types';
 
 const meldekort: UtfyllingResponse = {
   metadata: {
+    kanSendesInn: true,
     periode: {
       fom: '2024-11-18',
       tom: '2024-12-01',

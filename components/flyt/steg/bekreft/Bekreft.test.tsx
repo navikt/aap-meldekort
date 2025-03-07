@@ -29,6 +29,7 @@ const meldekortUtenArbeid: UtfyllingResponse = {
     },
   },
   metadata: {
+    kanSendesInn: true,
     periode: { fom: '2024-11-04', tom: '2024-11-17' },
     referanse: '123456789',
   },
@@ -36,6 +37,7 @@ const meldekortUtenArbeid: UtfyllingResponse = {
 
 const meldekortMedArbeid: UtfyllingResponse = {
   metadata: {
+    kanSendesInn: true,
     periode: { fom: '2024-11-04', tom: '2024-11-17' },
     referanse: '123456789',
   },

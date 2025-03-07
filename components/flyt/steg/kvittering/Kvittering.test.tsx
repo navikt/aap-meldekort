@@ -5,6 +5,7 @@ import { render, screen } from 'lib/utils/test/customRender';
 
 const meldekort: UtfyllingResponse = {
   metadata: {
+    kanSendesInn: true,
     periode: { fom: '2024-11-18', tom: '2024-12-01' },
     referanse: '123456789',
   },
