@@ -7,7 +7,7 @@ import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { UtfyllingResponse } from 'lib/types/types';
 import { useState } from 'react';
-import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
+import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
 
 interface Props {
@@ -17,7 +17,6 @@ interface Props {
 export const Bekreft = ({ utfylling }: Props) => {
   const t = useTranslations();
   const { referanse, innsendingtype } = useParamsMedType();
-  const { gåTilSteg } = useGåTilSteg();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const [stemmerOpplysningene, setStemmerOpplysningene] = useState(false);
   const [formError, setFormError] = useState<string>();

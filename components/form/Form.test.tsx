@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test, vitest } from 'vitest';
 import { Form } from 'components/form/Form';
-import { render, screen } from '@testing-library/react';
+import { render, screen } from 'lib/utils/test/customRender';
 
 describe('Form generelt', () => {
   beforeEach(() => {

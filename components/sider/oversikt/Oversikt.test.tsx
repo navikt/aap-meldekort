@@ -29,7 +29,7 @@ describe('Oversikt', () => {
 
   it('skal vise en button til neste utfylling dersom det finnes', () => {
     render(<Oversikt harInnsendteMeldeperioder={false} kommendeMeldeperiode={kommendeMeldekort} />);
-    const button = screen.getByText('Fyll ut og send meldekort for uke 8 - 10');
+    const button = screen.getByText('Send meldekort for uke 8 - 10');
     expect(button).toBeVisible();
   });
 
