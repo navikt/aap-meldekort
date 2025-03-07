@@ -3,13 +3,17 @@ import { RefObject, useState } from 'react';
 import { slettMeldekortUtfyllingClient } from 'lib/client/clientApi';
 import { useParamsMedType } from 'lib/utils/url';
 import { useRouter } from 'i18n/routing';
-import { CheckmarkCircleFillIcon, TrashIcon } from '@navikt/aksel-icons';
+import { CheckmarkCircleFillIcon } from '@navikt/aksel-icons';
+import { useTranslations } from 'next-intl';
+
+import styles from './SlettMeldekortModal.module.css';
 
 interface Props {
   ref: RefObject<HTMLDialogElement | null>;
 }
 
 export const SlettMeldekortModal = ({ ref }: Props) => {
+  const t = useTranslations();
   const params = useParamsMedType();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -21,17 +25,19 @@ export const SlettMeldekortModal = ({ ref }: Props) => {
       ref={ref}
       header={
         isDeleted
-          ? { heading: 'Meldekortet er slettet', icon: <CheckmarkCircleFillIcon color={'green'} /> }
-          : { heading: 'Vil du avbryte og slette utfyllingen av meldekortet?', icon: <TrashIcon /> }
+          ? {
+              heading: t('client.slettUtfylling.utfyllingSlettet.heading'),
+              icon: <CheckmarkCircleFillIcon color={'green'} />,
+            }
+          : { heading: t('client.slettUtfylling.heading') }
       }
-      closeOnBackdropClick={true}
     >
       <Modal.Body>
         {!isDeleted ? (
-          <VStack gap={'4'}>
-            <BodyShort>Kanskje noe tekst her?</BodyShort>
+          <VStack gap={'8'}>
+            <BodyShort>{t('client.slettUtfylling.content')}</BodyShort>
             {errorMessage && <Alert variant={'error'}>{errorMessage}</Alert>}
-            <HStack gap={'2'}>
+            <div className={styles.knapper}>
               <Button
                 type={'button'}
                 loading={isLoading}
@@ -41,20 +47,20 @@ export const SlettMeldekortModal = ({ ref }: Props) => {
                   if (slettGikkFint) {
                     setIsDeleted(true);
                   } else {
-                    setErrorMessage('Noe gikk galt ved sletting av meldekort.');
+                    setErrorMessage(t('client.slettUtfylling.error'));
                   }
                   setIsLoading(false);
                 }}
               >
-                Ja, avbryt og slett utfylling
+                {t('client.slettUtfylling.avbrytKnappTekst')}
               </Button>
-              <Button type={'button'} variant={'secondary'}>
-                Nei, ikke avbryt og slett
+              <Button type={'button'} variant={'secondary'} onClick={() => ref.current?.close()}>
+                {t('client.slettUtfylling.forstettKnappTekst')}
               </Button>
-            </HStack>
+            </div>
           </VStack>
         ) : (
-          <VStack gap={'4'}>
+          <VStack gap={'8'}>
             <BodyShort>Kanskje noe tekst her?</BodyShort>
             <HStack gap={'2'}>
               <Button type={'button'} loading={isLoading} onClick={() => router.push('/')}>

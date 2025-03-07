@@ -148,6 +148,16 @@
         "linkTilOversikt": "<a>Gå tilbake til oversikt</a>",
         "linkTilNesteMeldekort": "<a>Gå til neste meldekort {meldeperiode} </a>"
       }
+    },
+    "slettUtfylling": {
+      "heading": "Ønsker du å avbryte innsending av meldekort?",
+      "content": "Hvis du avbryter innsendingen av meldekortet vil du miste informasjonen du har fylt inn.",
+      "error": "Noe gikk galt ved sletting av meldekort.",
+      "avbrytKnappTekst": "Avbryt innsending",
+      "forstettKnappTekst": "Fortsett å fylle ut",
+      "utfyllingSlettet": {
+        "heading": "Meldekort er slettet"
+      }
     }
   }
 }
