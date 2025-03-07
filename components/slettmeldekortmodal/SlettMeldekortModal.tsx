@@ -28,6 +28,7 @@ export const SlettMeldekortModal = ({ ref }: Props) => {
           ? {
               heading: t('client.slettUtfylling.utfyllingSlettet.heading'),
               icon: <CheckmarkCircleFillIcon color={'green'} />,
+              closeButton: false,
             }
           : { heading: t('client.slettUtfylling.heading') }
       }
@@ -61,7 +62,7 @@ export const SlettMeldekortModal = ({ ref }: Props) => {
           </VStack>
         ) : (
           <VStack gap={'8'}>
-            <BodyShort>Kanskje noe tekst her?</BodyShort>
+            <BodyShort>Gå tilbake til oversikten for å sende meldekortet på nytt.</BodyShort>
             <HStack gap={'2'}>
               <Button type={'button'} loading={isLoading} onClick={() => router.push('/')}>
                 Gå tilbake til oversikt
