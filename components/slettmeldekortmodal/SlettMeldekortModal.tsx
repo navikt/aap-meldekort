@@ -1,7 +1,7 @@
 import { Alert, BodyShort, Button, HStack, Modal, VStack } from '@navikt/ds-react';
 import { RefObject, useState } from 'react';
 import { slettMeldekortUtfyllingClient } from 'lib/client/clientApi';
-import { useParamsMedType } from 'lib/utils/url';
+import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { useRouter } from 'i18n/routing';
 import { CheckmarkCircleFillIcon } from '@navikt/aksel-icons';
 import { useTranslations } from 'next-intl';
@@ -14,7 +14,7 @@ interface Props {
 
 export const SlettMeldekortModal = ({ ref }: Props) => {
   const t = useTranslations();
-  const params = useParamsMedType();
+  const { referanse, innsendingtype } = useParamsMedType();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -30,13 +30,22 @@ export const SlettMeldekortModal = ({ ref }: Props) => {
               icon: <CheckmarkCircleFillIcon color={'green'} />,
               closeButton: false,
             }
-          : { heading: t('client.slettUtfylling.heading') }
+          : {
+              heading:
+                innsendingtype === InnsendingType.INNSENDING
+                  ? t('client.slettUtfylling.innsending.heading')
+                  : t('client.slettUtfylling.korrigering.heading'),
+            }
       }
     >
       <Modal.Body>
         {!isDeleted ? (
           <VStack gap={'8'}>
-            <BodyShort>{t('client.slettUtfylling.content')}</BodyShort>
+            <BodyShort>
+              {innsendingtype === InnsendingType.INNSENDING
+                ? t('client.slettUtfylling.innsending.content')
+                : t('client.slettUtfylling.korrigering.content')}
+            </BodyShort>
             {errorMessage && <Alert variant={'error'}>{errorMessage}</Alert>}
             <div className={styles.knapperWrapper}>
               <Button
@@ -44,7 +53,7 @@ export const SlettMeldekortModal = ({ ref }: Props) => {
                 loading={isLoading}
                 onClick={async () => {
                   setIsLoading(true);
-                  const slettGikkFint = await slettMeldekortUtfyllingClient(params.referanse);
+                  const slettGikkFint = await slettMeldekortUtfyllingClient(referanse);
                   if (slettGikkFint) {
                     setIsDeleted(true);
                   } else {
@@ -53,7 +62,9 @@ export const SlettMeldekortModal = ({ ref }: Props) => {
                   setIsLoading(false);
                 }}
               >
-                {t('client.slettUtfylling.avbrytKnappTekst')}
+                {innsendingtype === InnsendingType.INNSENDING
+                  ? t('client.slettUtfylling.innsending.avbrytKnappTekst')
+                  : t('client.slettUtfylling.korrigering.avbrytKnappTekst')}
               </Button>
               <Button type={'button'} variant={'secondary'} onClick={() => ref.current?.close()}>
                 {t('client.slettUtfylling.forstettKnappTekst')}
