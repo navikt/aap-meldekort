@@ -15,6 +15,13 @@ interface Props {
   }>;
 }
 
+/**
+ * Denne må være lik rekkefølgen for flyten for innsending/korrigering.
+ * Lager en tuple slik at typescript sier i fra dersom steg endrer seg.
+ */
+const alleSteg = ['INTRODUKSJON', 'SPØRSMÅL', 'UTFYLLING', 'BEKREFT', 'KVITTERING'] as const;
+type StegTuple = typeof alleSteg;
+
 const AktivtStegPage = async (props: Props) => {
   const params = await props.params;
   const aktivtSteg = decodeURI(params.aktivtSteg) as Steg;
@@ -22,7 +29,7 @@ const AktivtStegPage = async (props: Props) => {
   const utfylling = await hentUtfylling(referanse);
 
   function skalRedirecteTilAktivtSteg() {
-    const steg: Steg[] = ['INTRODUKSJON', 'SPØRSMÅL', 'UTFYLLING', 'BEKREFT', 'KVITTERING'];
+    const steg: StegTuple = alleSteg;
 
     const aktivtStegIndex = steg.indexOf(aktivtSteg);
     const backendStegIndex = steg.indexOf(utfylling.tilstand.aktivtSteg);
