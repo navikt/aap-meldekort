@@ -1,7 +1,7 @@
 'use client';
 
 import { Form } from 'components/form/Form';
-import { Rapporteringskalender, rapporteringskalenderId } from 'components/rapporteringskalender/Rapporteringskalender';
+import { UtfyllingKalender, rapporteringskalenderId } from 'components/utfyllingkalender/UtfyllingKalender';
 import { BodyLong, BodyShort, ErrorSummary, Heading, Link, ReadMore, VStack } from '@navikt/ds-react';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { useEffect, useState } from 'react';
@@ -138,7 +138,7 @@ export const Utfylling = ({ utfylling }: Props) => {
             </ReadMore>
           </VStack>
 
-          <Rapporteringskalender />
+          <UtfyllingKalender />
 
           {feilmeldinger.length > 0 && (
             <ErrorSummary>

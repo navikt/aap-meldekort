@@ -5,7 +5,7 @@ import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import { format } from 'date-fns';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { useFormContext } from 'react-hook-form';
-import { FieldArrayWithIndex } from 'components/rapporteringskalender/Rapporteringskalender';
+import { FieldArrayWithIndex } from 'components/utfyllingkalender/UtfyllingKalender';
 import { storForbokstav } from 'lib/utils/string';
 
 import styles from './UkeDag.module.css';

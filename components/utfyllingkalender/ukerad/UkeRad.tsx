@@ -1,11 +1,11 @@
 'use client';
 
-import { MeldeperiodeUke } from 'components/rapporteringskalender/Rapporteringskalender';
+import { MeldeperiodeUke } from 'components/utfyllingkalender/UtfyllingKalender';
 import { eachDayOfInterval } from 'date-fns';
 
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 
-import styles from 'components/rapporteringskalender/ukerad/UkeRad.module.css';
+import styles from 'components/utfyllingkalender/ukerad/UkeRad.module.css';
 
 import { MeldepliktFormFields } from 'components/flyt/steg/utfylling/Utfylling';
 import { useFormContext } from 'react-hook-form';
