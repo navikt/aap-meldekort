@@ -36,8 +36,6 @@ export default async function RootLayout({
   }
   const Decorator = await fetchDecoratorReact({ env: getEnvironment() });
 
-  // Providing all messages to the client
-  // side is the easiest way to get started
   const messages = await getMessages();
 
   return (
@@ -48,7 +46,7 @@ export default async function RootLayout({
       <body>
         <Decorator.Header />
         <NextIntlClientProvider messages={messages}>
-          <div className={styles.rapporteringheader}>
+          <div className={styles.meldekortheader}>
             <div className={styles.innhold}>
               <Heading level={'1'} size={'xlarge'}>
                 Meldekort - AAP
@@ -56,7 +54,7 @@ export default async function RootLayout({
               <Språkvelger />
             </div>
           </div>
-          <main className={styles.rapporteringcontainer}>{children}</main>
+          <main className={styles.meldekortcontainer}>{children}</main>
         </NextIntlClientProvider>
         <Decorator.Footer />
         <Decorator.Scripts loader={Script} />

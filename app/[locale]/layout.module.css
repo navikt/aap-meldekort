@@ -1,4 +1,4 @@
-.rapporteringheader {
+.meldekortheader {
   margin: var(--a-spacing-4) auto;
   border-bottom: 5px solid var(--a-green-400);
 }
@@ -11,7 +11,7 @@
   justify-content: space-between;
 }
 
-.rapporteringcontainer {
+.meldekortcontainer {
   max-width: 768px;
   padding: var(--a-spacing-4);
   margin: var(--a-spacing-8) auto var(--a-spacing-18);
