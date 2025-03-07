@@ -1,11 +1,11 @@
 'use client';
 
-import { Alert, BodyShort, Button, Heading, HStack, Link, List, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, Link, List, VStack } from '@navikt/ds-react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { formaterDatoForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { UtfyllingResponse } from 'lib/types/types';
-import { ArrowRightIcon } from '@navikt/aksel-icons';
 import { useTranslations } from 'next-intl';
+import { Form } from 'components/form/Form';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -20,7 +20,23 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
   const tilDato = new Date(utfylling.metadata.periode.tom);
 
   return (
-    <section>
+    <Form
+      onSubmit={(e) => {
+        e.preventDefault();
+
+        løsStegOgGåTilNeste({
+          nyTilstand: {
+            aktivtSteg: 'INTRODUKSJON',
+            svar: {
+              ...utfylling.tilstand.svar,
+              vilSvareRiktig: true,
+            },
+          },
+        });
+      }}
+      isLoading={isLoading}
+      errorMessage={errorMessage}
+    >
       <VStack gap={'8'}>
         <VStack gap={'4'}>
           <VStack gap={'2'}>
@@ -59,28 +75,7 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
         </VStack>
 
         {errorMessage && <Alert variant={'error'}>{errorMessage}</Alert>}
-
-        <HStack justify={'center'}>
-          <Button
-            icon={<ArrowRightIcon />}
-            iconPosition={'right'}
-            onClick={() =>
-              løsStegOgGåTilNeste({
-                nyTilstand: {
-                  aktivtSteg: 'INTRODUKSJON',
-                  svar: {
-                    ...utfylling.tilstand.svar,
-                    vilSvareRiktig: true,
-                  },
-                },
-              })
-            }
-            loading={isLoading}
-          >
-            Neste
-          </Button>
-        </HStack>
       </VStack>
-    </section>
+    </Form>
   );
 };

@@ -37,7 +37,7 @@ export const SlettMeldekortModal = ({ ref }: Props) => {
           <VStack gap={'8'}>
             <BodyShort>{t('client.slettUtfylling.content')}</BodyShort>
             {errorMessage && <Alert variant={'error'}>{errorMessage}</Alert>}
-            <div className={styles.knapper}>
+            <div className={styles.knapperWrapper}>
               <Button
                 type={'button'}
                 loading={isLoading}

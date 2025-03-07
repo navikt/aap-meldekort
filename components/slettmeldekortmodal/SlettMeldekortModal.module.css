@@ -1,4 +1,4 @@
-.knapper {
+.knapperWrapper {
   display: flex;
   flex-direction: row;
   gap: var(--a-spacing-3);
@@ -6,7 +6,7 @@
 }
 
 @media (max-width: 768px) {
-  .knapper {
+  .knapperWrapper {
     flex-direction: column;
   }
 }
