@@ -6,8 +6,6 @@ import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { HistoriskMeldeperiode } from 'lib/types/types';
 import { PencilIcon } from '@navikt/aksel-icons';
-
-import styles from './InnsendteMeldekort.module.css';
 import { startKorrigeringClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
 import { InnsendingType } from 'lib/utils/url';
@@ -51,12 +49,7 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
                       );
                     }
                   }}
-                  rightIcon={
-                    <div className={styles.endreicon}>
-                      <PencilIcon aria-hidden="true" />
-                      <span>Endre</span>
-                    </div>
-                  }
+                  rightIcon={<PencilIcon aria-hidden="true" fontSize={'1.5rem'} />}
                   title={t('client.innsendteMeldekort.innsendtMeldekort.title', {
                     uker: hentUkeNummerForPeriode(
                       new Date(innsendtMeldekort.meldeperiode.fom),
