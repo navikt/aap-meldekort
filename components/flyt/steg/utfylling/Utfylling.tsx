@@ -1,7 +1,7 @@
 'use client';
 
 import { Form } from 'components/form/Form';
-import { UtfyllingKalender, rapporteringskalenderId } from 'components/utfyllingkalender/UtfyllingKalender';
+import { UtfyllingKalender, utfyllingKalenderId } from 'components/utfyllingkalender/UtfyllingKalender';
 import { BodyLong, BodyShort, ErrorSummary, Heading, Link, ReadMore, VStack } from '@navikt/ds-react';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { useEffect, useState } from 'react';
@@ -53,7 +53,7 @@ export const Utfylling = ({ utfylling }: Props) => {
       : [];
 
   const feilmeldinger = skjemaError
-    ? [...[{ ref: rapporteringskalenderId, message: skjemaError }], ...feltErrors]
+    ? [...[{ ref: utfyllingKalenderId, message: skjemaError }], ...feltErrors]
     : feltErrors;
 
   const fraDato = new Date(utfylling.metadata.periode.fom);
@@ -89,7 +89,7 @@ export const Utfylling = ({ utfylling }: Props) => {
           setSkjemaError(undefined);
 
           if (manglerTimerPåArbeid(data.dager, !!utfylling.tilstand.svar.harDuJobbet)) {
-            setSkjemaError('Du har svart at du har arbeidet i perioden, og må dermed føre timer.');
+            setSkjemaError(t('client.steg.utfylling.skjema.ingenFørteTimer'));
           } else {
             løsStegOgGåTilNeste({
               nyTilstand: {

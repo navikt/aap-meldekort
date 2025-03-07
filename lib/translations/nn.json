@@ -93,6 +93,7 @@
           "link": "<a>Les mer om hva som regnes som arbeid.</a>"
         },
         "skjema": {
+          "ingenFørteTimer": "Du må fylle inn timene du har jobbet. Siden du har svart at du har arbeidet i perioden kan du ikke sende inn et tomt meldekort.",
           "felter": {
             "dager": {
               "validering": {
