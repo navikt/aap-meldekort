@@ -30,6 +30,7 @@ export const TextFieldWrapper = <FormFieldValues extends FieldValues>({
         name={name}
         size={'medium'}
         label={label}
+        inputMode={'decimal'}
         type={'text'}
         hideLabel={true}
         value={value || ''}
