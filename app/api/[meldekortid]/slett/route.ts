@@ -9,7 +9,9 @@ export async function DELETE(req: NextRequest, props: { params: Promise<{ meldek
     await slettUtfylling(params.meldekortid);
     return new Response(null, { status: 204 });
   } catch (err) {
-    logError(`/meldekort/${params.meldekortid}/slett`, err);
-    return new Response(JSON.stringify({ message: 'Sletting av meldekort gikk dårlig' }), { status: 500 });
+    logError(`/api/${params.meldekortid}/slett`, err);
+    return new Response(JSON.stringify({ message: 'Noe gikk galt i sletting av mellomlagring av utfylling' }), {
+      status: 500,
+    });
   }
 }

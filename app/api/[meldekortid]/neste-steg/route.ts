@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { gåTilNesteSteg } from 'lib/services/meldekortservice';
-import { logError, logInfo } from '@navikt/aap-felles-utils';
+import { logError } from '@navikt/aap-felles-utils';
 import { EndreUtfyllingRequest } from 'lib/types/types';
 
 export async function POST(req: NextRequest, props: { params: Promise<{ meldekortid: string }> }) {
@@ -8,13 +8,11 @@ export async function POST(req: NextRequest, props: { params: Promise<{ meldekor
   const utfyllingRequest: EndreUtfyllingRequest = await req.json();
 
   try {
-    console.log('Kaller lagre og neste med, ' + JSON.stringify(utfyllingRequest));
     const meldekort = await gåTilNesteSteg(params.meldekortid, utfyllingRequest);
 
-    logInfo('meldekortet fra neste steg i respons ser slik ut' + JSON.stringify(meldekort));
     return new Response(JSON.stringify(meldekort), { status: 200 });
   } catch (err) {
-    logError(`/meldekort/${params.meldekortid}/neste-steg`, err);
-    return new Response(JSON.stringify({ message: 'Innsending av steg gikk dårlig' }), { status: 500 });
+    logError(`/api/${params.meldekortid}/neste-steg`, err);
+    return new Response(JSON.stringify({ message: 'Noe gikk galt i lagre-neste av utfylling' }), { status: 500 });
   }
 }

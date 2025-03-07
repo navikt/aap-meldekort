@@ -12,7 +12,7 @@ export async function POST(req: NextRequest, props: { params: Promise<{ meldekor
 
     return new Response(JSON.stringify(meldekort), { status: 200 });
   } catch (err) {
-    logError(`/meldekort/${params.meldekortid}/lagre`, err);
-    return new Response(JSON.stringify({ message: 'Innsending av steg gikk dårlig' }), { status: 500 });
+    logError(`/api/${params.meldekortid}/lagre`, err);
+    return new Response(JSON.stringify({ message: 'Noe gikk galt med mellomlagring av utfylling' }), { status: 500 });
   }
 }
