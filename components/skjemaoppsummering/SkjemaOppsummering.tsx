@@ -56,9 +56,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
         <FormSummary.Answer>
           <FormSummary.Label>
             <HStack justify={'space-between'}>
-              <BodyShort weight={'semibold'}>
-                {t('client.steg.bekreft.oppsummering.harDuArbeidet.label')}
-              </BodyShort>
+              <BodyShort weight={'semibold'}>{t('client.steg.bekreft.oppsummering.harDuArbeidet.label')}</BodyShort>
               {visLenkeTilbakeTilSteg && (
                 <MeldekortLenke label={'Endre'} href={hentUrlForSteg('SPØRSMÅL')} visIcon={false} />
               )}
@@ -81,37 +79,39 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
             </FormSummary.Label>
             <FormSummary.Value>
               <FormSummary.Answers>
-                {Object.entries(meldeperiodeUker).map(([, uke], index) => {
-                  return (
-                    <FormSummary.Answer key={index}>
-                      <FormSummary.Label>
-                        {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.periodeLabel', {
-                          ukenummer: hentUkeNummerForDato(uke.ukeStart),
-                          periode: `${formaterDatoMedÅrForFrontend(uke.ukeStart)} - ${formaterDatoMedÅrForFrontend(uke.ukeSlutt)}`,
-                        })}
-                      </FormSummary.Label>
-
-                      <FormSummary.Value>
-                        {uke.dager
-                          .filter((dag) => dag.timerArbeidet)
-                          .map((dag) => {
-                            return (
-                              <HStack gap={'2'} key={dag.dato}>
-                                <BodyShort>
-                                  {storForbokstav(format(new Date(dag.dato), 'EEEE', { locale: nb }))}:
-                                </BodyShort>
-                                <BodyShort>
-                                  {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.timerArbeidet', {
-                                    timer: dag.timerArbeidet,
-                                  })}
-                                </BodyShort>
-                              </HStack>
-                            );
+                {Object.entries(meldeperiodeUker)
+                  .filter(([, uke]) => uke.dager.some((dag) => dag.timerArbeidet))
+                  .map(([, uke], index) => {
+                    return (
+                      <FormSummary.Answer key={index}>
+                        <FormSummary.Label>
+                          {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.periodeLabel', {
+                            ukenummer: hentUkeNummerForDato(uke.ukeStart),
+                            periode: `${formaterDatoMedÅrForFrontend(uke.ukeStart)} - ${formaterDatoMedÅrForFrontend(uke.ukeSlutt)}`,
                           })}
-                      </FormSummary.Value>
-                    </FormSummary.Answer>
-                  );
-                })}
+                        </FormSummary.Label>
+
+                        <FormSummary.Value>
+                          {uke.dager
+                            .filter((dag) => dag.timerArbeidet)
+                            .map((dag) => {
+                              return (
+                                <HStack gap={'2'} key={dag.dato}>
+                                  <BodyShort>
+                                    {storForbokstav(format(new Date(dag.dato), 'EEEE', { locale: nb }))}:
+                                  </BodyShort>
+                                  <BodyShort>
+                                    {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.timerArbeidet', {
+                                      timer: dag.timerArbeidet,
+                                    })}
+                                  </BodyShort>
+                                </HStack>
+                              );
+                            })}
+                        </FormSummary.Value>
+                      </FormSummary.Answer>
+                    );
+                  })}
                 <FormSummary.Answer>
                   <FormSummary.Label>
                     {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.sammenlagt')}

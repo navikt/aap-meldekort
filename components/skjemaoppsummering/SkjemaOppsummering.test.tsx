@@ -15,14 +15,8 @@ const meldekortMedArbeid: UtfyllingResponse = {
       harDuJobbet: true,
       dager: [
         {
-          dato: '2024-11-04',
-          timerArbeidet: 7.5,
-        },
-        {
-          dato: '2024-11-05',
-        },
-        {
           dato: '2024-11-06',
+          timerArbeidet: 7.5,
         },
         {
           dato: '2024-11-07',
@@ -58,6 +52,12 @@ const meldekortMedArbeid: UtfyllingResponse = {
           dato: '2024-11-17',
           timerArbeidet: 5,
         },
+        {
+          dato: '2024-11-18',
+        },
+        {
+          dato: '2024-11-19',
+        },
       ],
     },
   },
@@ -79,7 +79,7 @@ describe('skjema oppsummering', () => {
     const label = screen.getByText('Uke 45 (04.11.2024 - 10.11.2024)');
     expect(label).toBeVisible();
 
-    const dag = screen.getByText('Mandag:');
+    const dag = screen.getByText('Onsdag:');
     expect(dag).toBeVisible();
     const timerArbeidet = screen.getByText('7.5 timer arbeidet');
     expect(timerArbeidet).toBeVisible();
@@ -112,5 +112,11 @@ describe('skjema oppsummering', () => {
 
     const endreAntallTimerArbeidetLink = screen.queryByRole('link', { name: 'Endre antall timer arbeidet' });
     expect(endreAntallTimerArbeidetLink).not.toBeInTheDocument();
+  });
+
+  it('skal bare vise oppsummering av uker hvor det har blitt ført timer', () => {
+    render(<SkjemaOppsummering utfylling={meldekortMedArbeid} visLenkeTilbakeTilSteg={false} />);
+    expect(screen.getByText('Uke 45 (04.11.2024 - 10.11.2024)')).toBeVisible();
+    expect(screen.getByText('Uke 46 (11.11.2024 - 17.11.2024)')).toBeVisible();
   });
 });
