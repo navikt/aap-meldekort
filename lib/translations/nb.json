@@ -147,7 +147,7 @@
         },
         "seHvaDuSendteInn": "Se hva du sendte inn",
         "linkTilOversikt": "<a>Gå tilbake til oversikt</a>",
-        "linkTilNesteMeldekort": "<a>Gå til neste meldekort {meldeperiode} </a>"
+        "nesteMeldekortKnapp": "Gå til neste meldekort"
       }
     },
     "slettUtfylling": {
