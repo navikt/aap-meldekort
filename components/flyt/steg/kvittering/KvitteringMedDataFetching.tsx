@@ -9,5 +9,5 @@ export const KvitteringMedDataFetching = async ({ referanse }: Props) => {
   const utfylling = await hentUtfylling(referanse);
   const kommendeMeldekort = await hentKommendeMeldeperiode();
 
-  return <Kvittering utfylling={utfylling} kommendeMeldekort={kommendeMeldekort} />;
+  return <Kvittering utfylling={utfylling} kommendeMeldeperiode={kommendeMeldekort} />;
 };

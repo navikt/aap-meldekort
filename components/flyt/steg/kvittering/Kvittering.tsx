@@ -1,24 +1,23 @@
 'use client';
 
-import { Accordion, Alert, List, VStack } from '@navikt/ds-react';
+import { Accordion, Alert, Button, List, VStack } from '@navikt/ds-react';
 import { KommendeMeldekort, UtfyllingResponse } from 'lib/types/types';
-import { Link } from 'i18n/routing';
-
-import styles from 'components/flyt/steg/kvittering/Kvittering.module.css';
+import { Link, useRouter } from 'i18n/routing';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
+import { startInnsendingClient } from 'lib/client/clientApi';
 
 interface Props {
   utfylling: UtfyllingResponse;
-  kommendeMeldekort?: KommendeMeldekort;
+  kommendeMeldeperiode?: KommendeMeldekort;
 }
 
-export const Kvittering = ({ utfylling, kommendeMeldekort }: Props) => {
+export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
   const t = useTranslations();
   const { innsendingtype } = useParamsMedType();
+  const router = useRouter();
 
-  console.log(kommendeMeldekort);
   return (
     <VStack gap={'8'}>
       <Alert variant="success">
@@ -41,28 +40,33 @@ export const Kvittering = ({ utfylling, kommendeMeldekort }: Props) => {
         </Accordion.Item>
       </Accordion>
 
-      {/*{InnsendingType.INNSENDING &&*/}
-      {/*  kommendeMeldekort?.nesteMeldeperiode &&*/}
-      {/*  t.rich('client.steg.kvittering.linkTilNesteMeldekort', {*/}
-      {/*    a: (chunks) => {*/}
-      {/*      return (*/}
-      {/*        <Link href={`/innsending`} className={styles.link}>*/}
-      {/*          {chunks}*/}
-      {/*        </Link>*/}
-      {/*      );*/}
-      {/*    },*/}
-      {/*    meldeperiode: `${hentUkeNummerForPeriode(new Date(kommendeMeldekort.nesteMeldeperiode.meldeperiode.fom), new Date(kommendeMeldekort.nesteMeldeperiode.meldeperiode.tom))}`,*/}
-      {/*  })}*/}
+      <VStack gap={'8'} align={'center'}>
+        {innsendingtype === InnsendingType.INNSENDING && kommendeMeldeperiode?.nesteMeldeperiode && (
+          <Button
+            onClick={async () => {
+              if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
+                const startInnsendingAvMeldekortResponse = await startInnsendingClient(
+                  kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode
+                );
 
-      {t.rich('client.steg.kvittering.linkTilOversikt', {
-        a: (chunks) => {
-          return (
-            <Link href={`/`} className={styles.link}>
-              {chunks}
-            </Link>
-          );
-        },
-      })}
+                if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
+                  router.push(
+                    `/${InnsendingType.INNSENDING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
+                  );
+                }
+              }
+            }}
+          >
+            {t('client.steg.kvittering.nesteMeldekortKnapp')}
+          </Button>
+        )}
+
+        {t.rich('client.steg.kvittering.linkTilOversikt', {
+          a: (chunks) => {
+            return <Link href={`/`}>{chunks}</Link>;
+          },
+        })}
+      </VStack>
     </VStack>
   );
 };

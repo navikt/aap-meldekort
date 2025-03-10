@@ -1,6 +1,6 @@
 import { Kvittering } from 'components/flyt/steg/kvittering/Kvittering';
 import { describe, expect, it } from 'vitest';
-import { UtfyllingResponse, KommendeMeldekort } from 'lib/types/types';
+import { KommendeMeldekort, UtfyllingResponse } from 'lib/types/types';
 import { render, screen } from 'lib/utils/test/customRender';
 
 const meldekort: UtfyllingResponse = {
@@ -17,12 +17,18 @@ const meldekort: UtfyllingResponse = {
   },
 };
 
+const kommendeMeldekort: KommendeMeldekort = {
+  antallUbesvarteMeldeperioder: 0,
+  nesteMeldeperiode: {
+    meldeperiode: { fom: '2024-12-02', tom: '2024-12-15' },
+    innsendingsvindu: { fom: '2024-12-15', tom: '2024-12-23' },
+  },
+};
+
 describe('Kvittering', () => {
   it('viser en suksess-melding', () => {
     render(<Kvittering utfylling={meldekort} />);
-    expect(
-      screen.getByText('Vi har mottatt meldekortet ditt.')
-    ).toBeVisible();
+    expect(screen.getByText('Vi har mottatt meldekortet ditt.')).toBeVisible();
   });
 
   it('har en accordion for å se hva som ble sendt inn', () => {
@@ -38,9 +44,23 @@ describe('Kvittering', () => {
       },
       antallUbesvarteMeldeperioder: 1,
     };
-    render(<Kvittering utfylling={meldekort} kommendeMeldekort={kommendeMeldekort} />);
+    render(<Kvittering utfylling={meldekort} kommendeMeldeperiode={kommendeMeldekort} />);
 
     const knapp = screen.getByRole('link', { name: 'Gå tilbake til oversikt' });
     expect(knapp).toBeVisible();
+  });
+
+  it('skal vise en knapp for å fylle ut neste meldekort dersom det finnes et', () => {
+    render(<Kvittering utfylling={meldekort} kommendeMeldeperiode={kommendeMeldekort} />);
+
+    const nesteMeldeperiodeKnapp = screen.getByRole('button', { name: 'Gå til neste meldekort' });
+    expect(nesteMeldeperiodeKnapp).toBeVisible();
+  });
+
+  it('skal ikke vise en knapp for å fylle ut neste meldekort dersom dersom kommendeMeldekort er null', () => {
+    render(<Kvittering utfylling={meldekort} kommendeMeldeperiode={kommendeMeldekort} />);
+
+    const nesteMeldeperiodeKnapp = screen.queryByRole('button', { name: 'Gå til neste meldekort' });
+    expect(nesteMeldeperiodeKnapp).not.toBeInTheDocument();
   });
 });
