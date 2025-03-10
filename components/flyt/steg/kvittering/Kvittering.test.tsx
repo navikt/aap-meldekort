@@ -58,7 +58,7 @@ describe('Kvittering', () => {
   });
 
   it('skal ikke vise en knapp for å fylle ut neste meldekort dersom dersom kommendeMeldekort er null', () => {
-    render(<Kvittering utfylling={meldekort} kommendeMeldeperiode={kommendeMeldekort} />);
+    render(<Kvittering utfylling={meldekort} />);
 
     const nesteMeldeperiodeKnapp = screen.queryByRole('button', { name: 'Gå til neste meldekort' });
     expect(nesteMeldeperiodeKnapp).not.toBeInTheDocument();
