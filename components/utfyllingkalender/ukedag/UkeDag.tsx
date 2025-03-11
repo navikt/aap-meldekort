@@ -9,6 +9,8 @@ import { FieldArrayWithIndex } from 'components/utfyllingkalender/UtfyllingKalen
 
 import styles from './UkeDag.module.css';
 import { useTranslations } from 'next-intl';
+import { formaterDatoMedMånedIBokstaver, formaterDatoUtenÅrForFrontend } from 'lib/utils/date';
+import { nb } from 'date-fns/locale';
 
 interface Props {
   dag: Date;
@@ -21,8 +23,9 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
   const t = useTranslations();
   const form = useFormContext<MeldepliktFormFields>();
   const { erLitenSkjerm } = useSkjermBredde();
+
   const dagStr = format(dag, 'yyyy-MM-dd');
-  const dagINummer = format(new Date(dag), 'dd.MM');
+  const dagINummer = formaterDatoUtenÅrForFrontend(dag);
   const eksisterendeFelt = felterMap.get(dagStr);
   const harFeilmelding =
     eksisterendeFelt?.index !== undefined ? form.formState.errors?.dager?.[eksisterendeFelt.index]?.timer : undefined;
@@ -49,8 +52,9 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
           <div className={styles.timerinput}>
             <VStack>
               <Detail>{formaterUkedag(dag)}</Detail>
-              {/*<Heading size={'small'}>{dagINummer}</Heading> TODO Fiks formatering her til 09. Februar*/}
-              <Heading size={'small'}>{dagINummer}</Heading>
+              <Heading size={'small'}>
+                {erLitenSkjerm ? formaterDatoMedMånedIBokstaver(dag) : formaterDatoUtenÅrForFrontend(dag)}
+              </Heading>
             </VStack>
             {eksisterendeFelt && (
               <TextFieldWrapper
@@ -93,8 +97,9 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
   );
 
   function formaterUkedag(date: string | Date): string {
-    //TODO Legg inn nynorsk forkortelser
-    const formatter = new Intl.DateTimeFormat('nb-NO', { weekday: 'long' });
-    return erLitenSkjerm ? formatter.format(new Date(date)) : formatter.format(new Date(date)).substring(0, 2) + '.';
+    const dato = new Date(date);
+    const ukedag = format(dato, 'EEEE', { locale: nb });
+
+    return erLitenSkjerm ? ukedag : ukedag.substring(0, 2) + '.';
   }
 };

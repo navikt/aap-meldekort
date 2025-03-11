@@ -94,7 +94,7 @@
   }
 
   .tekstfelt {
-    width: 8ch;
+    max-width: 8ch;
   }
 
   .dagcontainer:last-child {
