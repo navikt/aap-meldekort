@@ -2,11 +2,12 @@
 
 import { Alert, BodyShort, Heading, Link, List, VStack } from '@navikt/ds-react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import {formaterDatoMedÅrForFrontend, formaterDatoUtenÅrForFrontend, hentUkeNummerForPeriode} from 'lib/utils/date';
+import { formaterDatoMedÅrForFrontend, formaterDatoUtenÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { UtfyllingResponse } from 'lib/types/types';
 import { useTranslations } from 'next-intl';
 import { Form } from 'components/form/Form';
 import { InnsendingType, useParamsMedType } from 'lib/utils/url';
+import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -40,6 +41,7 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
       errorMessage={errorMessage}
     >
       <VStack gap={'8'}>
+        <MeldekortLenke label={'Tilbake til oversikten'} href={'/'} />
         <VStack gap={'4'}>
           <VStack gap={'2'}>
             <Heading level={'2'} size={'large'}>
@@ -58,7 +60,9 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
               utfylling.metadata.tidligsteInnsendingstidspunkt && (
                 <List.Item>
                   {t('client.steg.introduksjon.bulletList.item.1', {
-                    tidligsteDato: formaterDatoUtenÅrForFrontend(new Date(utfylling.metadata.tidligsteInnsendingstidspunkt)),
+                    tidligsteDato: formaterDatoUtenÅrForFrontend(
+                      new Date(utfylling.metadata.tidligsteInnsendingstidspunkt)
+                    ),
                     senesteDato: formaterDatoUtenÅrForFrontend(new Date(utfylling.metadata.fristForInnsending)),
                   })}
                 </List.Item>
