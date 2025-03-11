@@ -41,7 +41,7 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
       errorMessage={errorMessage}
     >
       <VStack gap={'8'}>
-        <MeldekortLenke label={'Tilbake til oversikten'} href={'/'} />
+        <MeldekortLenke label={t('client.steg.introduksjon.link')} href={'/'} />
         <VStack gap={'4'}>
           <VStack gap={'2'}>
             <Heading level={'2'} size={'large'}>

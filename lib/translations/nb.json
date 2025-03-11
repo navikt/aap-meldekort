@@ -49,6 +49,7 @@
     "steg": {
       "introduksjon": {
         "heading": "Meldekort for uke {uker}",
+        "link": "Tilbake til oversikten",
         "bulletList": {
           "item": {
             "1": "Du kan sende dette meldekortet fra {tidligsteDato}, og senest {senesteDato} for å unngå trekk i utbetalingen.",
