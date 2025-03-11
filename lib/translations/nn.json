@@ -155,22 +155,17 @@
       }
     },
     "slettUtfylling": {
+      "heading": "Ønsker du å avbryte?",
+      "avbrytKnappTekst": "Avbryt og gå til oversikten",
       "korrigering": {
-        "heading": "Ønsker du å avbryte korrigering av meldekort?",
-        "content": "Hvis du avbryter korrigering av meldekortet vil du miste informasjonen du har fylt inn.",
-        "avbrytKnappTekst": "Avbryt korrigering"
+        "content": "Hvis du avbryter vil du miste endringene du har gjort."
       },
       "innsending": {
-        "heading": "Ønsker du å avbryte innsending av meldekort?",
-        "content": "Hvis du avbryter innsendingen av meldekortet vil du miste informasjonen du har fylt inn.",
-        "avbrytKnappTekst": "Avbryt innsending"
+        "content": "Hvis du avbryter vil du miste informasjonen du har fylt ut."
       },
 
       "error": "Noe gikk galt ved sletting av meldekort.",
-      "forstettKnappTekst": "Fortsett å fylle ut",
-      "utfyllingSlettet": {
-        "heading": "Meldekort er slettet"
-      }
+      "forstettKnappTekst": "Fortsett å fylle ut"
     }
   }
 }
