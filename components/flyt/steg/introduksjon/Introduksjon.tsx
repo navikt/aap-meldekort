@@ -45,7 +45,7 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
         {innsendingtype === InnsendingType.INNSENDING && (
           <Alert variant={'info'}>
             {t('client.steg.introduksjon.flereMeldekortAlert', {
-              antallMeldekort: 6, // TODO Få denne fra backend i metadata
+              antallMeldekort: utfylling.metadata.antallUbesvarteMeldeperioder,
             })}
           </Alert>
         )}

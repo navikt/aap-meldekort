@@ -886,9 +886,11 @@ export interface components {
             vilSvareRiktig?: boolean | null;
         };
         "no.nav.aap.meldekort.UtfyllingMetadataDto": {
+            /** Format: int32 */
+            antallUbesvarteMeldeperioder: number;
             /**
              * Format: date-time
-             * @example 2025-03-11T11:10:10.200002
+             * @example 2025-03-11T13:42:03.052892
              */
             fristForInnsending?: string | null;
             kanSendesInn: boolean;
@@ -897,7 +899,7 @@ export interface components {
             referanse: string;
             /**
              * Format: date-time
-             * @example 2025-03-11T11:10:10.200002
+             * @example 2025-03-11T13:42:03.052892
              */
             tidligsteInnsendingstidspunkt?: string | null;
         };
@@ -925,7 +927,7 @@ export interface components {
             navn: string;
             /**
              * Format: date-time
-             * @example 2025-03-11T11:10:10.200002
+             * @example 2025-03-11T13:42:03.052892
              */
             "planlagtKj\u00F8retidspunkt": string;
             /** @enum {string} */
