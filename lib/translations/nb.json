@@ -24,6 +24,9 @@
         "vedvarer": "Hvis problemet vedvarer, kan du <a>kontakte oss (åpnes i ny fane)</a>"
       }
     },
+    "form": {
+      "forrigeStegKnapp": "Forrige"
+    },
     "oversikt": {
       "ingenMeldekort": "Kunne ikke finne noen meldeperioder",
       "mottaAAP": "For å motta AAP må du sende meldekort hver 14. dag. På meldekortet må du fylle ut hvor mange timer du har arbeidet.",

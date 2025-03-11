@@ -5,6 +5,7 @@ import styles from './Form.module.css';
 import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
 import { formaterDatoMedTidspunktForFrontend } from 'lib/utils/date';
 import { SlettMeldekortModal } from 'components/slettmeldekortmodal/SlettMeldekortModal';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   children: ReactNode;
@@ -25,8 +26,8 @@ export const Form = ({
   errorMessage,
   isLoading = false,
   nesteStegKnappTekst = 'Neste',
-  forrigeStegKnappTekst = 'Forrige',
 }: Props) => {
+  const t = useTranslations();
   const modalRef = useRef<HTMLDialogElement>(null);
 
   return (
@@ -50,7 +51,7 @@ export const Form = ({
             icon={<ArrowLeftIcon aria-hidden={'true'} />}
             iconPosition={'left'}
           >
-            {forrigeStegKnappTekst}
+            {t('client.form.forrigeStegKnapp')}
           </Button>
         )}
       </div>

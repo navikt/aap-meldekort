@@ -46,10 +46,13 @@
         "description": "{timer} timer arbeidet"
       }
     },
+    "form": {
+      "forrigeStegKnapp": "Førre"
+    },
     "steg": {
       "introduksjon": {
         "heading": "Meldekort for uke {uker}",
-        "link": "Tilbake til oversikten",
+        "link": "Tilbake til oversikta",
         "bulletList": {
           "item": {
             "1": "Du kan sende dette meldekortet fra {tidligsteDato}, og senest {senesteDato} for å unngå trekk i utbetalingen.",
