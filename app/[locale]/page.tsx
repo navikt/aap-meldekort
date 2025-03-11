@@ -16,10 +16,5 @@ export default async function Page() {
   const innsendteMeldeperioder = await hentInnsendteMeldeperioder();
   const kommendeMeldeperiode = await hentKommendeMeldeperiode();
 
-  return (
-    <Oversikt
-      kommendeMeldeperiode={kommendeMeldeperiode}
-      harInnsendteMeldeperioder={innsendteMeldeperioder.length > 0}
-    />
-  );
+  return <Oversikt kommendeMeldeperiode={undefined} harInnsendteMeldeperioder={innsendteMeldeperioder.length > 0} />;
 }

@@ -30,7 +30,7 @@
       "sendMeldekort": {
         "heading": "Send meldekort",
         "antallKlareMeldekort": "Send meldekort for uke {uker}",
-        "ingenMeldekort": "Du har ingen meldekort å sende inn nå. Vi sender deg en melding når det er klart for utfylling."
+        "ingenMeldekort": "Du har ingen meldekort å sende inn enda."
       },
       "innsendteMeldekort": {
         "heading": "Se innsendte meldekort",

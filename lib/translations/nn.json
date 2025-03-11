@@ -30,7 +30,7 @@
       "sendMeldekort": {
         "heading": "Send meldekort",
         "antallKlareMeldekort": "Send meldekort for uke {uker}",
-        "ingenMeldekort": "Du har ingen meldekort å sende inn nå. Vi sender deg en melding når det er klart for utfylling."
+        "ingenMeldekort": "Du har ingen meldekort å sende inn enda."
       },
       "innsendteMeldekort": {
         "heading": "Se innsendte meldekort",
@@ -49,7 +49,7 @@
     "steg": {
       "introduksjon": {
         "heading": "Meldekort for uke {uker}",
-        "link": "Tilbake til oversikta",
+        "link": "Tilbake til oversikten",
         "bulletList": {
           "item": {
             "1": "Du kan sende dette meldekortet fra {tidligsteDato}, og senest {senesteDato} for å unngå trekk i utbetalingen.",
