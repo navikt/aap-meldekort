@@ -58,8 +58,8 @@
         },
         "informasjonOmRiktigeOpplysninger": {
           "heading": "Takk for at du er ærlig",
-          "riktigOpplysninger": "Det er viktig at du gir oss riktige opplysninger.",
-          "link": "<a>Les mer om viktigheten av å gi riktige opplysninger</a>"
+          "takkForAtDuErÆrlig": "Takk for at du er ærlig",
+          "link": "Det er viktig at du gir oss riktige opplysninger. <a>Les mer om viktigheten av å gi riktige opplysninger</a>"
         }
       },
       "spørsmål": {

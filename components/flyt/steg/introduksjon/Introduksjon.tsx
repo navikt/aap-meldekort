@@ -2,7 +2,12 @@
 
 import { Alert, BodyShort, Heading, Link, List, VStack } from '@navikt/ds-react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import { formaterDatoMedÅrForFrontend, formaterDatoUtenÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import {
+  formaterDatoMedMånedIBokstaver,
+  formaterDatoMedÅrForFrontend,
+  formaterDatoUtenÅrForFrontend,
+  hentUkeNummerForPeriode,
+} from 'lib/utils/date';
 import { UtfyllingResponse } from 'lib/types/types';
 import { useTranslations } from 'next-intl';
 import { Form } from 'components/form/Form';
@@ -60,10 +65,10 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
               utfylling.metadata.tidligsteInnsendingstidspunkt && (
                 <List.Item>
                   {t('client.steg.introduksjon.bulletList.item.1', {
-                    tidligsteDato: formaterDatoUtenÅrForFrontend(
+                    tidligsteDato: formaterDatoMedMånedIBokstaver(
                       new Date(utfylling.metadata.tidligsteInnsendingstidspunkt)
                     ),
-                    senesteDato: formaterDatoUtenÅrForFrontend(new Date(utfylling.metadata.fristForInnsending)),
+                    senesteDato: formaterDatoMedMånedIBokstaver(new Date(utfylling.metadata.fristForInnsending)),
                   })}
                 </List.Item>
               )}
@@ -73,7 +78,7 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
 
         <VStack gap={'2'}>
           <BodyShort weight={'semibold'}>
-            {t('client.steg.introduksjon.informasjonOmRiktigeOpplysninger.riktigOpplysninger')}
+            {t('client.steg.introduksjon.informasjonOmRiktigeOpplysninger.takkForAtDuErÆrlig')}
           </BodyShort>
           {t.rich('client.steg.introduksjon.informasjonOmRiktigeOpplysninger.link', {
             a: (chunks) => (
