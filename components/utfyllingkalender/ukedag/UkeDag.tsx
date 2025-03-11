@@ -94,8 +94,6 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
 
   function formaterUkedag(date: string | Date): string {
     const formatter = new Intl.DateTimeFormat('nb-NO', { weekday: 'long' });
-    return erLitenSkjerm
-      ? storForbokstav(formatter.format(new Date(date)))
-      : storForbokstav(formatter.format(new Date(date))).substring(0, 2) + '.';
+    return erLitenSkjerm ? formatter.format(new Date(date)) : formatter.format(new Date(date)).substring(0, 2) + '.';
   }
 };
