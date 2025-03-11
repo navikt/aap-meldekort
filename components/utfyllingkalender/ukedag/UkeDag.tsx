@@ -6,7 +6,6 @@ import { format } from 'date-fns';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { useFormContext } from 'react-hook-form';
 import { FieldArrayWithIndex } from 'components/utfyllingkalender/UtfyllingKalender';
-import { storForbokstav } from 'lib/utils/string';
 
 import styles from './UkeDag.module.css';
 import { useTranslations } from 'next-intl';
@@ -50,6 +49,7 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
           <div className={styles.timerinput}>
             <VStack>
               <Detail>{formaterUkedag(dag)}</Detail>
+              {/*<Heading size={'small'}>{dagINummer}</Heading> TODO Fiks formatering her til 09. Februar*/}
               <Heading size={'small'}>{dagINummer}</Heading>
             </VStack>
             {eksisterendeFelt && (
@@ -93,6 +93,7 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
   );
 
   function formaterUkedag(date: string | Date): string {
+    //TODO Legg inn nynorsk forkortelser
     const formatter = new Intl.DateTimeFormat('nb-NO', { weekday: 'long' });
     return erLitenSkjerm ? formatter.format(new Date(date)) : formatter.format(new Date(date)).substring(0, 2) + '.';
   }
