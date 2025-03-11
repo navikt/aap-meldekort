@@ -112,10 +112,12 @@
       },
       "bekreft": {
         "korrigering": {
-          "heading": "Se over og send inn endringene"
+          "heading": "Se over og send inn endringene",
+          "nesteStegKnappTekst": "Send inn endringane"
         },
         "innsending": {
-          "heading": "Se over og send inn meldekort"
+          "heading": "Se over og send inn meldekort",
+          "nesteStegKnappTekst": "Send inn"
         },
         "kanIkkeSendesInn": "Du kan tidligst sende inn meldekortet {dato}. Vi lagrer svarene dine i mellomtiden. <a>Gå tilbake til oversikten</a>",
         "link": "<a>Gå tilbake til oversikten</a>",

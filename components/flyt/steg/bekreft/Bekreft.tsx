@@ -25,10 +25,13 @@ export const Bekreft = ({ utfylling }: Props) => {
   const fraDato = new Date(utfylling.metadata.periode.fom);
   const tilDato = new Date(utfylling.metadata.periode.tom);
 
-  // TODO Nynorsk på send inn endringane
   return (
     <Form
-      nesteStegKnappTekst={innsendingtype === InnsendingType.INNSENDING ? 'Send inn' : 'Send inn endringene'}
+      nesteStegKnappTekst={
+        innsendingtype === InnsendingType.INNSENDING
+          ? t('client.steg.bekreft.innsending.nesteStegKnappTekst')
+          : t('client.steg.bekreft.korrigering.nesteStegKnappTekst')
+      }
       onSubmit={(formEvent) => {
         formEvent.preventDefault();
         setFormError(undefined);

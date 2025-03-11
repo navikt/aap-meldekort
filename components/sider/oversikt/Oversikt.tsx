@@ -19,7 +19,6 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
   const t = useTranslations();
   const router = useRouter();
 
-  // TODO Legg inn fraDato og tilDato for alle ubesvarte meldekort
   return (
     <VStack gap={'8'}>
       <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>
