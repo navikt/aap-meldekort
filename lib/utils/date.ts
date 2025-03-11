@@ -1,9 +1,10 @@
 import { format, getISOWeek, isValid, parse } from 'date-fns';
-import { nb } from 'date-fns/locale';
+import { nb, nn } from 'date-fns/locale';
 
 export const DATO_FORMATER = {
   ddMM: 'dd.MM',
   ddMMyyyy: 'dd.MM.yyyy',
+  ddMMM: 'dd. MMMM',
   ddMMMyyyy: 'dd. MMM yyyy',
   ddMMyyyy_HHmm: 'dd.MM.yyyy HH:mm',
   ddMMyyyy_HHmmss: 'dd.MM.yyyy HH:mm:ss',
@@ -21,8 +22,7 @@ export function formaterDatoUtenÅrForFrontend(dato: Date | string): string {
 }
 
 export function formaterDatoMedMånedIBokstaver(dato: Date | string): string {
-  // TODO formater på denne måten 04. mars
-  return dato.toString();
+  return format(dato, DATO_FORMATER.ddMMM, { locale: nb });
 }
 
 export function formaterDatoMedTidspunktForFrontend(dato: Date | string): string {
