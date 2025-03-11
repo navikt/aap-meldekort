@@ -1,5 +1,5 @@
 import { format, getISOWeek, isValid, parse } from 'date-fns';
-import { nb, nn } from 'date-fns/locale';
+import { nb } from 'date-fns/locale';
 
 export const DATO_FORMATER = {
   ddMM: 'dd.MM',
