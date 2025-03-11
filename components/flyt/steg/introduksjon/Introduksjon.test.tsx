@@ -23,7 +23,7 @@ const utfylling: UtfyllingResponse = {
 describe('generelt', () => {
   it('skal vise en heading med meldeperioden', () => {
     render(<Introduksjon utfylling={utfylling} referanse={'1234'} />);
-    const heading = screen.getByRole('heading', { name: 'Meldekort for uke 47 - 48' });
+    const heading = screen.getByRole('heading', { name: 'Meldekort for uke 47 og 48' });
     expect(heading).toBeVisible();
   });
 

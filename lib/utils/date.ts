@@ -9,7 +9,11 @@ export const DATO_FORMATER = {
   ddMMyyyy_HHmmss: 'dd.MM.yyyy HH:mm:ss',
 };
 
-export function formaterDatoMedÅrForFrontend(dato: Date | string): string {
+export function formaterDatoMedÅrForFrontend(dato?: Date | string): string {
+  if (!dato) {
+    return '';
+  }
+
   return format(dato, DATO_FORMATER.ddMMyyyy, { locale: nb });
 }
 export function formaterDatoUtenÅrForFrontend(dato: Date | string): string {
@@ -18,7 +22,7 @@ export function formaterDatoUtenÅrForFrontend(dato: Date | string): string {
 
 export function formaterDatoMedMånedIBokstaver(dato: Date | string): string {
   // TODO formater på denne måten 04. mars
-  return ''
+  return dato.toString();
 }
 
 export function formaterDatoMedTidspunktForFrontend(dato: Date | string): string {

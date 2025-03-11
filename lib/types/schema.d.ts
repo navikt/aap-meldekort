@@ -808,7 +808,7 @@ export interface components {
         "no.nav.aap.meldekort.DagSvarDto": {
             /**
              * Format: date
-             * @example 2025-03-07
+             * @example 2025-03-11
              */
             dato: string;
             /** Format: double */
@@ -827,6 +827,7 @@ export interface components {
         "no.nav.aap.meldekort.KommendeMeldeperioderDto": {
             /** Format: int32 */
             antallUbesvarteMeldeperioder: number;
+            manglerOpplysninger?: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
             nesteMeldeperiode?: components["schemas"]["no.nav.aap.meldekort.MeldeperiodeDto"];
         };
         "no.nav.aap.meldekort.MeldeperiodeDto": {
@@ -838,7 +839,7 @@ export interface components {
             "bruttoBel\u00F8p"?: number | null;
             /**
              * Format: date
-             * @example 2025-03-07
+             * @example 2025-03-11
              */
             innsendtDato?: string | null;
             kanEndres: boolean;
@@ -852,24 +853,24 @@ export interface components {
         "no.nav.aap.meldekort.PeriodeDto": {
             /**
              * Format: date
-             * @example 2025-03-07
+             * @example 2025-03-11
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-03-07
+             * @example 2025-03-11
              */
             tom: string;
         };
         "no.nav.aap.meldekort.StartUtfyllingRequest": {
             /**
              * Format: date
-             * @example 2025-03-07
+             * @example 2025-03-11
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-03-07
+             * @example 2025-03-11
              */
             tom: string;
         };
@@ -887,7 +888,7 @@ export interface components {
         "no.nav.aap.meldekort.UtfyllingMetadataDto": {
             /**
              * Format: date-time
-             * @example 2025-03-07T14:34:27.551523
+             * @example 2025-03-11T11:10:10.200002
              */
             fristForInnsending?: string | null;
             kanSendesInn: boolean;
@@ -896,7 +897,7 @@ export interface components {
             referanse: string;
             /**
              * Format: date-time
-             * @example 2025-03-07T14:34:27.551523
+             * @example 2025-03-11T11:10:10.200002
              */
             tidligsteInnsendingstidspunkt?: string | null;
         };
@@ -924,7 +925,7 @@ export interface components {
             navn: string;
             /**
              * Format: date-time
-             * @example 2025-03-07T14:34:27.551523
+             * @example 2025-03-11T11:10:10.200002
              */
             "planlagtKj\u00F8retidspunkt": string;
             /** @enum {string} */

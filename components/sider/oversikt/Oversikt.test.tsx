@@ -14,9 +14,7 @@ const kommendeMeldekort: KommendeMeldekort = {
 describe('Oversikt', () => {
   it('skal vise en tekst om at det ikke finnes en meldeperiode som er klar for utfylling dersom det ikke finnes ', () => {
     render(<Oversikt harInnsendteMeldeperioder={false} />);
-    const text = screen.getByText(
-      'Du har ingen meldekort å sende inn nå. Vi sender deg en melding når det er klart for utfylling.'
-    );
+    const text = screen.getByText('Du har ingen meldekort å sende inn enda.');
     expect(text).toBeVisible();
   });
 
@@ -29,7 +27,7 @@ describe('Oversikt', () => {
 
   it('skal vise en button til neste utfylling dersom det finnes', () => {
     render(<Oversikt harInnsendteMeldeperioder={false} kommendeMeldeperiode={kommendeMeldekort} />);
-    const button = screen.getByText('Send meldekort for uke 8 - 10');
+    const button = screen.getByText('Du har 1 meldekort å sende inn');
     expect(button).toBeVisible();
   });
 

@@ -36,7 +36,7 @@ describe('Periode', () => {
   });
 
   it('skal vise dato og uker for perioden', () => {
-    const tekst = screen.getByText('Uke 47 - 48 (18.11.2024 - 01.12.2024)');
+    const tekst = screen.getByText('Uke 47 og 48 (18.11.2024 - 01.12.2024)');
     expect(tekst).toBeVisible();
   });
 

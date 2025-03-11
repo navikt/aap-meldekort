@@ -34,7 +34,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
             title={t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
               antallMeldekort: kommendeMeldeperiode.antallUbesvarteMeldeperioder,
             })}
-            description={`${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)}`}
+            description={`${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.manglerOpplysninger?.fom)} - ${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.manglerOpplysninger?.tom)}`}
             rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
             leftIcon={<TasklistIcon fontSize={'2rem'} />}
             onClick={async () => {

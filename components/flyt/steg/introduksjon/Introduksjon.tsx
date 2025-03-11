@@ -2,12 +2,7 @@
 
 import { Alert, BodyShort, Heading, Link, List, VStack } from '@navikt/ds-react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import {
-  formaterDatoMedMånedIBokstaver,
-  formaterDatoMedÅrForFrontend,
-  formaterDatoUtenÅrForFrontend,
-  hentUkeNummerForPeriode,
-} from 'lib/utils/date';
+import { formaterDatoMedMånedIBokstaver, formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { UtfyllingResponse } from 'lib/types/types';
 import { useTranslations } from 'next-intl';
 import { Form } from 'components/form/Form';
