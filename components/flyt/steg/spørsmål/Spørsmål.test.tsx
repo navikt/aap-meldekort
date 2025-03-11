@@ -12,6 +12,7 @@ const periode: UtfyllingResponse = {
     },
   },
   metadata: {
+    antallUbesvarteMeldeperioder: 1,
     kanSendesInn: true,
     periode: {
       fom: '2024-11-18',

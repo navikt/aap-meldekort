@@ -5,6 +5,7 @@ import { UtfyllingResponse } from 'lib/types/types';
 
 const meldekortMedArbeid: UtfyllingResponse = {
   metadata: {
+    antallUbesvarteMeldeperioder: 1,
     kanSendesInn: true,
     referanse: '123456789',
     periode: { fom: '2024-11.04', tom: '2024-11-17' },

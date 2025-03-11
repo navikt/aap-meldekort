@@ -5,6 +5,7 @@ import { UtfyllingResponse } from 'lib/types/types';
 
 const utfylling: UtfyllingResponse = {
   metadata: {
+    antallUbesvarteMeldeperioder: 1,
     kanSendesInn: true,
     periode: {
       fom: '2024-11-18',
