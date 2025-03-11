@@ -47,6 +47,13 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
     >
       <VStack gap={'8'}>
         <MeldekortLenke label={t('client.steg.introduksjon.link')} href={'/'} />
+        {innsendingtype === InnsendingType.INNSENDING && (
+          <Alert variant={'info'}>
+            {t('client.steg.introduksjon.flereMeldekortAlert', {
+              antallMeldekort: 6, // TODO Få denne fra backend i metadata
+            })}
+          </Alert>
+        )}
         <VStack gap={'4'}>
           <VStack gap={'2'}>
             <Heading level={'2'} size={'large'}>

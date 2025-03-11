@@ -16,6 +16,11 @@ export function formaterDatoUtenÅrForFrontend(dato: Date | string): string {
   return format(dato, DATO_FORMATER.ddMM, { locale: nb });
 }
 
+export function formaterDatoMedMånedIBokstaver(dato: Date | string): string {
+  // TODO formater på denne måten 04. mars
+  return ''
+}
+
 export function formaterDatoMedTidspunktForFrontend(dato: Date | string): string {
   return format(dato, DATO_FORMATER.ddMMyyyy_HHmm, { locale: nb });
 }
@@ -44,10 +49,11 @@ export const parseDatoFraDatePicker = (value?: string | Date): Date | undefined 
 };
 
 export function hentUkeNummerForPeriode(fraDato: Date, tilDato: Date): string {
-  const fraDatoUkenummer = getISOWeek(fraDato);
-  const tilDatoUkenummer = getISOWeek(tilDato);
+  const fraUke = getISOWeek(fraDato);
+  const tilUke = getISOWeek(tilDato);
+  const ukeNumre = Array.from({ length: tilUke - fraUke + 1 }, (_, i) => fraUke + i);
 
-  return `${fraDatoUkenummer} - ${tilDatoUkenummer}`;
+  return `${ukeNumre.slice(0, -1).join(', ')}${ukeNumre.length > 1 ? ' og ' : ''}${ukeNumre.slice(-1)}`;
 }
 
 export function hentUkeNummerForDato(dato: Date) {

@@ -6,7 +6,7 @@ import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { useTranslations } from 'next-intl';
 import { startInnsendingClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
-import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { formaterDatoMedÅrForFrontend } from 'lib/utils/date';
 import { ChevronRightIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons';
 import { InnsendingType } from 'lib/utils/url';
 
@@ -19,6 +19,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
   const t = useTranslations();
   const router = useRouter();
 
+  // TODO Legg inn fraDato og tilDato for alle ubesvarte meldekort
   return (
     <VStack gap={'8'}>
       <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>
@@ -31,10 +32,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
           <NavigationPanel
             type={'button'}
             title={t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
-              uker: hentUkeNummerForPeriode(
-                new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
-                new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
-              ),
+              antallMeldekort: kommendeMeldeperiode.antallUbesvarteMeldeperioder,
             })}
             description={`${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)}`}
             rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}

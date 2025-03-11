@@ -57,7 +57,7 @@ export const Spørsmål = ({ utfylling }: Props) => {
 
   return (
     <Form
-      forrigeStegOnClick={() => gåTilSteg('INTRODUKSJON')}
+      forrigeStegOnClick={innsendingtype === InnsendingType.INNSENDING ? () => gåTilSteg('INTRODUKSJON') : undefined}
       sistLagret={sistLagret}
       onSubmit={form.handleSubmit(async (data) => {
         løsStegOgGåTilNeste({

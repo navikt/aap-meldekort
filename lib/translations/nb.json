@@ -32,7 +32,7 @@
       "mottaAAP": "For å motta AAP må du sende meldekort hver 14. dag. På meldekortet må du fylle ut hvor mange timer du har arbeidet.",
       "sendMeldekort": {
         "heading": "Send meldekort",
-        "antallKlareMeldekort": "Send meldekort for uke {uker}",
+        "antallKlareMeldekort": "Du har {antallMeldekort} meldekort å sende inn",
         "ingenMeldekort": "Du har ingen meldekort å sende inn enda."
       },
       "innsendteMeldekort": {
@@ -42,7 +42,7 @@
     },
     "innsendteMeldekort": {
       "heading": "Dine innsendte meldekort",
-      "info": "Du kan endre innsendte meldekort 20 uker tilbake i tid. Hvis du endrer et meldekort vi allerede har utbetalt,\n          vil vi vurdere om du har rett på mer penger eller om du har fått for mye utbetalt.",
+      "info": "Du kan endre innsendte meldekort 20 uker tilbake i tid. Hvis du endrer et meldekort vi allerede har utbetalt, vil vi vurdere om du har rett på mer penger eller om du har fått for mye utbetalt.",
       "ingenInnsendteMeldekort": "Du har ingen innsendte meldekort.",
       "innsendtMeldekort": {
         "title": "Uke {uker} ({datoperiode})",
@@ -53,6 +53,7 @@
       "introduksjon": {
         "heading": "Meldekort for uke {uker}",
         "link": "Tilbake til oversikten",
+        "flereMeldekortAlert": "Du har {antallMeldekort} meldekort å sende inn. Begynn å fyll ut det eldste først.",
         "bulletList": {
           "item": {
             "1": "Du kan sende dette meldekortet fra {tidligsteDato}, og senest {senesteDato} for å unngå trekk i utbetalingen.",
