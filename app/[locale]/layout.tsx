@@ -49,7 +49,7 @@ export default async function RootLayout({
           <div className={styles.meldekortheader}>
             <div className={styles.innhold}>
               <Heading level={'1'} size={'xlarge'}>
-                Meldekort - AAP
+                Meldekort for AAP
               </Heading>
               <Språkvelger />
             </div>
