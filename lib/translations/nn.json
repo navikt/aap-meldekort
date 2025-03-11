@@ -116,6 +116,8 @@
         "innsending": {
           "heading": "Se over og send inn meldekort"
         },
+        "kanIkkeSendesInn": "Du kan tidligst sende inn meldekortet {dato}. Vi lagrer svarene dine i mellomtiden. <a>Gå tilbake til oversikten</a>",
+        "link": "<a>Gå tilbake til oversikten</a>",
         "periode": "Uke {uker} ({periode})",
         "oppsummering": {
           "heading": "Oppsummering",

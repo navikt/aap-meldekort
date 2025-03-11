@@ -2,13 +2,14 @@
 
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { Form } from 'components/form/Form';
-import { BodyShort, ConfirmationPanel, Heading, HStack, VStack } from '@navikt/ds-react';
-import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { Alert, BodyShort, ConfirmationPanel, Heading, HStack, VStack } from '@navikt/ds-react';
+import { formaterDatoMedÅrForFrontend, formaterDatoUtenÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { UtfyllingResponse } from 'lib/types/types';
 import { useState } from 'react';
 import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
+import { Link } from 'i18n/routing';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -47,6 +48,7 @@ export const Bekreft = ({ utfylling }: Props) => {
       }}
       isLoading={isLoading}
       errorMessage={errorMessage}
+      visNesteKnapp={utfylling.metadata.kanSendesInn}
     >
       <VStack gap={'8'}>
         <VStack gap={'2'}>
@@ -67,12 +69,28 @@ export const Bekreft = ({ utfylling }: Props) => {
 
         <SkjemaOppsummering utfylling={utfylling} visLenkeTilbakeTilSteg={true} />
 
-        <ConfirmationPanel
-          checked={stemmerOpplysningene}
-          label={t('client.steg.bekreft.skjema.label')}
-          onChange={() => setStemmerOpplysningene((value) => !value)}
-          error={!stemmerOpplysningene && formError}
-        />
+        {utfylling.metadata.kanSendesInn && (
+          <ConfirmationPanel
+            checked={stemmerOpplysningene}
+            label={t('client.steg.bekreft.skjema.label')}
+            onChange={() => setStemmerOpplysningene((value) => !value)}
+            error={!stemmerOpplysningene && formError}
+          />
+        )}
+
+        {!utfylling.metadata.kanSendesInn && (
+          <Alert variant={'info'}>
+            <BodyShort>
+              {t('client.steg.bekreft.kanIkkeSendesInn', {
+                dato: formaterDatoUtenÅrForFrontend(utfylling.metadata.tidligsteInnsendingstidspunkt!),
+              })}
+            </BodyShort>
+
+            {t.rich('client.steg.bekreft.link', {
+              a: (chunks) => <Link href={'/'}>{chunks}</Link>,
+            })}
+          </Alert>
+        )}
       </VStack>
     </Form>
   );

@@ -15,7 +15,7 @@ interface Props {
   errorMessage?: string;
   forrigeStegOnClick?: () => void;
   nesteStegKnappTekst?: string;
-  forrigeStegKnappTekst?: string;
+  visNesteKnapp?: boolean;
 }
 
 export const Form = ({
@@ -26,6 +26,7 @@ export const Form = ({
   errorMessage,
   isLoading = false,
   nesteStegKnappTekst = 'Neste',
+  visNesteKnapp = true,
 }: Props) => {
   const t = useTranslations();
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -35,14 +36,16 @@ export const Form = ({
       {children}
       {errorMessage && <Alert variant={'error'}>{errorMessage}</Alert>}
       <div className={styles.knapper}>
-        <Button
-          variant={'primary'}
-          icon={<ArrowRightIcon aria-hidden={'true'} />}
-          iconPosition={'right'}
-          loading={isLoading}
-        >
-          {nesteStegKnappTekst}
-        </Button>
+        {visNesteKnapp && (
+          <Button
+            variant={'primary'}
+            icon={<ArrowRightIcon aria-hidden={'true'} />}
+            iconPosition={'right'}
+            loading={isLoading}
+          >
+            {nesteStegKnappTekst}
+          </Button>
+        )}
         {forrigeStegOnClick && (
           <Button
             variant={'secondary'}
