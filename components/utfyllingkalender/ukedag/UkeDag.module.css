@@ -93,6 +93,10 @@
     justify-content: space-between;
   }
 
+  .tekstfelt {
+    width: 8ch;
+  }
+
   .dagcontainer:last-child {
     border-bottom: none;
     border-bottom-right-radius: 13px;
@@ -100,8 +104,7 @@
   }
 
   .dagcontainer:first-child {
-    border-top-left-radius: 13px;
-    border-top-right-radius: 13px;
+    border-radius: 13px 13px 0 0;
   }
 
   .dag {

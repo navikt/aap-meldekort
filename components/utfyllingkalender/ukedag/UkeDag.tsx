@@ -58,7 +58,7 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
                 id={`dager${eksisterendeFelt.index}timer`}
                 name={`dager.${eksisterendeFelt.index}.timer`}
                 label={'Arbeid'}
-                className={harFeilmelding ? 'navds-text-field--error' : ''}
+                className={`${styles.tekstfelt} ${harFeilmelding ? 'navds-text-field--error' : ''}`}
                 rules={{
                   validate: (value) => {
                     if (!value || value === '') {
