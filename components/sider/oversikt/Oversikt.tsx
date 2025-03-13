@@ -19,6 +19,8 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
   const t = useTranslations();
   const router = useRouter();
 
+
+  console.log('kommendeMeldeperiode', kommendeMeldeperiode)
   return (
     <VStack gap={'8'}>
       <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>
