@@ -14,10 +14,7 @@
   },
   "prettier": "@navikt/aap-felles-prettier",
   "dependencies": {
-    "@navikt/aap-felles-css": "^5.1.0",
-    "@navikt/aap-felles-react": "^5.1.0",
     "@navikt/aap-felles-utils": "^5.1.0",
-    "@navikt/aap-felles-utils-client": "^5.1.0",
     "@navikt/aksel-icons": "^7.17.1",
     "@navikt/ds-css": "^7.17.1",
     "@navikt/ds-react": "^7.17.1",
@@ -67,8 +64,5 @@
     "*.{js,ts,tsx}": "eslint --cache --fix",
     "*.{js,ts,tsx,css,md}": "prettier --write"
   },
-  "packageManager": "yarn@4.5.3",
-  "resolutions": {
-    "eslint-plugin-react-hooks": "5.0.0"
-  }
+  "packageManager": "yarn@4.5.3"
 }

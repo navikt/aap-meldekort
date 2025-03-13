@@ -24,7 +24,7 @@ const periode: UtfyllingResponse = {
 
 const user = userEvent.setup();
 
-describe('Periode', () => {
+describe('Spørsmål', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
     fetchMock.mockResponse(JSON.stringify({ message: 'Success' }), { status: 200 });

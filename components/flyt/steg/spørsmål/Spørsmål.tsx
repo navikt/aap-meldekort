@@ -1,17 +1,17 @@
 'use client';
 
 import { Form } from 'components/form/Form';
-import { FormField, useConfigForm } from '@navikt/aap-felles-react';
-import { getJaNeiEllerUndefined, JaEllerNei, JaEllerNeiOptions } from 'lib/utils/form';
-import { BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { getJaNeiEllerUndefined, JaEllerNei } from 'lib/utils/form';
+import { BodyShort, Heading, Radio, VStack } from '@navikt/ds-react';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { UtfyllingResponse } from 'lib/types/types';
 import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
 import { useEffect } from 'react';
-import { useWatch } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
+import { RadioGroupWrapper } from 'components/form/radiogroupwrapper/RadioGroupWrapper';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -28,14 +28,8 @@ export const Spørsmål = ({ utfylling }: Props) => {
   const { isLoading, løsStegOgGåTilNeste, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const { mellomlagreMeldekort, sistLagret } = useMellomlagring();
 
-  const { form, formFields } = useConfigForm<FormFields>({
-    harDuJobbet: {
-      type: 'radio',
-      options: JaEllerNeiOptions,
-      defaultValue: getJaNeiEllerUndefined(utfylling.tilstand.svar.harDuJobbet),
-      label: t('client.steg.spørsmål.skjema.felter.harDuArbeidet.label'),
-      rules: { required: t('client.steg.spørsmål.skjema.felter.harDuArbeidet.error') },
-    },
+  const form = useForm<FormFields>({
+    defaultValues: { harDuJobbet: getJaNeiEllerUndefined(utfylling.tilstand.svar.harDuJobbet) },
   });
 
   const fraDato = new Date(utfylling.metadata.periode.fom);
@@ -93,7 +87,16 @@ export const Spørsmål = ({ utfylling }: Props) => {
             })}
           </BodyShort>
         </VStack>
-        <FormField form={form} formField={formFields.harDuJobbet} size={'medium'} />
+        <RadioGroupWrapper
+          name={'harDuJobbet'}
+          control={form.control}
+          label={t('client.steg.spørsmål.skjema.felter.harDuArbeidet.label')}
+          size={'medium'}
+          rules={{ required: t('client.steg.spørsmål.skjema.felter.harDuArbeidet.error') }}
+        >
+          <Radio value={JaEllerNei.Ja}>Ja</Radio>
+          <Radio value={JaEllerNei.Nei}>Nei</Radio>
+        </RadioGroupWrapper>
       </VStack>
     </Form>
   );
