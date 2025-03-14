@@ -5,6 +5,7 @@ import { Oversikt } from 'components/sider/oversikt/Oversikt';
 
 const kommendeMeldekort: KommendeMeldekort = {
   antallUbesvarteMeldeperioder: 1,
+  manglerOpplysninger: { fom: '2025-02-17', tom: '2025-03-03' },
   nesteMeldeperiode: {
     meldeperiode: { fom: '2025-02-17', tom: '2025-03-03' },
     innsendingsvindu: { fom: '2025-02-17', tom: '2025-03-03' },
@@ -35,5 +36,42 @@ describe('Oversikt', () => {
     render(<Oversikt harInnsendteMeldeperioder={true} kommendeMeldeperiode={kommendeMeldekort} />);
     const link = screen.getByRole('link', { name: /se og endre meldekort/i });
     expect(link).toBeVisible();
+  });
+
+  it('skal vise en informasjonsboks dersom det er ingen meldekort som er klar til innsending, men kan fylles ut', () => {
+    render(
+      <Oversikt
+        harInnsendteMeldeperioder={false}
+        kommendeMeldeperiode={{
+          antallUbesvarteMeldeperioder: 1,
+          nesteMeldeperiode: {
+            meldeperiode: { fom: '2025-02-17', tom: '2025-03-03' },
+            innsendingsvindu: { fom: '2025-02-17', tom: '2025-03-03' },
+          },
+        }}
+      />
+    );
+
+    const alert = screen.getByText('Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn 17. februar.');
+    expect(alert).toBeVisible();
+  });
+
+  it('skal ikke vise en informasjonsboks dersom det er meldekort som er klar til innsending', () => {
+    render(
+      <Oversikt
+        harInnsendteMeldeperioder={false}
+        kommendeMeldeperiode={{
+          antallUbesvarteMeldeperioder: 1,
+          manglerOpplysninger: { fom: '2025-02-17', tom: '2025-03-03' },
+          nesteMeldeperiode: {
+            meldeperiode: { fom: '2025-02-17', tom: '2025-03-03' },
+            innsendingsvindu: { fom: '2025-02-17', tom: '2025-03-03' },
+          },
+        }}
+      />
+    );
+
+    const alert = screen.queryByText('Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn 17. februar.');
+    expect(alert).not.toBeInTheDocument();
   });
 });

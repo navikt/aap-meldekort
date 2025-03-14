@@ -42,7 +42,7 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
     >
       <VStack gap={'8'}>
         <MeldekortLenke label={t('client.steg.introduksjon.link')} href={'/'} />
-        {innsendingtype === InnsendingType.INNSENDING && (
+        {innsendingtype === InnsendingType.INNSENDING && utfylling.metadata.antallUbesvarteMeldeperioder > 0 && (
           <Alert variant={'info'}>
             {t('client.steg.introduksjon.flereMeldekortAlert', {
               antallMeldekort: utfylling.metadata.antallUbesvarteMeldeperioder,

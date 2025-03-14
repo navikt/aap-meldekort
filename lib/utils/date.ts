@@ -57,6 +57,8 @@ export function hentUkeNummerForPeriode(fraDato: Date, tilDato: Date): string {
   const tilUke = getISOWeek(tilDato);
   const ukeNumre = Array.from({ length: tilUke - fraUke + 1 }, (_, i) => fraUke + i);
 
+  // TODO Må håndtere årsskifte
+
   return `${ukeNumre.slice(0, -1).join(', ')}${ukeNumre.length > 1 ? ' og ' : ''}${ukeNumre.slice(-1)}`;
 }
 

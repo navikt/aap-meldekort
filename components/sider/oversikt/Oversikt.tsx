@@ -1,12 +1,12 @@
 'use client';
 
 import { KommendeMeldekort } from 'lib/types/types';
-import { BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { useTranslations } from 'next-intl';
 import { startInnsendingClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
-import { formaterDatoMedÅrForFrontend } from 'lib/utils/date';
+import { formaterDatoMedMånedIBokstaver, formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { ChevronRightIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons';
 import { InnsendingType } from 'lib/utils/url';
 
@@ -19,8 +19,6 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
   const t = useTranslations();
   const router = useRouter();
 
-
-  console.log('kommendeMeldeperiode', kommendeMeldeperiode)
   return (
     <VStack gap={'8'}>
       <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>
@@ -30,28 +28,47 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
           {t('client.oversikt.sendMeldekort.heading')}
         </Heading>
         {kommendeMeldeperiode?.nesteMeldeperiode ? (
-          <NavigationPanel
-            type={'button'}
-            title={t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
-              antallMeldekort: kommendeMeldeperiode.antallUbesvarteMeldeperioder,
-            })}
-            description={`${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.manglerOpplysninger?.fom)} - ${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.manglerOpplysninger?.tom)}`}
-            rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
-            leftIcon={<TasklistIcon fontSize={'2rem'} />}
-            onClick={async () => {
-              if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
-                const startInnsendingAvMeldekortResponse = await startInnsendingClient(
-                  kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode
-                );
-
-                if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
-                  router.push(
-                    `/${InnsendingType.INNSENDING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
-                  );
-                }
+          <>
+            <NavigationPanel
+              type={'button'}
+              title={
+                kommendeMeldeperiode.manglerOpplysninger
+                  ? t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
+                      antallMeldekort: kommendeMeldeperiode.antallUbesvarteMeldeperioder,
+                    })
+                  : t('client.oversikt.sendMeldekort.klarTilUtfylling', {
+                      periode: hentUkeNummerForPeriode(
+                        new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
+                        new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
+                      ),
+                    })
               }
-            }}
-          />
+              description={`${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.manglerOpplysninger ? kommendeMeldeperiode.manglerOpplysninger?.fom : kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.manglerOpplysninger ? kommendeMeldeperiode.manglerOpplysninger?.tom : kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)}`}
+              rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
+              leftIcon={<TasklistIcon fontSize={'2rem'} />}
+              onClick={async () => {
+                if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
+                  const startInnsendingAvMeldekortResponse = await startInnsendingClient(
+                    kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode
+                  );
+
+                  if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
+                    router.push(
+                      `/${InnsendingType.INNSENDING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
+                    );
+                  }
+                }
+              }}
+            />
+
+            {!kommendeMeldeperiode.manglerOpplysninger && (
+              <Alert variant={'info'}>
+                {t('client.oversikt.infoAlert', {
+                  dato: formaterDatoMedMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
+                })}
+              </Alert>
+            )}
+          </>
         ) : (
           <BodyShort spacing>{t('client.oversikt.sendMeldekort.ingenMeldekort')}</BodyShort>
         )}
