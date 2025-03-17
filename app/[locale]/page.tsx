@@ -1,17 +1,17 @@
 import { Oversikt } from 'components/sider/oversikt/Oversikt';
 import {
-  // hentAnsvarligSystem,
+  hentAnsvarligSystem,
   hentInnsendteMeldeperioder,
   hentKommendeMeldeperiode,
 } from 'lib/services/meldekortservice';
+import { redirect } from 'next/navigation';
 
 export default async function Page() {
-  // const ansvarligSystem = await hentAnsvarligSystem();
+  const ansvarligSystem = await hentAnsvarligSystem();
 
-  // if (ansvarligSystem === 'FELLES') {
-  //TODO Før vi går i produksjon så må vi redirecte til korrekt meldekortløsning basert på svaret vi får fra ansvarligSystem
-  // redirect('https://www.nav.no/nav.no-ressurser/lenker/selvbetjening/tjenester-pa-nav.no/send-meldekort');
-  // }
+  if (ansvarligSystem === 'FELLES') {
+    redirect('https://www.nav.no/nav.no-ressurser/lenker/selvbetjening/tjenester-pa-nav.no/send-meldekort');
+  }
 
   const innsendteMeldeperioder = await hentInnsendteMeldeperioder();
   const kommendeMeldeperiode = await hentKommendeMeldeperiode();
