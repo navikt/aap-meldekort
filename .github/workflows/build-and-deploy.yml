@@ -10,7 +10,7 @@ on:
 
 jobs:
   buildDev:
-    uses: navikt/aap-workflows/.github/workflows/frontend-next-build.yml@node22
+    uses: navikt/aap-workflows/.github/workflows/frontend-next-build.yml@main
     permissions:
       contents: read
       id-token: write
@@ -21,6 +21,21 @@ jobs:
       appname: 'aap-meldekort'
       playwright: false
       cdn: true
+
+  buildProd:
+    uses: navikt/aap-workflows/.github/workflows/frontend-next-build.yml@main
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
+    if: github.ref == 'refs/heads/main'
+    secrets: inherit
+    with:
+      cluster: prod-gcp
+      appname: 'aap-meldekort'
+      playwright: false
+      cdn: true
+
 
   deployDev:
     needs: buildDev
@@ -34,3 +49,17 @@ jobs:
       manifest: .nais/nais.yaml
       imageSuffix: -dev-gcp
       vars: .nais/dev.yaml
+
+  deployProd:
+    needs: buildProd
+    uses: navikt/aap-workflows/.github/workflows/deploy.yml@main
+    permissions:
+      contents: read
+      id-token: write
+    if: github.ref == 'refs/heads/main'
+    secrets: inherit
+    with:
+      cluster: prod-gcp
+      manifest: .nais/nais.yaml,.nais/prod-alerts.yaml
+      imageSuffix: -prod-gcp
+      vars: .nais/prod.yaml

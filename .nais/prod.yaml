@@ -1,0 +1,7 @@
+ingresses:
+  - 'https://www.nav.no/aap/meldekort'
+env:
+  - name: APP_URL
+    value: 'https://www.nav.no/aap/meldekort'
+externals:
+  - 'www.nav.no'
