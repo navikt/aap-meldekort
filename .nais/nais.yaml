@@ -12,11 +12,11 @@ spec:
   image: {{image}}
   port: 3000
   liveness:
-    path: "/api/internal/isAlive"
+    path: "aap/meldekort/api/internal/isAlive"
     initialDelay: 20
     timeout: 60
   readiness:
-    path: "/api/internal/isReady"
+    path: "aap/meldekort/api/internal/isReady"
     initialDelay: 20
     timeout: 60
   replicas:
