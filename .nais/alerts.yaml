@@ -1,0 +1,31 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: meldekort-alerts
+  namespace: aap
+  labels:
+    team: aap
+    app: meldekort
+spec:
+  receivers:
+    slack:
+      channel: '#aap-github'
+  alerts:
+    - alert: meldekort-frontend-app-nede
+      expr: kube_deployment_status_replicas_unavailable{deployment="meldekort",job="kubernetes-service-endpoints"} > 0
+      for: 5m
+      description: 'Meldekort frontend har utilgjengelige podder i aap'
+      action: 'kubectl describe pod -l app=meldekort -n aap` for events og `kubectl get pods -l app=meldekort -n aap` for å se feilende podder'
+      sla: respond within 1h, during office hours
+      severity: danger
+    - alert: meldekort-kontinuerlig-restart
+      expr: sum(increase(kube_pod_container_status_restarts_total{container=~"meldekort"}[5m])) by (container) > 2
+      for: 2m
+      description: 'Meldekort har restartet flere ganger de siste 5 minuttene!'
+      action: 'Se `kubectl describe pod meldekort` for events, og `kubectl logs meldekort` for logger'
+      sla: respond within 1h, during office hours
+      severity: danger
+    - alert: høy feilrate i logger
+      expr: (100 * sum by (log_app, log_namespace) (rate(logd_messages_total{log_app="meldekort",log_level=~"Error"}[10m])) / sum by (log_app, log_namespace) (rate(logd_messages_total{log_app="meldekort"}[10m]))) > 15
+      for: 5m
+      action: '<https://logs.adeo.no/goto/1d394a6a4c647c93c51eda75e60999ed|Check logs>'
