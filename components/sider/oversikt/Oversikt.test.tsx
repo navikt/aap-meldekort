@@ -43,7 +43,7 @@ describe('Oversikt', () => {
       <Oversikt
         harInnsendteMeldeperioder={false}
         kommendeMeldeperiode={{
-          antallUbesvarteMeldeperioder: 1,
+          antallUbesvarteMeldeperioder: 0,
           nesteMeldeperiode: {
             meldeperiode: { fom: '2025-02-17', tom: '2025-03-03' },
             innsendingsvindu: { fom: '2025-02-17', tom: '2025-03-03' },

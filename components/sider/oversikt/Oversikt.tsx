@@ -61,7 +61,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
               }}
             />
 
-            {!kommendeMeldeperiode.manglerOpplysninger && (
+            {kommendeMeldeperiode.antallUbesvarteMeldeperioder === 0 && kommendeMeldeperiode.nesteMeldeperiode && (
               <Alert variant={'info'}>
                 {t('client.oversikt.infoAlert', {
                   dato: formaterDatoMedMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
