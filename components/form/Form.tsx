@@ -6,6 +6,8 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
 import { formaterDatoMedTidspunktForFrontend } from 'lib/utils/date';
 import { SlettMeldekortModal } from 'components/slettmeldekortmodal/SlettMeldekortModal';
 import { useTranslations } from 'next-intl';
+import { FortsettSenereModal } from 'components/fortsettseneremodal/FortsettSenereModal';
+import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 
 interface Props {
   children: ReactNode;
@@ -29,7 +31,9 @@ export const Form = ({
   visNesteKnapp = true,
 }: Props) => {
   const t = useTranslations();
-  const modalRef = useRef<HTMLDialogElement>(null);
+  const { innsendingtype } = useParamsMedType();
+  const avbrytModalRef = useRef<HTMLDialogElement>(null);
+  const fortsettSenereModalRef = useRef<HTMLDialogElement>(null);
 
   return (
     <form onSubmit={onSubmit} autoComplete={'off'} className={styles.form}>
@@ -60,11 +64,19 @@ export const Form = ({
       </div>
       <div className={styles.formfooter}>
         {sistLagret && <Detail>Sist lagret: {formaterDatoMedTidspunktForFrontend(sistLagret)}</Detail>}
-        <div className={styles.avbryt}>
-          <Button variant={'tertiary'} onClick={() => modalRef.current?.showModal()} type={'button'}>
+        <div className={styles.secondaryknapper}>
+          {innsendingtype === InnsendingType.INNSENDING && (
+            <>
+              <Button variant={'tertiary'} onClick={() => fortsettSenereModalRef.current?.showModal()} type={'button'}>
+                Fortsett senere
+              </Button>
+              <FortsettSenereModal ref={fortsettSenereModalRef} />
+            </>
+          )}
+          <Button variant={'tertiary'} onClick={() => avbrytModalRef.current?.showModal()} type={'button'}>
             Avbryt
           </Button>
-          <SlettMeldekortModal ref={modalRef} />
+          <SlettMeldekortModal ref={avbrytModalRef} />
         </div>
       </div>
     </form>

@@ -173,6 +173,12 @@
 
       "error": "Noe gikk galt ved sletting av meldekort.",
       "forstettKnappTekst": "Fortsett å fylle ut"
+    },
+    "fortsettSenere": {
+      "heading": "Fortsett senere",
+      "content": "Informasjonen du fyller ut lagres slik at du kan fortsette senere.",
+      "gåTilOversikt": "Gå til oversikten",
+      "fortsettUtfylling": "Fortsett å fyll ut"
     }
   }
 }

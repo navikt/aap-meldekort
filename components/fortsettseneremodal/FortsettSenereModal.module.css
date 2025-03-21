@@ -1,0 +1,12 @@
+.knapperWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: var(--a-spacing-3);
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .knapperWrapper {
+    flex-direction: column;
+  }
+}
