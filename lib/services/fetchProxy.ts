@@ -1,4 +1,4 @@
-import { getAccessTokenOrRedirectToLogin, logError, logInfo } from '@navikt/aap-felles-utils';
+import { getAccessTokenOrRedirectToLogin, logError } from '@navikt/aap-felles-utils';
 import { requestOboToken, validateToken } from '@navikt/oasis';
 import { headers } from 'next/headers';
 import { isLocal } from './meldekortservice';
@@ -36,11 +36,10 @@ export async function fetcher<ResponseBody>(
         Authorization: `Bearer ${oboToken}`,
         'Content-Type': 'application/json',
       },
+      next: { revalidate: 0 },
     });
 
-    const responseJson = await response.json();
-    logInfo(`respons for ${url} med statuskode ${response.status}} er ` + JSON.stringify(responseJson)); //TODO Fjern denne før vi går i prod
-    return responseJson;
+    return await response.json();
   } catch (error) {
     logError(`Klarte ikke å hente ${url}:` + JSON.stringify(error));
     throw new Error('Unable to fetch ' + JSON.stringify(error));
