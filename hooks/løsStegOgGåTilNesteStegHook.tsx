@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { EndreUtfyllingRequest } from 'lib/types/types';
 import { gåTilNesteStegClient } from 'lib/client/clientApi';
 import { useGåTilSteg } from 'lib/utils/url';
+import { useRouter } from 'i18n/routing';
 
 export function useLøsStegOgGåTilNesteSteg(referanse: string): {
   isLoading: boolean;
@@ -9,6 +10,7 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
   errorMessage?: string;
 } {
   const { gåTilSteg } = useGåTilSteg();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>();
 
@@ -24,6 +26,7 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
       setIsLoading(false);
     } else {
       gåTilSteg(utfyllingResponse.tilstand.aktivtSteg);
+      router.refresh();
     }
   };
 
