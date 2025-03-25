@@ -36,6 +36,7 @@ export async function fetcher<ResponseBody>(
         Authorization: `Bearer ${oboToken}`,
         'Content-Type': 'application/json',
       },
+      cache: 'no-store',
       next: { revalidate: 0 },
     });
 
