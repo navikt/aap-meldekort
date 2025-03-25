@@ -34,7 +34,7 @@
       "sendMeldekort": {
         "heading": "Send meldekort",
         "antallKlareMeldekort": "Du har {antallMeldekort} meldekort å sende inn",
-        "klarTilUtfylling": "Fyll ut meldekort for uke {periode}.",
+        "klarTilUtfylling": "Fyll ut meldekort for uke {periode}",
         "ingenMeldekort": "Du har ingen meldekort å sende inn enda."
       },
       "innsendteMeldekort": {
@@ -55,7 +55,7 @@
       "introduksjon": {
         "heading": "Meldekort for uke {uker}",
         "link": "Tilbake til oversikten",
-        "flereMeldekortAlert": "Du har {antallMeldekort} meldekort å sende inn. Begynn å fyll ut det eldste først.",
+        "flereMeldekortAlert": "Du har {antallMeldekort} meldekort å sende inn.",
         "bulletList": {
           "item": {
             "1": "Du kan sende dette meldekortet fra {tidligsteDato}, og senest {senesteDato} for å unngå trekk i utbetalingen.",
