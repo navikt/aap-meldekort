@@ -10,6 +10,9 @@
     }
   },
   "client": {
+    "link": {
+      "gåTilOversikten": "Gå til oversikten"
+    },
     "page": {
       "error": {
         "heading": "Beklager, noe gikk galt.",
@@ -25,7 +28,9 @@
       }
     },
     "form": {
-      "forrigeStegKnapp": "Forrige"
+      "forrigeStegKnapp": "Forrige",
+      "fortsettSenereKnapp": "Hald fram seinare",
+      "avbrytKnapp": "Avbryt"
     },
     "oversikt": {
       "ingenMeldekort": "Kunne ikke finne noen meldeperioder",
@@ -177,6 +182,9 @@
       "content": "Informasjonen du fyller ut lagres slik at du kan fortsette senere.",
       "gåTilOversikt": "Gå til oversikten",
       "fortsettUtfylling": "Fortsett å fyll ut"
+    },
+    "sammenlagtForPerioden": {
+      "label": "Sammenlagt for perioden"
     }
   }
 }

@@ -9,7 +9,6 @@ import { startKorrigeringClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
 import { InnsendingType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
-import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 
 import styles from 'components/navigationpanel/NavigationPanel.module.css';
 
@@ -20,11 +19,10 @@ interface Props {
 export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
   const t = useTranslations();
   const router = useRouter();
-  const { erLitenSkjerm } = useSkjermBredde();
 
   return (
     <VStack gap={'8'}>
-      <MeldekortLenke label={'Tilbake til oversikten'} href={`/`} />
+      <MeldekortLenke label={t('client.link.gåTilOversikten')} href={`/`} />
       <VStack gap={'4'}>
         <Heading size={'large'} level={'2'}>
           {t('client.innsendteMeldekort.heading')}
@@ -62,14 +60,11 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
                               new Date(innsendtMeldekort.meldeperiode.tom)
                             ),
                           })}
-                          {!erLitenSkjerm &&
-                            ` (${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.tom)})`}
                         </BodyShort>
-                        {erLitenSkjerm && (
-                          <BodyShort
-                            size={'large'}
-                          >{`${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.tom)}`}</BodyShort>
-                        )}
+
+                        <BodyShort
+                          size={'large'}
+                        >{`${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.tom)}`}</BodyShort>
 
                         <BodyShort size={'large'}>
                           {t('client.innsendteMeldekort.innsendtMeldekort.description', {

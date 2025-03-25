@@ -51,7 +51,6 @@ export const Spørsmål = ({ utfylling }: Props) => {
     }
   }, [harDuJobbetValue]);
 
-  console.log('utfylling', utfylling);
   return (
     <Form
       forrigeStegOnClick={innsendingtype === InnsendingType.INNSENDING ? () => gåTilSteg('INTRODUKSJON') : undefined}

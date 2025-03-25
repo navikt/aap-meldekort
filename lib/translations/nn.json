@@ -24,6 +24,9 @@
         "vedvarer": "Hvis problemet vedvarer, kan du <a>kontakte oss (åpnes i ny fane)</a>"
       }
     },
+    "link": {
+      "gåTilOversikten": "Tilbake til oversikta"
+    },
     "oversikt": {
       "ingenMeldekort": "Kunne ikke finne noen meldeperioder",
       "mottaAAP": "For at du skal kunne få AAP, må du sende inn meldekort kvar 14. dag. På meldekortet må du fylle ut kor mange timar du har jobba.",
@@ -32,7 +35,7 @@
         "heading": "Send meldekort",
         "antallKlareMeldekort": "Du har {antallMeldekort} meldekort å sende inn",
         "klarTilUtfylling": "Fyll ut meldekort for veke {periode}",
-        "ingenMeldekort": "Du har ingen meldekort å sende inn enda."
+        "ingenMeldekort": "Du har ingen meldekort å sende inn enno."
       },
       "innsendteMeldekort": {
         "heading": "Sjå innsende meldekort",
@@ -49,11 +52,13 @@
       }
     },
     "form": {
-      "forrigeStegKnapp": "Førre"
+      "forrigeStegKnapp": "Førre",
+      "fortsettSenereKnapp": "Hald fram seinare",
+      "avbrytKnapp": "Avbryt"
     },
     "steg": {
       "introduksjon": {
-        "heading": "Meldekort for uke {uker}",
+        "heading": "Meldekort for veke {uker}",
         "link": "Tilbake til oversikta",
         "flereMeldekortAlert": "Du har {antallMeldekort} meldekort å sende inn.",
         "bulletList": {
@@ -74,7 +79,7 @@
         "innsending": {
           "heading": "Fyll ut meldekort"
         },
-        "periode": "Uke {uker} ({periode})",
+        "periode": "Veke {uker} ({periode})",
         "skjema": {
           "felter": {
             "harDuArbeidet": {
@@ -160,23 +165,25 @@
       }
     },
     "slettUtfylling": {
-      "heading": "Ønsker du å avbryte?",
-      "avbrytKnappTekst": "Avbryt og gå til oversikten",
+      "heading": "Ønskjer du å avbryte?",
+      "avbrytKnappTekst": "Avbryt og gå til oversikta",
       "korrigering": {
-        "content": "Hvis du avbryter vil du miste endringene du har gjort."
+        "content": "Dersom du avbryt, vil endringane du har gjort, bli forkasta."
       },
       "innsending": {
-        "content": "Hvis du avbryter vil du miste informasjonen du har fylt ut."
+        "content": "Dersom du avbryt, vil informasjonen du har fylt ut, bli sletta."
       },
-
       "error": "Noe gikk galt ved sletting av meldekort.",
-      "forstettKnappTekst": "Fortsett å fylle ut"
+      "forstettKnappTekst": "Hald fram med å fylle ut"
     },
     "fortsettSenere": {
-      "heading": "Fortsett senere",
-      "content": "Informasjonen du fyller ut lagres slik at du kan fortsette senere.",
-      "gåTilOversikt": "Gå til oversikten",
-      "fortsettUtfylling": "Fortsett å fyll ut"
+      "heading": "Hald fram seinare",
+      "content": "Informasjonen du fyller ut, blir lagra slik at du kan halde fram seinare.",
+      "gåTilOversikt": "Gå til oversikta",
+      "fortsettUtfylling": "Hald fram med å fylle ut"
+    },
+    "sammenlagtForPerioden": {
+      "label": "Samanlagt for perioden"
     }
   }
 }

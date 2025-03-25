@@ -16,11 +16,9 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
 
   const løsStegOgGåTilNeste = async (meldekort: EndreUtfyllingRequest) => {
     setIsLoading(true);
-    console.log('kaller løs steg med', meldekort);
 
     const utfyllingResponse = await gåTilNesteStegClient(referanse, meldekort);
 
-    console.log('Svar fra lagre og gå til neste ', utfyllingResponse);
     if (!utfyllingResponse || utfyllingResponse?.feil) {
       setErrorMessage('Kunne ikke gå videre på grunn av: ' + utfyllingResponse?.feil);
       setIsLoading(false);

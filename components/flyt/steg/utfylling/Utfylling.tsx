@@ -79,8 +79,6 @@ export const Utfylling = ({ utfylling }: Props) => {
     });
   }, [dager]);
 
-  console.log('utfylling', utfylling);
-
   return (
     <FormProvider {...form}>
       <Form

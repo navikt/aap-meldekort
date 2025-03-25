@@ -25,8 +25,6 @@ export const Bekreft = ({ utfylling }: Props) => {
   const fraDato = new Date(utfylling.metadata.periode.fom);
   const tilDato = new Date(utfylling.metadata.periode.tom);
 
-  console.log('utfylling', utfylling);
-
   return (
     <Form
       nesteStegKnappTekst={

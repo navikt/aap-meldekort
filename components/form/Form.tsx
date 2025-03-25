@@ -68,13 +68,13 @@ export const Form = ({
           {innsendingtype === InnsendingType.INNSENDING && (
             <>
               <Button variant={'tertiary'} onClick={() => fortsettSenereModalRef.current?.showModal()} type={'button'}>
-                Fortsett senere
+                {t('client.form.fortsettSenereKnapp')}
               </Button>
               <FortsettSenereModal ref={fortsettSenereModalRef} />
             </>
           )}
           <Button variant={'tertiary'} onClick={() => avbrytModalRef.current?.showModal()} type={'button'}>
-            Avbryt
+            {t('client.form.avbrytKnapp')}
           </Button>
           <SlettMeldekortModal ref={avbrytModalRef} />
         </div>
