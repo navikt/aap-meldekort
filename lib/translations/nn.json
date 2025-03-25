@@ -26,26 +26,26 @@
     },
     "oversikt": {
       "ingenMeldekort": "Kunne ikke finne noen meldeperioder",
-      "mottaAAP": "For å motta AAP må du sende meldekort hver 14. dag. På meldekortet må du fylle ut hvor mange timer du har arbeidet.",
-      "infoAlert": "Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn {dato}.",
+      "mottaAAP": "For at du skal kunne få AAP, må du sende inn meldekort kvar 14. dag. På meldekortet må du fylle ut kor mange timar du har jobba.",
+      "infoAlert": "Du kan fylle ut meldekortet no, men det kan ikkje sendast inn før tidlegast {dato}.",
       "sendMeldekort": {
         "heading": "Send meldekort",
         "antallKlareMeldekort": "Du har {antallMeldekort} meldekort å sende inn",
-        "klarTilUtfylling": "Fyll ut meldekort for uke {periode}",
+        "klarTilUtfylling": "Fyll ut meldekort for veke {periode}",
         "ingenMeldekort": "Du har ingen meldekort å sende inn enda."
       },
       "innsendteMeldekort": {
-        "heading": "Se innsendte meldekort",
-        "title": "Se og endre meldekort"
+        "heading": "Sjå innsende meldekort",
+        "title": "Sjå og endre meldekort"
       }
     },
     "innsendteMeldekort": {
-      "heading": "Dine innsendte meldekort",
-      "info": "Du kan endre innsendte meldekort 20 uker tilbake i tid. Hvis du endrer et meldekort vi allerede har utbetalt, vil vi vurdere om du har rett på mer penger eller om du har fått for mye utbetalt.",
+      "heading": "Meldekort du har sendt inn",
+      "info": "Du kan endre innsende meldekort 20 veker bak i tid. Dersom du endrar eit meldekort vi allereie har utbetalt, vil vi vurdere om du har rett på meir pengar, eller om du har fått utbetalt for mykje.",
       "ingenInnsendteMeldekort": "Du har ingen innsendte meldekort.",
       "innsendtMeldekort": {
-        "title": "Uke {uker}",
-        "description": "{timer} timer arbeidet"
+        "title": "Veke {uker}",
+        "description": "{timer} timar med arbeid"
       }
     },
     "form": {
@@ -58,14 +58,13 @@
         "flereMeldekortAlert": "Du har {antallMeldekort} meldekort å sende inn.",
         "bulletList": {
           "item": {
-            "1": "Du kan sende dette meldekortet fra {tidligsteDato}, og senest {senesteDato} for å unngå trekk i utbetalingen.",
-            "2": "Du vil få utbetalt AAP cirka 2 til 3 virkedager etter at du har levert meldekortet."
+            "1": "Du kan sende dette meldekortet frå og med {tidligsteDato}. Hugs å sende seinast {senesteDato} for å unngå trekk i utbetalinga.",
+            "2": "Du vil få utbetalt AAP cirka 2 til 3 vyrkedagar etter at du har levert meldekortet."
           }
         },
         "informasjonOmRiktigeOpplysninger": {
-          "heading": "Takk for at du er ærlig",
-          "takkForAtDuErÆrlig": "Takk for at du er ærlig",
-          "link": "Det er viktig at du gir oss riktige opplysninger. <a>Les mer om viktigheten av å gi riktige opplysninger</a>"
+          "heading": "Takk for at du er ærleg",
+          "link": "Det er viktig at du gir oss korrekte opplysningar. <a>Les meir om kvifor det er viktig at du gir korrekte opplysningar.</a>"
         }
       },
       "spørsmål": {
@@ -79,8 +78,8 @@
         "skjema": {
           "felter": {
             "harDuArbeidet": {
-              "label": "Har du arbeidet i perioden?",
-              "error": "Du må svare på om du har arbeidet i perioden."
+              "label": "Har du jobba i perioden?",
+              "error": "Du må svara på om du har jobba i perioden."
             }
           }
         }
@@ -93,20 +92,19 @@
           "heading": "Fyll ut meldekort"
         },
         "periode": "Uke {uker} ({periode})",
-        "beskrivelse": "Skriv inn timene du har arbeidet for perioden. Timer skrives med desimal til nærmeste halvtime. For eksempel blir 7 timer og 30 min = 7,5 timer.",
+        "beskrivelse": "Legg inn timane du har jobba i perioden. Skriv timane med desimal til nærmaste halvtime. Døme: 7 timar og 30 minutt = 7,5 timar.",
         "readmore": {
-          "label": "Les mer om hva som skal fylles ut",
-          "content": "Alle aktiviteter som er betalt, eller som normalt ville ha vært betalt, regnes som arbeid og skal føres på meldekortet. For eksempel regnes gratisarbeid for andre som vanligvis er betalt, frilansarbeid og lønnede verv som arbeid.",
-          "link": "<a>Les mer om hva som regnes som arbeid.</a>"
+          "label": "Les meir om kva som skal fyllast ut",
+          "content": "Alle aktivitetar som er betalte, eller som normalt ville ha vore betalte, blir rekna som arbeid og skal førast på meldekortet. Til dømes vil gratisarbeid for andre som vanlegvis er betalt, frilansarbeid og løna verv bli rekna som arbeid.",
+          "link": "<a>Les meir om kva som blir rekna som arbeid.</a>"
         },
         "skjema": {
-          "ingenFørteTimer": "Du må fylle inn timene du har jobbet. Siden du har svart at du har arbeidet i perioden kan du ikke sende inn et tomt meldekort.",
+          "ingenFørteTimer": "Du må fylle inn timane du har jobba. Ettersom du har svart at du har jobba i perioden, kan du ikkje sende inn eit tomt meldekort.",
           "felter": {
             "dager": {
               "validering": {
-                "bareNummer": "Du kan bare skrive tall mellom 0 og 24 ({dato}).",
-                "heleHalveTimer": "Du kan bare skrive inn hele eller halve timer ({dato}).",
-                "ikkeFørtTimer": "Du må føre timer."
+                "bareNummer": "Du kan berre skrive tal mellom 0 og 24. ({dato}).",
+                "heleHalveTimer": "Du kan berre skrive inn heile eller halve timar. ({dato})."
               }
             }
           }
@@ -114,50 +112,50 @@
       },
       "bekreft": {
         "korrigering": {
-          "heading": "Se over og send inn endringene",
+          "heading": "Sjå over og send inn endringane",
           "nesteStegKnappTekst": "Send inn endringane"
         },
         "innsending": {
-          "heading": "Se over og send inn meldekort",
+          "heading": "Sjå over og send inn meldekort",
           "nesteStegKnappTekst": "Send inn"
         },
-        "kanIkkeSendesInn": "Du kan tidligst sende inn meldekortet {dato}. Vi lagrer svarene dine i mellomtiden. <a>Gå tilbake til oversikten</a>",
-        "link": "<a>Gå tilbake til oversikten</a>",
-        "periode": "Uke {uker} ({periode})",
+        "kanIkkeSendesInn": "Du kan sende inn meldekort tidlegast {dato}. Vi lagrar svara dine så lenge.",
+        "link": "<a>Gå tilbake til oversikta</a>",
+        "periode": "Veke {uker} ({periode})",
         "oppsummering": {
           "heading": "Oppsummering",
           "harDuArbeidet": {
-            "label": "Har du arbeidet i perioden?"
+            "label": "Har du jobba i perioden?"
           },
           "antallTimerArbeidet": {
-            "label": "Antall timer arbeidet",
-            "periodeLabel": "Uke {ukenummer} ({periode})",
-            "timerArbeidet": "{timer} timer arbeidet",
-            "sammenlagt": "Sammenlagt for perioden"
+            "label": "Tal på timar du har jobba",
+            "periodeLabel": "Veke {ukenummer} ({periode})",
+            "timerArbeidet": "{timer} timar med arbeid",
+            "sammenlagt": "Samanlagt for perioden"
           }
         },
         "skjema": {
-          "label": "Jeg bekrefter at jeg har gitt riktige opplysninger.",
+          "label": "Eg stadfestar å ha gitt korrekte opplysningar.",
           "error": "Du må bekrefte at disse opplysningene stemmer."
         }
       },
       "kvittering": {
         "alert": {
           "korrigering": {
-            "label": "Vi har mottatt endringene på meldekortet."
+            "label": "Vi har registrert endringane du har gjort i meldekortet."
           },
           "innsending": {
-            "label": "Vi har mottatt meldekortet ditt."
+            "label": "Vi har fått meldekortet ditt."
           }
         },
         "bulletList": {
           "items": {
-            "1": "Du kan endre opplysningene hvis du oppdager at du har ført feil.",
-            "2": "Du vil få utbetalt AAP om cirka 2 til 3 virkerdager."
+            "1": "Du kan endre opplysningane dersom du oppdagar at du har gjort ein feil.",
+            "2": "Du vil få utbetalt AAP om cirka 2 til 3 vyrkedagar."
           }
         },
-        "seHvaDuSendteInn": "Se hva du sendte inn",
-        "linkTilOversikt": "<a>Gå tilbake til oversikt</a>",
+        "seHvaDuSendteInn": "Sjå kva du har sendt inn",
+        "linkTilOversikt": "<a>Gå tilbake til oversikta</a>",
         "nesteMeldekortKnapp": "Gå til neste meldekort"
       }
     },

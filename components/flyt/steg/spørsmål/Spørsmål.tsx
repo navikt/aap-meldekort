@@ -38,17 +38,18 @@ export const Spørsmål = ({ utfylling }: Props) => {
   const harDuJobbetValue = useWatch({ control: form.control, name: 'harDuJobbet' });
 
   useEffect(() => {
-    mellomlagreMeldekort({
-      nyTilstand: {
-        aktivtSteg: 'SPØRSMÅL',
-        svar: {
-          ...utfylling.tilstand.svar,
-          harDuJobbet: harDuJobbetValue === JaEllerNei.Ja,
+    if (harDuJobbetValue !== null) {
+      mellomlagreMeldekort({
+        nyTilstand: {
+          aktivtSteg: 'SPØRSMÅL',
+          svar: {
+            ...utfylling.tilstand.svar,
+            harDuJobbet: harDuJobbetValue === JaEllerNei.Ja,
+          },
         },
-      },
-    });
+      });
+    }
   }, [harDuJobbetValue]);
-
 
   console.log('utfylling', utfylling);
   return (

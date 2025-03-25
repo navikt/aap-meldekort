@@ -80,7 +80,7 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
 
         <VStack gap={'2'}>
           <BodyShort weight={'semibold'}>
-            {t('client.steg.introduksjon.informasjonOmRiktigeOpplysninger.takkForAtDuErÆrlig')}
+            {t('client.steg.introduksjon.informasjonOmRiktigeOpplysninger.heading')}
           </BodyShort>
           {t.rich('client.steg.introduksjon.informasjonOmRiktigeOpplysninger.link', {
             a: (chunks) => (

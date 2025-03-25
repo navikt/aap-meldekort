@@ -64,7 +64,6 @@
         },
         "informasjonOmRiktigeOpplysninger": {
           "heading": "Takk for at du er ærlig",
-          "takkForAtDuErÆrlig": "Takk for at du er ærlig",
           "link": "Det er viktig at du gir oss riktige opplysninger. <a>Les mer om viktigheten av å gi riktige opplysninger</a>"
         }
       },
@@ -105,8 +104,7 @@
             "dager": {
               "validering": {
                 "bareNummer": "Du kan bare skrive tall mellom 0 og 24 ({dato}).",
-                "heleHalveTimer": "Du kan bare skrive inn hele eller halve timer ({dato}).",
-                "ikkeFørtTimer": "Du må føre timer."
+                "heleHalveTimer": "Du kan bare skrive inn hele eller halve timer ({dato})."
               }
             }
           }
