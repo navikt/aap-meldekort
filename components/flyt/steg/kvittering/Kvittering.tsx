@@ -18,6 +18,11 @@ export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
   const { innsendingtype } = useParamsMedType();
   const router = useRouter();
 
+  const skalViseKnappForKommendeMeldeperiode =
+    innsendingtype === InnsendingType.INNSENDING &&
+    kommendeMeldeperiode?.nesteMeldeperiode &&
+    kommendeMeldeperiode?.antallUbesvarteMeldeperioder > 0;
+
   return (
     <VStack gap={'8'}>
       <Alert variant="success">
@@ -41,7 +46,7 @@ export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
       </Accordion>
 
       <VStack gap={'8'} align={'center'}>
-        {innsendingtype === InnsendingType.INNSENDING && kommendeMeldeperiode?.nesteMeldeperiode && (
+        {skalViseKnappForKommendeMeldeperiode && (
           <Button
             onClick={async () => {
               if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {

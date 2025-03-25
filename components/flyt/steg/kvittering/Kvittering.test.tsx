@@ -19,7 +19,7 @@ const meldekort: UtfyllingResponse = {
 };
 
 const kommendeMeldekort: KommendeMeldekort = {
-  antallUbesvarteMeldeperioder: 0,
+  antallUbesvarteMeldeperioder: 1,
   nesteMeldeperiode: {
     meldeperiode: { fom: '2024-12-02', tom: '2024-12-15' },
     innsendingsvindu: { fom: '2024-12-15', tom: '2024-12-23' },
@@ -51,7 +51,7 @@ describe('Kvittering', () => {
     expect(knapp).toBeVisible();
   });
 
-  it('skal vise en knapp for å fylle ut neste meldekort dersom det finnes et', () => {
+  it('skal vise en knapp for å fylle ut neste meldekort dersom det finnes et og antall ubesvarte meldeperioder er over 0', () => {
     render(<Kvittering utfylling={meldekort} kommendeMeldeperiode={kommendeMeldekort} />);
 
     const nesteMeldeperiodeKnapp = screen.getByRole('button', { name: 'Gå til neste meldekort' });
