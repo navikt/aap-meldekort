@@ -47,7 +47,7 @@
       "info": "Du kan endre innsendte meldekort 20 uker tilbake i tid. Hvis du endrer et meldekort vi allerede har utbetalt, vil vi vurdere om du har rett på mer penger eller om du har fått for mye utbetalt.",
       "ingenInnsendteMeldekort": "Du har ingen innsendte meldekort.",
       "innsendtMeldekort": {
-        "title": "Uke {uker} ({datoperiode})",
+        "title": "Uke {uker}",
         "description": "{timer} timer arbeidet"
       }
     },
