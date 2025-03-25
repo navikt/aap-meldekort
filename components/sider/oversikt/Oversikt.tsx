@@ -9,6 +9,7 @@ import { useRouter } from 'i18n/routing';
 import { formaterDatoMedMånedIBokstaver, formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { ChevronRightIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons';
 import { InnsendingType } from 'lib/utils/url';
+import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
@@ -18,6 +19,8 @@ interface Props {
 export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Props) => {
   const t = useTranslations();
   const router = useRouter();
+
+  const { erLitenSkjerm } = useSkjermBredde();
 
   return (
     <VStack gap={'8'}>
@@ -45,7 +48,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
               }
               description={`${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.manglerOpplysninger ? kommendeMeldeperiode.manglerOpplysninger?.fom : kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.manglerOpplysninger ? kommendeMeldeperiode.manglerOpplysninger?.tom : kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)}`}
               rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
-              leftIcon={<TasklistIcon fontSize={'2rem'} />}
+              leftIcon={erLitenSkjerm ? undefined : <TasklistIcon fontSize={'2rem'} />}
               onClick={async () => {
                 if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
                   const startInnsendingAvMeldekortResponse = await startInnsendingClient(
@@ -83,7 +86,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
             type={'link'}
             title={t('client.oversikt.innsendteMeldekort.title')}
             href={`/innsendt`}
-            leftIcon={<PencilIcon fontSize={'2rem'} />}
+            leftIcon={erLitenSkjerm ? undefined : <PencilIcon fontSize={'2rem'} />}
             rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
           />
         </VStack>
