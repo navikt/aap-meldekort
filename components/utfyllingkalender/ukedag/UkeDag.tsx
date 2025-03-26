@@ -51,10 +51,10 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
         <div className={styles.dag}>
           <div className={styles.timerinput}>
             <VStack>
-              <Detail>{formaterUkedag(dag)}</Detail>
-              <Heading size={'small'}>
+              <Detail>
                 {erLitenSkjerm ? formaterDatoMedMånedIBokstaver(dag) : formaterDatoUtenÅrForFrontend(dag)}
-              </Heading>
+              </Detail>
+              <Heading size={'small'}>{formaterUkedag(dag)}</Heading>
             </VStack>
             {eksisterendeFelt && (
               <TextFieldWrapper
