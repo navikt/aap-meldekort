@@ -3,7 +3,7 @@
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { Form } from 'components/form/Form';
 import { Alert, BodyShort, ConfirmationPanel, Heading, HStack, VStack } from '@navikt/ds-react';
-import { formaterDatoMedÅrForFrontend, formaterDatoUtenÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { formaterDatoMedMånedIBokstaver, formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { UtfyllingResponse } from 'lib/types/types';
 import { useState } from 'react';
@@ -86,7 +86,7 @@ export const Bekreft = ({ utfylling }: Props) => {
           <Alert variant={'info'}>
             <BodyShort>
               {t('client.steg.bekreft.kanIkkeSendesInn', {
-                dato: formaterDatoUtenÅrForFrontend(utfylling.metadata.tidligsteInnsendingstidspunkt!),
+                dato: formaterDatoMedMånedIBokstaver(utfylling.metadata.tidligsteInnsendingstidspunkt!),
               })}
             </BodyShort>
 

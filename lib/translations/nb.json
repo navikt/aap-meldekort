@@ -124,7 +124,7 @@
           "heading": "Se over og send inn meldekort",
           "nesteStegKnappTekst": "Send inn"
         },
-        "kanIkkeSendesInn": "Du kan tidligst sende inn meldekortet {dato}. Vi lagrer svarene dine i mellomtiden.",
+        "kanIkkeSendesInn": "Du kan tidligst sende inn meldekortet {dato}. Kom tilbake senere for å sende inn meldekortet, i mellomtiden lagrer vi svarene dine.",
         "link": "<a>Gå tilbake til oversikten</a>",
         "periode": "Uke {uker} ({periode})",
         "oppsummering": {
