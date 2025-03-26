@@ -22,7 +22,7 @@
     "@navikt/oasis": "^3.7.0",
     "csp-header": "^6.1.0",
     "html-react-parser": "^5.2.2",
-    "next": "15.2.3",
+    "next": "15.2.4",
     "next-intl": "^3.26.5",
     "react": "19.0.0",
     "react-dom": "19.0.0",
