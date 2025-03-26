@@ -18,7 +18,7 @@ export function formaterDatoMedÅrForFrontend(dato?: Date | string): string {
   return format(dato, DATO_FORMATER.ddMMyyyy, { locale: nb });
 }
 export function formaterDatoUtenÅrForFrontend(dato: Date | string): string {
-  return format(dato, DATO_FORMATER.ddMM, { locale: nb });
+  return format(dato, DATO_FORMATER.ddMM, { locale: nb }) + '.';
 }
 
 export function formaterDatoMedMånedIBokstaver(dato: Date | string): string {
