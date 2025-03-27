@@ -41,7 +41,7 @@ export const SlettMeldekortModal = ({ ref }: Props) => {
                 setIsLoading(true);
                 const slettGikkFint = await slettMeldekortUtfyllingClient(referanse);
                 if (slettGikkFint) {
-                  router.push('/');
+                  router.push(innsendingtype === InnsendingType.INNSENDING ? '/' : '/innsendt');
                 } else {
                   setErrorMessage(t('client.slettUtfylling.error'));
                 }
