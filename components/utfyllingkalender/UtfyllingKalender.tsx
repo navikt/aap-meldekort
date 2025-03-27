@@ -59,7 +59,7 @@ export const UtfyllingKalender = () => {
       <OppsummeringTimer
         timer={form
           .watch('dager')
-          .filter((value) => Number(value.timer))
+          .filter((value) => value.timer && Number(replaceCommasWithDots(value.timer)))
           .reduce((acc, curr) => acc + (curr.timer ? Number(replaceCommasWithDots(curr.timer)) : 0), 0)}
       />
     </VStack>
