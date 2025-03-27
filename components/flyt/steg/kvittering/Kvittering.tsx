@@ -7,6 +7,7 @@ import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsumme
 import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
 import { startInnsendingClient } from 'lib/client/clientApi';
+import { useEffect } from 'react';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -22,6 +23,20 @@ export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
     innsendingtype === InnsendingType.INNSENDING &&
     kommendeMeldeperiode?.nesteMeldeperiode &&
     kommendeMeldeperiode?.antallUbesvarteMeldeperioder > 0;
+
+  // Ønsker ikke at bruker skal kunne gå tilbake til forrige steg når meldekort er endret/sendt inn
+  useEffect(() => {
+    const handlePopState = () => {
+      router.push(innsendingtype === InnsendingType.INNSENDING ? '/' : '/innsendt');
+    };
+
+    window.history.pushState(null, '', window.location.href);
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [router]);
 
   return (
     <VStack gap={'8'}>
