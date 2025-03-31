@@ -15,9 +15,9 @@
   "prettier": "@navikt/aap-felles-prettier",
   "dependencies": {
     "@navikt/aap-felles-utils": "^5.1.0",
-    "@navikt/aksel-icons": "^7.17.4",
-    "@navikt/ds-css": "^7.17.4",
-    "@navikt/ds-react": "^7.17.4",
+    "@navikt/aksel-icons": "^7.18.0",
+    "@navikt/ds-css": "^7.18.0",
+    "@navikt/ds-react": "^7.18.0",
     "@navikt/nav-dekoratoren-moduler": "3.2.2",
     "@navikt/oasis": "^3.7.0",
     "csp-header": "^6.1.0",
