@@ -11,6 +11,7 @@ import styles from './UkeDag.module.css';
 import { useTranslations } from 'next-intl';
 import { formaterDatoMedMånedIBokstaver, formaterDatoUtenÅrForFrontend } from 'lib/utils/date';
 import { nb } from 'date-fns/locale';
+import { storForbokstav } from 'lib/utils/string';
 
 interface Props {
   dag: Date;
@@ -54,7 +55,9 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
               <Detail>
                 {erLitenSkjerm ? formaterDatoMedMånedIBokstaver(dag) : formaterDatoUtenÅrForFrontend(dag)}
               </Detail>
-              <Heading size={'small'}>{formaterUkedag(dag)}</Heading>
+              <Heading size={'small'}>
+                {erLitenSkjerm ? storForbokstav(formaterUkedag(dag)) : formaterUkedag(dag)}
+              </Heading>
             </VStack>
             {eksisterendeFelt && (
               <TextFieldWrapper
