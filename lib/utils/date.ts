@@ -4,7 +4,7 @@ import { nb } from 'date-fns/locale';
 export const DATO_FORMATER = {
   ddMM: 'dd.MM',
   ddMMyyyy: 'dd.MM.yyyy',
-  ddMMM: 'dd. MMMM',
+  dMMMM: 'd. MMMM',
   ddMMMyyyy: 'dd. MMM yyyy',
   ddMMyyyy_HHmm: 'dd.MM.yyyy HH:mm',
   ddMMyyyy_HHmmss: 'dd.MM.yyyy HH:mm:ss',
@@ -22,7 +22,7 @@ export function formaterDatoUtenÅrForFrontend(dato: Date | string): string {
 }
 
 export function formaterDatoMedMånedIBokstaver(dato: Date | string): string {
-  return format(dato, DATO_FORMATER.ddMMM, { locale: nb });
+  return format(dato, DATO_FORMATER.dMMMM, { locale: nb });
 }
 
 export function formaterDatoMedTidspunktForFrontend(dato: Date | string): string {
