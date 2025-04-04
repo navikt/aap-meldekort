@@ -67,6 +67,20 @@
             "2": "Du vil få utbetalt AAP cirka 2 til 3 vyrkedagar etter at du har levert meldekortet."
           }
         },
+        "opplysninger": {
+          "title": "Vi vil innhente og bruke informasjon om deg",
+          "link": "<a>Du kan lese mer om hvordan NAV behandler personopplysninger på nav.no (åpnes i ny fane).</a>",
+          "label": "I tillegg til informasjonen du oppgir i meldekortet, hentar vi følgjande:",
+          "bulletList": {
+            "item": {
+              "1": "Personinformasjon om deg og barna dine frå Folkeregisteret.",
+              "2": "Inntektsinformasjon frå Skatteetaten.",
+              "3": "Helseinformasjon frå lege/behandlar for å kartleggje arbeidsevna di.",
+              "4": "Opplysningar om arbeidsforholdet ditt frå Arbeidsgivar- og arbeidstakarregisteret.",
+              "5": "Opplysninger vi har om deg fra før."
+            }
+          }
+        },
         "informasjonOmRiktigeOpplysninger": {
           "heading": "Takk for at du er ærleg",
           "link": "Det er viktig at du gir oss korrekte opplysningar. <a>Les meir om kvifor det er viktig at du gir korrekte opplysningar.</a>"

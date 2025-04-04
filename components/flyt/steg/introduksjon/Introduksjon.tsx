@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { Form } from 'components/form/Form';
 import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
+import { Opplysningsinformasjon } from 'components/Opplysningsinformasjon/Opplysningsinformasjon';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -77,6 +78,8 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
             <List.Item>{t('client.steg.introduksjon.bulletList.item.2')}</List.Item>
           </List>
         </VStack>
+
+        <Opplysningsinformasjon />
 
         <VStack gap={'2'}>
           <BodyShort weight={'semibold'}>
