@@ -1,4 +1,4 @@
-import { getAccessTokenOrRedirectToLogin, logError } from '@navikt/aap-felles-utils';
+import { getAccessTokenOrRedirectToLogin, logError, logInfo } from '@navikt/aap-felles-utils';
 import { requestOboToken, validateToken } from '@navikt/oasis';
 import { headers } from 'next/headers';
 import { isLocal } from './meldekortservice';
@@ -39,6 +39,8 @@ export async function fetcher<ResponseBody>(
       cache: 'no-store',
       next: { revalidate: 0 },
     });
+
+    logInfo(`${method} for ${url}, status: ${response.status}`);
 
     return await response.json();
   } catch (error) {
