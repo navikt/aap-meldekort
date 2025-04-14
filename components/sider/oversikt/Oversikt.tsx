@@ -10,6 +10,7 @@ import { formaterDatoMedMånedIBokstaver, formaterDatoMedÅrForFrontend, hentUke
 import { ChevronRightIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons';
 import { InnsendingType } from 'lib/utils/url';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
+import { useMemo } from 'react';
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
@@ -21,6 +22,42 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
   const router = useRouter();
 
   const { erLitenSkjerm } = useSkjermBredde();
+
+  console.log('kommendeMeldeperiode', kommendeMeldeperiode);
+
+  async function startInnsending() {
+    if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
+      const startInnsendingAvMeldekortResponse = await startInnsendingClient(
+        kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode
+      );
+
+      if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
+        router.push(
+          `/${InnsendingType.INNSENDING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
+        );
+      }
+    }
+  }
+
+  const title =
+    !kommendeMeldeperiode?.manglerOpplysninger && kommendeMeldeperiode?.nesteMeldeperiode
+      ? t('client.oversikt.sendMeldekort.klarTilUtfylling', {
+          periode: hentUkeNummerForPeriode(
+            new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
+            new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
+          ),
+        })
+      : t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
+          antallMeldekort: kommendeMeldeperiode?.antallUbesvarteMeldeperioder,
+        });
+
+  const description = useMemo(() => {
+    if (kommendeMeldeperiode?.manglerOpplysninger) {
+      return `${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.manglerOpplysninger.fom)} - ${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.manglerOpplysninger.tom)}`;
+    } else {
+      return `${formaterDatoMedÅrForFrontend(kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode.tom)}`;
+    }
+  }, []);
 
   return (
     <VStack gap={'8'}>
@@ -34,34 +71,11 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
           <>
             <NavigationPanel
               type={'button'}
-              title={
-                kommendeMeldeperiode.manglerOpplysninger
-                  ? t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
-                      antallMeldekort: kommendeMeldeperiode.antallUbesvarteMeldeperioder,
-                    })
-                  : t('client.oversikt.sendMeldekort.klarTilUtfylling', {
-                      periode: hentUkeNummerForPeriode(
-                        new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
-                        new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
-                      ),
-                    })
-              }
-              description={`${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.manglerOpplysninger ? kommendeMeldeperiode.manglerOpplysninger?.fom : kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(kommendeMeldeperiode.manglerOpplysninger ? kommendeMeldeperiode.manglerOpplysninger?.tom : kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)}`}
+              title={title}
+              description={description}
               rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
               leftIcon={erLitenSkjerm ? undefined : <TasklistIcon fontSize={'2rem'} />}
-              onClick={async () => {
-                if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
-                  const startInnsendingAvMeldekortResponse = await startInnsendingClient(
-                    kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode
-                  );
-
-                  if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
-                    router.push(
-                      `/${InnsendingType.INNSENDING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
-                    );
-                  }
-                }
-              }}
+              onClick={startInnsending}
             />
 
             {kommendeMeldeperiode.antallUbesvarteMeldeperioder === 0 && kommendeMeldeperiode.nesteMeldeperiode && (
