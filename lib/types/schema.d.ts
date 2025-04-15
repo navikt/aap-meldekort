@@ -965,17 +965,17 @@ export interface components {
             antallUbesvarteMeldeperioder: number;
             /**
              * Format: date-time
-             * @example 2025-04-15T11:28:52.426359
+             * @example 2025-04-15T11:42:34.443347
              */
             fristForInnsending?: string | null;
-            harBrukerVedtakIKelvin: boolean;
+            harBrukerVedtakIKelvin?: boolean | null;
             kanSendesInn: boolean;
             periode: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
             /** Format: uuid */
             referanse: string;
             /**
              * Format: date-time
-             * @example 2025-04-15T11:28:52.426359
+             * @example 2025-04-15T11:42:34.443347
              */
             tidligsteInnsendingstidspunkt?: string | null;
         };
@@ -1025,7 +1025,7 @@ export interface components {
             navn: string;
             /**
              * Format: date-time
-             * @example 2025-04-15T11:28:52.426359
+             * @example 2025-04-15T11:42:34.443347
              */
             "planlagtKj\u00F8retidspunkt": string;
             /** @enum {string} */
