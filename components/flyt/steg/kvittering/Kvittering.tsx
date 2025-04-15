@@ -48,7 +48,7 @@ export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
 
       <List>
         <List.Item>{t('client.steg.kvittering.bulletList.items.1')}</List.Item>
-        <List.Item>{t('client.steg.kvittering.bulletList.items.2')}</List.Item>
+        {/*<List.Item>{t('client.steg.kvittering.bulletList.items.2')}</List.Item> TODO Få inn denne når vi kan toggle på om bruker har vedtak eller ikke */}
       </List>
 
       <Accordion>

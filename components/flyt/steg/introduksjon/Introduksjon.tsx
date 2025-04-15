@@ -75,7 +75,7 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
                   })}
                 </List.Item>
               )}
-            <List.Item>{t('client.steg.introduksjon.bulletList.item.2')}</List.Item>
+            {/*<List.Item>{t('client.steg.introduksjon.bulletList.item.2')}</List.Item> TODO Få inn denne når vi kan toggle på om bruker har vedtak eller ikke*/}
           </List>
         </VStack>
 
