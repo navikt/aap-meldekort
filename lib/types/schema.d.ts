@@ -39,7 +39,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/debug/saker": {
+    "/api/ansvarlig-system-felles": {
         parameters: {
             query?: never;
             header?: never;
@@ -61,7 +61,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["kotlin.Any"];
+                        "application/json": "AAP" | "FELLES";
                     };
                 };
             };
@@ -883,7 +883,7 @@ export interface components {
         "no.nav.aap.meldekort.DagSvarDto": {
             /**
              * Format: date
-             * @example 2025-03-25
+             * @example 2025-04-15
              */
             dato: string;
             /** Format: double */
@@ -914,7 +914,7 @@ export interface components {
             "bruttoBel\u00F8p"?: number | null;
             /**
              * Format: date
-             * @example 2025-03-25
+             * @example 2025-04-15
              */
             innsendtDato?: string | null;
             kanEndres: boolean;
@@ -928,24 +928,24 @@ export interface components {
         "no.nav.aap.meldekort.PeriodeDto": {
             /**
              * Format: date
-             * @example 2025-03-25
+             * @example 2025-04-15
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-03-25
+             * @example 2025-04-15
              */
             tom: string;
         };
         "no.nav.aap.meldekort.StartUtfyllingRequest": {
             /**
              * Format: date
-             * @example 2025-03-25
+             * @example 2025-04-15
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-03-25
+             * @example 2025-04-15
              */
             tom: string;
         };
@@ -965,16 +965,17 @@ export interface components {
             antallUbesvarteMeldeperioder: number;
             /**
              * Format: date-time
-             * @example 2025-03-25T14:00:58.19527
+             * @example 2025-04-15T11:28:52.426359
              */
             fristForInnsending?: string | null;
+            harBrukerVedtakIKelvin: boolean;
             kanSendesInn: boolean;
             periode: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
             /** Format: uuid */
             referanse: string;
             /**
              * Format: date-time
-             * @example 2025-03-25T14:00:58.19527
+             * @example 2025-04-15T11:28:52.426359
              */
             tidligsteInnsendingstidspunkt?: string | null;
         };
@@ -991,12 +992,12 @@ export interface components {
         "no.nav.aap.meldekort.kontrakt.Periode": {
             /**
              * Format: date
-             * @example 2025-03-25
+             * @example 2025-04-15
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-03-25
+             * @example 2025-04-15
              */
             tom: string;
         };
@@ -1005,6 +1006,8 @@ export interface components {
             meldeperioder: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"][];
             meldeplikt: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"][];
             opplysningsbehov: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"][];
+            /** @enum {string|null} */
+            sakStatus?: "UTREDES" | "LØPENDE" | "AVSLUTTET" | null;
             sakenGjelderFor: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"];
             saksnummer: string;
         };
@@ -1022,7 +1025,7 @@ export interface components {
             navn: string;
             /**
              * Format: date-time
-             * @example 2025-03-25T14:00:58.19527
+             * @example 2025-04-15T11:28:52.426359
              */
             "planlagtKj\u00F8retidspunkt": string;
             /** @enum {string} */

@@ -23,6 +23,8 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
   const fraDato = new Date(utfylling.metadata.periode.fom);
   const tilDato = new Date(utfylling.metadata.periode.tom);
 
+  console.log('utfylling', utfylling);
+
   return (
     <Form
       onSubmit={(e) => {
