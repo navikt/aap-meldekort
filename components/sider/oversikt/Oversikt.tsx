@@ -23,8 +23,6 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
 
   const { erLitenSkjerm } = useSkjermBredde();
 
-  console.log('kommendeMeldeperiode', kommendeMeldeperiode);
-
   async function startInnsending() {
     if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
       const startInnsendingAvMeldekortResponse = await startInnsendingClient(
