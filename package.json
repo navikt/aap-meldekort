@@ -19,7 +19,7 @@
     "@navikt/ds-css": "^7.20.0",
     "@navikt/ds-react": "^7.20.0",
     "@navikt/nav-dekoratoren-moduler": "3.2.2",
-    "@navikt/oasis": "^3.7.0",
+    "@navikt/oasis": "^3.8.0",
     "csp-header": "^6.1.0",
     "html-react-parser": "^5.2.3",
     "next": "15.3.1",
