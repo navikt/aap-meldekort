@@ -27,6 +27,8 @@ Kjør opp lokal backend ved å klone repoet meldekort-backend og kjøre det opp 
 yarn dev
 ```
 
+Gå til http://localhost:3000/aap/meldekort
+
 ---
 
 ## Kode generert av GitHub Copilot
