@@ -21,3 +21,5 @@ export type UtfyllingResponse = components['schemas']['no.nav.aap.meldekort.Utfy
 export type UtfyllingTilstandDto = components['schemas']['no.nav.aap.meldekort.UtfyllingTilstandDto'];
 
 export type Steg = UtfyllingResponse['tilstand']['aktivtSteg'];
+
+export type MetadataResponse = components['schemas']['no.nav.aap.meldekort.MetadataDto'];

@@ -3,6 +3,7 @@ import {
   hentAnsvarligSystem,
   hentInnsendteMeldeperioder,
   hentKommendeMeldeperiode,
+  hentMetadata,
 } from 'lib/services/meldekortservice';
 import { redirect } from 'next/navigation';
 
@@ -13,13 +14,17 @@ export default async function Page() {
     redirect('https://www.nav.no/nav.no-ressurser/lenker/selvbetjening/tjenester-pa-nav.no/send-meldekort');
   }
 
-  const innsendteMeldeperioder = await hentInnsendteMeldeperioder();
-  const kommendeMeldeperiode = await hentKommendeMeldeperiode();
+  const [innsendteMeldeperioder, kommendeMeldeperiode, metadata] = await Promise.all([
+    hentInnsendteMeldeperioder(),
+    hentKommendeMeldeperiode(),
+    hentMetadata(),
+  ]);
 
   return (
     <Oversikt
       kommendeMeldeperiode={kommendeMeldeperiode}
       harInnsendteMeldeperioder={innsendteMeldeperioder.length > 0}
+      metadata={metadata}
     />
   );
 }

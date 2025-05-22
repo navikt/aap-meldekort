@@ -1,5 +1,5 @@
 import { Kvittering } from 'components/flyt/steg/kvittering/Kvittering';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { KommendeMeldekort, UtfyllingResponse } from 'lib/types/types';
 import { render, screen } from 'lib/utils/test/customRender';
 
@@ -25,6 +25,20 @@ const kommendeMeldekort: KommendeMeldekort = {
     innsendingsvindu: { fom: '2024-12-15', tom: '2024-12-23' },
   },
 };
+
+// TODO hadde vært fint å slippe en ekstra implementasjon av mock for next/navigation
+const mocks = vi.hoisted(() => {
+  return {
+    useParams: vi.fn().mockReturnValue({ referanse: '123', innsendingtype: 'innsending' }),
+  };
+});
+
+vi.mock('next/navigation', () => {
+  return {
+    useParams: mocks.useParams,
+    useRouter: vi.fn().mockReturnValue({ prefetch: () => null }),
+  };
+});
 
 describe('Kvittering', () => {
   it('viser en suksess-melding', () => {
@@ -63,5 +77,29 @@ describe('Kvittering', () => {
 
     const nesteMeldeperiodeKnapp = screen.queryByRole('button', { name: 'Gå til neste meldekort' });
     expect(nesteMeldeperiodeKnapp).not.toBeInTheDocument();
+  });
+
+  it('viser et punkt med informasjon om at bruker kan endre meldekortet ved første innsending', () => {
+    render(<Kvittering utfylling={meldekort} />);
+    expect(screen.getByText('Du kan endre opplysningene hvis du oppdager at du har ført feil.')).toBeVisible();
+  });
+
+  it('viser et punkt med informasjon om når utbetaling vil skje når bruker har vedtak i Kelvin', () => {
+    const meldekortMedVedtak: UtfyllingResponse = {
+      ...meldekort,
+      metadata: { ...meldekort.metadata, harBrukerVedtakIKelvin: true },
+    };
+    render(<Kvittering utfylling={meldekortMedVedtak} />);
+    expect(screen.getByText('Du vil få utbetalt AAP om cirka 2 til 3 virkedager.')).toBeVisible();
+  });
+
+  it('viser ikke en punktliste med informasjon om at bruker kan endre meldekortet ved korrigering', () => {
+    mocks.useParams.mockReturnValueOnce({ referanse: '123', InnsendingType: 'korrigering' });
+
+    render(<Kvittering utfylling={meldekort} />);
+    expect(
+      screen.queryByText('Du kan endre opplysningene hvis du oppdager at du har ført feil.')
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText('Du vil få utbetalt AAP om ca 2 til 3 virkedager.')).not.toBeInTheDocument();
   });
 });
