@@ -1,4 +1,4 @@
-import { format, getISOWeek, isValid, parse } from 'date-fns';
+import { eachWeekOfInterval, format, getISOWeek, isValid, parse } from 'date-fns';
 import { nb } from 'date-fns/locale';
 
 export const DATO_FORMATER = {
@@ -53,13 +53,11 @@ export const parseDatoFraDatePicker = (value?: string | Date): Date | undefined 
 };
 
 export function hentUkeNummerForPeriode(fraDato: Date, tilDato: Date): string {
-  const fraUke = getISOWeek(fraDato);
-  const tilUke = getISOWeek(tilDato);
-  const ukeNumre = Array.from({ length: tilUke - fraUke + 1 }, (_, i) => fraUke + i);
+  const ukenumre = eachWeekOfInterval({ start: fraDato, end: tilDato }, { weekStartsOn: 1 }).map((ukestart) =>
+    getISOWeek(ukestart)
+  );
 
-  // TODO Må håndtere årsskifte
-
-  return `${ukeNumre.slice(0, -1).join(', ')}${ukeNumre.length > 1 ? ' og ' : ''}${ukeNumre.slice(-1)}`;
+  return `${ukenumre.slice(0, -1).join(', ')}${ukenumre.length > 1 ? ' og ' : ''}${ukenumre.slice(-1)}`;
 }
 
 export function hentUkeNummerForDato(dato: Date) {

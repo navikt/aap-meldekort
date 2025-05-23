@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { formaterDatoForBackend, parseDatoFraDatePicker, sorterEtterNyesteDato, stringToDate } from 'lib/utils/date';
+import {
+  formaterDatoForBackend,
+  hentUkeNummerForPeriode,
+  parseDatoFraDatePicker,
+  sorterEtterNyesteDato,
+  stringToDate,
+} from 'lib/utils/date';
+import { addWeeks, getISOWeek } from 'date-fns';
 
 describe('formaterDatoForBackend', () => {
   it('skal returnere dato på korrekt format', () => {
@@ -65,5 +72,37 @@ describe('parseDateFraDatePicker', () => {
   it('gir undefined tilbake når string-input ikke er en gyldig dato', () => {
     const result = parseDatoFraDatePicker('20238-92');
     expect(result).toBeUndefined();
+  });
+});
+
+describe('hentUkenummerForPeriode', () => {
+  it('finner ukenummer for to datoer i forskjellige uker', () => {
+    const iDag = new Date();
+    const enDagINesteUke = addWeeks(iDag, 1);
+    const res = hentUkeNummerForPeriode(iDag, enDagINesteUke);
+    expect(res).toEqual(`${getISOWeek(iDag)} og ${getISOWeek(enDagINesteUke)}`);
+  });
+
+  it('gir kun ett ukenummer tilbake dersom begge datoer er innenfor samme uke', () => {
+    const mandag = new Date('2025-05-19');
+    const søndag = new Date('2025-05-25');
+    const res = hentUkeNummerForPeriode(mandag, søndag);
+    expect(res).toEqual(getISOWeek(mandag).toString());
+    expect(res).toEqual(getISOWeek(søndag).toString());
+  });
+
+  it('tåler at en periode går over et årsskifte', () => {
+    const periodestart = new Date('2024-12-24');
+    const periodeslutt = new Date('2025-01-05');
+    const res = hentUkeNummerForPeriode(periodestart, periodeslutt);
+    expect(res).toEqual('52 og 1');
+  });
+
+  it('gir flere ukenummer hvis perioden strekker seg over flere uker', () => {
+    const periodestart = new Date('2025-03-01');
+    const periodeslutt = new Date('2025-03-31');
+    const res = hentUkeNummerForPeriode(periodestart, periodeslutt);
+
+    expect(res).toEqual('9, 10, 11, 12, 13 og 14');
   });
 });
