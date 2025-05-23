@@ -35,7 +35,7 @@
         "heading": "Send meldekort",
         "antallKlareMeldekort": "Du har {antallMeldekort} meldekort å sende inn",
         "klarTilUtfylling": "Fyll ut meldekort for veke {periode}",
-        "ingenMeldekort": "Du har ingen meldekort å sende inn enno."
+        "ingenMeldekort": "Du har ingen meldekort å sende inn."
       },
       "innsendteMeldekort": {
         "heading": "Sjå innsende meldekort",
