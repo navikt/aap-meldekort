@@ -42,7 +42,7 @@
         "antallKlareMeldekort": "Du har {antallMeldekort} meldekort å sende inn",
         "kanSendeInnMeldekort": "Du kan sende inn {antallMeldekort} meldekort",
         "klarTilUtfylling": "Fyll ut meldekort for uke {periode}",
-        "ingenMeldekort": "Du har ingen meldekort å sende inn enda."
+        "ingenMeldekort": "Du har ingen meldekort å sende inn."
       },
       "innsendteMeldekort": {
         "heading": "Se innsendte meldekort",
