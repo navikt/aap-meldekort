@@ -34,11 +34,13 @@
     },
     "oversikt": {
       "ingenMeldekort": "Kunne ikke finne noen meldeperioder",
+      "sakUnderBehandling": "Søknaden er under behandling, og du har ikke fått vedtak om AAP.",
       "mottaAAP": "For å motta AAP må du sende meldekort hver 14. dag. På meldekortet må du fylle ut hvor mange timer du har arbeidet.",
       "infoAlert": "Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn {dato}.",
       "sendMeldekort": {
         "heading": "Send meldekort",
         "antallKlareMeldekort": "Du har {antallMeldekort} meldekort å sende inn",
+        "kanSendeInnMeldekort": "Du kan sende inn {antallMeldekort} meldekort",
         "klarTilUtfylling": "Fyll ut meldekort for uke {periode}",
         "ingenMeldekort": "Du har ingen meldekort å sende inn."
       },
@@ -61,6 +63,8 @@
         "heading": "Meldekort for uke {uker}",
         "link": "Tilbake til oversikten",
         "flereMeldekortAlert": "Du har {antallMeldekort} meldekort å sende inn.",
+        "sakUnderBehandlingFlereMeldekort": "Du kan sende inn {antallMeldekort} meldekort.",
+        "sakUnderBehandling": "Du har ikke fått vedtak om AAP, men du kan sende inn meldekortet hvis du vil.",
         "bulletList": {
           "item": {
             "1": "Du kan sende dette meldekortet fra {tidligsteDato}, og senest {senesteDato} for å unngå trekk i utbetalingen.",
@@ -170,7 +174,7 @@
         "bulletList": {
           "items": {
             "1": "Du kan endre opplysningene hvis du oppdager at du har ført feil.",
-            "2": "Du vil få utbetalt AAP om cirka 2 til 3 virkerdager."
+            "2": "Du vil få utbetalt AAP om cirka 2 til 3 virkedager."
           }
         },
         "seHvaDuSendteInn": "Se hva du sendte inn",

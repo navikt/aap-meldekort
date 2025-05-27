@@ -29,11 +29,13 @@
     },
     "oversikt": {
       "ingenMeldekort": "Kunne ikke finne noen meldeperioder",
+      "sakUnderBehandling": "Søknaden er under behandling, og du har ikkje fått vedtak om AAP.",
       "mottaAAP": "For at du skal kunne få AAP, må du sende inn meldekort kvar 14. dag. På meldekortet må du fylle ut kor mange timar du har jobba.",
       "infoAlert": "Du kan fylle ut meldekortet no, men det kan ikkje sendast inn før tidlegast {dato}.",
       "sendMeldekort": {
         "heading": "Send meldekort",
         "antallKlareMeldekort": "Du har {antallMeldekort} meldekort å sende inn",
+        "kanSendeInnMeldekort": "Du kan sende inn {antallMeldekort} meldekort",
         "klarTilUtfylling": "Fyll ut meldekort for veke {periode}",
         "ingenMeldekort": "Du har ingen meldekort å sende inn."
       },
@@ -60,10 +62,12 @@
       "introduksjon": {
         "heading": "Meldekort for veke {uker}",
         "link": "Tilbake til oversikta",
-        "flereMeldekortAlert": "Du har {antallMeldekort} meldekort å sende inn.",
+        "flereMeldekortAlert": "Du har {antallMeldekort} meldekort å senda inn.",
+        "sakUnderBehandlingFlereMeldekort": "Du kan senda inn {antallMeldekort} meldekort.",
+        "sakUnderBehandling": "Du har ikkje fått vedtak om AAP, men du kan senda inn meldekortet om du vil",
         "bulletList": {
           "item": {
-            "1": "Du kan sende dette meldekortet frå og med {tidligsteDato}. Hugs å sende seinast {senesteDato} for å unngå trekk i utbetalinga.",
+            "1": "Du kan senda dette meldekortet frå og med {tidligsteDato}. Hugs å senda seinast {senesteDato} for å unngå trekk i utbetalinga.",
             "2": "Du vil få utbetalt AAP cirka 2 til 3 vyrkedagar etter at du har levert meldekortet."
           }
         },

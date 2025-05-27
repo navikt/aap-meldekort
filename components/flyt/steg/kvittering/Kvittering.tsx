@@ -46,12 +46,14 @@ export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
           : t('client.steg.kvittering.alert.korrigering.label')}
       </Alert>
 
-      <List>
-        <List.Item>{t('client.steg.kvittering.bulletList.items.1')}</List.Item>
-        {utfylling.metadata.harBrukerVedtakIKelvin && (
-          <List.Item>{t('client.steg.kvittering.bulletList.items.2')}</List.Item>
-        )}
-      </List>
+      {innsendingtype === InnsendingType.INNSENDING && (
+        <List>
+          <List.Item>{t('client.steg.kvittering.bulletList.items.1')}</List.Item>
+          {utfylling.metadata.harBrukerVedtakIKelvin && (
+            <List.Item>{t('client.steg.kvittering.bulletList.items.2')}</List.Item>
+          )}
+        </List>
+      )}
 
       <Accordion>
         <Accordion.Item>

@@ -584,6 +584,41 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/hent-metadata": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["no.nav.aap.meldekort.MetadataDto"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/drift/api/jobb/feilende": {
         parameters: {
             query?: never;
@@ -883,7 +918,7 @@ export interface components {
         "no.nav.aap.meldekort.DagSvarDto": {
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-05-22
              */
             dato: string;
             /** Format: double */
@@ -909,12 +944,16 @@ export interface components {
             innsendingsvindu: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
             meldeperiode: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
         };
+        "no.nav.aap.meldekort.MetadataDto": {
+            brukerHarSakUnderBehandling?: boolean | null;
+            brukerHarVedtakIKelvin?: boolean | null;
+        };
         "no.nav.aap.meldekort.PeriodeDetaljerDto": {
             /** Format: double */
             "bruttoBel\u00F8p"?: number | null;
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-05-22
              */
             innsendtDato?: string | null;
             kanEndres: boolean;
@@ -928,24 +967,24 @@ export interface components {
         "no.nav.aap.meldekort.PeriodeDto": {
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-05-22
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-05-22
              */
             tom: string;
         };
         "no.nav.aap.meldekort.StartUtfyllingRequest": {
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-05-22
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-05-22
              */
             tom: string;
         };
@@ -965,9 +1004,10 @@ export interface components {
             antallUbesvarteMeldeperioder: number;
             /**
              * Format: date-time
-             * @example 2025-04-15T11:42:34.443347
+             * @example 2025-05-22T13:16:08.842028
              */
             fristForInnsending?: string | null;
+            harBrukerSakUnderBehandling?: boolean | null;
             harBrukerVedtakIKelvin?: boolean | null;
             kanSendesInn: boolean;
             periode: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
@@ -975,7 +1015,7 @@ export interface components {
             referanse: string;
             /**
              * Format: date-time
-             * @example 2025-04-15T11:42:34.443347
+             * @example 2025-05-22T13:16:08.842028
              */
             tidligsteInnsendingstidspunkt?: string | null;
         };
@@ -992,12 +1032,12 @@ export interface components {
         "no.nav.aap.meldekort.kontrakt.Periode": {
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-05-22
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-05-22
              */
             tom: string;
         };
@@ -1025,7 +1065,12 @@ export interface components {
             navn: string;
             /**
              * Format: date-time
-             * @example 2025-04-15T11:42:34.443347
+             * @example 2025-05-22T13:16:08.842028
+             */
+            opprettetTidspunkt?: string | null;
+            /**
+             * Format: date-time
+             * @example 2025-05-22T13:16:08.842028
              */
             "planlagtKj\u00F8retidspunkt": string;
             /** @enum {string} */
