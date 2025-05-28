@@ -43,22 +43,13 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
     >
       <VStack gap={'8'}>
         <MeldekortLenke label={t('client.steg.introduksjon.link')} href={'/'} />
-        {utfylling.metadata.harBrukerSakUnderBehandling && (
+        {innsendingtype === InnsendingType.INNSENDING && utfylling.metadata.antallUbesvarteMeldeperioder > 0 && (
           <Alert variant={'info'}>
-            {t('client.steg.introduksjon.sakUnderBehandlingFlereMeldekort', {
+            {t('client.steg.introduksjon.flereMeldekortAlert', {
               antallMeldekort: utfylling.metadata.antallUbesvarteMeldeperioder,
             })}
           </Alert>
         )}
-        {innsendingtype === InnsendingType.INNSENDING &&
-          utfylling.metadata.antallUbesvarteMeldeperioder > 0 &&
-          !utfylling.metadata.harBrukerSakUnderBehandling && (
-            <Alert variant={'info'}>
-              {t('client.steg.introduksjon.flereMeldekortAlert', {
-                antallMeldekort: utfylling.metadata.antallUbesvarteMeldeperioder,
-              })}
-            </Alert>
-          )}
         <VStack gap={'4'}>
           <VStack gap={'2'}>
             <Heading level={'2'} size={'large'}>
@@ -71,28 +62,23 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
               size={'large'}
             >{`${formaterDatoMedÅrForFrontend(fraDato)} - ${formaterDatoMedÅrForFrontend(tilDato)}`}</BodyShort>
           </VStack>
-          {utfylling.metadata.harBrukerSakUnderBehandling && (
-            <BodyShort>{t('client.steg.introduksjon.sakUnderBehandling')}</BodyShort>
-          )}
-          {!utfylling.metadata.harBrukerSakUnderBehandling && (
-            <List size={'medium'}>
-              {innsendingtype === InnsendingType.INNSENDING &&
-                utfylling.metadata.fristForInnsending &&
-                utfylling.metadata.tidligsteInnsendingstidspunkt && (
-                  <List.Item>
-                    {t('client.steg.introduksjon.bulletList.item.1', {
-                      tidligsteDato: formaterDatoMedMånedIBokstaver(
-                        new Date(utfylling.metadata.tidligsteInnsendingstidspunkt)
-                      ),
-                      senesteDato: formaterDatoMedMånedIBokstaver(new Date(utfylling.metadata.fristForInnsending)),
-                    })}
-                  </List.Item>
-                )}
-              {utfylling.metadata.harBrukerVedtakIKelvin && (
-                <List.Item>{t('client.steg.introduksjon.bulletList.item.2')}</List.Item>
+          <List size={'medium'}>
+            {innsendingtype === InnsendingType.INNSENDING &&
+              utfylling.metadata.fristForInnsending &&
+              utfylling.metadata.tidligsteInnsendingstidspunkt && (
+                <List.Item>
+                  {t('client.steg.introduksjon.bulletList.item.1', {
+                    tidligsteDato: formaterDatoMedMånedIBokstaver(
+                      new Date(utfylling.metadata.tidligsteInnsendingstidspunkt)
+                    ),
+                    senesteDato: formaterDatoMedMånedIBokstaver(new Date(utfylling.metadata.fristForInnsending)),
+                  })}
+                </List.Item>
               )}
-            </List>
-          )}
+            {utfylling.metadata.harBrukerVedtakIKelvin && (
+              <List.Item>{t('client.steg.introduksjon.bulletList.item.2')}</List.Item>
+            )}
+          </List>
         </VStack>
 
         <Opplysningsinformasjon />

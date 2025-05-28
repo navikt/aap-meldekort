@@ -1,6 +1,6 @@
 'use client';
 
-import { KommendeMeldekort, MetadataResponse } from 'lib/types/types';
+import { KommendeMeldekort } from 'lib/types/types';
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { useTranslations } from 'next-intl';
@@ -15,10 +15,9 @@ import { useMemo } from 'react';
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
   harInnsendteMeldeperioder: boolean;
-  metadata: MetadataResponse;
 }
 
-export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, metadata }: Props) => {
+export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Props) => {
   const t = useTranslations();
   const router = useRouter();
 
@@ -38,26 +37,17 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, meta
     }
   }
 
-  function finnTittel() {
-    if (!kommendeMeldeperiode?.manglerOpplysninger && kommendeMeldeperiode?.nesteMeldeperiode) {
-      return t('client.oversikt.sendMeldekort.klarTilUtfylling', {
-        periode: hentUkeNummerForPeriode(
-          new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
-          new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
-        ),
-      });
-    }
-
-    if (metadata.brukerHarSakUnderBehandling) {
-      return t('client.oversikt.sendMeldekort.kanSendeInnMeldekort', {
-        antallMeldekort: kommendeMeldeperiode?.antallUbesvarteMeldeperioder,
-      });
-    }
-
-    return t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
-      antallMeldekort: kommendeMeldeperiode?.antallUbesvarteMeldeperioder,
-    });
-  }
+  const title =
+    !kommendeMeldeperiode?.manglerOpplysninger && kommendeMeldeperiode?.nesteMeldeperiode
+      ? t('client.oversikt.sendMeldekort.klarTilUtfylling', {
+          periode: hentUkeNummerForPeriode(
+            new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
+            new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
+          ),
+        })
+      : t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
+          antallMeldekort: kommendeMeldeperiode?.antallUbesvarteMeldeperioder,
+        });
 
   const description = useMemo(() => {
     if (kommendeMeldeperiode?.manglerOpplysninger) {
@@ -69,8 +59,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, meta
 
   return (
     <VStack gap={'8'}>
-      {metadata.brukerHarSakUnderBehandling && <Alert variant="info">{t('client.oversikt.sakUnderBehandling')}</Alert>}
-      {!metadata.brukerHarSakUnderBehandling && <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>}
+      <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>
 
       <VStack gap={'4'}>
         <Heading level={'2'} size={'medium'}>
@@ -80,7 +69,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, meta
           <>
             <NavigationPanel
               type={'button'}
-              title={finnTittel()}
+              title={title}
               description={description}
               rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
               leftIcon={erLitenSkjerm ? undefined : <TasklistIcon fontSize={'2rem'} />}

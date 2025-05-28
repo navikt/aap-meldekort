@@ -3,7 +3,6 @@ import {
   EndreUtfyllingRequest,
   HistoriskMeldeperiode,
   KommendeMeldekort,
-  MetadataResponse,
   Periode,
   StartUtfyllingRequest,
   StartUtfyllingResponse,
@@ -58,10 +57,6 @@ export async function slettUtfylling(referanse: string) {
 export async function hentKommendeMeldeperiode(): Promise<KommendeMeldekort> {
   const url = `${meldeKortBaseUrl}/api/meldeperiode/kommende`;
   return await fetcher<KommendeMeldekort>(url, 'GET');
-}
-
-export async function hentMetadata(): Promise<MetadataResponse> {
-  return await fetcher<MetadataResponse>(`${meldeKortBaseUrl}/api/hent-metadata`, 'GET');
 }
 
 /**

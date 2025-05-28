@@ -52,26 +52,3 @@ describe('generelt', () => {
     expect(link).toBeVisible();
   });
 });
-
-describe('når bruker har en søknad som er under behandling', () => {
-  const utfyllingMedSøknadUnderBehandling = { ...utfylling };
-  utfyllingMedSøknadUnderBehandling.metadata.harBrukerSakUnderBehandling = true;
-
-  it('viser en melding om at bruker kan sende inn x antall meldekort', () => {
-    render(<Introduksjon utfylling={utfyllingMedSøknadUnderBehandling} referanse={'1234'} />);
-    expect(screen.queryByText('Du har 1 meldekort å sende inn.')).not.toBeInTheDocument();
-    expect(screen.getByText('Du kan sende inn 1 meldekort.')).toBeVisible();
-  });
-
-  it('viser en melding om at bruker ikke har vedtak om AAP, men kan sende inn meldekort hvis de vil', () => {
-    render(<Introduksjon utfylling={utfyllingMedSøknadUnderBehandling} referanse={'1234'} />);
-    expect(
-      screen.getByText('Du har ikke fått vedtak om AAP, men du kan sende inn meldekortet hvis du vil.')
-    ).toBeVisible();
-  });
-
-  it('vises ikke melding om frist', () => {
-    render(<Introduksjon utfylling={utfyllingMedSøknadUnderBehandling} referanse={'1234'} />);
-    expect(screen.queryByText(/^Du kan sende dette meldekortet/)).not.toBeInTheDocument();
-  });
-});
