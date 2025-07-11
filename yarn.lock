@@ -1332,19 +1332,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/aap-felles-prettier@npm:^5.2.0":
-  version: 5.2.0
-  resolution: "@navikt/aap-felles-prettier@npm:5.2.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faap-felles-prettier%2F5.2.0%2F4c6c2527b955d357d8c22d48b2f7c9d365388dec"
+"@navikt/aap-felles-prettier@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "@navikt/aap-felles-prettier@npm:5.3.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faap-felles-prettier%2F5.3.0%2F0a2046128bd400c4c3df674dd1a7b38b16ea99a9"
   dependencies:
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     prettier: "npm:^3.3.3"
-  checksum: 10c0/8ef68d4460cf502cf1d1968bb06c3678c192d852f8c243fc5d9829c1a49b41d2c63181a4664dd2067a3e6f0e41b68559997611cbf1e5052eedb38524bbd06724
+  checksum: 10c0/8ddc037c82a3d0dbb633dbedce1f34b9eb06d770c26f4d77f65a2994ed8a7a3c32cd6e6215418032b8f8774f04ff35243b4112dd2258cfabe7d00fb4e3a54d7b
   languageName: node
   linkType: hard
 
-"@navikt/aap-felles-utils@npm:^5.2.0":
-  version: 5.2.0
-  resolution: "@navikt/aap-felles-utils@npm:5.2.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faap-felles-utils%2F5.2.0%2F9c4ac7bb0d6ad426d38c40b7d8734cef9c34cd48"
+"@navikt/aap-felles-utils@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "@navikt/aap-felles-utils@npm:5.3.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faap-felles-utils%2F5.3.0%2F88e79c263c71bc68c3e1c8ab071c2131bc250a9b"
   dependencies:
     "@navikt/oasis": "npm:^3.4.0"
     axios: "npm:^1.7.7"
@@ -1354,7 +1354,7 @@ __metadata:
     pino: "npm:^9.4.0"
     prom-client: "npm:^15.1.3"
     server-only: "npm:^0.0.1"
-  checksum: 10c0/a9b271de213d454af37881b367787f6bbaf1557d2d04b7186657479c406f95a27139668182b734c475d1a91ca556456bada2adc81bd4a9238d0ee2bdc3740534
+  checksum: 10c0/d38724b12ed7c4408875a72e3678e2449e1844cd9a1f80d783eae02d6870bfb5843386f8caddddf9efff1f53aa940906159760066ce538daf5e3196197005188
   languageName: node
   linkType: hard
 
@@ -2424,8 +2424,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "aap-meldekort@workspace:."
   dependencies:
-    "@navikt/aap-felles-prettier": "npm:^5.2.0"
-    "@navikt/aap-felles-utils": "npm:^5.2.0"
+    "@navikt/aap-felles-prettier": "npm:^5.3.0"
+    "@navikt/aap-felles-utils": "npm:^5.3.0"
     "@navikt/aksel-icons": "npm:^7.25.1"
     "@navikt/ds-css": "npm:^7.25.1"
     "@navikt/ds-react": "npm:^7.25.1"
