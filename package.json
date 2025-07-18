@@ -21,7 +21,7 @@
     "@navikt/nav-dekoratoren-moduler": "3.4.0",
     "@navikt/oasis": "^3.8.0",
     "csp-header": "^6.1.0",
-    "html-react-parser": "^5.2.5",
+    "html-react-parser": "^5.2.6",
     "next": "15.4.1",
     "next-intl": "^3.26.5",
     "react": "19.1.0",
