@@ -12,6 +12,9 @@ const utfylling: UtfyllingResponse = {
       tom: '2024-12-01',
     },
     referanse: '123456789',
+    fristForInnsending: '2024-12-09',
+    tidligsteInnsendingstidspunkt: '2024-12-02',
+    harBrukerVedtakIKelvin: true
   },
   tilstand: {
     aktivtSteg: 'INTRODUKSJON',
@@ -50,5 +53,48 @@ describe('generelt', () => {
     render(<Introduksjon utfylling={utfylling} referanse={'1234'} />);
     const link = screen.getByRole('link', { name: 'Tilbake til oversikten' });
     expect(link).toBeVisible();
+  });
+
+  it('skal vise kulepunkt med informasjon om innsendingsdatoer og utbetaling', () => {
+    render(<Introduksjon utfylling={utfylling} referanse={'1234'} />);
+    const kulepunkt1 = screen.getByText(
+      'Du kan sende dette meldekortet fra 2. desember, og senest 9. desember for å unngå trekk i utbetalingen.'
+    );
+    const kulepunkt2 = screen.getByText(
+      'Du vil få utbetalt AAP cirka 2 til 3 virkedager etter at du har levert meldekortet.'
+    );
+    expect(kulepunkt1).toBeVisible();
+    expect(kulepunkt2).toBeVisible();
+  });
+
+  it('skal vise kulepunkt med informasjon om julen 2025', () => {
+    const utfyllingForJulen2025: UtfyllingResponse = {
+      metadata: {
+        antallUbesvarteMeldeperioder: 1,
+        kanSendesInn: true,
+        periode: {
+          fom: '2025-12-08',
+          tom: '2025-12-21',
+        },
+        referanse: '123456789',
+        fristForInnsending: '2025-12-29',
+        tidligsteInnsendingstidspunkt: '2025-12-17',
+      },
+      tilstand: {
+        aktivtSteg: 'INTRODUKSJON',
+        svar: {
+          dager: [],
+        },
+      },
+    };
+    render(<Introduksjon utfylling={utfyllingForJulen2025} referanse={'1234'} />);
+    const kulepunkt1 = screen.getByText(
+      'For denne perioden er det åpnet for tidligere innsending, slik at du kan få utbetaling før jul.'
+    );
+    const kulepunkt2 = screen.getByText(
+      'Du kan sende dette meldekortet fra onsdag 17. desember, og senest 29. desember for å unngå trekk i utbetalingen.'
+    );
+    expect(kulepunkt1).toBeVisible();
+    expect(kulepunkt2).toBeVisible();
   });
 });
