@@ -31,6 +31,7 @@
       "ingenMeldekort": "Kunne ikke finne noen meldeperioder",
       "mottaAAP": "For at du skal kunne få AAP, må du sende inn meldekort kvar 14. dag. På meldekortet må du fylle ut kor mange timar du har jobba.",
       "infoAlert": "Du kan fylle ut meldekortet no, men det kan ikkje sendast inn før tidlegast {dato}.",
+      "infoAlertJulen2025": "Du kan fylle ut meldekort no. Denne perioden kan du sende inn allereie frå onsdag 17. desember for å få utbetaling før jul.",
       "sendMeldekort": {
         "heading": "Send meldekort",
         "antallKlareMeldekort": "Du har {antallMeldekort} meldekort å sende inn",
@@ -65,6 +66,12 @@
           "item": {
             "1": "Du kan sende dette meldekortet frå og med {tidligsteDato}. Hugs å sende seinast {senesteDato} for å unngå trekk i utbetalinga.",
             "2": "Du vil få utbetalt AAP cirka 2 til 3 vyrkedagar etter at du har levert meldekortet."
+          }
+        },
+        "bulletListJulen2025": {
+          "item": {
+            "1": "For denne perioden er det opna for tidlegare innsending, slik at du kan få utbetaling før jul.",
+            "2": "Du kan sende dette meldekortet frå onsdag 17. desember, og seinast 29. desember for å unngå trekk i utbetalinga."
           }
         },
         "opplysninger": {
@@ -139,6 +146,7 @@
           "nesteStegKnappTekst": "Send inn"
         },
         "kanIkkeSendesInn": "Du kan sende inn meldekort tidlegast {dato}. Kom tilbake seinare for å senda inn meldekortet, vi lagrar svara dine så lenge.",
+        "kanIkkeSendesInnJulen2025": "Du kan tidlegast sende inn meldekortet onsdag 17. desember. Kom tilbake seinare for å sende inn meldekortet, i mellomtida lagrar vi svara dine.",
         "link": "<a>Gå tilbake til oversikta</a>",
         "periode": "Veke {uker} ({periode})",
         "oppsummering": {

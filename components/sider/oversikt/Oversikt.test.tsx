@@ -38,7 +38,7 @@ describe('Oversikt', () => {
     expect(link).toBeVisible();
   });
 
-  it('skal vise en informasjonsboks dersom det er ingen meldekort som er klar til innsending, men kan fylles ut', () => {
+  it('skal vise en informasjonsboks dersom meldekort ikke er klar til innsending, men kan fylles ut', () => {
     render(
       <Oversikt
         harInnsendteMeldeperioder={false}
@@ -53,6 +53,27 @@ describe('Oversikt', () => {
     );
 
     const alert = screen.getByText('Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn 17. februar.');
+    expect(alert).toBeVisible();
+  });
+
+  it('skal vise en informasjonsboks om julen 2025 dersom meldekort ikke er klar til innsending, men kan fylles ut', () => {
+    render(
+      <Oversikt
+        harInnsendteMeldeperioder={false}
+        kommendeMeldeperiode={{
+          antallUbesvarteMeldeperioder: 0,
+          manglerOpplysninger: { fom: '2025-12-08', tom: '2025-12-21' },
+          nesteMeldeperiode: {
+            meldeperiode: { fom: '2025-12-08', tom: '2025-12-21' },
+            innsendingsvindu: { fom: '2025-12-17', tom: '2025-12-29' },
+          },
+        }}
+      />
+    );
+
+    const alert = screen.getByText(
+      'Du kan fylle ut meldekortet nå. Denne perioden kan du sende inn allerede fra onsdag 17. desember for å få utbetaling før jul.'
+    );
     expect(alert).toBeVisible();
   });
 
