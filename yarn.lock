@@ -1293,7 +1293,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/aap-felles-prettier@npm:^5.5.0":
+"@navikt/aap-felles-prettier@npm:5.5.0":
   version: 5.5.0
   resolution: "@navikt/aap-felles-prettier@npm:5.5.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faap-felles-prettier%2F5.5.0%2F206f7eed1e12852b6d1d71ca5b5183f7c2059d51"
   dependencies:
@@ -1303,7 +1303,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/aap-felles-utils@npm:^5.5.0":
+"@navikt/aap-felles-utils@npm:5.5.0":
   version: 5.5.0
   resolution: "@navikt/aap-felles-utils@npm:5.5.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faap-felles-utils%2F5.5.0%2F1ab254a14c94f8e207aad75e75ccf3c640de1401"
   dependencies:
@@ -1359,7 +1359,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/eslint-config-aap@npm:^5.5.0":
+"@navikt/eslint-config-aap@npm:5.5.0":
   version: 5.5.0
   resolution: "@navikt/eslint-config-aap@npm:5.5.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Feslint-config-aap%2F5.5.0%2F482a0623f1b0fdcb6ca4f5c37c07fbe6d42ce1ad"
   peerDependencies:
@@ -2315,12 +2315,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "aap-meldekort@workspace:."
   dependencies:
-    "@navikt/aap-felles-prettier": "npm:^5.5.0"
-    "@navikt/aap-felles-utils": "npm:^5.5.0"
+    "@navikt/aap-felles-prettier": "npm:5.5.0"
+    "@navikt/aap-felles-utils": "npm:5.5.0"
     "@navikt/aksel-icons": "npm:^7.35.1"
     "@navikt/ds-css": "npm:^7.35.1"
     "@navikt/ds-react": "npm:^7.35.1"
-    "@navikt/eslint-config-aap": "npm:^5.5.0"
+    "@navikt/eslint-config-aap": "npm:5.5.0"
     "@navikt/nav-dekoratoren-moduler": "npm:3.6.1"
     "@navikt/oasis": "npm:^3.8.0"
     "@testing-library/dom": "npm:^10.4.1"
