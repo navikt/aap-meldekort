@@ -11,7 +11,6 @@ import { ChevronRightIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons'
 import { InnsendingType } from 'lib/utils/url';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { useMemo } from 'react';
-import { isProduction } from 'lib/utils/environments';
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
@@ -81,12 +80,10 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
               <Alert variant={'info'}>
                 {
                   // Infotekst som dekker julen 2025
-                  !isProduction() &&
                   hentUkeNummerForPeriode(
                     new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
                     new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
-                  ) === '50 og 51' &&
-                  new Date().getFullYear() === 2025
+                  ) === '50 og 51' && new Date().getFullYear() === 2025
                     ? t('client.oversikt.infoAlertJulen2025')
                     : t('client.oversikt.infoAlert', {
                         dato: formaterDatoMedMånedIBokstaver(

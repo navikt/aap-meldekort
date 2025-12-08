@@ -9,7 +9,6 @@ import { Form } from 'components/form/Form';
 import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { Opplysningsinformasjon } from 'components/Opplysningsinformasjon/Opplysningsinformasjon';
-import { isProduction } from 'lib/utils/environments';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -68,9 +67,7 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
               utfylling.metadata.fristForInnsending &&
               utfylling.metadata.tidligsteInnsendingstidspunkt &&
               // Infotekst som dekker julen 2025
-              (!isProduction() &&
-              hentUkeNummerForPeriode(fraDato, tilDato) === '50 og 51' &&
-              new Date().getFullYear() === 2025 ? (
+              (hentUkeNummerForPeriode(fraDato, tilDato) === '50 og 51' && new Date().getFullYear() === 2025 ? (
                 <>
                   <List.Item>{t('client.steg.introduksjon.bulletListJulen2025.item.1')}</List.Item>
                   <List.Item>{t('client.steg.introduksjon.bulletListJulen2025.item.2')}</List.Item>

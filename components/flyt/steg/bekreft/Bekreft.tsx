@@ -10,7 +10,6 @@ import { useState } from 'react';
 import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
 import { Link } from 'i18n/routing';
-import { isProduction } from 'lib/utils/environments';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -88,12 +87,10 @@ export const Bekreft = ({ utfylling }: Props) => {
             <BodyShort>
               {
                 // Infotekst som dekker julen 2025
-                !isProduction() &&
                 hentUkeNummerForPeriode(
                   new Date(utfylling.metadata.periode.fom),
                   new Date(utfylling.metadata.periode.tom)
-                ) === '50 og 51' &&
-                new Date().getFullYear() === 2025 ? (
+                ) === '50 og 51' && new Date().getFullYear() === 2025 ? (
                   <>{t('client.steg.bekreft.kanIkkeSendesInnJulen2025')}</>
                 ) : (
                   <>
