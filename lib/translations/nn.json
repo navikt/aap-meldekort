@@ -145,8 +145,8 @@
           "heading": "Sjå over og send inn meldekort",
           "nesteStegKnappTekst": "Send inn"
         },
-        "kanIkkeSendesInn": "Du kan sende inn meldekort tidlegast {dato}. Kom tilbake seinare for å senda inn meldekortet, vi lagrar svara dine så lenge.",
-        "kanIkkeSendesInnJulen2025": "Du kan tidlegast sende inn meldekortet onsdag 17. desember. Kom tilbake seinare for å sende inn meldekortet, i mellomtida lagrar vi svara dine.",
+        "kanIkkeSendesInn": "Det tidlegaste du kan sende inn meldekortet er {dato}. Kom tilbake seinare for å sende inn meldekortet, vi lagrar svara dine så lenge.",
+        "kanIkkeSendesInnJulen2025": "Det tidlegaste du kan sende inn meldekortet er onsdag 17. desember. Kom tilbake seinare for å sende inn meldekortet, vi lagrar svara dine i mellomtida.",
         "link": "<a>Gå tilbake til oversikta</a>",
         "periode": "Veke {uker} ({periode})",
         "oppsummering": {
