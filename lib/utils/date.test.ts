@@ -98,6 +98,13 @@ describe('hentUkenummerForPeriode', () => {
     expect(res).toEqual('52 og 1');
   });
 
+  it('tåler at det finnes en uke 53 i et år', () => {
+    const periodestart = new Date('2026-12-27');
+    const periodeslutt = new Date('2027-01-03');
+    const res = hentUkeNummerForPeriode(periodestart, periodeslutt);
+    expect(res).toEqual('52 og 53');
+  });
+
   it('gir flere ukenummer hvis perioden strekker seg over flere uker', () => {
     const periodestart = new Date('2025-03-01');
     const periodeslutt = new Date('2025-03-31');
