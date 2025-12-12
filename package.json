@@ -14,7 +14,7 @@
   },
   "prettier": "@navikt/aap-felles-prettier",
   "dependencies": {
-    "@navikt/aap-felles-utils": "^5.5.0",
+    "@navikt/aap-felles-utils": "5.5.1",
     "@navikt/aksel-icons": "^7.35.1",
     "@navikt/ds-css": "^7.35.1",
     "@navikt/ds-react": "^7.35.1",
@@ -22,7 +22,7 @@
     "@navikt/oasis": "^3.8.0",
     "csp-header": "^6.2.1",
     "html-react-parser": "^5.2.10",
-    "next": "15.5.7",
+    "next": "15.5.9",
     "next-intl": "^3.26.5",
     "react": "19.2.1",
     "react-dom": "19.2.1",
