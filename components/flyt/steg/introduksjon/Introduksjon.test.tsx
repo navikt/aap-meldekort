@@ -66,35 +66,4 @@ describe('generelt', () => {
     expect(kulepunkt1).toBeVisible();
     expect(kulepunkt2).toBeVisible();
   });
-
-  it('skal vise kulepunkt med informasjon om julen 2025', () => {
-    const utfyllingForJulen2025: UtfyllingResponse = {
-      metadata: {
-        antallUbesvarteMeldeperioder: 1,
-        kanSendesInn: true,
-        periode: {
-          fom: '2025-12-08',
-          tom: '2025-12-21',
-        },
-        referanse: '123456789',
-        fristForInnsending: '2025-12-29',
-        tidligsteInnsendingstidspunkt: '2025-12-17',
-      },
-      tilstand: {
-        aktivtSteg: 'INTRODUKSJON',
-        svar: {
-          dager: [],
-        },
-      },
-    };
-    render(<Introduksjon utfylling={utfyllingForJulen2025} referanse={'1234'} />);
-    const kulepunkt1 = screen.getByText(
-      'For denne perioden er det åpnet for tidligere innsending, slik at du kan få utbetaling før jul.'
-    );
-    const kulepunkt2 = screen.getByText(
-      'Du kan sende dette meldekortet fra onsdag 17. desember, og senest 29. desember for å unngå trekk i utbetalingen.'
-    );
-    expect(kulepunkt1).toBeVisible();
-    expect(kulepunkt2).toBeVisible();
-  });
 });
