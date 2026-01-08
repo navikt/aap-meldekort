@@ -20,7 +20,7 @@
     "@navikt/ds-react": "^7.37.0",
     "@navikt/nav-dekoratoren-moduler": "3.6.1",
     "@navikt/oasis": "^3.8.0",
-    "csp-header": "^6.2.1",
+    "csp-header": "^6.3.0",
     "html-react-parser": "^5.2.10",
     "next": "15.5.9",
     "next-intl": "^3.26.5",
