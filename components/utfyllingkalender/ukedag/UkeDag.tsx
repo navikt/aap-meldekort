@@ -1,4 +1,4 @@
-import { BodyShort, Detail, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Detail, VStack } from '@navikt/ds-react';
 import { TextFieldWrapper } from 'components/textfieldwrapper/TextFieldWrapper';
 import { MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/steg/utfylling/Utfylling';
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
@@ -55,16 +55,16 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
               <Detail>
                 {erLitenSkjerm ? formaterDatoMedMånedIBokstaver(dag) : formaterDatoUtenÅrForFrontend(dag)}
               </Detail>
-              <Heading size={'small'}>
+              <BodyShort size={'medium'} weight={'semibold'}>
                 {erLitenSkjerm ? storForbokstav(formaterUkedag(dag)) : formaterUkedag(dag)}
-              </Heading>
+              </BodyShort>
             </VStack>
             {eksisterendeFelt && (
               <TextFieldWrapper
                 control={form.control}
                 id={`dager${eksisterendeFelt.index}timer`}
                 name={`dager.${eksisterendeFelt.index}.timer`}
-                label={'Arbeid'}
+                label={`Arbeid for ${fullDag(eksisterendeFelt.dag)} ${formaterDatoMedMånedIBokstaver(eksisterendeFelt.dag)}`}
                 className={`${styles.tekstfelt} ${harFeilmelding ? 'navds-text-field--error' : ''}`}
                 rules={{
                   validate: (value) => {
@@ -104,5 +104,10 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
     const ukedag = format(dato, 'EEEE', { locale: nb });
 
     return erLitenSkjerm ? ukedag : ukedag.substring(0, 2) + '.';
+  }
+
+  function fullDag(date: string | Date): string {
+    const dato = new Date(date);
+    return format(dato, 'EEEE', { locale: nb });
   }
 };
