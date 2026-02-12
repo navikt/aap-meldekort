@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { mellomlagreUtfylling } from 'lib/services/meldekortservice';
 import { logError } from '@navikt/aap-felles-utils';
 import { EndreUtfyllingRequest } from 'lib/types/types';
@@ -10,9 +10,9 @@ export async function POST(req: NextRequest, props: { params: Promise<{ meldekor
   try {
     const meldekort = await mellomlagreUtfylling(params.meldekortid, utfyllingRequest);
 
-    return new Response(JSON.stringify(meldekort), { status: 200 });
+    return NextResponse.json(meldekort, { status: 200 });
   } catch (err) {
     logError(`/api/${params.meldekortid}/lagre`, err);
-    return new Response(JSON.stringify({ message: 'Noe gikk galt med mellomlagring av utfylling' }), { status: 500 });
+    return NextResponse.json({ message: 'Noe gikk galt med mellomlagring av utfylling' }, { status: 500 });
   }
 }
