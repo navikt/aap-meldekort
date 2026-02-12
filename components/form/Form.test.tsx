@@ -33,11 +33,11 @@ describe('Form generelt', () => {
   });
 
   test('skal vise default tekst på neste knapp dersom nesteStegKnappTekst ikke er satt', () => {
-    expect(screen.getByText('Neste'));
+    expect(screen.getByText('Neste')).toBeVisible();
   });
 
   test('skal vise default tekst på tilbake knapp dersom forrigeStegKnappTekst ikke er satt', () => {
-    expect(screen.getByText('Forrige'));
+    expect(screen.getByText('Forrige')).toBeVisible();
   });
 });
 

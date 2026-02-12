@@ -1,7 +1,11 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from 'lib/utils/test/customRender';
 import { Utfylling } from 'components/flyt/steg/utfylling/Utfylling';
 import { UtfyllingResponse } from 'lib/types/types';
+import createFetchMock from 'vitest-fetch-mock';
+
+const fetchMock = createFetchMock(vi);
+fetchMock.enableMocks();
 
 const meldeperiode: UtfyllingResponse = {
   metadata: {
