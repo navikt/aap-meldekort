@@ -46,7 +46,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
           ),
         })
       : t('client.oversikt.sendMeldekort.antallKlareMeldekort', {
-          antallMeldekort: kommendeMeldeperiode?.antallUbesvarteMeldeperioder,
+          antallMeldekort: kommendeMeldeperiode?.antallUbesvarteMeldeperioder ?? 0,
         });
 
   const description = useMemo(() => {
