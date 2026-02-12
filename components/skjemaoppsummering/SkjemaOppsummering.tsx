@@ -102,7 +102,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                                   </BodyShort>
                                   <BodyShort>
                                     {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.timerArbeidet', {
-                                      timer: dag.timerArbeidet,
+                                      timer: dag.timerArbeidet ?? 0,
                                     })}
                                   </BodyShort>
                                 </HStack>
