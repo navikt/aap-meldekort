@@ -4,20 +4,20 @@
   color: inherit;
   background-color: inherit;
   cursor: pointer;
-  padding: var(--a-spacing-6);
-  border: 1px solid var(--a-gray-400);
+  padding: var(--ax-space-24);
+  border: 1px solid var(--ax-neutral-500);
 }
 
 .link:hover {
   box-shadow: var(--a-shadow-small);
-  border-color: var(--a-border-action-hover);
-  color: var(--a-text-action-hover);
+  border-color: var(--ax-border-accent);
+  color: var(--ax-text-accent-subtle);
 }
 
 .icon {
   display: flex;
   justify-content: center;
-  background-color: var(--a-blue-100);
-  padding: var(--a-spacing-3);
+  background-color: var(--ax-accent-200);
+  padding: var(--ax-space-12);
   border-radius: 50%;
 }

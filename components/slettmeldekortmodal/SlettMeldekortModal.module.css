@@ -1,7 +1,7 @@
 .knapperWrapper {
   display: flex;
   flex-direction: row;
-  gap: var(--a-spacing-3);
+  gap: var(--ax-space-12);
   width: 100%;
 }
 

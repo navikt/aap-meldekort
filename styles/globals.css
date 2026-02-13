@@ -5,16 +5,16 @@
 .flex-column {
   display: flex;
   flex-direction: column;
-  gap: var(--a-spacing-4);
+  gap: var(--ax-space-16);
 }
 
 .flex-row {
   display: flex;
   flex-direction: row;
-  gap: var(--a-spacing-4);
+  gap: var(--ax-space-16);
 }
 
 .navds-checkbox--error .navds-checkbox__label {
-  --ac-radio-checkbox-action: var(--a-red-500);
+  --ac-radio-checkbox-action: var(--ax-danger-600);
   forced-color-adjust: none;
 }
