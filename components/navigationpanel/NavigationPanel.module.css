@@ -9,7 +9,7 @@
 }
 
 .link:hover {
-  box-shadow: var(--a-shadow-small);
+  box-shadow: var(--ax-shadow-dialog);
   border-color: var(--ax-border-accent);
   color: var(--ax-text-accent-subtle);
 }
