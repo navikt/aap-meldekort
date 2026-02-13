@@ -55,7 +55,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
     } else {
       return `${formaterDatoMedÅrForFrontend(kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode.tom)}`;
     }
-  }, []);
+  }, [kommendeMeldeperiode]);
 
   return (
     <VStack gap={'8'}>

@@ -1,8 +1,12 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Spørsmål } from 'components/flyt/steg/spørsmål/Spørsmål';
 import { render, screen, within } from 'lib/utils/test/customRender';
 import { userEvent } from '@testing-library/user-event';
 import { UtfyllingResponse } from 'lib/types/types';
+import createFetchMock from 'vitest-fetch-mock';
+
+const fetchMock = createFetchMock(vi);
+fetchMock.enableMocks();
 
 const periode: UtfyllingResponse = {
   tilstand: {
