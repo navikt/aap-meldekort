@@ -21,16 +21,16 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
   const router = useRouter();
 
   return (
-    <VStack gap={'8'}>
+    <VStack gap={'space-32'}>
       <MeldekortLenke label={t('client.link.gåTilOversikten')} href={`/`} />
-      <VStack gap={'4'}>
+      <VStack gap={'space-16'}>
         <Heading size={'large'} level={'2'}>
           {t('client.innsendteMeldekort.heading')}
         </Heading>
         <BodyLong>{t('client.innsendteMeldekort.info')}</BodyLong>
       </VStack>
 
-      <VStack gap={'4'}>
+      <VStack gap={'space-16'}>
         {innsendteMeldeperioder.length > 0 ? (
           <>
             {innsendteMeldeperioder.map((innsendtMeldekort, key) => {
@@ -51,8 +51,8 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
                   className={styles.link}
                 >
                   <HStack justify={'space-between'} align={'center'}>
-                    <HStack align={'center'} gap={'0 4'}>
-                      <VStack align={'start'} gap={'1'}>
+                    <HStack align={'center'} gap={'space-0 space-16'}>
+                      <VStack align={'start'} gap={'space-4'}>
                         <BodyShort size={'large'} weight={'semibold'}>
                           {t('client.innsendteMeldekort.innsendtMeldekort.title', {
                             uker: hentUkeNummerForPeriode(

@@ -96,7 +96,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                             .filter((dag) => dag.timerArbeidet)
                             .map((dag) => {
                               return (
-                                <HStack gap={'2'} key={dag.dato}>
+                                <HStack gap={'space-8'} key={dag.dato}>
                                   <BodyShort>
                                     {storForbokstav(format(new Date(dag.dato), 'EEEE', { locale: nb }))}:
                                   </BodyShort>

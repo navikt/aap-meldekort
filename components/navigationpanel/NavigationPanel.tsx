@@ -26,9 +26,9 @@ interface NavigationPanelLink extends BaseNavigationPanel {
 const NavigationPanelContent = ({ title, description, leftIcon, rightIcon }: BaseNavigationPanel) => {
   return (
     <HStack justify={'space-between'} align={'center'}>
-      <HStack align={'center'} gap={'0 4'}>
+      <HStack align={'center'} gap={'space-0 space-16'}>
         {leftIcon && <div className={styles.icon}>{leftIcon}</div>}
-        <VStack align={'start'} gap={'1'}>
+        <VStack align={'start'} gap={'space-4'}>
           <BodyShort size={'large'} weight={'semibold'}>
             {title}
           </BodyShort>

@@ -39,7 +39,7 @@ export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
   }, [router]);
 
   return (
-    <VStack gap={'8'}>
+    <VStack gap={'space-32'}>
       <Alert variant="success">
         {innsendingtype === InnsendingType.INNSENDING
           ? t('client.steg.kvittering.alert.innsending.label')
@@ -62,7 +62,7 @@ export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
         </Accordion.Item>
       </Accordion>
 
-      <VStack gap={'8'} align={'center'}>
+      <VStack gap={'space-32'} align={'center'}>
         {skalViseKnappForKommendeMeldeperiode && (
           <Button
             onClick={async () => {

@@ -108,9 +108,9 @@ export const Utfylling = ({ utfylling }: Props) => {
         isLoading={isLoading}
         errorMessage={errorMessage}
       >
-        <VStack gap={'8'}>
-          <VStack gap={'4'}>
-            <VStack gap={'2'}>
+        <VStack gap={'space-32'}>
+          <VStack gap={'space-16'}>
+            <VStack gap={'space-8'}>
               <Heading level={'2'} size={'large'}>
                 {innsendingtype === InnsendingType.INNSENDING
                   ? t('client.steg.utfylling.innsending.heading')

@@ -75,8 +75,8 @@ export const Spørsmål = ({ utfylling }: Props) => {
       isLoading={isLoading}
       errorMessage={errorMessage}
     >
-      <VStack gap={'8'}>
-        <VStack gap={'2'}>
+      <VStack gap={'space-32'}>
+        <VStack gap={'space-8'}>
           <Heading level={'2'} size={'large'}>
             {innsendingtype === InnsendingType.INNSENDING
               ? t('client.steg.spørsmål.innsending.heading')

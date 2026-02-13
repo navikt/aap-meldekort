@@ -54,14 +54,14 @@ export const Bekreft = ({ utfylling }: Props) => {
       errorMessage={errorMessage}
       visNesteKnapp={utfylling.metadata.kanSendesInn}
     >
-      <VStack gap={'8'}>
-        <VStack gap={'2'}>
+      <VStack gap={'space-32'}>
+        <VStack gap={'space-8'}>
           <Heading size={'large'} level={'2'}>
             {innsendingtype === InnsendingType.INNSENDING
               ? t('client.steg.bekreft.innsending.heading')
               : t('client.steg.bekreft.korrigering.heading')}
           </Heading>
-          <HStack gap={'2'}>
+          <HStack gap={'space-8'}>
             <BodyShort>
               {t('client.steg.bekreft.periode', {
                 uker: hentUkeNummerForPeriode(fraDato, tilDato),
