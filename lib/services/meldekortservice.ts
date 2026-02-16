@@ -12,6 +12,7 @@ import {
 const meldeKortBaseUrl = process.env.MELDEKORT_API_BASE_URL;
 
 export const isLocal = () => process.env.NEXT_PUBLIC_ENVIRONMENT === 'localhost';
+export const isFunctionalTest = () => process.env.FUNCTIONAL_TEST === 'enabled';
 
 /**
  * Flyt for innsending/korrigering
@@ -55,6 +56,22 @@ export async function slettUtfylling(referanse: string) {
  */
 
 export async function hentKommendeMeldeperiode(): Promise<KommendeMeldekort> {
+  if (isFunctionalTest()) {
+    const mockKommendeMeldekort: KommendeMeldekort = {
+      antallUbesvarteMeldeperioder: 1,
+      nesteMeldeperiode: {
+        meldeperiode: {
+          fom: '2026-02-02',
+          tom: '2026-02-15',
+        },
+        innsendingsvindu: {
+          fom: '2026-02-16',
+          tom: '2026-02-23',
+        },
+      },
+    };
+    return mockKommendeMeldekort;
+  }
   const url = `${meldeKortBaseUrl}/api/meldeperiode/kommende`;
   return await fetcher<KommendeMeldekort>(url, 'GET');
 }
@@ -63,6 +80,10 @@ export async function hentKommendeMeldeperiode(): Promise<KommendeMeldekort> {
  * Innsendte meldekort side
  */
 export async function hentInnsendteMeldeperioder(): Promise<HistoriskMeldeperiode[]> {
+  if (isFunctionalTest()) {
+    const mockInnsendtePerioder: HistoriskMeldeperiode[] = [];
+    return mockInnsendtePerioder;
+  }
   const url = `${meldeKortBaseUrl}/api/meldeperiode/historiske`;
   return await fetcher<HistoriskMeldeperiode[]>(url, 'GET');
 }
@@ -76,6 +97,9 @@ export async function hentHistoriskMeldeperiodeDetaljer(periode: Periode): Promi
  * Redirect til gammel meldekortløsning eller kelvin-meldekort
  */
 export async function hentAnsvarligSystem(): Promise<'AAP' | 'FELLES'> {
+  if (isFunctionalTest()) {
+    return 'AAP';
+  }
   const url = `${meldeKortBaseUrl}/api/ansvarlig-system`;
   return await fetcher<'AAP' | 'FELLES'>(url, 'GET');
 }

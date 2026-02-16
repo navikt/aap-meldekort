@@ -1,11 +1,14 @@
 import { getAccessTokenOrRedirectToLogin, logError, logInfo } from '@navikt/aap-felles-utils';
 import { requestOboToken, validateToken } from '@navikt/oasis';
 import { headers } from 'next/headers';
-import { isLocal } from './meldekortservice';
+import { isFunctionalTest, isLocal } from './meldekortservice';
 
 const AUDIENCE = process.env.MELDEKORT_AUDIENCE;
 
 const hentLocalToken = async () => {
+  if (isFunctionalTest()) {
+    return 'functionalTest-token';
+  }
   const url = 'http://localhost:8081/token';
   try {
     return fetch(url, { method: 'POST', next: { revalidate: 0 } })
