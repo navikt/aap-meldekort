@@ -1,5 +1,11 @@
 import { fetcher } from 'lib/services/fetchProxy';
 import {
+  mockHentAnsvarligSystem,
+  mockHentInnsendteMeldeperioder,
+  mockHentKommendeMeldeperioder,
+  mockHentUtfylling,
+} from 'lib/services/mockData';
+import {
   EndreUtfyllingRequest,
   HistoriskMeldeperiode,
   KommendeMeldekort,
@@ -42,6 +48,9 @@ export async function mellomlagreUtfylling(
 }
 
 export async function hentUtfylling(referanse: string): Promise<UtfyllingResponse> {
+  if (isFunctionalTest()) {
+    return mockHentUtfylling;
+  }
   const url = `${meldeKortBaseUrl}/api/utfylling/${referanse}`;
   return fetcher<UtfyllingResponse>(url, 'GET');
 }
@@ -57,20 +66,7 @@ export async function slettUtfylling(referanse: string) {
 
 export async function hentKommendeMeldeperiode(): Promise<KommendeMeldekort> {
   if (isFunctionalTest()) {
-    const mockKommendeMeldekort: KommendeMeldekort = {
-      antallUbesvarteMeldeperioder: 1,
-      nesteMeldeperiode: {
-        meldeperiode: {
-          fom: '2026-02-02',
-          tom: '2026-02-15',
-        },
-        innsendingsvindu: {
-          fom: '2026-02-16',
-          tom: '2026-02-23',
-        },
-      },
-    };
-    return mockKommendeMeldekort;
+    return mockHentKommendeMeldeperioder;
   }
   const url = `${meldeKortBaseUrl}/api/meldeperiode/kommende`;
   return await fetcher<KommendeMeldekort>(url, 'GET');
@@ -81,8 +77,7 @@ export async function hentKommendeMeldeperiode(): Promise<KommendeMeldekort> {
  */
 export async function hentInnsendteMeldeperioder(): Promise<HistoriskMeldeperiode[]> {
   if (isFunctionalTest()) {
-    const mockInnsendtePerioder: HistoriskMeldeperiode[] = [];
-    return mockInnsendtePerioder;
+    return mockHentInnsendteMeldeperioder;
   }
   const url = `${meldeKortBaseUrl}/api/meldeperiode/historiske`;
   return await fetcher<HistoriskMeldeperiode[]>(url, 'GET');
@@ -98,7 +93,7 @@ export async function hentHistoriskMeldeperiodeDetaljer(periode: Periode): Promi
  */
 export async function hentAnsvarligSystem(): Promise<'AAP' | 'FELLES'> {
   if (isFunctionalTest()) {
-    return 'AAP';
+    return mockHentAnsvarligSystem;
   }
   const url = `${meldeKortBaseUrl}/api/ansvarlig-system`;
   return await fetcher<'AAP' | 'FELLES'>(url, 'GET');
