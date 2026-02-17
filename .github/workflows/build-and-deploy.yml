@@ -33,9 +33,8 @@ jobs:
     with:
       cluster: prod-gcp
       appname: 'aap-meldekort'
-      playwright: false
+      playwright: true
       cdn: true
-
 
   deployDev:
     needs: buildDev
