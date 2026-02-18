@@ -21,7 +21,7 @@ I tillegg må du kopiere `.env-template` til `.env.local` for å kunne kjøre lo
 
 ### Kjøre lokalt
 
-Kjør opp lokal backend ved å klone repoet meldekort-backend og kjøre det opp lokalt. 
+Kjør opp lokal backend ved å klone repoet meldekort-backend og kjøre det opp lokalt.
 
 ```
 yarn dev
@@ -30,6 +30,10 @@ yarn dev
 Gå til http://localhost:3000/aap/meldekort
 
 ---
+
+### Testing med Playwright
+
+Playwright blir kjørt ved bygg på Github. Ønsker man å kjøre det lokalt kan man kjøre `yarn build && yarn playwright test`
 
 ## Kode generert av GitHub Copilot
 
