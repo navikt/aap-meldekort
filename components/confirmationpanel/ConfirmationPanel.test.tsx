@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { ConfirmationPanel } from 'components/confirmationpanel/ConfirmationPanel';
 
-describe('ConfirmationPanelX', () => {
+describe('ConfirmationPanel', () => {
   it('viser label-teksten', () => {
     render(<ConfirmationPanel checked={false} label="Jeg bekrefter vilkårene" onChange={() => {}} />);
 
