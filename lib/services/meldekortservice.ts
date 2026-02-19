@@ -1,5 +1,11 @@
 import { fetcher } from 'lib/services/fetchProxy';
 import {
+  mockHentAnsvarligSystem,
+  mockHentInnsendteMeldeperioder,
+  mockHentKommendeMeldeperioder,
+  mockHentUtfylling,
+} from 'lib/services/mockData';
+import {
   EndreUtfyllingRequest,
   HistoriskMeldeperiode,
   KommendeMeldekort,
@@ -12,6 +18,7 @@ import {
 const meldeKortBaseUrl = process.env.MELDEKORT_API_BASE_URL;
 
 export const isLocal = () => process.env.NEXT_PUBLIC_ENVIRONMENT === 'localhost';
+export const isFunctionalTest = () => process.env.FUNCTIONAL_TEST === 'enabled';
 
 /**
  * Flyt for innsending/korrigering
@@ -41,6 +48,9 @@ export async function mellomlagreUtfylling(
 }
 
 export async function hentUtfylling(referanse: string): Promise<UtfyllingResponse> {
+  if (isFunctionalTest()) {
+    return mockHentUtfylling;
+  }
   const url = `${meldeKortBaseUrl}/api/utfylling/${referanse}`;
   return fetcher<UtfyllingResponse>(url, 'GET');
 }
@@ -55,6 +65,9 @@ export async function slettUtfylling(referanse: string) {
  */
 
 export async function hentKommendeMeldeperiode(): Promise<KommendeMeldekort> {
+  if (isFunctionalTest()) {
+    return mockHentKommendeMeldeperioder;
+  }
   const url = `${meldeKortBaseUrl}/api/meldeperiode/kommende`;
   return await fetcher<KommendeMeldekort>(url, 'GET');
 }
@@ -63,6 +76,9 @@ export async function hentKommendeMeldeperiode(): Promise<KommendeMeldekort> {
  * Innsendte meldekort side
  */
 export async function hentInnsendteMeldeperioder(): Promise<HistoriskMeldeperiode[]> {
+  if (isFunctionalTest()) {
+    return mockHentInnsendteMeldeperioder;
+  }
   const url = `${meldeKortBaseUrl}/api/meldeperiode/historiske`;
   return await fetcher<HistoriskMeldeperiode[]>(url, 'GET');
 }
@@ -76,6 +92,9 @@ export async function hentHistoriskMeldeperiodeDetaljer(periode: Periode): Promi
  * Redirect til gammel meldekortløsning eller kelvin-meldekort
  */
 export async function hentAnsvarligSystem(): Promise<'AAP' | 'FELLES'> {
+  if (isFunctionalTest()) {
+    return mockHentAnsvarligSystem;
+  }
   const url = `${meldeKortBaseUrl}/api/ansvarlig-system`;
   return await fetcher<'AAP' | 'FELLES'>(url, 'GET');
 }
