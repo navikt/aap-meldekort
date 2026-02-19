@@ -2,7 +2,7 @@
 
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { Form } from 'components/form/Form';
-import { Alert, BodyShort, ConfirmationPanel, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, HStack, VStack } from '@navikt/ds-react';
 import { formaterDatoMedMånedIBokstaver, formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { UtfyllingResponse } from 'lib/types/types';
@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
 import { Link } from 'i18n/routing';
+import { ConfirmationPanel } from 'components/confirmationpanel/ConfirmationPanel';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -77,8 +78,13 @@ export const Bekreft = ({ utfylling }: Props) => {
           <ConfirmationPanel
             checked={stemmerOpplysningene}
             label={t('client.steg.bekreft.skjema.label')}
-            onChange={() => setStemmerOpplysningene((value) => !value)}
-            error={!stemmerOpplysningene && formError}
+            onChange={() => {
+              if (formError) {
+                setFormError(undefined);
+              }
+              setStemmerOpplysningene((value) => !value);
+            }}
+            error={formError}
           />
         )}
 
