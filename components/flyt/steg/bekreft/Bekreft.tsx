@@ -76,7 +76,6 @@ export const Bekreft = ({ utfylling }: Props) => {
 
         {utfylling.metadata.kanSendesInn && (
           <ConfirmationPanel
-            checked={stemmerOpplysningene}
             label={t('client.steg.bekreft.skjema.label')}
             onChange={() => {
               if (formError) {

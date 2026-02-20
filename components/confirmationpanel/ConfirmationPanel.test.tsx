@@ -5,7 +5,7 @@ import { ConfirmationPanel } from 'components/confirmationpanel/ConfirmationPane
 
 describe('ConfirmationPanel', () => {
   it('viser label-teksten', () => {
-    render(<ConfirmationPanel checked={false} label="Jeg bekrefter vilkårene" onChange={() => {}} />);
+    render(<ConfirmationPanel label="Jeg bekrefter vilkårene" onChange={() => {}} />);
 
     expect(screen.getByText('Jeg bekrefter vilkårene')).toBeInTheDocument();
   });
@@ -14,7 +14,7 @@ describe('ConfirmationPanel', () => {
     const user = userEvent.setup();
     const onChangeMock = vi.fn();
 
-    render(<ConfirmationPanel checked={false} label="Bekreft" onChange={onChangeMock} />);
+    render(<ConfirmationPanel label="Bekreft" onChange={onChangeMock} />);
 
     const checkbox = screen.getByRole('checkbox');
 
@@ -24,14 +24,7 @@ describe('ConfirmationPanel', () => {
   });
 
   it('viser feilmelding når error er satt', () => {
-    render(
-      <ConfirmationPanel
-        checked={false}
-        label="Bekreft"
-        onChange={() => {}}
-        error="Du må bekrefte før du kan gå videre"
-      />
-    );
+    render(<ConfirmationPanel label="Bekreft" onChange={() => {}} error="Du må bekrefte før du kan gå videre" />);
 
     expect(screen.getByText('Du må bekrefte før du kan gå videre')).toBeVisible();
   });
