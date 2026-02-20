@@ -1,0 +1,34 @@
+'use client';
+
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { UtfyllingResponse } from 'lib/types/types';
+import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { useTranslations } from 'next-intl';
+
+interface Props {
+  utfylling: UtfyllingResponse;
+}
+
+export const FraværSpørsmål = ({ utfylling }: Props) => {
+  const t = useTranslations();
+
+  const fraDato = new Date(utfylling.metadata.periode.fom);
+  const tilDato = new Date(utfylling.metadata.periode.tom);
+
+  return (
+    <VStack gap={'8'}>
+      <VStack gap={'2'}>
+        <Heading level={'2'} size={'large'}>
+          {t('client.steg.fraværspørsmål.heading')}
+        </Heading>
+        <BodyShort>
+          {t('client.steg.fraværspørsmål.periode', {
+            uker: hentUkeNummerForPeriode(fraDato, tilDato),
+            periode: `${formaterDatoMedÅrForFrontend(fraDato)} - ${formaterDatoMedÅrForFrontend(tilDato)}`,
+          })}
+        </BodyShort>
+        <BodyShort>{t('client.steg.fraværspørsmål.beskrivelse')}</BodyShort>
+      </VStack>
+    </VStack>
+  );
+};

@@ -6,6 +6,7 @@ import { KvitteringMedDataFetching } from 'components/flyt/steg/kvittering/Kvitt
 import { redirect } from 'i18n/routing';
 import { BekreftMedDataFetching } from 'components/flyt/steg/bekreft/BekreftMedDataFetching';
 import { hentUtfylling } from 'lib/services/meldekortservice';
+import { FraværSpørsmålMedDataFetching } from 'components/flyt/steg/fraværspørsmål/FraværSpørsmålMedDataFetching';
 
 interface Props {
   params: Promise<{
@@ -19,7 +20,15 @@ interface Props {
  * Denne må være lik rekkefølgen for flyten for innsending/korrigering.
  * Lager en tuple slik at typescript sier i fra dersom steg endrer seg.
  */
-const alleSteg = ['INTRODUKSJON', 'SPØRSMÅL', 'UTFYLLING', 'BEKREFT', 'KVITTERING'] as const;
+const alleSteg = [
+  'INTRODUKSJON',
+  'SPØRSMÅL',
+  'UTFYLLING',
+  'FRAVÆR_SPØRSMÅL',
+  'FRAVÆR_UTFYLLING',
+  'BEKREFT',
+  'KVITTERING',
+] as const;
 type StegTuple = typeof alleSteg;
 
 const AktivtStegPage = async (props: Props) => {
@@ -27,7 +36,6 @@ const AktivtStegPage = async (props: Props) => {
   const aktivtSteg = decodeURI(params.aktivtSteg) as Steg;
   const referanse = params.referanse;
   const utfylling = await hentUtfylling(referanse);
-
   function skalRedirecteTilAktivtSteg() {
     const steg: StegTuple = alleSteg;
 
@@ -46,6 +54,7 @@ const AktivtStegPage = async (props: Props) => {
       {aktivtSteg === 'INTRODUKSJON' && <IntroduksjonMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'SPØRSMÅL' && <SpørsmåLMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'UTFYLLING' && <UtfyllingMedDataFetching referanse={referanse} />}
+      {aktivtSteg === 'FRAVÆR_SPØRSMÅL' && <FraværSpørsmålMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'BEKREFT' && <BekreftMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'KVITTERING' && <KvitteringMedDataFetching referanse={referanse} />}
     </>

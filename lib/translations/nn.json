@@ -136,6 +136,11 @@
           }
         }
       },
+      "fraværspørsmål": {
+        "heading": "Kva dagar var du borte frå avtalt aktivitet?",
+        "periode": "Uke {uker} ({periode})",
+        "beskrivelse": "TODO"
+      },
       "bekreft": {
         "korrigering": {
           "heading": "Sjå over og send inn endringane",

@@ -74,187 +74,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/debug/arena-proxy/meldegrupper": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["kotlin.Any"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/debug/arena-proxy/meldekort": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["kotlin.Any"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/debug/arena-proxy/historiskemeldekort": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["kotlin.Any"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/debug/arena-proxy/meldekortdetaljer/{meldekortId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    /** @description meldekortId */
-                    meldekortId: number;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["kotlin.Any"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/debug/arena-proxy/korrigerte-meldekort/{meldekortId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    /** @description meldekortId */
-                    meldekortId: number;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["kotlin.Any"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/meldeperiode/kommende": {
         parameters: {
             query?: never;
@@ -584,6 +403,41 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/hent-metadata": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["no.nav.aap.meldekort.MetadataDto"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/drift/api/jobb/feilende": {
         parameters: {
             query?: never;
@@ -875,17 +729,55 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/behandlingsflyt/sak/timer": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["no.nav.aap.meldekort.kontrakt.sak.BehandslingsflytUtfyllingRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        "kotlin.Any": Record<string, never>;
         "no.nav.aap.meldekort.DagSvarDto": {
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-04-01
              */
             dato: string;
+            /** @enum {string|null} */
+            "frav\u00E6r"?: "SYKDOM_ELLER_SKADE" | "OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN" | "OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE" | "OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS" | "OMSORG_MEDDOMMER_ELLER_ANDRE_OFFENTLIGE_PLIKTER" | "OMSORG_ANNEN_STERK_GRUNN" | "ANNEN" | null;
             /** Format: double */
             timerArbeidet?: number | null;
         };
@@ -897,7 +789,7 @@ export interface components {
             antallTimerArbeidetIPerioden: number;
             meldeperiode: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
             /** @enum {string} */
-            status: "ARENA_INNSENDT" | "ARENA_FERDIG" | "ARENA_FEILET" | "KELVIN";
+            status: "KELVIN";
         };
         "no.nav.aap.meldekort.KommendeMeldeperioderDto": {
             /** Format: int32 */
@@ -909,43 +801,47 @@ export interface components {
             innsendingsvindu: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
             meldeperiode: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
         };
+        "no.nav.aap.meldekort.MetadataDto": {
+            brukerHarSakUnderBehandling?: boolean | null;
+            brukerHarVedtakIKelvin?: boolean | null;
+        };
         "no.nav.aap.meldekort.PeriodeDetaljerDto": {
             /** Format: double */
             "bruttoBel\u00F8p"?: number | null;
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-04-01
              */
             innsendtDato?: string | null;
             kanEndres: boolean;
             periode: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
             /** @enum {string} */
-            status: "ARENA_INNSENDT" | "ARENA_FERDIG" | "ARENA_FEILET" | "KELVIN";
+            status: "KELVIN";
             svar: components["schemas"]["no.nav.aap.meldekort.SvarDto"];
             /** @enum {string} */
-            type: "ARENA_VANLIG" | "ARENA_ETTERREGISTRERING" | "ARENA_KORRIGERING" | "ARENA_ANNET" | "KELVIN";
+            type: "KELVIN";
         };
         "no.nav.aap.meldekort.PeriodeDto": {
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-04-01
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-04-01
              */
             tom: string;
         };
         "no.nav.aap.meldekort.StartUtfyllingRequest": {
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-04-01
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-04-01
              */
             tom: string;
         };
@@ -956,6 +852,8 @@ export interface components {
         };
         "no.nav.aap.meldekort.SvarDto": {
             dager: components["schemas"]["no.nav.aap.meldekort.DagSvarDto"][];
+            /** @enum {string|null} */
+            "harDuGjennomf\u00F8rtAvtaltAktivitet"?: "GJENNOMFØRT_AVTALT_AKTIVITET" | "NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET" | "INGEN_AVTALTE_AKTIVITETER" | null;
             harDuJobbet?: boolean | null;
             stemmerOpplysningene?: boolean | null;
             vilSvareRiktig?: boolean | null;
@@ -965,9 +863,10 @@ export interface components {
             antallUbesvarteMeldeperioder: number;
             /**
              * Format: date-time
-             * @example 2025-04-15T11:42:34.443347
+             * @example 2025-04-01T12:30:00
              */
             fristForInnsending?: string | null;
+            harBrukerSakUnderBehandling?: boolean | null;
             harBrukerVedtakIKelvin?: boolean | null;
             kanSendesInn: boolean;
             periode: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
@@ -975,9 +874,10 @@ export interface components {
             referanse: string;
             /**
              * Format: date-time
-             * @example 2025-04-15T11:42:34.443347
+             * @example 2025-04-01T12:30:00
              */
             tidligsteInnsendingstidspunkt?: string | null;
+            visFrist: boolean;
         };
         "no.nav.aap.meldekort.UtfyllingResponseDto": {
             feil?: string | null;
@@ -986,20 +886,27 @@ export interface components {
         };
         "no.nav.aap.meldekort.UtfyllingTilstandDto": {
             /** @enum {string} */
-            aktivtSteg: "INTRODUKSJON" | "SPØRSMÅL" | "UTFYLLING" | "BEKREFT" | "KVITTERING";
+            aktivtSteg: "INTRODUKSJON" | "SPØRSMÅL" | "UTFYLLING" | "FRAVÆR_SPØRSMÅL" | "FRAVÆR_UTFYLLING" | "BEKREFT" | "KVITTERING";
             svar: components["schemas"]["no.nav.aap.meldekort.SvarDto"];
         };
         "no.nav.aap.meldekort.kontrakt.Periode": {
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-04-01
              */
             fom: string;
             /**
              * Format: date
-             * @example 2025-04-15
+             * @example 2025-04-01
              */
             tom: string;
+        };
+        "no.nav.aap.meldekort.kontrakt.sak.BehandslingsflytUtfyllingRequest": {
+            dager: components["schemas"]["no.nav.aap.meldekort.kontrakt.sak.TimerArbeidetDto"][];
+            harDuJobbet: boolean;
+            ident: string;
+            periode: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"];
+            saksnummer: string;
         };
         "no.nav.aap.meldekort.kontrakt.sak.MeldeperioderV0": {
             identer: string[];
@@ -1010,6 +917,15 @@ export interface components {
             sakStatus?: "UTREDES" | "LØPENDE" | "AVSLUTTET" | null;
             sakenGjelderFor: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"];
             saksnummer: string;
+        };
+        "no.nav.aap.meldekort.kontrakt.sak.TimerArbeidetDto": {
+            /**
+             * Format: date
+             * @example 2025-04-01
+             */
+            dato: string;
+            /** Format: double */
+            timerArbeidet: number;
         };
         "no.nav.aap.motor.api.JobbInfoDto": {
             /** Format: int32 */
@@ -1025,7 +941,12 @@ export interface components {
             navn: string;
             /**
              * Format: date-time
-             * @example 2025-04-15T11:42:34.443347
+             * @example 2025-04-01T12:30:00
+             */
+            opprettetTidspunkt?: string | null;
+            /**
+             * Format: date-time
+             * @example 2025-04-01T12:30:00
              */
             "planlagtKj\u00F8retidspunkt": string;
             /** @enum {string} */
