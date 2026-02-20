@@ -41,7 +41,7 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
       isLoading={isLoading}
       errorMessage={errorMessage}
     >
-      <VStack gap={'8'}>
+      <VStack gap={'space-32'}>
         <MeldekortLenke label={t('client.steg.introduksjon.link')} href={'/'} />
         {innsendingtype === InnsendingType.INNSENDING && utfylling.metadata.antallUbesvarteMeldeperioder > 0 && (
           <Alert variant={'info'}>
@@ -50,8 +50,8 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
             })}
           </Alert>
         )}
-        <VStack gap={'4'}>
-          <VStack gap={'2'}>
+        <VStack gap={'space-16'}>
+          <VStack gap={'space-8'}>
             <Heading level={'2'} size={'large'}>
               {t('client.steg.introduksjon.heading', {
                 uker: hentUkeNummerForPeriode(fraDato, tilDato),
@@ -92,7 +92,7 @@ export const Introduksjon = ({ utfylling, referanse }: Props) => {
 
         <Opplysningsinformasjon />
 
-        <VStack gap={'2'}>
+        <VStack gap={'space-8'}>
           <BodyShort weight={'semibold'}>
             {t('client.steg.introduksjon.informasjonOmRiktigeOpplysninger.heading')}
           </BodyShort>

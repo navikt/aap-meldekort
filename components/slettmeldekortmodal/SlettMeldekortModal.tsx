@@ -26,7 +26,7 @@ export const SlettMeldekortModal = ({ ref }: Props) => {
       }}
     >
       <Modal.Body>
-        <VStack gap={'8'}>
+        <VStack gap={'space-32'}>
           <BodyShort>
             {innsendingtype === InnsendingType.INNSENDING
               ? t('client.slettUtfylling.innsending.content')

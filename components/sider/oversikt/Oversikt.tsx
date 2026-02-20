@@ -58,10 +58,10 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
   }, [kommendeMeldeperiode]);
 
   return (
-    <VStack gap={'8'}>
+    <VStack gap={'space-32'}>
       <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>
 
-      <VStack gap={'4'}>
+      <VStack gap={'space-16'}>
         <Heading level={'2'} size={'medium'}>
           {t('client.oversikt.sendMeldekort.heading')}
         </Heading>
@@ -100,7 +100,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
       </VStack>
 
       {harInnsendteMeldeperioder && (
-        <VStack gap={'4'}>
+        <VStack gap={'space-16'}>
           <Heading level={'2'} size={'medium'}>
             {t('client.oversikt.innsendteMeldekort.heading')}
           </Heading>

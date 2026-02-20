@@ -21,7 +21,7 @@ export const FortsettSenereModal = ({ ref }: Props) => {
       }}
     >
       <Modal.Body>
-        <VStack gap={'8'}>
+        <VStack gap={'space-32'}>
           <BodyShort>{t('client.fortsettSenere.content')}</BodyShort>
           <div className={styles.knapperWrapper}>
             <Button
