@@ -21,8 +21,8 @@ export const ConfirmationPanel = ({ checked, label, onChange, error }: Props) =>
         </Checkbox>
       </div>
       {error && (
-        <HStack gap={'space-4'} align={'center'}>
-          <ExclamationmarkTriangleFillIcon title={'feil ved bekreftelse'} className={styles.icon} />
+        <HStack gap={'space-4'} align={'center'} role="alert">
+          <ExclamationmarkTriangleFillIcon title={'feil ved bekreftelse'} className={styles.icon} aria-hidden />
           <p className={styles.tekst}>{error}</p>
         </HStack>
       )}
