@@ -137,9 +137,17 @@
         }
       },
       "fraværspørsmål": {
-        "heading": "Hvilke dager var du borte fra avtalt aktivitet?",
+        "heading": "Fravær fra avtalt aktivitet",
         "periode": "Uke {uker} ({periode})",
-        "beskrivelse": "Du melder kun inn aktiviteter som er i aktivitetsplanen og avtalt med Nav."
+        "harDuGjennomførtAvtaltAktivitet": {
+          "label": "Har du gjennomført alle aktiviteter som er avtalt med oss?",
+          "error": "Du må svare på om du har gjennomført alle avtalte aktiviteter",
+          "options": {
+            "gjennomførtAvtaltAktivitet": "Ja, jeg har gjennomført alle avtalte aktiviteter",
+            "neiIkkeGjennomførtAvtaltAktivitet": "Nei, jeg har ikke gjennomført alle avtalte aktiviteter",
+            "ingenAvtalteAktiviteter": "Jeg har ingen avtalte aktiviteter"
+          }
+        }
       },
       "bekreft": {
         "korrigering": {

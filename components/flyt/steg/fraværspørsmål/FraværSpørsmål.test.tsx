@@ -25,28 +25,47 @@ const meldekort: UtfyllingResponse = {
   },
 };
 
+const user = userEvent.setup();
+
 describe('FraværSpørsmål', () => {
   beforeEach(() => {
     render(<FraværSpørsmål utfylling={meldekort} />);
   });
 
   it('har en overskrift', () => {
-    expect(
-      screen.getByRole('heading', { name: 'Hvilke dager var du borte fra avtalt aktivitet?', level: 2 })
-    ).toBeVisible();
+    expect(screen.getByRole('heading', { name: 'Fravær fra avtalt aktivitet', level: 2 })).toBeVisible();
   });
 
   it('viser dato og uker for perioden', () => {
     expect(screen.getByText('Uke 6 og 7 (02.02.2026 - 15.02.2026)')).toBeVisible();
   });
 
-  it('viser beskrivelse av steget', () => {
+  it('spør bruker om de har gjennomført alle aktiviteter', () => {
+    expect(
+      screen.getByRole('group', { name: 'Har du gjennomført alle aktiviteter som er avtalt med oss?' })
+    ).toBeVisible();
+  });
+
+  it('har valg for at bruker har gjennomført, ikke har gjennomført, og ikke har noen avtalte aktiviteter', () => {
+    expect(screen.getByRole('radio', { name: 'Ja, jeg har gjennomført alle avtalte aktiviteter' })).toBeVisible();
+    expect(screen.getByRole('radio', { name: 'Nei, jeg har ikke gjennomført alle avtalte aktiviteter' })).toBeVisible();
+    expect(screen.getByRole('radio', { name: 'Jeg har ingen avtalte aktiviteter' })).toBeVisible();
+  });
+
+  it('viser en feilmelding dersom bruker ikke har svart på spørsmålet', async () => {
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+    expect(screen.getByText('Du må svare på om du har gjennomført alle avtalte aktiviteter')).toBeVisible();
+  });
+
+  // ligger på feil steg, skal komme på utfylling
+  it.skip('viser beskrivelse av steget', () => {
     expect(
       screen.getByText('Du melder kun inn aktiviteter som er i aktivitetsplanen og avtalt med Nav.')
     ).toBeVisible();
   });
 
-  it('kan legge til dager', () => {
+  // ligger på feil steg, skal komme på utfylling
+  it.skip('kan legge til dager', () => {
     expect(screen.getByRole('button', { name: 'Legg til dag' })).toBeVisible();
   });
 });
