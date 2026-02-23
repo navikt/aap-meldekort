@@ -3,6 +3,7 @@
 import { Alert, BodyLong, Heading, LinkCard, VStack } from '@navikt/ds-react';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
+import { LinkCardButton } from 'components/LinkCardButton/LinkCardButton';
 import { HistoriskMeldeperiode } from 'lib/types/types';
 import { startKorrigeringClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
@@ -32,27 +33,29 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
           <>
             {innsendteMeldeperioder.map((innsendtMeldekort, key) => {
               return (
-                <LinkCard
-                  key={key}
-                  onClick={async () => {
-                    const startInnsendingAvMeldekortResponse = await startKorrigeringClient(
-                      innsendtMeldekort.meldeperiode
-                    );
-
-                    if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
-                      router.push(
-                        `/${InnsendingType.KORRIGERING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
-                      );
-                    }
-                  }}
-                >
+                <LinkCard key={key}>
                   <LinkCard.Title>
-                    {t('client.innsendteMeldekort.innsendtMeldekort.title', {
-                      uker: hentUkeNummerForPeriode(
-                        new Date(innsendtMeldekort.meldeperiode.fom),
-                        new Date(innsendtMeldekort.meldeperiode.tom)
-                      ),
-                    })}
+                    <LinkCard.Anchor asChild>
+                      <LinkCardButton
+                        title={t('client.innsendteMeldekort.innsendtMeldekort.title', {
+                          uker: hentUkeNummerForPeriode(
+                            new Date(innsendtMeldekort.meldeperiode.fom),
+                            new Date(innsendtMeldekort.meldeperiode.tom)
+                          ),
+                        })}
+                        onClick={async () => {
+                          const startInnsendingAvMeldekortResponse = await startKorrigeringClient(
+                            innsendtMeldekort.meldeperiode
+                          );
+
+                          if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
+                            router.push(
+                              `/${InnsendingType.KORRIGERING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
+                            );
+                          }
+                        }}
+                      />
+                    </LinkCard.Anchor>
                   </LinkCard.Title>
                   <LinkCard.Description>
                     {`${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.tom)}`}

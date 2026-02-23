@@ -12,6 +12,7 @@ import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { useMemo } from 'react';
 import { Link } from 'i18n/routing';
 import styles from './Oversikt.module.css';
+import { LinkCardButton } from 'components/LinkCardButton/LinkCardButton';
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
@@ -68,7 +69,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
         </Heading>
         {kommendeMeldeperiode?.nesteMeldeperiode ? (
           <>
-            <LinkCard onClick={startInnsending}>
+            <LinkCard>
               {!erLitenSkjerm && (
                 <Box asChild borderRadius={'12'} padding={'space-8'}>
                   <LinkCard.Icon>
@@ -78,7 +79,11 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
                   </LinkCard.Icon>
                 </Box>
               )}
-              <LinkCard.Title>{title}</LinkCard.Title>
+              <LinkCard.Title>
+                <LinkCard.Anchor asChild>
+                  <LinkCardButton title={title} onClick={startInnsending} />
+                </LinkCard.Anchor>
+              </LinkCard.Title>
               <LinkCard.Description>{description}</LinkCard.Description>
             </LinkCard>
 
