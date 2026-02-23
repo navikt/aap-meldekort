@@ -10,7 +10,8 @@ import { TasklistIcon } from '@navikt/aksel-icons';
 import { InnsendingType } from 'lib/utils/url';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { useMemo } from 'react';
-import styles from 'components/navigationpanel/NavigationPanel.module.css';
+import { Link } from 'i18n/routing';
+import styles from './Oversikt.module.css';
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
@@ -68,15 +69,15 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
         {kommendeMeldeperiode?.nesteMeldeperiode ? (
           <>
             <LinkCard onClick={startInnsending}>
-              <Box asChild borderRadius={'12'} padding={'space-8'}>
-                {!erLitenSkjerm && (
+              {!erLitenSkjerm && (
+                <Box asChild borderRadius={'12'} padding={'space-8'}>
                   <LinkCard.Icon>
                     <div className={styles.icon}>
                       <TasklistIcon fontSize={'2rem'} />
                     </div>
                   </LinkCard.Icon>
-                )}
-              </Box>
+                </Box>
+              )}
               <LinkCard.Title>{title}</LinkCard.Title>
               <LinkCard.Description>{description}</LinkCard.Description>
             </LinkCard>
@@ -109,7 +110,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
           <Heading level={'2'} size={'medium'}>
             {t('client.oversikt.innsendteMeldekort.heading')}
           </Heading>
-          <LinkCard onClick={startInnsending}>
+          <LinkCard>
             <Box asChild borderRadius={'12'} padding={'space-8'}>
               {!erLitenSkjerm && (
                 <LinkCard.Icon>
@@ -119,7 +120,11 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
                 </LinkCard.Icon>
               )}
             </Box>
-            <LinkCard.Title>{t('client.oversikt.innsendteMeldekort.title')}</LinkCard.Title>
+            <LinkCard.Title>
+              <LinkCard.Anchor asChild>
+                <Link href={'/innsendt'}>{t('client.oversikt.innsendteMeldekort.title')}</Link>
+              </LinkCard.Anchor>
+            </LinkCard.Title>
             <LinkCard.Description>{description}</LinkCard.Description>
           </LinkCard>
         </VStack>

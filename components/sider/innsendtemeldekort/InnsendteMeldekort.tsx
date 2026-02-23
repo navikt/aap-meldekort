@@ -1,16 +1,13 @@
 'use client';
 
-import { Alert, BodyLong, BodyShort, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Alert, BodyLong, Heading, LinkCard, VStack } from '@navikt/ds-react';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { HistoriskMeldeperiode } from 'lib/types/types';
-import { PencilIcon } from '@navikt/aksel-icons';
 import { startKorrigeringClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
 import { InnsendingType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
-
-import styles from 'components/navigationpanel/NavigationPanel.module.css';
 
 interface Props {
   innsendteMeldeperioder: HistoriskMeldeperiode[];
@@ -35,7 +32,8 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
           <>
             {innsendteMeldeperioder.map((innsendtMeldekort, key) => {
               return (
-                <button
+                <LinkCard
+                  key={key}
                   onClick={async () => {
                     const startInnsendingAvMeldekortResponse = await startKorrigeringClient(
                       innsendtMeldekort.meldeperiode
@@ -47,35 +45,24 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
                       );
                     }
                   }}
-                  key={key}
-                  className={styles.link}
                 >
-                  <HStack justify={'space-between'} align={'center'}>
-                    <HStack align={'center'} gap={'space-0 space-16'}>
-                      <VStack align={'start'} gap={'space-4'}>
-                        <BodyShort size={'large'} weight={'semibold'}>
-                          {t('client.innsendteMeldekort.innsendtMeldekort.title', {
-                            uker: hentUkeNummerForPeriode(
-                              new Date(innsendtMeldekort.meldeperiode.fom),
-                              new Date(innsendtMeldekort.meldeperiode.tom)
-                            ),
-                          })}
-                        </BodyShort>
-
-                        <BodyShort
-                          size={'large'}
-                        >{`${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.tom)}`}</BodyShort>
-
-                        <BodyShort size={'large'}>
-                          {t('client.innsendteMeldekort.innsendtMeldekort.description', {
-                            timer: innsendtMeldekort.antallTimerArbeidetIPerioden,
-                          })}
-                        </BodyShort>
-                      </VStack>
-                    </HStack>
-                    <PencilIcon aria-hidden="true" fontSize={'1.5rem'} />
-                  </HStack>
-                </button>
+                  <LinkCard.Title>
+                    {t('client.innsendteMeldekort.innsendtMeldekort.title', {
+                      uker: hentUkeNummerForPeriode(
+                        new Date(innsendtMeldekort.meldeperiode.fom),
+                        new Date(innsendtMeldekort.meldeperiode.tom)
+                      ),
+                    })}
+                  </LinkCard.Title>
+                  <LinkCard.Description>
+                    {`${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.fom)} - ${formaterDatoMedÅrForFrontend(innsendtMeldekort.meldeperiode.tom)}`}
+                  </LinkCard.Description>
+                  <LinkCard.Footer>
+                    {t('client.innsendteMeldekort.innsendtMeldekort.description', {
+                      timer: innsendtMeldekort.antallTimerArbeidetIPerioden,
+                    })}
+                  </LinkCard.Footer>
+                </LinkCard>
               );
             })}
           </>
