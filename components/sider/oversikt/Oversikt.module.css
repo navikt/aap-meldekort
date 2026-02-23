@@ -1,0 +1,7 @@
+.icon {
+    display: flex;
+    justify-content: center;
+    background-color: var(--ax-accent-200);
+    padding: var(--ax-space-12);
+    border-radius: 50%;
+}

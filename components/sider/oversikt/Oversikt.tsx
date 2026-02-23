@@ -1,16 +1,16 @@
 'use client';
 
 import { KommendeMeldekort } from 'lib/types/types';
-import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
-import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
+import { Alert, BodyShort, Box, Heading, LinkCard, VStack } from '@navikt/ds-react';
 import { useTranslations } from 'next-intl';
 import { startInnsendingClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
 import { formaterDatoMedMånedIBokstaver, formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
-import { ChevronRightIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons';
+import { TasklistIcon } from '@navikt/aksel-icons';
 import { InnsendingType } from 'lib/utils/url';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { useMemo } from 'react';
+import styles from 'components/navigationpanel/NavigationPanel.module.css';
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
@@ -67,14 +67,19 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
         </Heading>
         {kommendeMeldeperiode?.nesteMeldeperiode ? (
           <>
-            <NavigationPanel
-              type={'button'}
-              title={title}
-              description={description}
-              rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
-              leftIcon={erLitenSkjerm ? undefined : <TasklistIcon fontSize={'2rem'} />}
-              onClick={startInnsending}
-            />
+            <LinkCard onClick={startInnsending}>
+              <Box asChild borderRadius={'12'} padding={'space-8'}>
+                {!erLitenSkjerm && (
+                  <LinkCard.Icon>
+                    <div className={styles.icon}>
+                      <TasklistIcon fontSize={'2rem'} />
+                    </div>
+                  </LinkCard.Icon>
+                )}
+              </Box>
+              <LinkCard.Title>{title}</LinkCard.Title>
+              <LinkCard.Description>{description}</LinkCard.Description>
+            </LinkCard>
 
             {kommendeMeldeperiode.antallUbesvarteMeldeperioder === 0 && kommendeMeldeperiode.nesteMeldeperiode && (
               <Alert variant={'info'}>
@@ -104,13 +109,19 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
           <Heading level={'2'} size={'medium'}>
             {t('client.oversikt.innsendteMeldekort.heading')}
           </Heading>
-          <NavigationPanel
-            type={'link'}
-            title={t('client.oversikt.innsendteMeldekort.title')}
-            href={`/innsendt`}
-            leftIcon={erLitenSkjerm ? undefined : <PencilIcon fontSize={'2rem'} />}
-            rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
-          />
+          <LinkCard onClick={startInnsending}>
+            <Box asChild borderRadius={'12'} padding={'space-8'}>
+              {!erLitenSkjerm && (
+                <LinkCard.Icon>
+                  <div className={styles.icon}>
+                    <TasklistIcon fontSize={'2rem'} />
+                  </div>
+                </LinkCard.Icon>
+              )}
+            </Box>
+            <LinkCard.Title>{t('client.oversikt.innsendteMeldekort.title')}</LinkCard.Title>
+            <LinkCard.Description>{description}</LinkCard.Description>
+          </LinkCard>
         </VStack>
       )}
     </VStack>
