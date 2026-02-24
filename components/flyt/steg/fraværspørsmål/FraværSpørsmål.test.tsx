@@ -1,9 +1,7 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { Spørsmål } from 'components/flyt/steg/spørsmål/Spørsmål';
-import { render, screen, within } from 'lib/utils/test/customRender';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { render, screen } from 'lib/utils/test/customRender';
 import { userEvent } from '@testing-library/user-event';
 import { UtfyllingResponse } from 'lib/types/types';
-import createFetchMock from 'vitest-fetch-mock';
 import { FraværSpørsmål } from 'components/flyt/steg/fraværspørsmål/FraværSpørsmål';
 
 const meldekort: UtfyllingResponse = {
@@ -55,17 +53,5 @@ describe('FraværSpørsmål', () => {
   it('viser en feilmelding dersom bruker ikke har svart på spørsmålet', async () => {
     await user.click(screen.getByRole('button', { name: 'Neste' }));
     expect(screen.getByText('Du må svare på om du har gjennomført alle avtalte aktiviteter')).toBeVisible();
-  });
-
-  // ligger på feil steg, skal komme på utfylling
-  it.skip('viser beskrivelse av steget', () => {
-    expect(
-      screen.getByText('Du melder kun inn aktiviteter som er i aktivitetsplanen og avtalt med Nav.')
-    ).toBeVisible();
-  });
-
-  // ligger på feil steg, skal komme på utfylling
-  it.skip('kan legge til dager', () => {
-    expect(screen.getByRole('button', { name: 'Legg til dag' })).toBeVisible();
   });
 });

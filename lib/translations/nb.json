@@ -149,6 +149,12 @@
           }
         }
       },
+      "fraværutfylling": {
+        "heading": "Hvilke dager var du borte fra avtalt aktivitet?",
+        "periode": "Uke {uker} ({periode})",
+        "description": "Du melder kun inn aktiviteter som er i aktivitetsplanen og avtalt med Nav.",
+        "leggTilDag": "Legg til dag"
+      },
       "bekreft": {
         "korrigering": {
           "heading": "Se over og send inn endringene",

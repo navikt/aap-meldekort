@@ -3,8 +3,10 @@
 import { BodyShort, Heading, Radio, VStack } from '@navikt/ds-react';
 import { Form } from 'components/form/Form';
 import { RadioGroupWrapper } from 'components/form/radiogroupwrapper/RadioGroupWrapper';
+import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { FraværSvar, UtfyllingResponse } from 'lib/types/types';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { useParamsMedType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -19,6 +21,8 @@ interface FormFields {
 
 export const FraværSpørsmål = ({ utfylling }: Props) => {
   const t = useTranslations();
+  const { referanse, innsendingtype } = useParamsMedType();
+  const { isLoading, løsStegOgGåTilNeste, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
 
   const form = useForm<FormFields>({
     defaultValues: {
@@ -39,9 +43,18 @@ export const FraværSpørsmål = ({ utfylling }: Props) => {
 
   return (
     <Form
+      // TODO hvordan håndtere forrigeSteg hvis dette blir et eget steg?
       forrigeStegOnClick={undefined}
       onSubmit={form.handleSubmit(async (data) => {
-        console.log('data:' + data);
+        løsStegOgGåTilNeste({
+          nyTilstand: {
+            aktivtSteg: 'FRAVÆR_SPØRSMÅL',
+            svar: {
+              ...utfylling.tilstand.svar,
+              harDuGjennomførtAvtaltAktivitet: data.harDuGjennomførtAvtaltAktivitet,
+            },
+          },
+        });
       })}
     >
       <VStack gap={'space-32'}>
