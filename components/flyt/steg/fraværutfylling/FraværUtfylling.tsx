@@ -1,16 +1,24 @@
 'use client';
 
-import { BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, HStack, VStack } from '@navikt/ds-react';
 import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
 import { Form } from 'components/form/Form';
 import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
-import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import {
+  formaterDatoMedMånedIBokstaverOgÅr,
+  formaterDatoMedÅrForFrontend,
+  fullDag,
+  hentUkeNummerForPeriode,
+} from 'lib/utils/date';
 import { useTranslations } from 'next-intl';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import { useParamsMedType } from 'lib/utils/url';
+import { useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 import { FormEvent, useState } from 'react';
 import { isSameDay } from 'date-fns';
+
+import styles from './FraværUtfyllings.module.css';
+import { storForbokstav } from 'lib/utils/string';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -29,6 +37,7 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
   const { referanse } = useParamsMedType();
   const [visDialog, setVisDialog] = useState(false);
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
+  const { gåTilSteg } = useGåTilSteg();
 
   const t = useTranslations();
 
@@ -72,7 +81,12 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
 
   return (
     <>
-      <Form onSubmit={handleSubmit} isLoading={isLoading} errorMessage={errorMessage}>
+      <Form
+        onSubmit={handleSubmit}
+        isLoading={isLoading}
+        errorMessage={errorMessage}
+        forrigeStegOnClick={() => gåTilSteg('SPØRSMÅL')}
+      >
         <VStack gap={'space-32'}>
           <VStack gap={'space-8'}>
             <Heading level={'2'} size={'large'}>
@@ -86,17 +100,25 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
             </BodyShort>
             <BodyShort>{t('client.steg.fraværutfylling.description')}</BodyShort>
           </VStack>
-          <div>
+          <VStack gap={'space-32'}>
+            <Heading size="medium" level={'3'}>
+              Dager du var borte
+            </Heading>
             {fields.map((felt, index) => (
-              <div key={felt.id}>
-                <span>
-                  {felt.fravær}
-                  {felt.dato?.toJSON()}
-                </span>
-                <button onClick={() => remove(index)}>Fjern</button>
-              </div>
+              <HStack justify={'space-between'} align={'center'} key={felt.id} className={styles.fravær}>
+                <VStack gap={'space-8'}>
+                  <BodyShort
+                    weight={'semibold'}
+                  >{`${storForbokstav(fullDag(felt.dato))} ${formaterDatoMedMånedIBokstaverOgÅr(felt.dato)}`}</BodyShort>
+                  <BodyShort>{felt.fravær}</BodyShort>
+                </VStack>
+
+                <Button onClick={() => remove(index)} type={'button'} variant={'tertiary'}>
+                  Fjern
+                </Button>
+              </HStack>
             ))}
-          </div>
+          </VStack>
         </VStack>
         <div>
           <Button onClick={() => setVisDialog(true)} variant={'secondary'} type={'button'}>

@@ -6,6 +6,7 @@ export const DATO_FORMATER = {
   ddMMyyyy: 'dd.MM.yyyy',
   dMMMM: 'd. MMMM',
   ddMMMyyyy: 'dd. MMM yyyy',
+  dMMMMyyyy: 'd. MMMM yyyy',
   ddMMyyyy_HHmm: 'dd.MM.yyyy HH:mm',
   ddMMyyyy_HHmmss: 'dd.MM.yyyy HH:mm:ss',
 };
@@ -25,6 +26,10 @@ export function formaterDatoMedMånedIBokstaver(dato: Date | string): string {
   return format(dato, DATO_FORMATER.dMMMM, { locale: nb });
 }
 
+export function formaterDatoMedMånedIBokstaverOgÅr(dato: Date | string): string {
+  return format(dato, DATO_FORMATER.dMMMMyyyy, { locale: nb });
+}
+
 export function formaterDatoMedTidspunktForFrontend(dato: Date | string): string {
   return format(dato, DATO_FORMATER.ddMMyyyy_HHmm, { locale: nb });
 }
@@ -32,6 +37,11 @@ export function formaterDatoMedTidspunktForFrontend(dato: Date | string): string
 export const formaterDatoForBackend = (dato: Date) => {
   return format(dato, 'yyyy-MM-dd');
 };
+
+export function fullDag(date: string | Date): string {
+  const dato = new Date(date);
+  return format(dato, 'EEEE', { locale: nb });
+}
 
 export const stringToDate = (value?: string | null, format: string = 'yyyy-MM-dd') => {
   if (!value) {
