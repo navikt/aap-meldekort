@@ -1,42 +1,37 @@
 'use client';
 
-import { BodyShort, Button, Heading, HStack, VStack } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
 import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
 import { Form } from 'components/form/Form';
 import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
-import {
-  formaterDatoMedMånedIBokstaverOgÅr,
-  formaterDatoMedÅrForFrontend,
-  fullDag,
-  hentUkeNummerForPeriode,
-} from 'lib/utils/date';
+import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useTranslations } from 'next-intl';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 import { FormEvent, useState } from 'react';
 import { isSameDay } from 'date-fns';
-
-import styles from './FraværUtfyllings.module.css';
-import { storForbokstav } from 'lib/utils/string';
+import { RegistrertFravær } from 'components/registrertfravær/RegistrertFravær';
+import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
 
 interface Props {
   utfylling: UtfyllingResponse;
 }
 
-interface Dag {
+export interface FraværDag {
   dato: Date;
-  fravær: Fravær;
+  fravær: NonNullable<Fravær>;
 }
 
 export interface FraværFormFields {
-  dager: Dag[];
+  dager: FraværDag[];
 }
 
 export const FraværUtfylling = ({ utfylling }: Props) => {
   const { referanse } = useParamsMedType();
   const [visDialog, setVisDialog] = useState(false);
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
+  const { sistLagret } = useMellomlagring();
   const { gåTilSteg } = useGåTilSteg();
 
   const t = useTranslations();
@@ -65,8 +60,6 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
         };
       });
 
-      console.log('dagerMedFravær', dagerMedFravær);
-
       løsStegOgGåTilNeste({
         nyTilstand: {
           aktivtSteg: 'FRAVÆR_UTFYLLING',
@@ -86,6 +79,7 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
         isLoading={isLoading}
         errorMessage={errorMessage}
         forrigeStegOnClick={() => gåTilSteg('SPØRSMÅL')}
+        sistLagret={sistLagret}
       >
         <VStack gap={'space-32'}>
           <VStack gap={'space-8'}>
@@ -100,23 +94,13 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
             </BodyShort>
             <BodyShort>{t('client.steg.fraværutfylling.description')}</BodyShort>
           </VStack>
-          <VStack gap={'space-32'}>
-            <Heading size="medium" level={'3'}>
-              Dager du var borte
-            </Heading>
-            {fields.map((felt, index) => (
-              <HStack justify={'space-between'} align={'center'} key={felt.id} className={styles.fravær}>
-                <VStack gap={'space-8'}>
-                  <BodyShort
-                    weight={'semibold'}
-                  >{`${storForbokstav(fullDag(felt.dato))} ${formaterDatoMedMånedIBokstaverOgÅr(felt.dato)}`}</BodyShort>
-                  <BodyShort>{felt.fravær}</BodyShort>
-                </VStack>
 
-                <Button onClick={() => remove(index)} type={'button'} variant={'tertiary'}>
-                  Fjern
-                </Button>
-              </HStack>
+          <Heading size="medium" level={'3'}>
+            Dager du var borte
+          </Heading>
+          <VStack gap={'space-16'}>
+            {fields.map((felt, index) => (
+              <RegistrertFravær key={felt.id} fraværDag={felt} slettFravær={() => remove(index)} />
             ))}
           </VStack>
         </VStack>
