@@ -82,16 +82,19 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
         sistLagret={sistLagret}
       >
         <VStack gap={'space-32'}>
-          <VStack gap={'space-8'}>
-            <Heading level={'2'} size={'large'}>
-              {t('client.steg.fraværutfylling.heading')}
-            </Heading>
-            <BodyShort>
-              {t('client.steg.fraværutfylling.periode', {
-                uker: hentUkeNummerForPeriode(fraDato, tilDato),
-                periode: `${formaterDatoMedÅrForFrontend(fraDato)} - ${formaterDatoMedÅrForFrontend(tilDato)}`,
-              })}
-            </BodyShort>
+          <VStack gap={'space-16'}>
+            <VStack gap={'space-8'}>
+              <Heading level={'2'} size={'large'}>
+                {t('client.steg.fraværutfylling.heading')}
+              </Heading>
+              <BodyShort>
+                {t('client.steg.fraværutfylling.periode', {
+                  uker: hentUkeNummerForPeriode(fraDato, tilDato),
+                  periode: `${formaterDatoMedÅrForFrontend(fraDato)} - ${formaterDatoMedÅrForFrontend(tilDato)}`,
+                })}
+              </BodyShort>
+            </VStack>
+
             <BodyShort>{t('client.steg.fraværutfylling.description')}</BodyShort>
           </VStack>
 
@@ -99,7 +102,6 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
             Dager du var borte
           </Heading>
           <VStack gap={'space-16'}>
-            {fields.length === 0 && <Alert variant={'info'}>Du har ikke registrert fraværsdager.</Alert>}
             {fields
               .sort((a, b) => sorterEtterEldsteDatoDate(a.dato, b.dato))
               .map((felt, index) => (
@@ -107,11 +109,11 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
               ))}
           </VStack>
         </VStack>
-        <div>
-          <Button onClick={() => setVisDialog(true)} variant={'secondary'} type={'button'}>
-            Legg til dag
-          </Button>
-        </div>
+          <div>
+            <Button onClick={() => setVisDialog(true)} variant={'secondary'} type={'button'}>
+              Legg til dag
+            </Button>
+          </div>
       </Form>
 
       <RegistrerFraværDialog
