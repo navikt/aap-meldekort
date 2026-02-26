@@ -1,4 +1,4 @@
-import { Button, Dialog, Radio } from '@navikt/ds-react';
+import { Button, Dialog, Radio, VStack } from '@navikt/ds-react';
 import { FraværFormFields } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
 import { RadioGroupWrapper } from 'components/form/radiogroupwrapper/RadioGroupWrapper';
 import { UseFieldArrayAppend, useForm } from 'react-hook-form';
@@ -15,7 +15,12 @@ interface Props {
 
 interface FormFields {
   dato: Date;
-  typeFravær: Fravær;
+  typeFravær: NonNullable<Fravær>;
+}
+
+export interface ValuePair<Enum = string> {
+  value: Enum;
+  label: string;
 }
 
 export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, setVisDialog }: Props) => {
@@ -26,17 +31,25 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
     },
   });
 
-  const fraværsgrunner = [
-    { value: 'SYKDOM_ELLER_SKADE', label: 'SYKDOM_ELLER_SKADE' },
-    { value: 'OMSORG_ANNEN_STERK_GRUNN', label: 'OMSORG_ANNEN_STERK_GRUNN' },
+  const fraværsgrunner: ValuePair<NonNullable<Fravær>>[] = [
+    { value: 'SYKDOM_ELLER_SKADE', label: 'Sykdom eller skade' },
+    { value: 'OMSORG_ANNEN_STERK_GRUNN', label: 'Annen sterk grunn' },
+    { value: 'OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE', label: 'Pleie i hjemmet av nær pårørende' },
+    { value: 'OMSORG_MEDDOMMER_ELLER_ANDRE_OFFENTLIGE_PLIKTER', label: 'Meddommer eller andre offentlige plikter' },
+    {
+      value: 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN',
+      label: 'Første skoledag, tilvenning eller annen oppfølging av barn',
+    },
+    { value: 'ANNEN', label: 'Annen' },
+    { value: 'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS', label: 'Dødsfall i familie eller vennekrets' },
   ];
+
+  const utfyllingsdager = utfylling.tilstand.svar.dager;
 
   // TODO Finnes det bedre måter?
   useEffect(() => {
     form.reset();
   }, [form, visDialog]);
-
-  const utfyllingsdager = utfylling.tilstand.svar.dager;
 
   return (
     <Dialog open={visDialog} onOpenChange={setVisDialog}>
@@ -53,21 +66,30 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
               form.reset();
             })}
           >
-            <DateWrapper
-              name={'dato'}
-              control={form.control}
-              label={'Hvilken dag var du borte?'}
-              rules={{ required: 'Du må si hvilken dag du var borte...' }}
-              fromDate={new Date(utfyllingsdager[0].dato)}
-              toDate={new Date(utfyllingsdager[utfyllingsdager.length - 1].dato)}
-            />
-            <RadioGroupWrapper control={form.control} name={'typeFravær'} rules={{ required: 'Du må velge grunn' }}>
-              {fraværsgrunner.map((fraværsgrunn) => (
-                <Radio value={fraværsgrunn.value} key={fraværsgrunn.value}>
-                  {fraværsgrunn.label}
-                </Radio>
-              ))}
-            </RadioGroupWrapper>
+            <VStack gap={'space-32'}>
+              <DateWrapper
+                name={'dato'}
+                control={form.control}
+                label={'Hvilken dag var du borte?'}
+                rules={{ required: 'Du må si hvilken dag du var borte...' }}
+                fromDate={new Date(utfyllingsdager[0].dato)}
+                toDate={new Date(utfyllingsdager[utfyllingsdager.length - 1].dato)}
+                size={'medium'}
+              />
+              <RadioGroupWrapper
+                size={'medium'}
+                control={form.control}
+                name={'typeFravær'}
+                label={'Hva var grunnen?'}
+                rules={{ required: 'Du må velge grunn' }}
+              >
+                {fraværsgrunner.map((fraværsgrunn) => (
+                  <Radio value={fraværsgrunn.value} key={fraværsgrunn.value}>
+                    {fraværsgrunn.label}
+                  </Radio>
+                ))}
+              </RadioGroupWrapper>
+            </VStack>
           </form>
         </Dialog.Body>
         <Dialog.Footer>

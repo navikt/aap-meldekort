@@ -4,7 +4,7 @@ import { Alert, BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
 import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
 import { Form } from 'components/form/Form';
 import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
-import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode, sorterEtterEldsteDatoDate } from 'lib/utils/date';
 import { useTranslations } from 'next-intl';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
@@ -28,23 +28,23 @@ export interface FraværFormFields {
 }
 
 export const FraværUtfylling = ({ utfylling }: Props) => {
-  const { referanse } = useParamsMedType();
   const [visDialog, setVisDialog] = useState(false);
-  const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
-  const { sistLagret } = useMellomlagring();
+
+  const { referanse } = useParamsMedType();
   const { gåTilSteg } = useGåTilSteg();
-
+  const { sistLagret } = useMellomlagring();
   const t = useTranslations();
+  const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
 
-  const fraDato = new Date(utfylling.metadata.periode.fom);
-  const tilDato = new Date(utfylling.metadata.periode.tom);
-  console.log(utfylling);
   const form = useForm<FraværFormFields>();
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: 'dager',
   });
+
+  const fraDato = new Date(utfylling.metadata.periode.fom);
+  const tilDato = new Date(utfylling.metadata.periode.tom);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     form.handleSubmit((data) => {
@@ -100,9 +100,11 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
           </Heading>
           <VStack gap={'space-16'}>
             {fields.length === 0 && <Alert variant={'info'}>Du har ikke registrert fraværsdager.</Alert>}
-            {fields.map((felt, index) => (
-              <RegistrertFravær key={felt.id} felt={felt} slettFravær={() => remove(index)} />
-            ))}
+            {fields
+              .sort((a, b) => sorterEtterEldsteDatoDate(a.dato, b.dato))
+              .map((felt, index) => (
+                <RegistrertFravær key={felt.id} felt={felt} slettFravær={() => remove(index)} />
+              ))}
           </VStack>
         </VStack>
         <div>

@@ -51,8 +51,12 @@ export const stringToDate = (value?: string | null, format: string = 'yyyy-MM-dd
   return isValid(parsedDate) ? parsedDate : undefined;
 };
 
-export function sorterEtterNyesteDato(a: string, b: string) {
+export function sorterEtterNyesteDatoString(a: string, b: string) {
   return new Date(b).getTime() - new Date(a).getTime();
+}
+
+export function sorterEtterEldsteDatoDate(a: Date, b: Date) {
+  return a.getTime() - b.getTime();
 }
 
 export const parseDatoFraDatePicker = (value?: string | Date): Date | undefined => {
