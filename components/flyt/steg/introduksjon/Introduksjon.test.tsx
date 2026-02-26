@@ -14,7 +14,8 @@ const utfylling: UtfyllingResponse = {
     referanse: '123456789',
     fristForInnsending: '2024-12-09',
     tidligsteInnsendingstidspunkt: '2024-12-02',
-    harBrukerVedtakIKelvin: true
+    harBrukerVedtakIKelvin: true,
+    visFrist: true,
   },
   tilstand: {
     aktivtSteg: 'INTRODUKSJON',

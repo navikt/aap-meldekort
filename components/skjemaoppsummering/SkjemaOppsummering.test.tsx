@@ -9,6 +9,7 @@ const meldekortMedArbeid: UtfyllingResponse = {
     kanSendesInn: true,
     referanse: '123456789',
     periode: { fom: '2024-11.04', tom: '2024-11-17' },
+    visFrist: true,
   },
   tilstand: {
     aktivtSteg: 'KVITTERING',

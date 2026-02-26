@@ -13,6 +13,7 @@ const meldeperiode: UtfyllingResponse = {
     kanSendesInn: true,
     periode: { fom: '2024-11-18', tom: '2024-12-01' },
     referanse: '123456789',
+    visFrist: true,
   },
   tilstand: {
     aktivtSteg: 'UTFYLLING',

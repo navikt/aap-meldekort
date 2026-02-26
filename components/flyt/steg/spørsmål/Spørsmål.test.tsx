@@ -23,7 +23,7 @@ const periode: UtfyllingResponse = {
       tom: '2024-12-01',
     },
     referanse: '123456789',
-    visFrist: false,
+    visFrist: true,
   },
 };
 
