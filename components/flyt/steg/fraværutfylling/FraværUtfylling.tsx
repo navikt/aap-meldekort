@@ -99,8 +99,9 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
             Dager du var borte
           </Heading>
           <VStack gap={'space-16'}>
+            {fields.length}
             {fields.map((felt, index) => (
-              <RegistrertFravær key={felt.id} fraværDag={felt} slettFravær={() => remove(index)} />
+              <RegistrertFravær key={felt.id} felt={felt} slettFravær={() => remove(index)} />
             ))}
           </VStack>
         </VStack>

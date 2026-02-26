@@ -7,18 +7,18 @@ import styles from './RegistrertFravær.module.css';
 import { Fravær } from 'lib/types/types';
 
 interface Props {
-  fraværDag: FraværDag;
+  felt: FraværDag;
   slettFravær: () => void;
 }
 
-export const RegistrertFravær = ({ fraværDag, slettFravær }: Props) => {
+export const RegistrertFravær = ({ felt, slettFravær }: Props) => {
   return (
     <HStack justify={'space-between'} align={'center'} className={styles.fravær}>
       <VStack gap={'space-8'}>
         <BodyShort
           weight={'semibold'}
-        >{`${storForbokstav(fullDag(fraværDag.dato))} ${formaterDatoMedMånedIBokstaverOgÅr(fraværDag.dato)}`}</BodyShort>
-        <BodyShort>{mapFraværEnumTilString(fraværDag.fravær)}</BodyShort>
+        >{`${storForbokstav(fullDag(felt.dato))} ${formaterDatoMedMånedIBokstaverOgÅr(felt.dato)}`}</BodyShort>
+        <BodyShort>{mapFraværEnumTilString(felt.fravær)}</BodyShort>
       </VStack>
 
       <Button onClick={slettFravær} type={'button'} variant={'tertiary'}>
