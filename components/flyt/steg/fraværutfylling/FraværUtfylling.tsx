@@ -1,6 +1,6 @@
 'use client';
 
-import { Alert, BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
 import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
 import { Form } from 'components/form/Form';
 import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
@@ -109,11 +109,11 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
               ))}
           </VStack>
         </VStack>
-          <div>
-            <Button onClick={() => setVisDialog(true)} variant={'secondary'} type={'button'}>
-              Legg til dag
-            </Button>
-          </div>
+        <div>
+          <Button onClick={() => setVisDialog(true)} variant={'secondary'} type={'button'}>
+            Legg til dag
+          </Button>
+        </div>
       </Form>
 
       <RegistrerFraværDialog
