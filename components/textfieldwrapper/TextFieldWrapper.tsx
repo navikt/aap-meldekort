@@ -24,7 +24,7 @@ export const TextFieldWrapper = <FormFieldValues extends FieldValues>({
     name={name}
     control={control}
     rules={rules}
-    render={({ field: { name, value, onChange } }) => (
+    render={({ field: { name, value, onChange }, fieldState: { error } }) => (
       <TextField
         id={id}
         name={name}
@@ -37,6 +37,7 @@ export const TextFieldWrapper = <FormFieldValues extends FieldValues>({
         onChange={onChange}
         className={className}
         autoComplete={'off'}
+        error={error?.message} // TODO må sjekke at utfylling ikke blir berørt
       />
     )}
   />

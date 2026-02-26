@@ -771,6 +771,8 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         "no.nav.aap.meldekort.DagSvarDto": {
+            /** Format: double */
+            aktivitetsInformasjon?: number | null;
             /**
              * Format: date
              * @example 2025-04-01
@@ -778,15 +780,13 @@ export interface components {
             dato: string;
             /** @enum {string|null} */
             "frav\u00E6r"?: "SYKDOM_ELLER_SKADE" | "OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN" | "OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE" | "OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS" | "OMSORG_MEDDOMMER_ELLER_ANDRE_OFFENTLIGE_PLIKTER" | "OMSORG_ANNEN_STERK_GRUNN" | "ANNEN" | null;
-            /** Format: double */
-            timerArbeidet?: number | null;
         };
         "no.nav.aap.meldekort.EndreUtfyllingRequest": {
             nyTilstand: components["schemas"]["no.nav.aap.meldekort.UtfyllingTilstandDto"];
         };
         "no.nav.aap.meldekort.HistoriskMeldeperiodeDto": {
             /** Format: double */
-            antallTimerArbeidetIPerioden: number;
+            antallAktivitetsInformasjonIPerioden: number;
             meldeperiode: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
             /** @enum {string} */
             status: "KELVIN";
@@ -861,6 +861,8 @@ export interface components {
         "no.nav.aap.meldekort.UtfyllingMetadataDto": {
             /** Format: int32 */
             antallUbesvarteMeldeperioder: number;
+            /** @enum {string|null} */
+            flytNavn?: "AAP_FLYT" | "AAP_FLYT_V2" | "AAP_KORRIGERING_FLYT" | "AAP_KORRIGERING_FLYT_V2" | null;
             /**
              * Format: date-time
              * @example 2025-04-01T12:30:00
@@ -901,8 +903,17 @@ export interface components {
              */
             tom: string;
         };
+        "no.nav.aap.meldekort.kontrakt.sak.AktivitetsInformasjonDto": {
+            /** Format: double */
+            aktivitetsInformasjon: number;
+            /**
+             * Format: date
+             * @example 2025-04-01
+             */
+            dato: string;
+        };
         "no.nav.aap.meldekort.kontrakt.sak.BehandslingsflytUtfyllingRequest": {
-            dager: components["schemas"]["no.nav.aap.meldekort.kontrakt.sak.TimerArbeidetDto"][];
+            dager: components["schemas"]["no.nav.aap.meldekort.kontrakt.sak.AktivitetsInformasjonDto"][];
             harDuJobbet: boolean;
             ident: string;
             periode: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"];
@@ -917,15 +928,6 @@ export interface components {
             sakStatus?: "UTREDES" | "LØPENDE" | "AVSLUTTET" | null;
             sakenGjelderFor: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"];
             saksnummer: string;
-        };
-        "no.nav.aap.meldekort.kontrakt.sak.TimerArbeidetDto": {
-            /**
-             * Format: date
-             * @example 2025-04-01
-             */
-            dato: string;
-            /** Format: double */
-            timerArbeidet: number;
         };
         "no.nav.aap.motor.api.JobbInfoDto": {
             /** Format: int32 */
