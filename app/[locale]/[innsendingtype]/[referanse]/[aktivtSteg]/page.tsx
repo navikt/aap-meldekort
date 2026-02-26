@@ -6,7 +6,6 @@ import { KvitteringMedDataFetching } from 'components/flyt/steg/kvittering/Kvitt
 import { redirect } from 'i18n/routing';
 import { BekreftMedDataFetching } from 'components/flyt/steg/bekreft/BekreftMedDataFetching';
 import { hentUtfylling } from 'lib/services/meldekortservice';
-import { FraværSpørsmålMedDataFetching } from 'components/flyt/steg/fraværspørsmål/FraværSpørsmålMedDataFetching';
 import { FraværUtfyllingMedDataFetching } from 'components/flyt/steg/fraværutfylling/FraværUtfyllingMedDataFetching';
 
 interface Props {
@@ -55,7 +54,6 @@ const AktivtStegPage = async (props: Props) => {
       {aktivtSteg === 'INTRODUKSJON' && <IntroduksjonMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'SPØRSMÅL' && <SpørsmåLMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'UTFYLLING' && <UtfyllingMedDataFetching referanse={referanse} />}
-      {aktivtSteg === 'FRAVÆR_SPØRSMÅL' && <FraværSpørsmålMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'FRAVÆR_UTFYLLING' && <FraværUtfyllingMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'BEKREFT' && <BekreftMedDataFetching referanse={referanse} />}
       {aktivtSteg === 'KVITTERING' && <KvitteringMedDataFetching referanse={referanse} />}

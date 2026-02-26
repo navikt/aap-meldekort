@@ -37,10 +37,7 @@ export const Utfylling = ({ utfylling }: Props) => {
     defaultValues: {
       dager: utfylling.tilstand.svar.dager.map((dag) => ({
         dag: dag.dato,
-        timer:
-          dag.aktivitetsInformasjon == null || dag.aktivitetsInformasjon === 0
-            ? ''
-            : dag.aktivitetsInformasjon.toString(),
+        timer: dag.timerArbeidet == null || dag.timerArbeidet === 0 ? '' : dag.timerArbeidet.toString(),
       })),
     },
   });

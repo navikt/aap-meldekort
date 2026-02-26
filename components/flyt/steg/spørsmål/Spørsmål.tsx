@@ -74,7 +74,7 @@ export const Spørsmål = ({ utfylling }: Props) => {
               dager: utfylling.tilstand.svar.dager.map((dag) => {
                 return {
                   dato: dag.dato,
-                  timerArbeidet: data.harDuJobbet === JaEllerNei.Nei ? 0 : dag.aktivitetsInformasjon,
+                  timerArbeidet: data.harDuJobbet === JaEllerNei.Nei ? 0 : dag.timerArbeidet,
                 };
               }),
               harDuJobbet: data.harDuJobbet === JaEllerNei.Ja,

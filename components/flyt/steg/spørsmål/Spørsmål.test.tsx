@@ -90,7 +90,6 @@ describe('Spørsmål med brukermeldt fravær', () => {
       },
       referanse: '123456789',
       visFrist: false,
-      brukV2: true,
     },
   };
   beforeEach(() => {
