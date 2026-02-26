@@ -9,6 +9,7 @@ export const mockHentUtfylling: UtfyllingResponse = {
       fom: '2026-02-02',
       tom: '2026-02-15',
     },
+    visFrist: true,
   },
   tilstand: {
     aktivtSteg: 'INTRODUKSJON',

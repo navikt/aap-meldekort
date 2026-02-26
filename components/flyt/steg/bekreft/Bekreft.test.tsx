@@ -33,6 +33,7 @@ const meldekortUtenArbeid: UtfyllingResponse = {
     kanSendesInn: true,
     periode: { fom: '2024-11-04', tom: '2024-11-17' },
     referanse: '123456789',
+    visFrist: true,
   },
 };
 
@@ -42,6 +43,7 @@ const meldekortMedArbeid: UtfyllingResponse = {
     kanSendesInn: true,
     periode: { fom: '2024-11-04', tom: '2024-11-17' },
     referanse: '123456789',
+    visFrist: true,
   },
   tilstand: {
     aktivtSteg: 'BEKREFT',
@@ -133,11 +135,14 @@ describe('Stemmer opplysningene', () => {
         periode: { fom: '2024-11-18', tom: '2024-12-01' },
         referanse: '123456789',
         tidligsteInnsendingstidspunkt: '2024-12-03',
+        visFrist: true,
       },
     };
 
     render(<Bekreft utfylling={meldekortIkkeKlarTilInnsending} />);
-    const infoboks = screen.getByText('Du kan tidligst sende inn meldekortet 3. desember. Kom tilbake senere for å sende inn meldekortet, i mellomtiden lagrer vi svarene dine.');
+    const infoboks = screen.getByText(
+      'Du kan tidligst sende inn meldekortet 3. desember. Kom tilbake senere for å sende inn meldekortet, i mellomtiden lagrer vi svarene dine.'
+    );
     expect(infoboks).toBeVisible();
   });
 });
