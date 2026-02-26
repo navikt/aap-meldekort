@@ -3,11 +3,16 @@ import { BodyShort, FormSummary, HStack } from '@navikt/ds-react';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';
 import { useGåTilSteg } from 'lib/utils/url';
-import { formaterDatoMedÅrForFrontend, hentUkeNummerForDato } from 'lib/utils/date';
+import {
+  formaterDatoMedDagOgMåndedIBokstaver,
+  formaterDatoMedÅrForFrontend,
+  hentUkeNummerForDato,
+} from 'lib/utils/date';
 import { storForbokstav } from 'lib/utils/string';
 import { nb } from 'date-fns/locale';
 import { regnUtTimer } from 'lib/utils/meldekort';
 import { useTranslations } from 'next-intl';
+import { fraværsgrunner } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -45,6 +50,10 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
     },
     {} as Record<string, OppsummeringMeldeperiodeUke>
   );
+
+  const unikeFraværsgrunner = [
+    ...new Set(utfylling.tilstand.svar.dager.map((dag) => dag.fravær).filter((fraværsgrunn) => fraværsgrunn != null)),
+  ];
 
   return (
     <FormSummary>
@@ -122,6 +131,37 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                     })}
                   </FormSummary.Value>
                 </FormSummary.Answer>
+              </FormSummary.Answers>
+            </FormSummary.Value>
+          </FormSummary.Answer>
+        )}
+        {utfylling.tilstand.svar.harDuGjennomførtAvtaltAktivitet === 'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET' && (
+          <FormSummary.Answer>
+            <FormSummary.Label>
+              <HStack justify={'space-between'}>
+                <BodyShort weight={'semibold'}>Dager borte fra avtalt aktivitet</BodyShort>
+                {visLenkeTilbakeTilSteg && (
+                  <MeldekortLenke label={'Endre'} href={hentUrlForSteg('FRAVÆR_UTFYLLING')} visIcon={false} />
+                )}
+              </HStack>
+            </FormSummary.Label>
+            <FormSummary.Value>
+              <FormSummary.Answers>
+                {unikeFraværsgrunner.map((fraværsgrunn) => {
+                  const label = fraværsgrunner.find((v) => v.value === fraværsgrunn)?.label;
+                  return (
+                    <FormSummary.Answer key={fraværsgrunn}>
+                      <FormSummary.Label>{label}:</FormSummary.Label>
+                      {utfylling.tilstand.svar.dager
+                        .filter((dag) => dag.fravær && dag.fravær === fraværsgrunn)
+                        .map((dag) => (
+                          <FormSummary.Value key={`fravær-${dag.dato}`}>
+                            {storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag.dato))}
+                          </FormSummary.Value>
+                        ))}
+                    </FormSummary.Answer>
+                  );
+                })}
               </FormSummary.Answers>
             </FormSummary.Value>
           </FormSummary.Answer>

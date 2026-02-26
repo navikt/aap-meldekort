@@ -23,6 +23,19 @@ export interface ValuePair<Enum = string> {
   label: string;
 }
 
+export const fraværsgrunner: ValuePair<NonNullable<Fravær>>[] = [
+  { value: 'SYKDOM_ELLER_SKADE', label: 'Sykdom eller skade' },
+  { value: 'OMSORG_ANNEN_STERK_GRUNN', label: 'Annen sterk grunn' },
+  { value: 'OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE', label: 'Pleie i hjemmet av nær pårørende' },
+  { value: 'OMSORG_MEDDOMMER_ELLER_ANDRE_OFFENTLIGE_PLIKTER', label: 'Meddommer eller andre offentlige plikter' },
+  {
+    value: 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN',
+    label: 'Første skoledag, tilvenning eller annen oppfølging av barn',
+  },
+  { value: 'ANNEN', label: 'Annen' },
+  { value: 'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS', label: 'Dødsfall i familie eller vennekrets' },
+];
+
 export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, setVisDialog }: Props) => {
   const form = useForm<FormFields>({
     defaultValues: {
@@ -30,19 +43,6 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
       typeFravær: undefined,
     },
   });
-
-  const fraværsgrunner: ValuePair<NonNullable<Fravær>>[] = [
-    { value: 'SYKDOM_ELLER_SKADE', label: 'Sykdom eller skade' },
-    { value: 'OMSORG_ANNEN_STERK_GRUNN', label: 'Annen sterk grunn' },
-    { value: 'OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE', label: 'Pleie i hjemmet av nær pårørende' },
-    { value: 'OMSORG_MEDDOMMER_ELLER_ANDRE_OFFENTLIGE_PLIKTER', label: 'Meddommer eller andre offentlige plikter' },
-    {
-      value: 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN',
-      label: 'Første skoledag, tilvenning eller annen oppfølging av barn',
-    },
-    { value: 'ANNEN', label: 'Annen' },
-    { value: 'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS', label: 'Dødsfall i familie eller vennekrets' },
-  ];
 
   const utfyllingsdager = utfylling.tilstand.svar.dager;
 
