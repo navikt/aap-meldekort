@@ -1,6 +1,6 @@
 'use client';
 
-import { BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
 import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
 import { Form } from 'components/form/Form';
 import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
@@ -99,7 +99,7 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
             Dager du var borte
           </Heading>
           <VStack gap={'space-16'}>
-            {fields.length}
+            {fields.length === 0 && <Alert variant={'info'}>Du har ikke registrert fraværsdager.</Alert>}
             {fields.map((felt, index) => (
               <RegistrertFravær key={felt.id} felt={felt} slettFravær={() => remove(index)} />
             ))}
