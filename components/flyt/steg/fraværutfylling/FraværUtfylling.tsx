@@ -27,6 +27,10 @@ export interface FraværFormFields {
   dager: FraværDag[];
 }
 
+function finnTimerForDag(dager: DagSvar[], dato: Date) {
+  return dager.find((dag) => isSameDay(dag.dato, dato))?.timerArbeidet || null;
+}
+
 export const FraværUtfylling = ({ utfylling }: Props) => {
   const [visDialog, setVisDialog] = useState(false);
 
@@ -105,7 +109,12 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
             {fields
               .sort((a, b) => sorterEtterEldsteDatoDate(a.dato, b.dato))
               .map((felt, index) => (
-                <RegistrertFravær key={felt.id} felt={felt} slettFravær={() => remove(index)} />
+                <RegistrertFravær
+                  key={felt.id}
+                  felt={felt}
+                  slettFravær={() => remove(index)}
+                  timerArbeidet={finnTimerForDag(utfylling.tilstand.svar.dager, felt.dato)}
+                />
               ))}
           </VStack>
         </VStack>

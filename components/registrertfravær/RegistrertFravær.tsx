@@ -1,4 +1,4 @@
-import { BodyShort, Button, HStack, VStack } from '@navikt/ds-react';
+import { BodyShort, Button, HStack, Tag, VStack } from '@navikt/ds-react';
 import { FraværDag } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
 import { formaterDatoMedMånedIBokstaverOgÅr, fullDag } from 'lib/utils/date';
 import { storForbokstav } from 'lib/utils/string';
@@ -9,9 +9,10 @@ import { Fravær } from 'lib/types/types';
 interface Props {
   felt: FraværDag;
   slettFravær: () => void;
+  timerArbeidet: number | null;
 }
 
-export const RegistrertFravær = ({ felt, slettFravær }: Props) => {
+export const RegistrertFravær = ({ felt, slettFravær, timerArbeidet }: Props) => {
   return (
     <HStack justify={'space-between'} align={'center'} className={styles.fravær}>
       <VStack gap={'space-8'}>
@@ -19,6 +20,13 @@ export const RegistrertFravær = ({ felt, slettFravær }: Props) => {
           weight={'semibold'}
         >{`${storForbokstav(fullDag(felt.dato))} ${formaterDatoMedMånedIBokstaverOgÅr(felt.dato)}`}</BodyShort>
         <BodyShort>{mapFraværEnumTilString(felt.fravær)}</BodyShort>
+        {timerArbeidet && (
+          <div>
+            <Tag variant={'outline'} data-color="info" size="small">
+              {timerArbeidet} timer arbeidet
+            </Tag>
+          </div>
+        )}
       </VStack>
 
       <Button onClick={slettFravær} type={'button'} variant={'tertiary'}>
