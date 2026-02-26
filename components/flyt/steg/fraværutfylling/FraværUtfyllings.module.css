@@ -1,4 +1,4 @@
 .fravær {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid var(--ax-border-neutral-subtle);
   padding: var(--ax-space-12) 0;
 }
