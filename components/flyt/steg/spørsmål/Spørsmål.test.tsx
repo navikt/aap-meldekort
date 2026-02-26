@@ -89,6 +89,7 @@ describe('Spørsmål med brukermeldt fravær', () => {
         tom: '2024-12-01',
       },
       referanse: '123456789',
+      flytNavn: 'AAP_FLYT_V2',
       visFrist: false,
     },
   };
@@ -106,8 +107,11 @@ describe('Spørsmål med brukermeldt fravær', () => {
 
   it('viser spørsmål om fravær for nye utfyllinger', () => {
     render(<Spørsmål utfylling={utfyllingV2} />);
+
     expect(
-      screen.findByRole('group', { name: 'Har du gjennomført alle aktiviteter som er avtalt med oss?' })
+      screen.getByRole('group', {
+        name: 'Har du gjennomført alle aktiviteter som er avtalt med oss?',
+      })
     ).toBeVisible();
   });
 });

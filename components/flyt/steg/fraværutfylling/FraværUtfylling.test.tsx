@@ -4,21 +4,67 @@ import { render, screen } from 'lib/utils/test/customRender';
 import { beforeEach, describe, expect, it } from 'vitest';
 
 const meldekort: UtfyllingResponse = {
+  metadata: {
+    referanse: '13fd8128-9aac-4bc5-a28a-a5e9cb4dd53c',
+    periode: {
+      fom: '2025-12-13',
+      tom: '2025-12-21',
+    },
+    antallUbesvarteMeldeperioder: 1,
+    kanSendesInn: true,
+    visFrist: true,
+  },
   tilstand: {
     aktivtSteg: 'FRAVÆR_UTFYLLING',
     svar: {
-      dager: [],
+      dager: [
+        {
+          dato: '2025-12-13',
+          timerArbeidet: 0,
+          fravær: null,
+        },
+        {
+          dato: '2025-12-14',
+          timerArbeidet: 0,
+          fravær: null,
+        },
+        {
+          dato: '2025-12-15',
+          timerArbeidet: 0,
+          fravær: null,
+        },
+        {
+          dato: '2025-12-16',
+          timerArbeidet: 0,
+          fravær: null,
+        },
+        {
+          dato: '2025-12-17',
+          timerArbeidet: 0,
+          fravær: null,
+        },
+        {
+          dato: '2025-12-18',
+          timerArbeidet: 0,
+          fravær: null,
+        },
+        {
+          dato: '2025-12-19',
+          timerArbeidet: 0,
+          fravær: null,
+        },
+        {
+          dato: '2025-12-20',
+          timerArbeidet: 0,
+          fravær: null,
+        },
+        {
+          dato: '2025-12-21',
+          timerArbeidet: 0,
+          fravær: null,
+        },
+      ],
     },
-  },
-  metadata: {
-    antallUbesvarteMeldeperioder: 1,
-    kanSendesInn: true,
-    periode: {
-      fom: '2026-02-02',
-      tom: '2026-02-15',
-    },
-    referanse: '1234567',
-    visFrist: false,
   },
 };
 describe('Fravær utfylling', () => {
@@ -33,7 +79,7 @@ describe('Fravær utfylling', () => {
   });
 
   it('viser hvilken periode det gjelder', () => {
-    expect(screen.getByText('Uke 6 og 7 (02.02.2026 - 15.02.2026)')).toBeVisible();
+    expect(screen.getByText('Uke 50 og 51 (13.12.2025 - 21.12.2025)')).toBeVisible();
   });
 
   it('viser en beskrivelse på hva bruker skal gjøre', () => {
