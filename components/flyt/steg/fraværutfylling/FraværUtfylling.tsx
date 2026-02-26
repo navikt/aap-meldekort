@@ -2,9 +2,11 @@
 
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
+import { Form } from 'components/form/Form';
 import { UtfyllingResponse } from 'lib/types/types';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useTranslations } from 'next-intl';
+import { FormEvent } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 
 interface Props {
@@ -33,8 +35,12 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
     name: 'dager',
   });
 
+  function handleSubmit() {
+    // TODO Send inn til bakcend
+  }
+
   return (
-    <FormProvider {...form}>
+    <Form onSubmit={() => console.log('hihihih')}>
       <VStack gap={'space-32'}>
         <VStack gap={'space-8'}>
           <Heading level={'2'} size={'large'}>
@@ -49,12 +55,13 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
           <BodyShort>{t('client.steg.fraværutfylling.description')}</BodyShort>
         </VStack>
         <div>
-          {fields.map((felt) => (
+          {fields.map((felt, index) => (
             <div key={felt.id}>
               <span>
                 {felt.fravær}
                 {felt.dag?.toJSON()}
               </span>
+              <button onClick={() => remove(index)}>Fjern</button>
             </div>
           ))}
         </div>
@@ -62,6 +69,6 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
           <RegistrerFraværDialog leggTilFravær={append} />
         </div>
       </VStack>
-    </FormProvider>
+    </Form>
   );
 };
