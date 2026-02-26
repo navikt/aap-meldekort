@@ -771,8 +771,6 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         "no.nav.aap.meldekort.DagSvarDto": {
-            /** Format: double */
-            aktivitetsInformasjon?: number | null;
             /**
              * Format: date
              * @example 2025-04-01
@@ -780,6 +778,8 @@ export interface components {
             dato: string;
             /** @enum {string|null} */
             "frav\u00E6r"?: "SYKDOM_ELLER_SKADE" | "OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN" | "OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE" | "OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS" | "OMSORG_MEDDOMMER_ELLER_ANDRE_OFFENTLIGE_PLIKTER" | "OMSORG_ANNEN_STERK_GRUNN" | "ANNEN" | null;
+            /** Format: double */
+            timerArbeidet?: number | null;
         };
         "no.nav.aap.meldekort.EndreUtfyllingRequest": {
             nyTilstand: components["schemas"]["no.nav.aap.meldekort.UtfyllingTilstandDto"];
