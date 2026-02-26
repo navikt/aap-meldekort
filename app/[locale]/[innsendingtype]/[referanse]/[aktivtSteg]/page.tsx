@@ -20,15 +20,7 @@ interface Props {
  * Denne må være lik rekkefølgen for flyten for innsending/korrigering.
  * Lager en tuple slik at typescript sier i fra dersom steg endrer seg.
  */
-const alleSteg = [
-  'INTRODUKSJON',
-  'SPØRSMÅL',
-  'UTFYLLING',
-  'FRAVÆR_SPØRSMÅL',
-  'FRAVÆR_UTFYLLING',
-  'BEKREFT',
-  'KVITTERING',
-] as const;
+const alleSteg = ['INTRODUKSJON', 'SPØRSMÅL', 'UTFYLLING', 'FRAVÆR_UTFYLLING', 'BEKREFT', 'KVITTERING'] as const;
 type StegTuple = typeof alleSteg;
 
 const AktivtStegPage = async (props: Props) => {
