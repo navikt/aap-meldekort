@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { render, screen } from 'lib/utils/test/customRender';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { UtfyllingResponse } from 'lib/types/types';
-import { formaterDatoMedÅrForFrontend } from 'lib/utils/date';
+import { formaterDatoMedDagOgMåndedIBokstaver, formaterDatoMedÅrForFrontend } from 'lib/utils/date';
+import { storForbokstav } from 'lib/utils/string';
 
 const meldekortMedArbeid: UtfyllingResponse = {
   metadata: {
@@ -199,14 +200,14 @@ describe('skjema oppsummering', () => {
     const dagerMedFravær = meldekortMedFravær.tilstand.svar.dager.filter((dag) => dag.fravær).map((dag) => dag.dato);
     render(<SkjemaOppsummering utfylling={meldekortMedFravær} visLenkeTilbakeTilSteg={false} />);
     dagerMedFravær.map((dag) => {
-      expect(screen.getByText(formaterDatoMedÅrForFrontend(dag))).toBeVisible();
+      expect(screen.getByText(storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag)))).toBeVisible();
     });
   });
 
   it('fravær grupperes etter type', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedFravær} visLenkeTilbakeTilSteg={false} />);
-    const sykdomsgruppe = screen.getByText('Sykdom eller skade');
-    const omsorgsgruppe = screen.getByText('Første skoledag, tilvenning eller annen oppfølging av barn');
+    const sykdomsgruppe = screen.getByText(/^Sykdom eller skade/);
+    const omsorgsgruppe = screen.getByText(/^Første skoledag, tilvenning eller annen oppfølging av barn/);
     expect(sykdomsgruppe).toBeVisible();
     expect(omsorgsgruppe).toBeVisible();
   });
