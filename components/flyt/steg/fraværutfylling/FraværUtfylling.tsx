@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { useGåTilSteg, useParamsMedType } from 'lib/utils/url';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useMemo, useState } from 'react';
 import { isSameDay } from 'date-fns';
 import { RegistrertFravær } from 'components/registrertfravær/RegistrertFravær';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
@@ -85,6 +85,10 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
     })(event);
   }
 
+  const sorterteFelter = useMemo(() => {
+    return [...fields].sort((a, b) => sorterEtterEldsteDatoDate(a.dato, b.dato));
+  }, [fields]);
+
   return (
     <>
       <Form
@@ -115,16 +119,19 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
             Dager du var borte
           </Heading>
           <VStack gap={'space-16'}>
-            {fields
-              .sort((a, b) => sorterEtterEldsteDatoDate(a.dato, b.dato))
-              .map((felt, index) => (
+            {sorterteFelter.map((felt) => {
+              // Ettersom vi sorterer feltene så må vi utlede index fra fields
+              const index = fields.findIndex((field) => field.id === felt.id);
+
+              return (
                 <RegistrertFravær
                   key={felt.id}
                   felt={felt}
                   slettFravær={() => remove(index)}
                   timerArbeidet={finnTimerForDag(utfylling.tilstand.svar.dager, felt.dato)}
                 />
-              ))}
+              );
+            })}
           </VStack>
         </VStack>
         <div>
