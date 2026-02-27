@@ -6,10 +6,10 @@ import { Form } from 'components/form/Form';
 import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode, sorterEtterEldsteDatoDate } from 'lib/utils/date';
 import { useTranslations } from 'next-intl';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { useGåTilSteg, useParamsMedType } from 'lib/utils/url';
-import { FormEvent, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { isSameDay } from 'date-fns';
 import { RegistrertFravær } from 'components/registrertfravær/RegistrertFravær';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
@@ -37,19 +37,25 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
 
   const { referanse } = useParamsMedType();
   const { gåTilSteg } = useGåTilSteg();
-  const { sistLagret } = useMellomlagring();
+  const { sistLagret, mellomlagreMeldekort } = useMellomlagring();
   const t = useTranslations();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
 
-  const form = useForm<FraværFormFields>();
+  const form = useForm<FraværFormFields>({
+    defaultValues: {
+      dager: utfylling.tilstand.svar.dager.filter(harRegistrertFraværPåDato).map((dag) => {
+        return {
+          dato: new Date(dag.dato),
+          fravær: dag.fravær,
+        };
+      }),
+    },
+  });
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: 'dager',
   });
-
-  const fraDato = new Date(utfylling.metadata.periode.fom);
-  const tilDato = new Date(utfylling.metadata.periode.tom);
 
   const dagerMedFraværOgRegistrertArbeid = fields
     .filter((field) =>
@@ -59,31 +65,23 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
     )
     .map((dag) => dag.dato);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    form.handleSubmit((data) => {
-      const dagerMedFravær: DagSvar[] = utfylling.tilstand.svar.dager.map((utfyllingDag) => {
-        const fravær: Fravær = data.dager.find((dag) => {
-          return isSameDay(dag.dato, new Date(utfyllingDag.dato));
-        })?.fravær;
+  const fraDato = new Date(utfylling.metadata.periode.fom);
+  const tilDato = new Date(utfylling.metadata.periode.tom);
+  const inputDagerMedFravær = useWatch({ control: form.control, name: 'dager' });
 
-        return {
-          dato: utfyllingDag.dato,
-          timerArbeidet: utfyllingDag.timerArbeidet,
-          fravær: fravær,
-        };
-      });
+  useEffect(() => {
+    const dagerMedFravær = mapDagerMedFravær(utfylling.tilstand.svar.dager, inputDagerMedFravær);
 
-      løsStegOgGåTilNeste({
-        nyTilstand: {
-          aktivtSteg: 'FRAVÆR_UTFYLLING',
-          svar: {
-            ...utfylling.tilstand.svar,
-            dager: dagerMedFravær,
-          },
+    mellomlagreMeldekort({
+      nyTilstand: {
+        aktivtSteg: 'UTFYLLING',
+        svar: {
+          ...utfylling.tilstand.svar,
+          dager: dagerMedFravær,
         },
-      });
-    })(event);
-  }
+      },
+    });
+  }, [inputDagerMedFravær]);
 
   const sorterteFelter = useMemo(() => {
     return [...fields].sort((a, b) => sorterEtterEldsteDatoDate(a.dato, b.dato));
@@ -92,7 +90,19 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
   return (
     <>
       <Form
-        onSubmit={handleSubmit}
+        onSubmit={form.handleSubmit((data) => {
+          const dagerMedFravær = mapDagerMedFravær(utfylling.tilstand.svar.dager, data.dager);
+
+          løsStegOgGåTilNeste({
+            nyTilstand: {
+              aktivtSteg: 'FRAVÆR_UTFYLLING',
+              svar: {
+                ...utfylling.tilstand.svar,
+                dager: dagerMedFravær,
+              },
+            },
+          });
+        })}
         isLoading={isLoading}
         errorMessage={errorMessage}
         forrigeStegOnClick={() => gåTilSteg('SPØRSMÅL')}
@@ -164,3 +174,19 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
     </>
   );
 };
+
+function harRegistrertFraværPåDato(dag: DagSvar): dag is DagSvar & { fravær: NonNullable<Fravær> } {
+  return dag.fravær != null;
+}
+
+function mapDagerMedFravær(originalDager: DagSvar[], formDager?: FraværDag[]): DagSvar[] {
+  return originalDager.map((utfyllingDag) => {
+    const fravær = formDager?.find((dag) => isSameDay(dag.dato, new Date(utfyllingDag.dato)))?.fravær ?? null;
+
+    return {
+      dato: utfyllingDag.dato,
+      timerArbeidet: utfyllingDag.timerArbeidet,
+      fravær,
+    };
+  });
+}

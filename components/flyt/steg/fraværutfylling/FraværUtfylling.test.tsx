@@ -1,8 +1,12 @@
 import { FraværUtfylling } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
 import { UtfyllingResponse } from 'lib/types/types';
 import { render, screen } from 'lib/utils/test/customRender';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from '@testing-library/user-event';
+import createFetchMock from 'vitest-fetch-mock';
+
+const fetchMock = createFetchMock(vi);
+fetchMock.enableMocks();
 
 const meldekort: UtfyllingResponse = {
   metadata: {
@@ -29,41 +33,6 @@ const meldekort: UtfyllingResponse = {
           timerArbeidet: 0,
           fravær: null,
         },
-        {
-          dato: '2025-12-15',
-          timerArbeidet: 0,
-          fravær: null,
-        },
-        {
-          dato: '2025-12-16',
-          timerArbeidet: 0,
-          fravær: null,
-        },
-        {
-          dato: '2025-12-17',
-          timerArbeidet: 0,
-          fravær: null,
-        },
-        {
-          dato: '2025-12-18',
-          timerArbeidet: 0,
-          fravær: null,
-        },
-        {
-          dato: '2025-12-19',
-          timerArbeidet: 0,
-          fravær: null,
-        },
-        {
-          dato: '2025-12-20',
-          timerArbeidet: 0,
-          fravær: null,
-        },
-        {
-          dato: '2025-12-21',
-          timerArbeidet: 0,
-          fravær: null,
-        },
       ],
     },
   },
@@ -74,31 +43,35 @@ const user = userEvent.setup();
 describe('Fravær utfylling', () => {
   describe('Generelt', () => {
     beforeEach(() => {
+      fetchMock.resetMocks();
+      fetchMock.mockResponse(JSON.stringify({ message: 'Success' }), { status: 200 });
       render(<FraværUtfylling utfylling={meldekort} />);
     });
-    it('viser en overskrift', () => {
+    it('viser en overskrift', async () => {
       expect(
-        screen.getByRole('heading', { name: 'Hvilke dager var du borte fra avtalt aktivitet?', level: 2 })
+        await screen.findByRole('heading', { name: 'Hvilke dager var du borte fra avtalt aktivitet?', level: 2 })
       ).toBeVisible();
     });
 
-    it('viser hvilken periode det gjelder', () => {
-      expect(screen.getByText('Uke 50 og 51 (13.12.2025 - 21.12.2025)')).toBeVisible();
+    it('viser hvilken periode det gjelder', async () => {
+      expect(await screen.findByText('Uke 50 og 51 (13.12.2025 - 21.12.2025)')).toBeVisible();
     });
 
-    it('viser en beskrivelse på hva bruker skal gjøre', () => {
+    it('viser en beskrivelse på hva bruker skal gjøre', async () => {
       expect(
-        screen.getByText('Du melder kun inn aktiviteter som er i aktivitetsplanen og avtalt med Nav.')
+        await screen.findByText('Du melder kun inn aktiviteter som er i aktivitetsplanen og avtalt med Nav.')
       ).toBeVisible();
     });
 
-    it('har en knapp for å legge til en dag med fravær', () => {
-      expect(screen.getByRole('button', { name: 'Legg til dag' })).toBeVisible();
+    it('har en knapp for å legge til en dag med fravær', async () => {
+      expect(await screen.findByRole('button', { name: 'Legg til dag' })).toBeVisible();
     });
   });
 
   describe('Utfylling av fravær', () => {
     beforeEach(() => {
+      fetchMock.resetMocks();
+      fetchMock.mockResponse(JSON.stringify({ message: 'Success' }), { status: 200 });
       render(<FraværUtfylling utfylling={meldekort} />);
     });
 
@@ -185,6 +158,35 @@ describe('Fravær utfylling', () => {
 
       const registrertFraværDatoEtterSletting = screen.queryByText('Lørdag 13. desember 2025');
       expect(registrertFraværDatoEtterSletting).not.toBeInTheDocument();
+    });
+  });
+
+  describe('mellomlagring', () => {
+    it('Skal vise registrert fravær hvis det allerede finnes i tilstand', () => {
+      const oppdatertMeldekort: UtfyllingResponse = {
+        ...meldekort,
+        tilstand: {
+          ...meldekort.tilstand,
+          svar: {
+            ...meldekort.tilstand.svar,
+            dager: [
+              ...meldekort.tilstand.svar.dager,
+              {
+                dato: '2025-12-15',
+                timerArbeidet: 0,
+                fravær: 'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS',
+              },
+            ],
+          },
+        },
+      };
+
+      fetchMock.resetMocks();
+      fetchMock.mockResponse(JSON.stringify({ message: 'Success' }), { status: 200 });
+      render(<FraværUtfylling utfylling={oppdatertMeldekort} />);
+
+      expect(screen.getByText('Mandag 15. desember 2025')).toBeVisible();
+      expect(screen.getByText('Omsorg eller dødsfall i familie eller vennekrets')).toBeVisible();
     });
   });
 });
