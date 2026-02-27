@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { render, screen } from 'lib/utils/test/customRender';
+import { render, screen, within } from 'lib/utils/test/customRender';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { UtfyllingResponse } from 'lib/types/types';
-import { formaterDatoMedDagOgMåndedIBokstaver, formaterDatoMedÅrForFrontend } from 'lib/utils/date';
+import { formaterDatoMedDagOgMåndedIBokstaver } from 'lib/utils/date';
 import { storForbokstav } from 'lib/utils/string';
 
 const meldekortMedArbeid: UtfyllingResponse = {
@@ -206,9 +206,29 @@ describe('skjema oppsummering', () => {
 
   it('fravær grupperes etter type', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedFravær} visLenkeTilbakeTilSteg={false} />);
-    const sykdomsgruppe = screen.getByText(/^Sykdom eller skade/);
-    const omsorgsgruppe = screen.getByText(/^Første skoledag, tilvenning eller annen oppfølging av barn/);
-    expect(sykdomsgruppe).toBeVisible();
-    expect(omsorgsgruppe).toBeVisible();
+
+    const sykdomsgruppe = screen.getByText('Sykdom eller skade:').parentElement;
+    expect(sykdomsgruppe).not.toBeNull();
+    if (sykdomsgruppe) {
+      meldekortMedFravær.tilstand.svar.dager
+        .filter((dag) => dag.fravær === 'SYKDOM_ELLER_SKADE')
+        .map((dag) => {
+          expect(
+            within(sykdomsgruppe).getByText(storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag.dato)))
+          ).toBeVisible();
+        });
+    }
+
+    const skolegruppe = screen.getByText('Første skoledag, tilvenning eller annen oppfølging av barn:').parentElement;
+    expect(skolegruppe).not.toBeNull();
+    if (skolegruppe) {
+      meldekortMedFravær.tilstand.svar.dager
+        .filter((dag) => dag.fravær === 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN')
+        .map((dag) => {
+          expect(
+            within(skolegruppe).getByText(storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag.dato)))
+          ).toBeVisible();
+        });
+    }
   });
 });
