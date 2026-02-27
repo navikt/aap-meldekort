@@ -18,6 +18,7 @@ export interface DateProps<FormFieldValues extends FieldValues> {
   readOnly?: boolean;
   strategy?: 'absolute' | 'fixed';
   onChangeCustom?: (event: React.SyntheticEvent) => void;
+  disabledDays?: Date[];
 }
 
 const FRA_DATO = subYears(new Date(), 80);
@@ -37,6 +38,7 @@ export const DateWrapper = <FormFieldValues extends FieldValues>({
   selected,
   readOnly,
   strategy,
+  disabledDays,
 }: DateProps<FormFieldValues>) => {
   const {
     field: { value, onChange },
@@ -64,6 +66,7 @@ export const DateWrapper = <FormFieldValues extends FieldValues>({
     toDate,
     fromDate,
     disableWeekends,
+    disabled: disabledDays,
   });
 
   // Må synce state slik at resetting av felt i rhf også oppdaterer intern state i datepicker

@@ -170,6 +170,7 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
         visDialog={visDialog}
         setVisDialog={setVisDialog}
         leggTilFravær={append}
+        disabledDays={fields.map((field) => field.dato)}
       />
     </>
   );

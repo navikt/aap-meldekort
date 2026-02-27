@@ -11,6 +11,7 @@ interface Props {
   leggTilFravær: UseFieldArrayAppend<FraværFormFields, 'dager'>;
   visDialog: boolean;
   setVisDialog: (isOpen: boolean) => void;
+  disabledDays?: Date[];
 }
 
 interface FormFields {
@@ -36,7 +37,7 @@ export const fraværsgrunner: ValuePair<NonNullable<Fravær>>[] = [
   { value: 'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS', label: 'Dødsfall i familie eller vennekrets' },
 ];
 
-export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, setVisDialog }: Props) => {
+export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, setVisDialog, disabledDays }: Props) => {
   const form = useForm<FormFields>({
     defaultValues: {
       dato: undefined,
@@ -75,6 +76,7 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
                 fromDate={new Date(utfyllingsdager[0].dato)}
                 toDate={new Date(utfyllingsdager[utfyllingsdager.length - 1].dato)}
                 size={'medium'}
+                disabledDays={disabledDays}
               />
               <RadioGroupWrapper
                 size={'medium'}
