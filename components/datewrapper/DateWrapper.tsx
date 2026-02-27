@@ -86,7 +86,7 @@ export const DateWrapper = <FormFieldValues extends FieldValues>({
   }, [value, selectedInternal, setSelected]);
 
   return (
-    <DatePicker {...datepickerProps} id={name} dropdownCaption strategy={strategy}>
+    <DatePicker {...datepickerProps} id={name} strategy={strategy}>
       <DatePicker.Input
         onChange={onChange}
         onInput={onChange}
