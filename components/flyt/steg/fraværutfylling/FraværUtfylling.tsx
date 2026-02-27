@@ -1,6 +1,6 @@
 'use client';
 
-import { BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, InfoCard, VStack } from '@navikt/ds-react';
 import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
 import { Form } from 'components/form/Form';
 import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
@@ -13,6 +13,7 @@ import { FormEvent, useState } from 'react';
 import { isSameDay } from 'date-fns';
 import { RegistrertFravær } from 'components/registrertfravær/RegistrertFravær';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
+import { InformationSquareIcon } from '@navikt/aksel-icons';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -49,6 +50,14 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
 
   const fraDato = new Date(utfylling.metadata.periode.fom);
   const tilDato = new Date(utfylling.metadata.periode.tom);
+
+  const dagerMedFraværOgRegistrertArbeid = fields
+    .filter((field) =>
+      utfylling.tilstand.svar.dager.some(
+        (dag) => isSameDay(dag.dato, field.dato) && dag.timerArbeidet && dag.timerArbeidet > 0
+      )
+    )
+    .map((dag) => dag.dato);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     form.handleSubmit((data) => {
@@ -123,6 +132,20 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
             Legg til dag
           </Button>
         </div>
+        {dagerMedFraværOgRegistrertArbeid.length > 0 && (
+          <InfoCard>
+            <InfoCard.Header icon={<InformationSquareIcon aria-hidden />}>
+              <InfoCard.Title>Du har registrert fravær på samme dato som du har ført timer</InfoCard.Title>
+            </InfoCard.Header>
+            <InfoCard.Content>
+              <ul>
+                {dagerMedFraværOgRegistrertArbeid.map((dag) => (
+                  <li key={dag.getTime()}>{formaterDatoMedÅrForFrontend(dag)}</li>
+                ))}
+              </ul>
+            </InfoCard.Content>
+          </InfoCard>
+        )}
       </Form>
 
       <RegistrerFraværDialog
