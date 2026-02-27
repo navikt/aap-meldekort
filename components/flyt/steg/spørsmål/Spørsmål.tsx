@@ -5,7 +5,7 @@ import { getJaNeiEllerUndefined, JaEllerNei } from 'lib/utils/form';
 import { BodyShort, Heading, Radio, VStack } from '@navikt/ds-react';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import { UtfyllingResponse } from 'lib/types/types';
+import { FraværSvar, UtfyllingResponse } from 'lib/types/types';
 import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
 import { useEffect } from 'react';
@@ -19,10 +19,7 @@ interface Props {
 
 interface FormFields {
   harDuJobbet: JaEllerNei;
-  harDuGjennomførtAvtaltAktivitet?:
-    | 'GJENNOMFØRT_AVTALT_AKTIVITET'
-    | 'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET'
-    | 'INGEN_AVTALTE_AKTIVITETER';
+  harDuGjennomførtAvtaltAktivitet: NonNullable<FraværSvar>;
 }
 
 export const Spørsmål = ({ utfylling }: Props) => {
@@ -78,7 +75,7 @@ export const Spørsmål = ({ utfylling }: Props) => {
                 };
               }),
               harDuJobbet: data.harDuJobbet === JaEllerNei.Ja,
-              harDuGjennomførtAvtaltAktivitet: data.harDuGjennomførtAvtaltAktivitet || undefined,
+              harDuGjennomførtAvtaltAktivitet: data.harDuGjennomførtAvtaltAktivitet,
             },
           },
         });
