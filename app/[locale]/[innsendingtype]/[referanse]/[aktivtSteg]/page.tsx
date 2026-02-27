@@ -12,6 +12,7 @@ interface Props {
   params: Promise<{
     referanse: string;
     aktivtSteg: string;
+    innsendingtype: string;
     locale: string;
   }>;
 }
@@ -34,11 +35,17 @@ const AktivtStegPage = async (props: Props) => {
     const aktivtStegIndex = steg.indexOf(aktivtSteg);
     const backendStegIndex = steg.indexOf(utfylling.tilstand.aktivtSteg);
 
-    return aktivtStegIndex === -1 || aktivtStegIndex > backendStegIndex;
+    const aktivtStegFinnesIkkeIStegArray = aktivtStegIndex === -1;
+    const aktivtStegErLengreFremEnnBackendSteg = aktivtStegIndex > backendStegIndex;
+
+    return aktivtStegFinnesIkkeIStegArray || aktivtStegErLengreFremEnnBackendSteg;
   }
 
   if (skalRedirecteTilAktivtSteg()) {
-    redirect({ href: `/${referanse}/${utfylling.tilstand.aktivtSteg}`, locale: params.locale });
+    redirect({
+      href: `/${params.innsendingtype}/${referanse}/${utfylling.tilstand.aktivtSteg}`,
+      locale: params.locale,
+    });
   }
 
   return (
