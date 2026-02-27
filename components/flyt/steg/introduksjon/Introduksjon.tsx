@@ -12,12 +12,11 @@ import { Opplysningsinformasjon } from 'components/Opplysningsinformasjon/Opplys
 
 interface Props {
   utfylling: UtfyllingResponse;
-  referanse: string;
 }
 
-export const Introduksjon = ({ utfylling, referanse }: Props) => {
+export const Introduksjon = ({ utfylling }: Props) => {
   const t = useTranslations();
-  const { innsendingtype } = useParamsMedType();
+  const { innsendingtype, referanse } = useParamsMedType();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
 
   const fraDato = new Date(utfylling.metadata.periode.fom);
