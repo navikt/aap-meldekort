@@ -137,22 +137,22 @@
         }
       },
       "fraværspørsmål": {
-        "heading": "TODO?",
+        "heading": "Fråvær frå avtalt aktivitet?",
         "periode": "Uke {uker} ({periode})",
         "harDuGjennomførtAvtaltAktivitet": {
-          "label": "TODO Har du gjennomført alle aktiviteter som er avtalt med oss?",
-          "error": "TODO Du må svare på om du har gjennomført alle avtalte aktiviteter",
+          "label": "Har du gjennomført alle aktivitetar som er avtalte med oss?",
+          "error": "Du må svara på om du har gjennomført alle avtalte aktivitetar",
           "options": {
-            "gjennomførtAvtaltAktivitet": "TODO Ja, jeg har gjennomført alle avtalte aktiviteter",
-            "neiIkkeGjennomførtAvtaltAktivitet": "TODO Nei, jeg har ikke gjennomført alle avtalte aktiviteter",
-            "ingenAvtalteAktiviteter": "TODO Jeg har ingen avtalte aktiviteter"
+            "gjennomførtAvtaltAktivitet": "Ja, eg har gjennomført alle avtalte aktivitetar",
+            "neiIkkeGjennomførtAvtaltAktivitet": "Nei, eg har ikkje gjennomført alle avtalte aktivitetar",
+            "ingenAvtalteAktiviteter": "Eg har ingen avtalte aktivitetar"
           }
         }
       },
       "fraværutfylling": {
-        "heading": "TODO Hvilke dager var du borte fra avtalt aktivitet?",
+        "heading": "Kva dagar var du borte frå avtalt aktivitet?",
         "periode": "Uke {uker} ({periode})",
-        "description": "Du melder kun inn aktiviteter som er i aktivitetsplanen og avtalt med Nav.",
+        "description": "Du melder berre inn aktivitetar som er i aktivitetsplanen og avtalte med Nav.",
         "leggTilDag": "Legg til dag"
       },
       "bekreft": {
