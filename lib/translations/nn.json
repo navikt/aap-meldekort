@@ -153,7 +153,9 @@
         "heading": "Kva dagar var du borte frå avtalt aktivitet?",
         "periode": "Uke {uker} ({periode})",
         "description": "Du melder berre inn aktivitetar som er i aktivitetsplanen og avtalte med Nav.",
-        "leggTilDag": "Legg til dag"
+        "underheading": "Dagar du var borte",
+        "leggTilDag": "Legg til dag",
+        "fraværSammeDagSomArbeid": "Du har registrert fråvær same dag som du har ført timar"
       },
       "bekreft": {
         "korrigering": {

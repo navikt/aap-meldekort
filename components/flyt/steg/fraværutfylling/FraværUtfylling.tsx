@@ -126,7 +126,7 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
           </VStack>
 
           <Heading size="medium" level={'3'}>
-            Dager du var borte
+            {t('client.steg.fraværutfylling.underheading')}
           </Heading>
           <VStack gap={'space-16'}>
             {sorterteFelter.map((felt) => {
@@ -146,13 +146,13 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
         </VStack>
         <div>
           <Button onClick={() => setVisDialog(true)} variant={'secondary'} type={'button'}>
-            Legg til dag
+            {t('client.steg.fraværutfylling.leggTilDag')}
           </Button>
         </div>
         {dagerMedFraværOgRegistrertArbeid.length > 0 && (
           <InfoCard>
             <InfoCard.Header icon={<InformationSquareIcon aria-hidden />}>
-              <InfoCard.Title>Du har registrert fravær på samme dato som du har ført timer</InfoCard.Title>
+              <InfoCard.Title>{t('client.steg.fraværutfylling.fraværSammeDagSomArbeid')}</InfoCard.Title>
             </InfoCard.Header>
             <InfoCard.Content>
               <ul>
