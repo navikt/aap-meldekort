@@ -1,7 +1,7 @@
 import { FraværUtfylling } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
 import { UtfyllingResponse } from 'lib/types/types';
 import { render, screen } from 'lib/utils/test/customRender';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from '@testing-library/user-event';
 import createFetchMock from 'vitest-fetch-mock';
 
@@ -153,7 +153,7 @@ describe('Fravær utfylling', () => {
       const registrertFraværDato = screen.getByText('Lørdag 13. desember 2025');
       expect(registrertFraværDato).toBeVisible();
 
-      const fjernKnapp = screen.getByRole('button', { name: 'Fjern' });
+      const fjernKnapp = await screen.findByRole('button', { name: 'Fjern' });
       await user.click(fjernKnapp);
 
       const registrertFraværDatoEtterSletting = screen.queryByText('Lørdag 13. desember 2025');
