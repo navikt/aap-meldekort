@@ -98,7 +98,7 @@
           "heading": "Endre meldekort"
         },
         "innsending": {
-          "heading": "Fyll ut meldekort"
+          "heading": "Arbeid og avtalt aktivitet"
         },
         "periode": "Uke {uker} ({periode})",
         "skjema": {
@@ -115,7 +115,7 @@
           "heading": "Endre meldekort"
         },
         "innsending": {
-          "heading": "Fyll ut meldekort"
+          "heading": "Hvilke dager har du arbeidet?"
         },
         "periode": "Uke {uker} ({periode})",
         "beskrivelse": "Skriv inn timene du har arbeidet for perioden. Timer skrives med desimal til nærmeste halvtime. For eksempel blir 7 timer og 30 min = 7,5 timer.",
@@ -155,7 +155,29 @@
         "description": "Du melder kun inn aktiviteter som er i aktivitetsplanen og avtalt med Nav.",
         "underheading": "Dager du var borte",
         "leggTilDag": "Legg til dag",
-        "fraværSammeDagSomArbeid": "Du har registrert fravær på samme dato som du har ført timer"
+        "fraværSammeDagSomArbeid": "Du har registrert fravær på samme dato som du har ført timer",
+        "dialog": {
+          "title": "Legg til dag",
+          "avbryt": "Avbryt",
+          "bekreft": "Bekreft",
+          "dato": {
+            "label": "Hvilken dag var du borte?",
+            "error": "Du må si hvilken dag du var borte"
+          },
+          "grunn": {
+            "label": "Hva var grunnen?",
+            "error": "Du må velge grunn",
+            "grunner": {
+              "sykdomSkade": "Sykdom eller skade",
+              "omsorgAnnenSterkGrunn": "Annen sterk grunn",
+              "omsorgPleieIHjemmet": "Pleie i hjemmet av nær pårørende",
+              "meddommerEllerAndreOffentligePlikter": "Meddommer eller andre offentlige plikter",
+              "oppfølgingAvBarn": "Første skoledag, tilvenning eller annen oppfølging av barn",
+              "dødsfall": "Dødsfall i familie eller vennekrets",
+              "annen": "Annen"
+            }
+          }
+        }
       },
       "bekreft": {
         "korrigering": {

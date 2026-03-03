@@ -5,6 +5,7 @@ import { UseFieldArrayAppend, useForm } from 'react-hook-form';
 import { Fravær, UtfyllingResponse } from 'lib/types/types';
 import { DateWrapper } from 'components/datewrapper/DateWrapper';
 import { useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -19,25 +20,38 @@ interface FormFields {
   typeFravær: NonNullable<Fravær>;
 }
 
-export interface ValuePair<Enum = string> {
+export interface ValuePair<Enum = string, LabelKey = string> {
   value: Enum;
-  label: string;
+  labelKey: LabelKey;
 }
 
 export const fraværsgrunner: ValuePair<NonNullable<Fravær>>[] = [
-  { value: 'SYKDOM_ELLER_SKADE', label: 'Sykdom eller skade' },
-  { value: 'OMSORG_ANNEN_STERK_GRUNN', label: 'Annen sterk grunn' },
-  { value: 'OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE', label: 'Pleie i hjemmet av nær pårørende' },
-  { value: 'OMSORG_MEDDOMMER_ELLER_ANDRE_OFFENTLIGE_PLIKTER', label: 'Meddommer eller andre offentlige plikter' },
+  { value: 'SYKDOM_ELLER_SKADE', labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.sykdomSkade' },
+  {
+    value: 'OMSORG_ANNEN_STERK_GRUNN',
+    labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.omsorgAnnenSterkGrunn',
+  },
+  {
+    value: 'OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE',
+    labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.omsorgPleieIHjemmet',
+  },
+  {
+    value: 'OMSORG_MEDDOMMER_ELLER_ANDRE_OFFENTLIGE_PLIKTER',
+    labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.meddommerEllerAndreOffentligePlikter',
+  },
   {
     value: 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN',
-    label: 'Første skoledag, tilvenning eller annen oppfølging av barn',
+    labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.oppfølgingAvBarn',
   },
-  { value: 'ANNEN', label: 'Annen' },
-  { value: 'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS', label: 'Dødsfall i familie eller vennekrets' },
+  {
+    value: 'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS',
+    labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.dødsfall',
+  },
+  { value: 'ANNEN', labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.annen' },
 ];
 
 export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, setVisDialog, disabledDays }: Props) => {
+  const t = useTranslations();
   const form = useForm<FormFields>({
     defaultValues: {
       dato: undefined,
@@ -56,7 +70,7 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
     <Dialog open={visDialog} onOpenChange={setVisDialog}>
       <Dialog.Popup>
         <Dialog.Header>
-          <Dialog.Title>Legg til dag</Dialog.Title>
+          <Dialog.Title>{t('client.steg.fraværutfylling.dialog.title')}</Dialog.Title>
         </Dialog.Header>
         <Dialog.Body>
           <form
@@ -71,8 +85,8 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
               <DateWrapper
                 name={'dato'}
                 control={form.control}
-                label={'Hvilken dag var du borte?'}
-                rules={{ required: 'Du må si hvilken dag du var borte...' }}
+                label={t('client.steg.fraværutfylling.dialog.dato.label')}
+                rules={{ required: t('client.steg.fraværutfylling.dialog.dato.error') }}
                 fromDate={new Date(utfyllingsdager[0].dato)}
                 toDate={new Date(utfyllingsdager[utfyllingsdager.length - 1].dato)}
                 size={'medium'}
@@ -82,12 +96,12 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
                 size={'medium'}
                 control={form.control}
                 name={'typeFravær'}
-                label={'Hva var grunnen?'}
-                rules={{ required: 'Du må velge grunn' }}
+                label={t('client.steg.fraværutfylling.dialog.grunn.label')}
+                rules={{ required: t('client.steg.fraværutfylling.dialog.grunn.error') }}
               >
                 {fraværsgrunner.map((fraværsgrunn) => (
                   <Radio value={fraværsgrunn.value} key={fraværsgrunn.value}>
-                    {fraværsgrunn.label}
+                    {t(fraværsgrunn.labelKey)}
                   </Radio>
                 ))}
               </RadioGroupWrapper>
@@ -97,11 +111,11 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
         <Dialog.Footer>
           <Dialog.CloseTrigger>
             <Button variant={'secondary'} type={'button'}>
-              Avbryt
+              {t('client.steg.fraværutfylling.dialog.avbryt')}
             </Button>
           </Dialog.CloseTrigger>
           <Button variant={'primary'} form="skjemaet">
-            Bekreft
+            {t('client.steg.fraværutfylling.dialog.bekreft')}
           </Button>
         </Dialog.Footer>
       </Dialog.Popup>

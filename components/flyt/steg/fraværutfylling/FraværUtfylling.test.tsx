@@ -88,7 +88,7 @@ describe('Fravær utfylling', () => {
       await trykkPåLeggTilFraværKnapp();
       await trykkPåBekreftLeggTilFravær();
 
-      const feilmelding = screen.getByText('Du må si hvilken dag du var borte...');
+      const feilmelding = screen.getByText('Du må si hvilken dag du var borte');
       expect(feilmelding).toBeVisible();
     });
 
@@ -186,7 +186,7 @@ describe('Fravær utfylling', () => {
       render(<FraværUtfylling utfylling={oppdatertMeldekort} />);
 
       expect(screen.getByText('Mandag 15. desember 2025')).toBeVisible();
-      expect(screen.getByText('Omsorg eller dødsfall i familie eller vennekrets')).toBeVisible();
+      expect(screen.getByText('Dødsfall i familie eller vennekrets')).toBeVisible();
     });
   });
 });

@@ -148,10 +148,10 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
             <FormSummary.Value>
               <FormSummary.Answers>
                 {unikeFraværsgrunner.map((fraværsgrunn) => {
-                  const label = fraværsgrunner.find((v) => v.value === fraværsgrunn)?.label;
+                  const labelKey = fraværsgrunner.find((v) => v.value === fraværsgrunn)?.labelKey || fraværsgrunn;
                   return (
                     <FormSummary.Answer key={fraværsgrunn}>
-                      <FormSummary.Label>{label}:</FormSummary.Label>
+                      <FormSummary.Label>{t(labelKey)}:</FormSummary.Label>
                       {utfylling.tilstand.svar.dager
                         .filter((dag) => dag.fravær && dag.fravær === fraværsgrunn)
                         .map((dag) => (
