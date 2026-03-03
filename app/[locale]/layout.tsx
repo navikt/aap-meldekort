@@ -8,10 +8,10 @@ import { getEnvironment } from 'lib/utils/environments';
 import styles from 'app/[locale]/layout.module.css';
 import { Heading } from '@navikt/ds-react';
 import { Språkvelger } from 'components/språkvelger/Språkvelger';
-import { getMessages, getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { redirect, routing } from 'i18n/routing';
-import { NextIntlClientProvider } from 'next-intl';
 import { logWarning } from '@navikt/aap-felles-utils';
+import { NextIntlClientProvider } from 'next-intl';
 
 export async function generateMetadata() {
   const t = await getTranslations();
@@ -36,8 +36,6 @@ export default async function RootLayout({
   }
   const Decorator = await fetchDecoratorReact({ env: getEnvironment() });
 
-  const messages = await getMessages();
-
   return (
     <html lang={locale}>
       <head>
@@ -45,7 +43,7 @@ export default async function RootLayout({
       </head>
       <body>
         <Decorator.Header />
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider>
           <div className={styles.meldekortheader}>
             <div className={styles.innhold}>
               <Heading level={'1'} size={'xlarge'}>

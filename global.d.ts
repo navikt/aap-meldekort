@@ -1,11 +1,9 @@
 import nb from './lib/translations/nb.json';
-import nn from './lib/translations/nn.json';
+import { formats } from 'i18n/request';
 
-type MessagesNb = typeof nb;
-type MessagesNn = typeof nn;
-
-type Messages = MessagesNb & MessagesNn;
-
-declare global {
-  interface IntlMessages extends Messages {}
+declare module 'next-intl' {
+  interface AppConfig {
+    Messages: typeof nb;
+    Formats: typeof formats;
+  }
 }
