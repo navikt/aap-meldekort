@@ -26,7 +26,6 @@ export const Introduksjon = ({ utfylling }: Props) => {
     <Form
       onSubmit={(e) => {
         e.preventDefault();
-
         løsStegOgGåTilNeste({
           nyTilstand: {
             aktivtSteg: 'INTRODUKSJON',
@@ -45,7 +44,7 @@ export const Introduksjon = ({ utfylling }: Props) => {
         {innsendingtype === InnsendingType.INNSENDING && utfylling.metadata.antallUbesvarteMeldeperioder > 0 && (
           <Alert variant={'info'}>
             {t('client.steg.introduksjon.flereMeldekortAlert', {
-              antallMeldekort: utfylling.metadata.antallUbesvarteMeldeperioder,
+              antallMeldekort: utfylling.metadata.antallUbesvarteMeldeperioder.toString(),
             })}
           </Alert>
         )}

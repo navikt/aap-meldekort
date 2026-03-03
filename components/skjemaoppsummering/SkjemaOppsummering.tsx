@@ -86,7 +86,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                       <FormSummary.Answer key={index}>
                         <FormSummary.Label>
                           {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.periodeLabel', {
-                            ukenummer: hentUkeNummerForDato(uke.ukeStart),
+                            ukenummer: hentUkeNummerForDato(uke.ukeStart).toString(),
                             periode: `${formaterDatoMedÅrForFrontend(uke.ukeStart)} - ${formaterDatoMedÅrForFrontend(uke.ukeSlutt)}`,
                           })}
                         </FormSummary.Label>
@@ -102,7 +102,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                                   </BodyShort>
                                   <BodyShort>
                                     {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.timerArbeidet', {
-                                      timer: dag.timerArbeidet ?? 0,
+                                      timer: dag.timerArbeidet?.toString() ?? '0',
                                     })}
                                   </BodyShort>
                                 </HStack>
@@ -118,7 +118,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                   </FormSummary.Label>
                   <FormSummary.Value>
                     {t('client.steg.bekreft.oppsummering.antallTimerArbeidet.timerArbeidet', {
-                      timer: regnUtTimer(Object.values(meldeperiodeUker).flatMap((uke) => uke.dager)),
+                      timer: regnUtTimer(Object.values(meldeperiodeUker).flatMap((uke) => uke.dager)).toString(),
                     })}
                   </FormSummary.Value>
                 </FormSummary.Answer>

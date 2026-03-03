@@ -2,7 +2,7 @@ import { cleanup, render } from '@testing-library/react';
 import { ReactElement } from 'react';
 import { afterEach } from 'vitest';
 import { NextIntlClientProvider } from 'next-intl';
-import messagesNb from 'lib/translations/nb.json';
+import messagesNb from 'messages/nb.json';
 
 afterEach(() => {
   cleanup();

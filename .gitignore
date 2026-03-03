@@ -53,3 +53,8 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# messages
+
+ /messages/nb.d.json.ts
+ /messages/nn.d.json.ts

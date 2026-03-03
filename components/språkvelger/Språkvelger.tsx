@@ -2,7 +2,7 @@
 
 import { onLanguageSelect, setAvailableLanguages } from '@navikt/nav-dekoratoren-moduler';
 import { useEffect } from 'react';
-import { availableLanguages } from 'lib/messages/locale';
+import { availableLanguages } from 'messages/locale';
 import { usePathname, useRouter } from 'i18n/routing';
 
 export const Språkvelger = () => {
