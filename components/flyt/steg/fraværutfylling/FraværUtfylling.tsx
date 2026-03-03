@@ -124,25 +124,28 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
 
             <BodyShort>{t('client.steg.fraværutfylling.description')}</BodyShort>
           </VStack>
+          {fields.length > 0 && (
+            <VStack gap={'space-16'}>
+              <Heading size="medium" level={'3'}>
+                {t('client.steg.fraværutfylling.underheading')}
+              </Heading>
+              <VStack gap={'space-16'}>
+                {sorterteFelter.map((felt) => {
+                  // Ettersom vi sorterer feltene så må vi utlede index fra fields
+                  const index = fields.findIndex((field) => field.id === felt.id);
 
-          <Heading size="medium" level={'3'}>
-            {t('client.steg.fraværutfylling.underheading')}
-          </Heading>
-          <VStack gap={'space-16'}>
-            {sorterteFelter.map((felt) => {
-              // Ettersom vi sorterer feltene så må vi utlede index fra fields
-              const index = fields.findIndex((field) => field.id === felt.id);
-
-              return (
-                <RegistrertFravær
-                  key={felt.id}
-                  felt={felt}
-                  slettFravær={() => remove(index)}
-                  timerArbeidet={finnTimerForDag(utfylling.tilstand.svar.dager, felt.dato)}
-                />
-              );
-            })}
-          </VStack>
+                  return (
+                    <RegistrertFravær
+                      key={felt.id}
+                      felt={felt}
+                      slettFravær={() => remove(index)}
+                      timerArbeidet={finnTimerForDag(utfylling.tilstand.svar.dager, felt.dato)}
+                    />
+                  );
+                })}
+              </VStack>
+            </VStack>
+          )}
         </VStack>
         <div>
           <Button onClick={() => setVisDialog(true)} variant={'secondary'} type={'button'}>
