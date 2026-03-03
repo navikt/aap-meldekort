@@ -26,7 +26,7 @@ export const RegistrertFravær = ({ felt, slettFravær, timerArbeidet }: Props) 
         {timerArbeidet && (
           <div>
             <Tag variant={'outline'} data-color="info" size="small">
-              {timerArbeidet} timer arbeidet
+              {t('client.steg.fraværutfylling.timerArbeidet', { timerArbeidet })}
             </Tag>
           </div>
         )}

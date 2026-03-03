@@ -156,6 +156,7 @@
         "underheading": "Dagar du var borte",
         "leggTilDag": "Legg til dag",
         "fraværSammeDagSomArbeid": "Du har registrert fråvær same dag som du har ført timar",
+        "timerArbeidet": "{timerArbeidet} timar arbeidet",
         "dialog": {
           "title": "Legg til dag",
           "avbryt": "Avbryt",
