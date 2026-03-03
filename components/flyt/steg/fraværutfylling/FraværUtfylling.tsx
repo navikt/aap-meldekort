@@ -124,12 +124,12 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
 
             <BodyShort>{t('client.steg.fraværutfylling.description')}</BodyShort>
           </VStack>
-          {fields.length > 0 && (
-            <VStack gap={'space-16'}>
-              <Heading size="medium" level={'3'}>
-                {t('client.steg.fraværutfylling.underheading')}
-              </Heading>
-              <VStack gap={'space-16'}>
+          <VStack gap={'space-16'}>
+            {fields.length > 0 && (
+              <>
+                <Heading size="medium" level={'3'}>
+                  {t('client.steg.fraværutfylling.underheading')}
+                </Heading>
                 {sorterteFelter.map((felt) => {
                   // Ettersom vi sorterer feltene så må vi utlede index fra fields
                   const index = fields.findIndex((field) => field.id === felt.id);
@@ -143,15 +143,16 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
                     />
                   );
                 })}
-              </VStack>
-            </VStack>
-          )}
+              </>
+            )}
+            <div>
+              <Button onClick={() => setVisDialog(true)} variant={'secondary'} type={'button'}>
+                {t('client.steg.fraværutfylling.leggTilDag')}
+              </Button>
+            </div>
+          </VStack>
         </VStack>
-        <div>
-          <Button onClick={() => setVisDialog(true)} variant={'secondary'} type={'button'}>
-            {t('client.steg.fraværutfylling.leggTilDag')}
-          </Button>
-        </div>
+
         {dagerMedFraværOgRegistrertArbeid.length > 0 && (
           <InfoCard>
             <InfoCard.Header icon={<InformationSquareIcon aria-hidden />}>
