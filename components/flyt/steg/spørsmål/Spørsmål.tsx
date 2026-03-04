@@ -116,15 +116,15 @@ export const Spørsmål = ({ utfylling }: Props) => {
             rules={{ required: t('client.steg.fraværspørsmål.harDuGjennomførtAvtaltAktivitet.error') }}
           >
             <Radio value={'GJENNOMFØRT_AVTALT_AKTIVITET'}>
-              {t('client.steg.fraværspørsmål.harDuGjennomførtAvtaltAktivitet.options.gjennomførtAvtaltAktivitet')}
+              {t('client.fraværFraAvtaltAktivitet.harDuGjennomførtAvtaltAktivitet.valg.gjennomførtAvtaltAktivitet')}
             </Radio>
             <Radio value={'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET'}>
               {t(
-                'client.steg.fraværspørsmål.harDuGjennomførtAvtaltAktivitet.options.neiIkkeGjennomførtAvtaltAktivitet'
+                'client.fraværFraAvtaltAktivitet.harDuGjennomførtAvtaltAktivitet.valg.neiIkkeGjennomførtAvtaltAktivitet'
               )}
             </Radio>
             <Radio value={'INGEN_AVTALTE_AKTIVITETER'}>
-              {t('client.steg.fraværspørsmål.harDuGjennomførtAvtaltAktivitet.options.ingenAvtalteAktiviteter')}
+              {t('client.fraværFraAvtaltAktivitet.harDuGjennomførtAvtaltAktivitet.valg.ingenAvtalteAktiviteter')}
             </Radio>
           </RadioGroupWrapper>
         )}

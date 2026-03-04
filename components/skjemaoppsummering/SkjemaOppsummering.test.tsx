@@ -231,4 +231,10 @@ describe('skjema oppsummering', () => {
         });
     }
   });
+
+  it('viser hva bruker har svart på fravær fra aktivitet', () => {
+    render(<SkjemaOppsummering utfylling={meldekortMedFravær} visLenkeTilbakeTilSteg={false} />);
+    expect(screen.getByText('Har du gjennomført alle aktiviteter som er avtalt med oss?')).toBeVisible();
+    expect(screen.getByText('Nei, jeg har ikke gjennomført alle avtalte aktiviteter')).toBeVisible();
+  });
 });

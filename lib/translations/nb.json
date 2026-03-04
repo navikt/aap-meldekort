@@ -203,6 +203,9 @@
             "periodeLabel": "Uke {ukenummer} ({periode})",
             "timerArbeidet": "{timer} timer arbeidet",
             "sammenlagt": "Sammenlagt for perioden"
+          },
+          "harDuGjennomførtAvtaltAktivitet": {
+            "label": "Har du gjennomført alle aktiviteter som er avtalt med oss?"
           }
         },
         "skjema": {
@@ -251,6 +254,15 @@
     },
     "sammenlagtForPerioden": {
       "label": "Sammenlagt for perioden"
+    },
+    "fraværFraAvtaltAktivitet": {
+      "harDuGjennomførtAvtaltAktivitet": {
+        "valg": {
+          "gjennomførtAvtaltAktivitet": "Ja, jeg har gjennomført alle avtalte aktiviteter",
+          "neiIkkeGjennomførtAvtaltAktivitet": "Nei, jeg har ikke gjennomført alle avtalte aktiviteter",
+          "ingenAvtalteAktiviteter": "Jeg har ingen avtalte aktiviteter"
+        }
+      }
     }
   }
 }
