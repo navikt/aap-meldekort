@@ -43,6 +43,10 @@ export const Spørsmål = ({ utfylling }: Props) => {
   const tilDato = new Date(utfylling.metadata.periode.tom);
 
   const harDuJobbetValue = useWatch({ control: form.control, name: 'harDuJobbet' });
+  const harDuGjennomførtAvtaltAktivitetValue = useWatch({
+    control: form.control,
+    name: 'harDuGjennomførtAvtaltAktivitet',
+  });
 
   useEffect(() => {
     if (harDuJobbetValue !== null) {
@@ -52,11 +56,12 @@ export const Spørsmål = ({ utfylling }: Props) => {
           svar: {
             ...utfylling.tilstand.svar,
             harDuJobbet: harDuJobbetValue === JaEllerNei.Ja,
+            harDuGjennomførtAvtaltAktivitet: harDuGjennomførtAvtaltAktivitetValue,
           },
         },
       });
     }
-  }, [harDuJobbetValue]);
+  }, [harDuJobbetValue, harDuGjennomførtAvtaltAktivitetValue]);
 
   return (
     <Form
