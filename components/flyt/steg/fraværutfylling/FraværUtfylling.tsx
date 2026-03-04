@@ -74,7 +74,7 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
 
     mellomlagreMeldekort({
       nyTilstand: {
-        aktivtSteg: 'UTFYLLING',
+        aktivtSteg: 'FRAVÆR_UTFYLLING',
         svar: {
           ...utfylling.tilstand.svar,
           dager: dagerMedFravær,
