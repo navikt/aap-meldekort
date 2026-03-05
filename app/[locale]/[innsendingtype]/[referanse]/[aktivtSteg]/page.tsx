@@ -1,12 +1,12 @@
-import { SpørsmåLMedDataFetching } from 'components/flyt/steg/spørsmål/SpørsmålMedDataFetching';
-import { UtfyllingMedDataFetching } from 'components/flyt/steg/utfylling/UtfyllingMedDataFetching';
 import { Steg } from 'lib/types/types';
-import { IntroduksjonMedDataFetching } from 'components/flyt/steg/introduksjon/IntroduksjonMedDataFetching';
-import { KvitteringMedDataFetching } from 'components/flyt/steg/kvittering/KvitteringMedDataFetching';
 import { redirect } from 'i18n/routing';
-import { BekreftMedDataFetching } from 'components/flyt/steg/bekreft/BekreftMedDataFetching';
 import { hentUtfylling } from 'lib/services/meldekortservice';
-import { FraværUtfyllingMedDataFetching } from 'components/flyt/steg/fraværutfylling/FraværUtfyllingMedDataFetching';
+import { Introduksjon } from 'components/flyt/steg/introduksjon/Introduksjon';
+import { Spørsmål } from 'components/flyt/steg/spørsmål/Spørsmål';
+import { Utfylling } from 'components/flyt/steg/utfylling/Utfylling';
+import { Bekreft } from 'components/flyt/steg/bekreft/Bekreft';
+import { KvitteringMedDataFetching } from 'components/flyt/steg/kvittering/KvitteringMedDataFetching';
+import { FraværUtfylling } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
 
 interface Props {
   params: Promise<{
@@ -29,6 +29,7 @@ const AktivtStegPage = async (props: Props) => {
   const aktivtSteg = decodeURI(params.aktivtSteg) as Steg;
   const referanse = params.referanse;
   const utfylling = await hentUtfylling(referanse);
+
   function skalRedirecteTilAktivtSteg() {
     const steg: StegTuple = alleSteg;
 
@@ -50,12 +51,12 @@ const AktivtStegPage = async (props: Props) => {
 
   return (
     <>
-      {aktivtSteg === 'INTRODUKSJON' && <IntroduksjonMedDataFetching referanse={referanse} />}
-      {aktivtSteg === 'SPØRSMÅL' && <SpørsmåLMedDataFetching referanse={referanse} />}
-      {aktivtSteg === 'UTFYLLING' && <UtfyllingMedDataFetching referanse={referanse} />}
-      {aktivtSteg === 'FRAVÆR_UTFYLLING' && <FraværUtfyllingMedDataFetching referanse={referanse} />}
-      {aktivtSteg === 'BEKREFT' && <BekreftMedDataFetching referanse={referanse} />}
-      {aktivtSteg === 'KVITTERING' && <KvitteringMedDataFetching referanse={referanse} />}
+      {aktivtSteg === 'INTRODUKSJON' && <Introduksjon utfylling={utfylling} />}
+      {aktivtSteg === 'SPØRSMÅL' && <Spørsmål utfylling={utfylling} />}
+      {aktivtSteg === 'UTFYLLING' && <Utfylling utfylling={utfylling} />}
+      {aktivtSteg === 'FRAVÆR_UTFYLLING' && <FraværUtfylling utfylling={utfylling} />}
+      {aktivtSteg === 'BEKREFT' && <Bekreft utfylling={utfylling} />}
+      {aktivtSteg === 'KVITTERING' && <KvitteringMedDataFetching utfylling={utfylling} />}
     </>
   );
 };
