@@ -98,7 +98,7 @@
           "heading": "Endre meldekort"
         },
         "innsending": {
-          "heading": "Fyll ut meldekort"
+          "heading": "Arbeid og avtalt aktivitet"
         },
         "periode": "Uke {uker} ({periode})",
         "skjema": {
@@ -115,7 +115,7 @@
           "heading": "Endre meldekort"
         },
         "innsending": {
-          "heading": "Fyll ut meldekort"
+          "heading": "Hvilke dager har du arbeidet?"
         },
         "periode": "Uke {uker} ({periode})",
         "beskrivelse": "Skriv inn timene du har arbeidet for perioden. Timer skrives med desimal til nærmeste halvtime. For eksempel blir 7 timer og 30 min = 7,5 timer.",
@@ -132,6 +132,51 @@
                 "bareNummer": "Du kan bare skrive tall mellom 0 og 24 ({dato}).",
                 "heleHalveTimer": "Du kan bare skrive inn hele eller halve timer ({dato})."
               }
+            }
+          }
+        }
+      },
+      "fraværspørsmål": {
+        "heading": "Fravær fra avtalt aktivitet",
+        "periode": "Uke {uker} ({periode})",
+        "harDuGjennomførtAvtaltAktivitet": {
+          "label": "Har du gjennomført alle aktiviteter som er avtalt med oss?",
+          "error": "Du må svare på om du har gjennomført alle avtalte aktiviteter",
+          "options": {
+            "gjennomførtAvtaltAktivitet": "Ja, jeg har gjennomført alle avtalte aktiviteter",
+            "neiIkkeGjennomførtAvtaltAktivitet": "Nei, jeg har ikke gjennomført alle avtalte aktiviteter",
+            "ingenAvtalteAktiviteter": "Jeg har ingen avtalte aktiviteter"
+          }
+        }
+      },
+      "fraværutfylling": {
+        "heading": "Hvilke dager var du borte fra avtalt aktivitet?",
+        "periode": "Uke {uker} ({periode})",
+        "description": "Du melder kun inn aktiviteter som er i aktivitetsplanen og avtalt med Nav.",
+        "underheading": "Dager du var borte",
+        "leggTilDag": "Legg til dag",
+        "fraværSammeDagSomArbeid": "Du har registrert fravær på samme dato som du har ført timer",
+        "timerArbeidet": "{timerArbeidet} timer arbeidet",
+        "error": "Legg til dagene du har vært borte. Du har svart at du har vært borte fra avtalt aktivitet og må legge til dette før du kan fortsette.",
+        "dialog": {
+          "title": "Legg til dag",
+          "avbryt": "Avbryt",
+          "bekreft": "Bekreft",
+          "dato": {
+            "label": "Hvilken dag var du borte?",
+            "error": "Du må si hvilken dag du var borte"
+          },
+          "grunn": {
+            "label": "Hva var grunnen?",
+            "error": "Du må velge grunn",
+            "grunner": {
+              "sykdomSkade": "Sykdom eller skade",
+              "omsorgAnnenSterkGrunn": "Annen sterk grunn",
+              "omsorgPleieIHjemmet": "Pleie i hjemmet av nær pårørende",
+              "meddommerEllerAndreOffentligePlikter": "Meddommer eller andre offentlige plikter",
+              "oppfølgingAvBarn": "Første skoledag, tilvenning eller annen oppfølging av barn",
+              "dødsfall": "Dødsfall i familie eller vennekrets",
+              "annen": "Annen"
             }
           }
         }
@@ -159,6 +204,9 @@
             "periodeLabel": "Uke {ukenummer} ({periode})",
             "timerArbeidet": "{timer} timer arbeidet",
             "sammenlagt": "Sammenlagt for perioden"
+          },
+          "harDuGjennomførtAvtaltAktivitet": {
+            "label": "Har du gjennomført alle aktiviteter som er avtalt med oss?"
           }
         },
         "skjema": {
@@ -207,6 +255,15 @@
     },
     "sammenlagtForPerioden": {
       "label": "Sammenlagt for perioden"
+    },
+    "fraværFraAvtaltAktivitet": {
+      "harDuGjennomførtAvtaltAktivitet": {
+        "valg": {
+          "gjennomførtAvtaltAktivitet": "Ja, jeg har gjennomført alle avtalte aktiviteter",
+          "neiIkkeGjennomførtAvtaltAktivitet": "Nei, jeg har ikke gjennomført alle avtalte aktiviteter",
+          "ingenAvtalteAktiviteter": "Jeg har ingen avtalte aktiviteter"
+        }
+      }
     }
   }
 }

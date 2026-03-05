@@ -37,7 +37,7 @@ describe('Spørsmål', () => {
   });
 
   it('Skal ha en heading', () => {
-    const heading = screen.getByRole('heading', { name: 'Fyll ut meldekort', level: 2 });
+    const heading = screen.getByRole('heading', { name: 'Arbeid og avtalt aktivitet', level: 2 });
     expect(heading).toBeVisible();
   });
 
@@ -70,5 +70,48 @@ describe('Spørsmål', () => {
     await user.click(fullførKnapp);
     const feilmelding = screen.getByText('Du må svare på om du har arbeidet i perioden.');
     expect(feilmelding).toBeVisible();
+  });
+});
+
+describe('Spørsmål med brukermeldt fravær', () => {
+  const utfyllingV2: UtfyllingResponse = {
+    tilstand: {
+      aktivtSteg: 'SPØRSMÅL',
+      svar: {
+        dager: [],
+      },
+    },
+    metadata: {
+      antallUbesvarteMeldeperioder: 1,
+      kanSendesInn: true,
+      periode: {
+        fom: '2024-11-18',
+        tom: '2024-12-01',
+      },
+      referanse: '123456789',
+      flytNavn: 'AAP_FLYT_V2',
+      visFrist: false,
+    },
+  };
+  beforeEach(() => {
+    fetchMock.resetMocks();
+    fetchMock.mockResponse(JSON.stringify({ message: 'Success' }), { status: 200 });
+  });
+
+  it('viser ikke spørsmål om fravær for allerede påbegynte utfyllinger', () => {
+    render(<Spørsmål utfylling={periode} />);
+    expect(
+      screen.queryByRole('group', { name: 'Har du gjennomført alle aktiviteter som er avtalt med oss?' })
+    ).not.toBeInTheDocument();
+  });
+
+  it('viser spørsmål om fravær for nye utfyllinger', () => {
+    render(<Spørsmål utfylling={utfyllingV2} />);
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Har du gjennomført alle aktiviteter som er avtalt med oss?',
+      })
+    ).toBeVisible();
   });
 });
