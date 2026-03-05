@@ -1,6 +1,6 @@
 'use client';
 
-import { BodyShort, Button, Heading, InfoCard, VStack } from '@navikt/ds-react';
+import { BodyShort, Button, ErrorSummary, Fieldset, Heading, InfoCard, VStack } from '@navikt/ds-react';
 import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
 import { Form } from 'components/form/Form';
 import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
@@ -55,6 +55,10 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: 'dager',
+    rules: {
+      required: t('client.steg.fraværutfylling.error'),
+      minLength: { message: t('client.steg.fraværutfylling.error'), value: 1 },
+    },
   });
 
   const dagerMedFraværOgRegistrertArbeid = fields
@@ -146,7 +150,7 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
               </>
             )}
             <div>
-              <Button onClick={() => setVisDialog(true)} variant={'secondary'} type={'button'}>
+              <Button onClick={() => setVisDialog(true)} variant={'secondary'} type={'button'} id="leggTilDag">
                 {t('client.steg.fraværutfylling.leggTilDag')}
               </Button>
             </div>
@@ -166,6 +170,11 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
               </ul>
             </InfoCard.Content>
           </InfoCard>
+        )}
+        {form.formState.errors.dager?.root && (
+          <ErrorSummary>
+            <ErrorSummary.Item href="#leggTilDag">{form.formState.errors.dager?.root?.message}</ErrorSummary.Item>
+          </ErrorSummary>
         )}
       </Form>
 

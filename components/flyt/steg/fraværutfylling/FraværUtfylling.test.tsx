@@ -159,6 +159,11 @@ describe('Fravær utfylling', () => {
       const registrertFraværDatoEtterSletting = screen.queryByText('Lørdag 13. desember 2025');
       expect(registrertFraværDatoEtterSletting).not.toBeInTheDocument();
     });
+
+    it('gir en feilmelding hvis man trykker neste uten å ha lagt inn fravær', async () => {
+      await user.click(screen.getByRole('button', { name: 'Neste' }));
+      expect(screen.getByText('Du må registrere hvilke dager du har vært borte fra avtalt aktivtet')).toBeVisible();
+    });
   });
 
   describe('mellomlagring', () => {
