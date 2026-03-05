@@ -109,7 +109,7 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
         })}
         isLoading={isLoading}
         errorMessage={errorMessage}
-        forrigeStegOnClick={() => gåTilSteg('SPØRSMÅL')}
+        forrigeStegOnClick={() => gåTilSteg('UTFYLLING')}
         sistLagret={sistLagret}
       >
         <VStack gap={'space-32'}>
