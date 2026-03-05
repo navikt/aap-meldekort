@@ -3,6 +3,7 @@ import { EndreUtfyllingRequest } from 'lib/types/types';
 import { gåTilNesteStegClient } from 'lib/client/clientApi';
 import { useGåTilSteg } from 'lib/utils/url';
 import { useRouter } from 'i18n/routing';
+import { isSuccess } from 'lib/utils/api';
 
 export function useLøsStegOgGåTilNesteSteg(referanse: string): {
   isLoading: boolean;
@@ -19,12 +20,12 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
 
     const utfyllingResponse = await gåTilNesteStegClient(referanse, meldekort);
 
-    if (!utfyllingResponse || utfyllingResponse?.feil) {
-      setErrorMessage('Kunne ikke gå videre på grunn av: ' + utfyllingResponse?.feil);
-      setIsLoading(false);
-    } else {
-      gåTilSteg(utfyllingResponse.tilstand.aktivtSteg);
+    if (isSuccess(utfyllingResponse)) {
+      gåTilSteg(utfyllingResponse.data.tilstand.aktivtSteg);
       router.refresh();
+    } else {
+      setErrorMessage('Kunne ikke gå videre på grunn av: ' + utfyllingResponse?.apiException.message);
+      setIsLoading(false);
     }
   };
 

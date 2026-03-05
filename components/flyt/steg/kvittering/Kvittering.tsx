@@ -8,6 +8,7 @@ import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
 import { startInnsendingClient } from 'lib/client/clientApi';
 import { useEffect } from 'react';
+import { isSuccess } from 'lib/utils/api';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -67,13 +68,11 @@ export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
           <Button
             onClick={async () => {
               if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
-                const startInnsendingAvMeldekortResponse = await startInnsendingClient(
-                  kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode
-                );
+                const response = await startInnsendingClient(kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode);
 
-                if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
+                if (isSuccess(response)) {
                   router.push(
-                    `/${InnsendingType.INNSENDING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
+                    `/${InnsendingType.INNSENDING}/${response.data.metadata?.referanse}/${response.data.tilstand?.aktivtSteg}`
                   );
                 }
               }

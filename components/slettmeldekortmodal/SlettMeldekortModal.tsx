@@ -6,6 +6,7 @@ import { useRouter } from 'i18n/routing';
 import { useTranslations } from 'next-intl';
 
 import styles from './SlettMeldekortModal.module.css';
+import { isSuccess } from 'lib/utils/api';
 
 interface Props {
   ref: RefObject<HTMLDialogElement | null>;
@@ -39,11 +40,11 @@ export const SlettMeldekortModal = ({ ref }: Props) => {
               loading={isLoading}
               onClick={async () => {
                 setIsLoading(true);
-                const slettGikkFint = await slettMeldekortUtfyllingClient(referanse);
-                if (slettGikkFint) {
+                const res = await slettMeldekortUtfyllingClient(referanse);
+                if (isSuccess(res)) {
                   router.push(innsendingtype === InnsendingType.INNSENDING ? '/' : '/innsendt');
                 } else {
-                  setErrorMessage(t('client.slettUtfylling.error'));
+                  setErrorMessage(res.apiException.message);
                 }
                 setIsLoading(false);
               }}
