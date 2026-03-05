@@ -162,7 +162,11 @@ describe('Fravær utfylling', () => {
 
     it('gir en feilmelding hvis man trykker neste uten å ha lagt inn fravær', async () => {
       await user.click(screen.getByRole('button', { name: 'Neste' }));
-      expect(screen.getByText('Du må registrere hvilke dager du har vært borte fra avtalt aktivtet')).toBeVisible();
+      expect(
+        screen.getByText(
+          'Legg til dagene du har vært borte. Du har svart at du har vært borte fra avtalt aktivitet og må legge til dette før du kan fortsette.'
+        )
+      ).toBeVisible();
     });
   });
 

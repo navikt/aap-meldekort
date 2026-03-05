@@ -157,7 +157,7 @@
         "leggTilDag": "Legg til dag",
         "fraværSammeDagSomArbeid": "Du har registrert fravær på samme dato som du har ført timer",
         "timerArbeidet": "{timerArbeidet} timer arbeidet",
-        "error": "Du må registrere hvilke dager du har vært borte fra avtalt aktivtet",
+        "error": "Legg til dagene du har vært borte. Du har svart at du har vært borte fra avtalt aktivitet og må legge til dette før du kan fortsette.",
         "dialog": {
           "title": "Legg til dag",
           "avbryt": "Avbryt",
