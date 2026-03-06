@@ -1,4 +1,4 @@
-import { Steg } from 'lib/types/types';
+import { Steg, UtfyllingResponse } from 'lib/types/types';
 import { redirect } from 'i18n/routing';
 import { hentUtfylling } from 'lib/services/meldekortservice';
 import { Introduksjon } from 'components/flyt/steg/introduksjon/Introduksjon';
@@ -6,6 +6,8 @@ import { Spørsmål } from 'components/flyt/steg/spørsmål/Spørsmål';
 import { Utfylling } from 'components/flyt/steg/utfylling/Utfylling';
 import { Bekreft } from 'components/flyt/steg/bekreft/Bekreft';
 import { KvitteringMedDataFetching } from 'components/flyt/steg/kvittering/KvitteringMedDataFetching';
+import { isError, isSuccess, SuccessResponseBody } from 'lib/utils/api';
+import { Alert } from '@navikt/ds-react';
 
 interface Props {
   params: Promise<{
@@ -29,11 +31,17 @@ const AktivtStegPage = async (props: Props) => {
   const referanse = params.referanse;
   const utfylling = await hentUtfylling(referanse);
 
+  if (isError(utfylling)) {
+    return <Alert variant="error">En ukjent feil oppsto. Prøv igjen om litt.</Alert>;
+  }
+
   function skalRedirecteTilAktivtSteg() {
     const steg: StegTuple = alleSteg;
 
     const aktivtStegIndex = steg.indexOf(aktivtSteg);
-    const backendStegIndex = steg.indexOf(utfylling.tilstand.aktivtSteg);
+    const backendStegIndex = steg.indexOf(
+      (utfylling as SuccessResponseBody<UtfyllingResponse>).data.tilstand.aktivtSteg
+    );
 
     const aktivtStegFinnesIkkeIStegArray = aktivtStegIndex === -1;
     const aktivtStegErLengreFremEnnBackendSteg = aktivtStegIndex > backendStegIndex;
@@ -41,20 +49,20 @@ const AktivtStegPage = async (props: Props) => {
     return aktivtStegFinnesIkkeIStegArray || aktivtStegErLengreFremEnnBackendSteg;
   }
 
-  if (skalRedirecteTilAktivtSteg()) {
+  if (isSuccess(utfylling) && skalRedirecteTilAktivtSteg()) {
     redirect({
-      href: `/${params.innsendingtype}/${referanse}/${utfylling.tilstand.aktivtSteg}`,
+      href: `/${params.innsendingtype}/${referanse}/${utfylling.data.tilstand.aktivtSteg}`,
       locale: params.locale,
     });
   }
 
   return (
     <>
-      {aktivtSteg === 'INTRODUKSJON' && <Introduksjon utfylling={utfylling} />}
-      {aktivtSteg === 'SPØRSMÅL' && <Spørsmål utfylling={utfylling} />}
-      {aktivtSteg === 'UTFYLLING' && <Utfylling utfylling={utfylling} />}
-      {aktivtSteg === 'BEKREFT' && <Bekreft utfylling={utfylling} />}
-      {aktivtSteg === 'KVITTERING' && <KvitteringMedDataFetching utfylling={utfylling} />}
+      {aktivtSteg === 'INTRODUKSJON' && <Introduksjon utfylling={utfylling.data} />}
+      {aktivtSteg === 'SPØRSMÅL' && <Spørsmål utfylling={utfylling.data} />}
+      {aktivtSteg === 'UTFYLLING' && <Utfylling utfylling={utfylling.data} />}
+      {aktivtSteg === 'BEKREFT' && <Bekreft utfylling={utfylling.data} />}
+      {aktivtSteg === 'KVITTERING' && <KvitteringMedDataFetching utfylling={utfylling.data} />}
     </>
   );
 };

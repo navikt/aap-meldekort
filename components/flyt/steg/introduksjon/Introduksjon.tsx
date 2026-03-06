@@ -103,8 +103,6 @@ export const Introduksjon = ({ utfylling }: Props) => {
             ),
           })}
         </VStack>
-
-        {errorMessage && <Alert variant={'error'}>{errorMessage}</Alert>}
       </VStack>
     </Form>
   );

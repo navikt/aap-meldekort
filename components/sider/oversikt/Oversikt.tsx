@@ -11,6 +11,7 @@ import { ChevronRightIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons'
 import { InnsendingType } from 'lib/utils/url';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { useMemo } from 'react';
+import { isSuccess } from 'lib/utils/api';
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
@@ -25,13 +26,11 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
 
   async function startInnsending() {
     if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
-      const startInnsendingAvMeldekortResponse = await startInnsendingClient(
-        kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode
-      );
+      const response = await startInnsendingClient(kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode);
 
-      if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
+      if (isSuccess(response)) {
         router.push(
-          `/${InnsendingType.INNSENDING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
+          `/${InnsendingType.INNSENDING}/${response.data.metadata?.referanse}/${response.data.tilstand?.aktivtSteg}`
         );
       }
     }
