@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { RadioGroupWrapper } from 'components/form/radiogroupwrapper/RadioGroupWrapper';
+import { isSameDay } from 'date-fns';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -77,6 +78,8 @@ export const Spørsmål = ({ utfylling }: Props) => {
                 return {
                   dato: dag.dato,
                   timerArbeidet: data.harDuJobbet === JaEllerNei.Nei ? 0 : dag.timerArbeidet,
+                  fravær: utfylling.tilstand.svar.dager.find((tilstandDag) => isSameDay(tilstandDag.dato, dag.dato))
+                    ?.fravær,
                 };
               }),
               harDuJobbet: data.harDuJobbet === JaEllerNei.Ja,
