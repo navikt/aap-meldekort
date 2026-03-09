@@ -39,7 +39,12 @@ export async function fetcher<ResponseBody>(
 
     return { type: 'SUCCESS', data, status: response.status };
   } catch (error) {
-    logError(`Klarte ikke å hente ${url}:` + JSON.stringify(error));
-    throw new Error('Unable to fetch ' + JSON.stringify(error));
+    if (error instanceof Error) {
+      logError(`Klarte ikke å hente ${url}: ${error.message}`, error.stack);
+    } else {
+      logError(`Klarte ikke å hente ${url}: ${JSON.stringify(error)}`);
+    }
+
+    return { type: 'ERROR', apiException: { message: 'En ukjent feil oppsto. Prøv igjen om litt.' }, status: 500 };
   }
 }
