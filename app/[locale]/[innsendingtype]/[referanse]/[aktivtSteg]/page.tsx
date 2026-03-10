@@ -1,5 +1,5 @@
 import { Steg, UtfyllingResponse } from 'lib/types/types';
-import { redirect } from 'i18n/routing';
+import { redirect, routing } from 'i18n/routing';
 import { hentUtfylling } from 'lib/services/meldekortservice';
 import { Introduksjon } from 'components/flyt/steg/introduksjon/Introduksjon';
 import { Spørsmål } from 'components/flyt/steg/spørsmål/Spørsmål';
@@ -32,7 +32,11 @@ const AktivtStegPage = async (props: Props) => {
   const utfylling = await hentUtfylling(referanse);
 
   if (isError(utfylling)) {
-    return <Alert variant="error">En ukjent feil oppsto. Prøv igjen om litt.</Alert>;
+    if (utfylling.status === 404) {
+      return redirect({ href: '/', locale: routing.defaultLocale });
+    } else {
+      return <Alert variant="error">En ukjent feil oppsto. Prøv igjen om litt.</Alert>;
+    }
   }
 
   function skalRedirecteTilAktivtSteg() {
