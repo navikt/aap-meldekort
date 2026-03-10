@@ -160,7 +160,7 @@ export function manglerTimerPåArbeid(dager: Dag[], harSvartJaPåArbeid: boolean
     return false;
   }
 
-  return dager.filter((dag) => dag.timer).length === 0;
+  return dager.filter((dag) => dag.timer && Number(dag.timer)).length === 0;
 }
 
 export function replaceCommasWithDots(input: string): string {
