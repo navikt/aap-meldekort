@@ -12,9 +12,10 @@ interface Props {
   felt: FraværDag;
   slettFravær: () => void;
   timerArbeidet: number | null;
+  visTrekkTag?: boolean;
 }
 
-export const RegistrertFravær = ({ felt, slettFravær, timerArbeidet }: Props) => {
+export const RegistrertFravær = ({ felt, slettFravær, timerArbeidet, visTrekkTag }: Props) => {
   const t = useTranslations();
   return (
     <HStack justify={'space-between'} align={'center'} className={styles.fravær}>
@@ -27,6 +28,13 @@ export const RegistrertFravær = ({ felt, slettFravær, timerArbeidet }: Props) 
           <div>
             <Tag variant={'outline'} data-color="info" size="small">
               {t('client.steg.fraværutfylling.timerArbeidet', { timerArbeidet })}
+            </Tag>
+          </div>
+        )}
+        {visTrekkTag && (
+          <div>
+            <Tag variant={'outline'} data-color="warning" size="small">
+              {t('client.steg.fraværutfylling.trekk.tag')}
             </Tag>
           </div>
         )}
