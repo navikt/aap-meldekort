@@ -1,6 +1,6 @@
 'use client';
 
-import { BodyShort, Button, ErrorSummary, Fieldset, Heading, InfoCard, VStack } from '@navikt/ds-react';
+import { BodyShort, Button, ErrorSummary, Heading, InfoCard, VStack } from '@navikt/ds-react';
 import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
 import { Form } from 'components/form/Form';
 import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
