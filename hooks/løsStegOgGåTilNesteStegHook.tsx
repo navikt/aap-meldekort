@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { EndreUtfyllingRequest } from 'lib/types/types';
 import { gåTilNesteStegClient } from 'lib/client/clientApi';
 import { useGåTilSteg } from 'lib/utils/url';
-import { useRouter } from 'i18n/routing';
+import { redirect, routing, useRouter } from 'i18n/routing';
 import { isSuccess } from 'lib/utils/api';
 
 export function useLøsStegOgGåTilNesteSteg(referanse: string): {
@@ -18,13 +18,16 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
   const løsStegOgGåTilNeste = async (meldekort: EndreUtfyllingRequest) => {
     setIsLoading(true);
 
-    const utfyllingResponse = await gåTilNesteStegClient(referanse, meldekort);
+    const response = await gåTilNesteStegClient(referanse, meldekort);
 
-    if (isSuccess(utfyllingResponse)) {
-      gåTilSteg(utfyllingResponse.data.tilstand.aktivtSteg);
+    if (isSuccess(response)) {
+      gåTilSteg(response.data.tilstand.aktivtSteg);
       router.refresh();
+    } else if (response.status === 404) {
+      redirect({ href: '/', locale: routing.defaultLocale });
+      return;
     } else {
-      setErrorMessage('Kunne ikke gå videre på grunn av: ' + utfyllingResponse?.apiException.message);
+      setErrorMessage('Kunne ikke gå videre på grunn av: ' + response?.apiException.message);
       setIsLoading(false);
     }
   };
