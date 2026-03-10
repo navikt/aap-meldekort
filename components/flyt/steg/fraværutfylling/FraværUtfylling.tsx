@@ -91,6 +91,9 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
     return [...fields].sort((a, b) => sorterEtterEldsteDatoDate(a.dato, b.dato));
   }, [fields]);
 
+  const skalViseTrekkTag = (dagen: FraværDag): boolean =>
+    inputDagerMedFravær.filter((fravær) => fravær.fravær === 'ANNEN').length >= 2 && dagen.fravær === 'ANNEN';
+
   return (
     <>
       <Form
@@ -144,6 +147,7 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
                       felt={felt}
                       slettFravær={() => remove(index)}
                       timerArbeidet={finnTimerForDag(utfylling.tilstand.svar.dager, felt.dato)}
+                      visTrekkTag={skalViseTrekkTag(felt)}
                     />
                   );
                 })}

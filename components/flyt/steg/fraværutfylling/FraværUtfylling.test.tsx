@@ -198,6 +198,47 @@ describe('Fravær utfylling', () => {
       expect(screen.getByText('Dødsfall i familie eller vennekrets')).toBeVisible();
     });
   });
+
+  describe('markering av trekk', () => {
+    const meldekortMedFravær: UtfyllingResponse = {
+      metadata: {
+        referanse: '13fd8128-9aac-4bc5-a28a-a5e9cb4dd53c',
+        periode: {
+          fom: '2025-12-13',
+          tom: '2025-12-21',
+        },
+        antallUbesvarteMeldeperioder: 1,
+        kanSendesInn: true,
+        visFrist: true,
+      },
+      tilstand: {
+        aktivtSteg: 'FRAVÆR_UTFYLLING',
+        svar: {
+          dager: [
+            {
+              dato: '2025-12-13',
+              timerArbeidet: 0,
+              fravær: 'ANNEN',
+            },
+            {
+              dato: '2025-12-14',
+              timerArbeidet: 0,
+              fravær: 'ANNEN',
+            },
+            {
+              dato: '2025-12-15',
+              timerArbeidet: 0,
+              fravær: 'SYKDOM_ELLER_SKADE',
+            },
+          ],
+        },
+      },
+    };
+    it('viser markering om trekk for hver dag som har annet fravær ved 2 eller flere dager i samme periode', () => {
+      render(<FraværUtfylling utfylling={meldekortMedFravær} />);
+      expect(screen.getAllByText('Trekk')).toHaveLength(2);
+    });
+  });
 });
 
 async function trykkPåLeggTilFraværKnapp() {

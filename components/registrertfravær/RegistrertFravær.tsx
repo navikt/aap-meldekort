@@ -15,7 +15,7 @@ interface Props {
   visTrekkTag?: boolean;
 }
 
-export const RegistrertFravær = ({ felt, slettFravær, timerArbeidet, visTrekkTag }: Props) => {
+export const RegistrertFravær = ({ felt, slettFravær, timerArbeidet, visTrekkTag = false }: Props) => {
   const t = useTranslations();
   return (
     <HStack justify={'space-between'} align={'center'} className={styles.fravær}>
