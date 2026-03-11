@@ -24,20 +24,22 @@ export const RegistrertFravær = ({ felt, slettFravær, timerArbeidet, visTrekkT
           weight={'semibold'}
         >{`${storForbokstav(fullDag(felt.dato))} ${formaterDatoMedMånedIBokstaverOgÅr(felt.dato)}`}</BodyShort>
         <BodyShort>{t(mapFraværEnumTilString(felt.fravær))}</BodyShort>
-        {timerArbeidet && (
-          <div>
-            <Tag variant={'outline'} data-color="info" size="small">
-              {t('client.steg.fraværutfylling.timerArbeidet', { timerArbeidet })}
-            </Tag>
-          </div>
-        )}
-        {visTrekkTag && (
-          <div>
-            <Tag variant={'outline'} data-color="warning" size="small">
-              {t('client.steg.fraværutfylling.trekk.tag')}
-            </Tag>
-          </div>
-        )}
+        <HStack gap={'space-4'}>
+          {timerArbeidet && (
+            <div>
+              <Tag variant={'outline'} data-color="info" size="small">
+                {t('client.steg.fraværutfylling.timerArbeidet', { timerArbeidet })}
+              </Tag>
+            </div>
+          )}
+          {visTrekkTag && (
+            <div>
+              <Tag variant={'outline'} data-color="warning" size="small">
+                {t('client.steg.fraværutfylling.trekk.tag')}
+              </Tag>
+            </div>
+          )}
+        </HStack>
       </VStack>
 
       <Button onClick={slettFravær} type={'button'} variant={'tertiary'}>

@@ -158,7 +158,11 @@
         "fraværSammeDagSomArbeid": "Du har registrert fråvær same dag som du har ført timar",
         "timerArbeidet": "{timerArbeidet} timar arbeidet",
         "trekk": {
-          "tag": "Trekk"
+          "tag": "Trekk",
+          "infocard": {
+            "title": "Du har {dagerMedFravær} dagar som blir trekte frå utbetalinga di på grunn av:",
+            "annetFravær": "Du har meir enn ein dag med andre fråvær"
+          }
         },
         "error": "Legg til dagane du har vore borte. Du har svart at du har vore borte frå avtalt aktivitet og må leggja til dette før du kan halda fram.",
         "dialog": {

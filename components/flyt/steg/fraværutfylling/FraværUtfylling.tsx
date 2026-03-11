@@ -13,7 +13,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { isSameDay } from 'date-fns';
 import { RegistrertFravær } from 'components/registrertfravær/RegistrertFravær';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
-import { InformationSquareIcon } from '@navikt/aksel-icons';
+import { ExclamationmarkTriangleIcon, InformationSquareIcon } from '@navikt/aksel-icons';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -94,6 +94,8 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
   const skalViseTrekkTag = (dagen: FraværDag): boolean =>
     inputDagerMedFravær.filter((fravær) => fravær.fravær === 'ANNEN').length >= 2 && dagen.fravær === 'ANNEN';
 
+  const antallDagerMedAnnetFravær: number = inputDagerMedFravær.filter((fravær) => fravær.fravær === 'ANNEN').length; //TODO må dekke andre greier også
+
   return (
     <>
       <Form
@@ -160,9 +162,8 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
             </div>
           </VStack>
         </VStack>
-
         {dagerMedFraværOgRegistrertArbeid.length > 0 && (
-          <InfoCard>
+          <InfoCard data-color="info">
             <InfoCard.Header icon={<InformationSquareIcon aria-hidden />}>
               <InfoCard.Title>{t('client.steg.fraværutfylling.fraværSammeDagSomArbeid')}</InfoCard.Title>
             </InfoCard.Header>
@@ -171,6 +172,20 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
                 {dagerMedFraværOgRegistrertArbeid.map((dag) => (
                   <li key={dag.getTime()}>{formaterDatoMedÅrForFrontend(dag)}</li>
                 ))}
+              </ul>
+            </InfoCard.Content>
+          </InfoCard>
+        )}
+        {antallDagerMedAnnetFravær >= 2 && (
+          <InfoCard data-color="warning">
+            <InfoCard.Header icon={<ExclamationmarkTriangleIcon aria-hidden />}>
+              <InfoCard.Title>
+                {t('client.steg.fraværutfylling.trekk.infocard.title', { dagerMedFravær: antallDagerMedAnnetFravær })}
+              </InfoCard.Title>
+            </InfoCard.Header>
+            <InfoCard.Content>
+              <ul>
+                <li>{t('client.steg.fraværutfylling.trekk.infocard.annetFravær')}</li>
               </ul>
             </InfoCard.Content>
           </InfoCard>
