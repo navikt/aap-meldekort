@@ -68,7 +68,7 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
 
                         <BodyShort size={'large'}>
                           {t('client.innsendteMeldekort.innsendtMeldekort.description', {
-                            timer: innsendtMeldekort.antallAktivitetsInformasjonIPerioden,
+                            timer: innsendtMeldekort.antallTimerArbeidetIPerioden,
                           })}
                         </BodyShort>
                       </VStack>

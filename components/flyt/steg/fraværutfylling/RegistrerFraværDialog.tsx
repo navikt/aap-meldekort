@@ -36,10 +36,6 @@ export const fraværsgrunner: ValuePair<NonNullable<Fravær>>[] = [
     labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.omsorgPleieIHjemmet',
   },
   {
-    value: 'OMSORG_MEDDOMMER_ELLER_ANDRE_OFFENTLIGE_PLIKTER',
-    labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.meddommerEllerAndreOffentligePlikter',
-  },
-  {
     value: 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN',
     labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.oppfølgingAvBarn',
   },

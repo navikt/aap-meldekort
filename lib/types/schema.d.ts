@@ -786,7 +786,7 @@ export interface components {
         };
         "no.nav.aap.meldekort.HistoriskMeldeperiodeDto": {
             /** Format: double */
-            antallAktivitetsInformasjonIPerioden: number;
+            antallTimerArbeidetIPerioden: number;
             meldeperiode: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
             /** @enum {string} */
             status: "KELVIN";
