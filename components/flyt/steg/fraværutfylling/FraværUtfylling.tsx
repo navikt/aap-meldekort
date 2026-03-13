@@ -5,6 +5,7 @@ import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/Re
 import { Form } from 'components/form/Form';
 import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode, sorterEtterEldsteDatoDate } from 'lib/utils/date';
+import { antallDagerSomFørerTilTrekk, skalViseTrekkTag, TidligereRegistrertFravær } from 'lib/utils/fraværTrekk';
 import { useTranslations } from 'next-intl';
 import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
@@ -17,6 +18,7 @@ import { ExclamationmarkTriangleIcon, InformationSquareIcon } from '@navikt/akse
 
 interface Props {
   utfylling: UtfyllingResponse;
+  tidligereRegistrertFravær?: TidligereRegistrertFravær;
 }
 
 export interface FraværDag {
@@ -32,7 +34,7 @@ function finnTimerForDag(dager: DagSvar[], dato: Date) {
   return dager.find((dag) => isSameDay(dag.dato, dato))?.timerArbeidet || null;
 }
 
-export const FraværUtfylling = ({ utfylling }: Props) => {
+export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Props) => {
   const [visDialog, setVisDialog] = useState(false);
 
   const { referanse } = useParamsMedType();
@@ -91,10 +93,8 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
     return [...fields].sort((a, b) => sorterEtterEldsteDatoDate(a.dato, b.dato));
   }, [fields]);
 
-  const skalViseTrekkTag = (dagen: FraværDag): boolean =>
-    inputDagerMedFravær.filter((fravær) => fravær.fravær === 'ANNEN').length >= 2 && dagen.fravær === 'ANNEN';
-
-  const antallDagerMedAnnetFravær: number = inputDagerMedFravær.filter((fravær) => fravær.fravær === 'ANNEN').length; //TODO må dekke andre greier også
+  const visTrekkTag = (dag: FraværDag): boolean => skalViseTrekkTag(dag, inputDagerMedFravær, tidligereRegistrertFravær);
+  const antallTrekkdager = antallDagerSomFørerTilTrekk(inputDagerMedFravær, tidligereRegistrertFravær);
 
   return (
     <>
@@ -149,7 +149,7 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
                       felt={felt}
                       slettFravær={() => remove(index)}
                       timerArbeidet={finnTimerForDag(utfylling.tilstand.svar.dager, felt.dato)}
-                      visTrekkTag={skalViseTrekkTag(felt)}
+                      visTrekkTag={visTrekkTag(felt)}
                     />
                   );
                 })}
@@ -176,11 +176,13 @@ export const FraværUtfylling = ({ utfylling }: Props) => {
             </InfoCard.Content>
           </InfoCard>
         )}
-        {antallDagerMedAnnetFravær >= 2 && (
+        {antallTrekkdager > 0 && (
           <InfoCard data-color="warning">
             <InfoCard.Header icon={<ExclamationmarkTriangleIcon aria-hidden />}>
               <InfoCard.Title>
-                {t('client.steg.fraværutfylling.trekk.infocard.title', { dagerMedFravær: antallDagerMedAnnetFravær })}
+                {t('client.steg.fraværutfylling.trekk.infocard.title', {
+                  dagerMedFravær: antallTrekkdager,
+                })}
               </InfoCard.Title>
             </InfoCard.Header>
             <InfoCard.Content>
