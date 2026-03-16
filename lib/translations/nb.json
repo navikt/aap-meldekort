@@ -185,7 +185,11 @@
               "omsorgPleieIHjemmet": { "label": "Pleie i hjemmet av nær pårørende" },
               "oppfølgingAvBarn": { "label": "Første skoledag, tilvenning eller annen oppfølging av barn" },
               "dødsfall": { "label": "Dødsfall i familie eller vennekrets" },
-              "annen": { "label": "Annen", "description": "Fravær som ikke skyldes velferdsgrunn." }
+              "annen": { "label": "Annen", "description": "Fravær som ikke skyldes velferdsgrunn." },
+              "omsorg": {
+                "label": "Omsorgsoppgaver eller plikter",
+                "description": "Hvis du har hatt oppfølging av barn, sykdom eller dødsfall i familien eller andre grunner."
+              }
             }
           }
         }

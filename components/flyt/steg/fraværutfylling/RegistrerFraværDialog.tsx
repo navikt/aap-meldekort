@@ -1,11 +1,13 @@
-import { Button, Dialog, Radio, VStack } from '@navikt/ds-react';
+import { Box, Button, Dialog, ErrorMessage, Radio, VStack } from '@navikt/ds-react';
 import { FraværFormFields } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
 import { RadioGroupWrapper } from 'components/form/radiogroupwrapper/RadioGroupWrapper';
-import { UseFieldArrayAppend, useForm } from 'react-hook-form';
+import { UseFieldArrayAppend, useForm, useWatch } from 'react-hook-form';
 import { Fravær, UtfyllingResponse } from 'lib/types/types';
 import { DateWrapper } from 'components/datewrapper/DateWrapper';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+
+import styles from './RegistrerFraværDialog.module.css';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -17,7 +19,7 @@ interface Props {
 
 interface FormFields {
   dato: Date;
-  typeFravær: NonNullable<Fravær>;
+  typeFravær: NonNullable<Fravær> | 'OMSORG'; // vi trenger en ekstra option for å kunne håndtere nøstede radio-valg
 }
 
 interface RadioOptionsType<Enum = string, LabelKey = string> {
@@ -30,7 +32,6 @@ export const fraværsgrunner: RadioOptionsType<NonNullable<Fravær>>[] = [
   {
     value: 'SYKDOM_ELLER_SKADE',
     textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.sykdomSkade',
-    description: true,
   },
   {
     value: 'OMSORG_ANNEN_STERK_GRUNN',
@@ -48,7 +49,7 @@ export const fraværsgrunner: RadioOptionsType<NonNullable<Fravær>>[] = [
     value: 'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS',
     textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.dødsfall',
   },
-  { value: 'ANNEN', textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.annen', description: true },
+  { value: 'ANNEN', textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.annen' },
 ];
 
 export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, setVisDialog, disabledDays }: Props) => {
@@ -60,7 +61,17 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
     },
   });
 
+  const [fraværUndervalgFeilmelding, setFraværUndervalgFeilmelding] = useState(false);
+
   const utfyllingsdager = utfylling.tilstand.svar.dager;
+
+  const visUndervalg = [
+    'OMSORG',
+    'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN',
+    'OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE',
+    'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS',
+    'OMSORG_ANNEN_STERK_GRUNN',
+  ].includes(useWatch({ control: form.control, name: 'typeFravær' }));
 
   // TODO Finnes det bedre måter?
   useEffect(() => {
@@ -77,9 +88,15 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
           <form
             id="skjemaet"
             onSubmit={form.handleSubmit((data) => {
-              leggTilFravær({ dato: data.dato, fravær: data.typeFravær });
-              setVisDialog(false);
-              form.reset();
+              setFraværUndervalgFeilmelding(false);
+              const fravær = validerFravær(data);
+              if (fravær) {
+                leggTilFravær({ dato: data.dato, fravær: fravær });
+                setVisDialog(false);
+                form.reset();
+              } else {
+                setFraværUndervalgFeilmelding(true);
+              }
             })}
           >
             <VStack gap={'space-32'}>
@@ -100,16 +117,45 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
                 label={t('client.steg.fraværutfylling.dialog.grunn.label')}
                 rules={{ required: t('client.steg.fraværutfylling.dialog.grunn.error') }}
               >
-                {fraværsgrunner.map((fraværsgrunn) => (
-                  <Radio
-                    value={fraværsgrunn.value}
-                    key={fraværsgrunn.value}
-                    description={fraværsgrunn.description ? t(`${fraværsgrunn.textKey}.description`) : undefined}
+                <Radio
+                  value={'SYKDOM_ELLER_SKADE'}
+                  description={t('client.steg.fraværutfylling.dialog.grunn.grunner.sykdomSkade.description')}
+                >
+                  {t('client.steg.fraværutfylling.dialog.grunn.grunner.sykdomSkade.label')}
+                </Radio>
+                <Radio
+                  value={'OMSORG'}
+                  description={t('client.steg.fraværutfylling.dialog.grunn.grunner.omsorg.description')}
+                >
+                  {t('client.steg.fraværutfylling.dialog.grunn.grunner.omsorg.label')}
+                </Radio>
+                {visUndervalg && (
+                  <Box
+                    paddingInline={'space-24 space-0'}
+                    className={fraværUndervalgFeilmelding ? styles.feil : undefined}
                   >
-                    {t(`${fraværsgrunn.textKey}.label`)}
-                  </Radio>
-                ))}
+                    <Radio value={'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN'}>
+                      {t('client.steg.fraværutfylling.dialog.grunn.grunner.oppfølgingAvBarn.label')}
+                    </Radio>
+                    <Radio value={'OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE'}>
+                      {t('client.steg.fraværutfylling.dialog.grunn.grunner.omsorgPleieIHjemmet.label')}
+                    </Radio>
+                    <Radio value={'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS'}>
+                      {t('client.steg.fraværutfylling.dialog.grunn.grunner.dødsfall.label')}
+                    </Radio>
+                    <Radio value={'OMSORG_ANNEN_STERK_GRUNN'}>
+                      {t('client.steg.fraværutfylling.dialog.grunn.grunner.omsorgAnnenSterkGrunn.label')}
+                    </Radio>
+                  </Box>
+                )}
+                <Radio
+                  value={'ANNEN'}
+                  description={t('client.steg.fraværutfylling.dialog.grunn.grunner.annen.description')}
+                >
+                  {t('client.steg.fraværutfylling.dialog.grunn.grunner.annen.label')}
+                </Radio>
               </RadioGroupWrapper>
+              {fraværUndervalgFeilmelding && <ErrorMessage showIcon>Du må velge fraværsgrunn</ErrorMessage>}
             </VStack>
           </form>
         </Dialog.Body>
@@ -127,3 +173,10 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
     </Dialog>
   );
 };
+
+function validerFravær(formFields: FormFields): NonNullable<Fravær> | undefined {
+  if (formFields.typeFravær === 'OMSORG') {
+    return undefined;
+  }
+  return formFields.typeFravær;
+}
