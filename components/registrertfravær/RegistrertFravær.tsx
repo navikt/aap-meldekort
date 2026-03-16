@@ -23,7 +23,7 @@ export const RegistrertFravær = ({ felt, slettFravær, timerArbeidet, visTrekkT
         <BodyShort
           weight={'semibold'}
         >{`${storForbokstav(fullDag(felt.dato))} ${formaterDatoMedMånedIBokstaverOgÅr(felt.dato)}`}</BodyShort>
-        <BodyShort>{t(mapFraværEnumTilString(felt.fravær))}</BodyShort>
+        <BodyShort>{t(`${mapFraværEnumTilString(felt.fravær)}.label`)}</BodyShort>
         <HStack gap={'space-4'}>
           {timerArbeidet && (
             <div>
@@ -50,5 +50,5 @@ export const RegistrertFravær = ({ felt, slettFravær, timerArbeidet, visTrekkT
 };
 
 function mapFraværEnumTilString(value: NonNullable<Fravær>): string {
-  return fraværsgrunner.find((fraværsgrunn) => fraværsgrunn.value === value)?.labelKey || value;
+  return fraværsgrunner.find((fraværsgrunn) => fraværsgrunn.value === value)?.textKey || value;
 }

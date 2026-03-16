@@ -20,30 +20,35 @@ interface FormFields {
   typeFravær: NonNullable<Fravær>;
 }
 
-export interface ValuePair<Enum = string, LabelKey = string> {
+interface RadioOptionsType<Enum = string, LabelKey = string> {
   value: Enum;
-  labelKey: LabelKey;
+  textKey: LabelKey;
+  description?: boolean;
 }
 
-export const fraværsgrunner: ValuePair<NonNullable<Fravær>>[] = [
-  { value: 'SYKDOM_ELLER_SKADE', labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.sykdomSkade' },
+export const fraværsgrunner: RadioOptionsType<NonNullable<Fravær>>[] = [
+  {
+    value: 'SYKDOM_ELLER_SKADE',
+    textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.sykdomSkade',
+    description: true,
+  },
   {
     value: 'OMSORG_ANNEN_STERK_GRUNN',
-    labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.omsorgAnnenSterkGrunn',
+    textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.omsorgAnnenSterkGrunn',
   },
   {
     value: 'OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE',
-    labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.omsorgPleieIHjemmet',
+    textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.omsorgPleieIHjemmet',
   },
   {
     value: 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN',
-    labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.oppfølgingAvBarn',
+    textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.oppfølgingAvBarn',
   },
   {
     value: 'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS',
-    labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.dødsfall',
+    textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.dødsfall',
   },
-  { value: 'ANNEN', labelKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.annen' },
+  { value: 'ANNEN', textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.annen', description: true },
 ];
 
 export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, setVisDialog, disabledDays }: Props) => {
@@ -96,8 +101,12 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
                 rules={{ required: t('client.steg.fraværutfylling.dialog.grunn.error') }}
               >
                 {fraværsgrunner.map((fraværsgrunn) => (
-                  <Radio value={fraværsgrunn.value} key={fraværsgrunn.value}>
-                    {t(fraværsgrunn.labelKey)}
+                  <Radio
+                    value={fraværsgrunn.value}
+                    key={fraværsgrunn.value}
+                    description={fraværsgrunn.description ? t(`${fraværsgrunn.textKey}.description`) : undefined}
+                  >
+                    {t(`${fraværsgrunn.textKey}.label`)}
                   </Radio>
                 ))}
               </RadioGroupWrapper>

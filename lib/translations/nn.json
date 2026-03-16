@@ -177,12 +177,15 @@
             "label": "Kva var grunnen?",
             "error": "Du må velja grunn",
             "grunner": {
-              "sykdomSkade": "Sykdom eller skade",
-              "omsorgAnnenSterkGrunn": "Annan sterk grunn",
-              "omsorgPleieIHjemmet": "Pleie i heimen av nær pårørande",
-              "oppfølgingAvBarn": "Første skuledag, tilvenning eller anna oppfølging av barn",
-              "dødsfall": "Dødsfall i familie eller vennekrets",
-              "annen": "Annan"
+              "sykdomSkade": {
+                "label": "Sykdom eller skade",
+                "description": "Om du, barn eller barnepass har vore sjuke eller skadde."
+              },
+              "omsorgAnnenSterkGrunn": { "label": "Annan sterk grunn" },
+              "omsorgPleieIHjemmet": { "label": "Pleie i heimen av nær pårørande" },
+              "oppfølgingAvBarn": { "label": "Første skuledag, tilvenning eller anna oppfølging av barn" },
+              "dødsfall": { "label": "Dødsfall i familie eller vennekrets" },
+              "annen": { "label": "Annan", "description": "Fråvær som ikkje kjem velferdsgrunn av." }
             }
           }
         }
