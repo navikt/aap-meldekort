@@ -142,6 +142,10 @@
         "harDuGjennomførtAvtaltAktivitet": {
           "label": "Har du gjennomført alle aktiviteter som er avtalt med oss?",
           "error": "Du må svare på om du har gjennomført alle avtalte aktiviteter",
+          "readMore": {
+            "header": "Hva menes med avtalt aktivitet?",
+            "content": "Aktiviteter som om er i aktivitetsplanen din og merket med “avtalt med Nav”."
+          },
           "options": {
             "gjennomførtAvtaltAktivitet": "Ja, jeg har gjennomført alle avtalte aktiviteter",
             "neiIkkeGjennomførtAvtaltAktivitet": "Nei, jeg har ikke gjennomført alle avtalte aktiviteter",
@@ -155,16 +159,20 @@
         "description": "Du melder kun inn aktiviteter som er i aktivitetsplanen og avtalt med Nav.",
         "underheading": "Dager du var borte",
         "leggTilDag": "Legg til dag",
-        "fraværSammeDagSomArbeid": "Du har registrert fravær på samme dato som du har ført timer",
+        "fraværSammeDagSomArbeid": {
+          "heading": "Du har ført arbeidstimer og fravær på samme dag",
+          "description": "Se over om opplysningene stemmer for disse dagene:"
+        },
         "timerArbeidet": "{timerArbeidet} timer arbeidet",
         "trekk": {
           "tag": "Trekk",
           "infocard": {
-            "title": "Du har {dagerMedFravær} dager som blir trukket fra utbetalingen din på grunn av:",
-            "annetFravær": "Du har mer enn en dag med annet fravær",
-            "oppfølgingAvBarn": "Du har mer enn tre dager med fravær på grunn av første skoledag, tilvenning i barnehage eller annen oppfølging av barn",
-            "dødsfall": "Du har mer enn tre dager med fravær på grunn av dødsfall",
-            "over10Dager": "Du har mer enn ti dager med fravær hittil i år"
+            "title": "Du får trekk i utbetalingen din",
+            "description": "Du får {dagerMedFravær} dager trekk fordi du har:",
+            "annetFravær": "mer enn en dag med annet fravær",
+            "oppfølgingAvBarn": "mer enn tre dager med fravær på grunn av første skoledag, tilvenning i barnehage eller annen oppfølging av barn",
+            "dødsfall": "mer enn tre dager med fravær på grunn av dødsfall",
+            "over10Dager": "mer enn ti dager med fravær i år"
           }
         },
         "error": "Legg til dagene du har vært borte. Du har svart at du har vært borte fra avtalt aktivitet og må legge til dette før du kan fortsette.",
@@ -245,7 +253,7 @@
             "2": "Du vil få utbetalt AAP om cirka 2 til 3 virkerdager."
           }
         },
-        "seHvaDuSendteInn": "Se hva du sendte inn",
+        "seHvaDuSendteInn": "Se hva du har sendt inn",
         "linkTilOversikt": "<a>Gå tilbake til oversikt</a>",
         "nesteMeldekortKnapp": "Gå til neste meldekort"
       }

@@ -174,9 +174,10 @@ export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Prop
         {dagerMedFraværOgRegistrertArbeid.length > 0 && (
           <InfoCard data-color="info">
             <InfoCard.Header icon={<InformationSquareIcon aria-hidden />}>
-              <InfoCard.Title>{t('client.steg.fraværutfylling.fraværSammeDagSomArbeid')}</InfoCard.Title>
+              <InfoCard.Title>{t('client.steg.fraværutfylling.fraværSammeDagSomArbeid.heading')}</InfoCard.Title>
             </InfoCard.Header>
             <InfoCard.Content>
+              <BodyShort>{t('client.steg.fraværutfylling.fraværSammeDagSomArbeid.description')}</BodyShort>
               <ul>
                 {dagerMedFraværOgRegistrertArbeid.map((dag) => (
                   <li key={dag.getTime()}>{formaterDatoMedÅrForFrontend(dag)}</li>
@@ -189,12 +190,15 @@ export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Prop
           <InfoCard data-color="warning">
             <InfoCard.Header icon={<ExclamationmarkTriangleIcon aria-hidden />}>
               <InfoCard.Title>
-                {t('client.steg.fraværutfylling.trekk.infocard.title', {
-                  dagerMedFravær: antallTrekkdager,
-                })}
+                {t('client.steg.fraværutfylling.trekk.infocard.title')}
               </InfoCard.Title>
             </InfoCard.Header>
             <InfoCard.Content>
+              <BodyShort>
+                {t('client.steg.fraværutfylling.trekk.infocard.description', {
+                  dagerMedFravær: antallTrekkdager,
+                })}
+              </BodyShort>
               <ul>
                 {annetFraværOverstigerGrenseIPeriode(fields) && (
                   <li>{t('client.steg.fraværutfylling.trekk.infocard.annetFravær')}</li>

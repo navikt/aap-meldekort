@@ -2,7 +2,7 @@
 
 import { Form } from 'components/form/Form';
 import { getJaNeiEllerUndefined, JaEllerNei } from 'lib/utils/form';
-import { BodyShort, Heading, Radio, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, Radio, ReadMore, VStack } from '@navikt/ds-react';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { FraværSvar, UtfyllingResponse } from 'lib/types/types';
@@ -123,6 +123,9 @@ export const Spørsmål = ({ utfylling }: Props) => {
             size={'medium'}
             rules={{ required: t('client.steg.fraværspørsmål.harDuGjennomførtAvtaltAktivitet.error') }}
           >
+            <ReadMore header={t('client.steg.fraværspørsmål.harDuGjennomførtAvtaltAktivitet.readMore.header')}>
+              {t('client.steg.fraværspørsmål.harDuGjennomførtAvtaltAktivitet.readMore.content')}
+            </ReadMore>
             <Radio value={'GJENNOMFØRT_AVTALT_AKTIVITET'}>
               {t('client.fraværFraAvtaltAktivitet.harDuGjennomførtAvtaltAktivitet.valg.gjennomførtAvtaltAktivitet')}
             </Radio>
