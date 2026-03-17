@@ -5,7 +5,15 @@ import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/Re
 import { Form } from 'components/form/Form';
 import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode, sorterEtterEldsteDatoDate } from 'lib/utils/date';
-import { antallDagerSomFørerTilTrekk, skalViseTrekkTag, TidligereRegistrertFravær } from 'lib/utils/fraværTrekk';
+import {
+  annetFraværOverstigerGrenseIPeriode,
+  antallDagerSomFørerTilTrekk,
+  fraværForDødsfallOverstigerMaksGrense,
+  fraværForOppfølgingAvBarnOverstigerMaksGrense,
+  fraværOverstigerMaksGrense,
+  skalViseTrekkTag,
+  TidligereRegistrertFravær,
+} from 'lib/utils/fraværTrekk';
 import { useTranslations } from 'next-intl';
 import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
@@ -93,7 +101,8 @@ export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Prop
     return [...fields].sort((a, b) => sorterEtterEldsteDatoDate(a.dato, b.dato));
   }, [fields]);
 
-  const visTrekkTag = (dag: FraværDag): boolean => skalViseTrekkTag(dag, inputDagerMedFravær, tidligereRegistrertFravær);
+  const visTrekkTag = (dag: FraværDag): boolean =>
+    skalViseTrekkTag(dag, inputDagerMedFravær, tidligereRegistrertFravær);
   const antallTrekkdager = antallDagerSomFørerTilTrekk(inputDagerMedFravær, tidligereRegistrertFravær);
 
   return (
@@ -187,7 +196,18 @@ export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Prop
             </InfoCard.Header>
             <InfoCard.Content>
               <ul>
-                <li>{t('client.steg.fraværutfylling.trekk.infocard.annetFravær')}</li>
+                {annetFraværOverstigerGrenseIPeriode(fields) && (
+                  <li>{t('client.steg.fraværutfylling.trekk.infocard.annetFravær')}</li>
+                )}
+                {fraværForOppfølgingAvBarnOverstigerMaksGrense(fields, tidligereRegistrertFravær) && (
+                  <li>{t('client.steg.fraværutfylling.trekk.infocard.oppfølgingAvBarn')}</li>
+                )}
+                {fraværForDødsfallOverstigerMaksGrense(fields, tidligereRegistrertFravær) && (
+                  <li>{t('client.steg.fraværutfylling.trekk.infocard.dødsfall')}</li>
+                )}
+                {fraværOverstigerMaksGrense(fields, tidligereRegistrertFravær) && (
+                  <li>{t('client.steg.fraværutfylling.trekk.infocard.over10Dager')}</li>
+                )}
               </ul>
             </InfoCard.Content>
           </InfoCard>

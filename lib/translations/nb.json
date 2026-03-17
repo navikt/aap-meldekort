@@ -161,7 +161,10 @@
           "tag": "Trekk",
           "infocard": {
             "title": "Du har {dagerMedFravær} dager som blir trukket fra utbetalingen din på grunn av:",
-            "annetFravær": "Du har mer enn en dag med annet fravær"
+            "annetFravær": "Du har mer enn en dag med annet fravær",
+            "oppfølgingAvBarn": "Du har mer enn tre dager med fravær på grunn av første skoledag, tilvenning i barnehage eller annen oppfølging av barn",
+            "dødsfall": "Du har mer enn tre dager med fravær på grunn av dødsfall",
+            "over10Dager": "Du har mer enn ti dager med fravær hittil i år"
           }
         },
         "error": "Legg til dagene du har vært borte. Du har svart at du har vært borte fra avtalt aktivitet og må legge til dette før du kan fortsette.",

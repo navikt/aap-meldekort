@@ -14,6 +14,40 @@ const MAKS_ANTALL_OMSORG_BARN_DAGER = 3; // gjelder hele året
 const MAKS_ANTALL_OMSORG_DØDSFALL_DAGER = 3; // gjelder hele året
 const MAKS_ANTALL_ANNEN_DAGER_I_PERIODEN = 1; // gjelder meldeperioden
 
+export function annetFraværOverstigerGrenseIPeriode(alleDager: FraværDag[]): boolean {
+  const antallDagerMedANNEN = alleDager.filter((f) => f.fravær === 'ANNEN').length;
+  return antallDagerMedANNEN > MAKS_ANTALL_ANNEN_DAGER_I_PERIODEN;
+}
+
+export function fraværOverstigerMaksGrense(
+  alleDager: FraværDag[],
+  tidligereRegistrertFravær?: TidligereRegistrertFravær
+): boolean {
+  return alleDager.length + (tidligereRegistrertFravær?.totaltAntallFraværsdager || 0) > MAKS_TOTAL_DAGER;
+}
+
+export function fraværForDødsfallOverstigerMaksGrense(
+  alleDager: FraværDag[],
+  tidligereRegistrertFravær?: TidligereRegistrertFravær
+): boolean {
+  return (
+    alleDager.filter((f) => f.fravær === 'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS').length +
+      (tidligereRegistrertFravær?.totaltAntallFraværsdager || 0) >
+    MAKS_ANTALL_OMSORG_DØDSFALL_DAGER
+  );
+}
+
+export function fraværForOppfølgingAvBarnOverstigerMaksGrense(
+  alleDager: FraværDag[],
+  tidligereRegistrertFravær?: TidligereRegistrertFravær
+): boolean {
+  return (
+    alleDager.filter((f) => f.fravær === 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN').length +
+      (tidligereRegistrertFravær?.totaltAntallFraværsdager || 0) >
+    MAKS_ANTALL_OMSORG_DØDSFALL_DAGER
+  );
+}
+
 export function skalViseTrekkTag(
   dag: FraværDag,
   alleDager: FraværDag[],
@@ -28,8 +62,7 @@ export function skalViseTrekkTag(
   }
 
   if (dag.fravær === 'ANNEN') {
-    const antallDagerMedANNEN = alleDager.filter((f) => f.fravær === 'ANNEN').length;
-    return antallDagerMedANNEN > MAKS_ANTALL_ANNEN_DAGER_I_PERIODEN;
+    return annetFraværOverstigerGrenseIPeriode(alleDager);
   }
 
   if (dag.fravær === 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN') {
