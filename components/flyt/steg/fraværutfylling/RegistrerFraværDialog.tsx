@@ -109,6 +109,7 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
                 toDate={new Date(utfyllingsdager[utfyllingsdager.length - 1].dato)}
                 size={'medium'}
                 disabledDays={disabledDays}
+                defaultMonth={new Date(utfyllingsdager[0].dato)}
               />
               <RadioGroupWrapper
                 size={'medium'}
