@@ -4,7 +4,12 @@ import { BodyShort, Button, ErrorSummary, Heading, InfoCard, VStack } from '@nav
 import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
 import { Form } from 'components/form/Form';
 import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
-import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode, sorterEtterEldsteDatoDate } from 'lib/utils/date';
+import {
+  formaterDatoMedDagOgMåndedIBokstaver,
+  formaterDatoMedÅrForFrontend,
+  hentUkeNummerForPeriode,
+  sorterEtterEldsteDatoDate,
+} from 'lib/utils/date';
 import {
   annetFraværOverstigerGrenseIPeriode,
   antallDagerSomFørerTilTrekk,
@@ -23,6 +28,7 @@ import { isSameDay } from 'date-fns';
 import { RegistrertFravær } from 'components/registrertfravær/RegistrertFravær';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
 import { ExclamationmarkTriangleIcon, InformationSquareIcon } from '@navikt/aksel-icons';
+import { storForbokstav } from 'lib/utils/string';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -180,7 +186,7 @@ export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Prop
               <BodyShort>{t('client.steg.fraværutfylling.fraværSammeDagSomArbeid.description')}</BodyShort>
               <ul>
                 {dagerMedFraværOgRegistrertArbeid.map((dag) => (
-                  <li key={dag.getTime()}>{formaterDatoMedÅrForFrontend(dag)}</li>
+                  <li key={dag.getTime()}>{storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag))}</li>
                 ))}
               </ul>
             </InfoCard.Content>
@@ -189,9 +195,7 @@ export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Prop
         {antallTrekkdager > 0 && (
           <InfoCard data-color="warning">
             <InfoCard.Header icon={<ExclamationmarkTriangleIcon aria-hidden />}>
-              <InfoCard.Title>
-                {t('client.steg.fraværutfylling.trekk.infocard.title')}
-              </InfoCard.Title>
+              <InfoCard.Title>{t('client.steg.fraværutfylling.trekk.infocard.title')}</InfoCard.Title>
             </InfoCard.Header>
             <InfoCard.Content>
               <BodyShort>
