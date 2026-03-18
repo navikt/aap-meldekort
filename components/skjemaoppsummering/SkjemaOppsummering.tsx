@@ -12,7 +12,7 @@ import { storForbokstav } from 'lib/utils/string';
 import { nb } from 'date-fns/locale';
 import { regnUtTimer } from 'lib/utils/meldekort';
 import { useTranslations } from 'next-intl';
-import { fraværsgrunner } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
+import { fraværsgrunner } from 'components/registrertfravær/RegistrertFravær';
 
 interface Props {
   utfylling: UtfyllingResponse;

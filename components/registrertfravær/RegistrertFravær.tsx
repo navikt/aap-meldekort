@@ -6,7 +6,36 @@ import { storForbokstav } from 'lib/utils/string';
 import styles from './RegistrertFravær.module.css';
 import { Fravær } from 'lib/types/types';
 import { useTranslations } from 'use-intl';
-import { fraværsgrunner } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
+
+interface RadioOptionsType<Enum = string, LabelKey = string> {
+  value: Enum;
+  textKey: LabelKey;
+  description?: boolean;
+}
+
+export const fraværsgrunner: RadioOptionsType<NonNullable<Fravær>>[] = [
+  {
+    value: 'SYKDOM_ELLER_SKADE',
+    textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.sykdomSkade',
+  },
+  {
+    value: 'OMSORG_ANNEN_STERK_GRUNN',
+    textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.omsorgAnnenSterkGrunn',
+  },
+  {
+    value: 'OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE',
+    textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.omsorgPleieIHjemmet',
+  },
+  {
+    value: 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN',
+    textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.oppfølgingAvBarn',
+  },
+  {
+    value: 'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS',
+    textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.dødsfall',
+  },
+  { value: 'ANNEN', textKey: 'client.steg.fraværutfylling.dialog.grunn.grunner.annen' },
+];
 
 interface Props {
   felt: FraværDag;
