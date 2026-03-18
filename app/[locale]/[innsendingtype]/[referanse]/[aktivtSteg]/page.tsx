@@ -66,7 +66,7 @@ const AktivtStegPage = async (props: Props) => {
       {aktivtSteg === 'INTRODUKSJON' && <Introduksjon utfylling={utfylling.data} />}
       {aktivtSteg === 'SPØRSMÅL' && <Spørsmål utfylling={utfylling.data} />}
       {aktivtSteg === 'UTFYLLING' && <Utfylling utfylling={utfylling.data} />}
-        {aktivtSteg === 'FRAVÆR_UTFYLLING' && <FraværUtfylling utfylling={utfylling.data} />}
+      {aktivtSteg === 'FRAVÆR_UTFYLLING' && <FraværUtfylling utfylling={utfylling.data} />}
       {aktivtSteg === 'BEKREFT' && <Bekreft utfylling={utfylling.data} />}
       {aktivtSteg === 'KVITTERING' && <KvitteringMedDataFetching utfylling={utfylling.data} />}
     </>

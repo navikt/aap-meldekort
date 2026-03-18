@@ -12,7 +12,9 @@ const useUXSignalsScript = (ready: boolean) => {
     return () => {
       try {
         document.body.removeChild(script);
-      } catch {}
+      } catch {
+        //do nothing
+      }
     };
   }, [ready]);
 };
