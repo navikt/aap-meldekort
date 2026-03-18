@@ -8,6 +8,8 @@ import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
 import { startInnsendingClient } from 'lib/client/clientApi';
 import { useEffect } from 'react';
+import { isSuccess } from 'lib/utils/api';
+import useUXSignalsScript from 'hooks/useUXSignalsScriptHook';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -23,6 +25,8 @@ export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
     innsendingtype === InnsendingType.INNSENDING &&
     kommendeMeldeperiode?.nesteMeldeperiode &&
     kommendeMeldeperiode?.antallUbesvarteMeldeperioder > 0;
+
+  useUXSignalsScript(true);
 
   // Ønsker ikke at bruker skal kunne gå tilbake til forrige steg når meldekort er endret/sendt inn
   useEffect(() => {
@@ -67,13 +71,11 @@ export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
           <Button
             onClick={async () => {
               if (kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode) {
-                const startInnsendingAvMeldekortResponse = await startInnsendingClient(
-                  kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode
-                );
+                const response = await startInnsendingClient(kommendeMeldeperiode?.nesteMeldeperiode?.meldeperiode);
 
-                if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
+                if (isSuccess(response)) {
                   router.push(
-                    `/${InnsendingType.INNSENDING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
+                    `/${InnsendingType.INNSENDING}/${response.data.metadata?.referanse}/${response.data.tilstand?.aktivtSteg}`
                   );
                 }
               }
@@ -81,6 +83,10 @@ export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
           >
             {t('client.steg.kvittering.nesteMeldekortKnapp')}
           </Button>
+        )}
+
+        {!skalViseKnappForKommendeMeldeperiode && (
+          <div data-uxsignals-embed="panel-6hdloytwnx" style={{ maxWidth: '620px' }} />
         )}
 
         {t.rich('client.steg.kvittering.linkTilOversikt', {

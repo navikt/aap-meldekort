@@ -8,8 +8,8 @@ export async function POST(req: NextRequest, props: { params: Promise<{ meldekor
   const utfyllingRequest: EndreUtfyllingRequest = await req.json();
 
   try {
-    const meldekort = await gåTilNesteSteg(params.meldekortid, utfyllingRequest);
-    return NextResponse.json(meldekort, { status: 200 });
+    const res = await gåTilNesteSteg(params.meldekortid, utfyllingRequest);
+    return NextResponse.json(res, { status: res.status });
   } catch (err) {
     logError(`/api/${params.meldekortid}/neste-steg`, err);
     return NextResponse.json({ message: 'Noe gikk galt i lagre-neste av utfylling' }, { status: 500 });

@@ -4,12 +4,13 @@ import {
   StartUtfyllingResponse,
   UtfyllingResponse,
 } from 'lib/types/types';
+import { FetchResponse } from 'lib/utils/api';
 
 async function clientFetch<ResponseBody>(
   url: string,
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE',
   body?: object
-): Promise<ResponseBody | undefined> {
+): Promise<FetchResponse<ResponseBody>> {
   try {
     const res = await fetch(url, {
       method,
@@ -19,13 +20,15 @@ async function clientFetch<ResponseBody>(
       },
     });
 
-    if (res.ok) {
-      return await res.json();
-    } else {
-      return undefined;
-    }
-  } catch (e) {
-    throw new Error('Noe gikk galt.' + JSON.stringify(e));
+    return await res.json();
+  } catch {
+    return {
+      type: 'ERROR',
+      status: 500,
+      apiException: {
+        message: 'En ukjent feil oppsto. Prøv igjen senere.',
+      },
+    };
   }
 }
 
@@ -34,30 +37,31 @@ const baseUrl = '/aap/meldekort';
 export async function gåTilNesteStegClient(
   meldekortId: string,
   meldekortRequest: EndreUtfyllingRequest
-): Promise<UtfyllingResponse | undefined> {
+): Promise<FetchResponse<UtfyllingResponse>> {
   return await clientFetch<UtfyllingResponse>(`${baseUrl}/api/${meldekortId}/neste-steg`, 'POST', meldekortRequest);
 }
 
 export async function mellomlagreMeldekortClient(
   meldekortId: string,
   meldekortRequest: EndreUtfyllingRequest
-): Promise<UtfyllingResponse | undefined> {
+): Promise<FetchResponse<UtfyllingResponse>> {
   return await clientFetch<UtfyllingResponse>(`${baseUrl}/api/${meldekortId}/lagre`, 'POST', meldekortRequest);
 }
 
-export async function slettMeldekortUtfyllingClient(meldekortId: string): Promise<boolean> {
+export async function slettMeldekortUtfyllingClient(meldekortId: string): Promise<FetchResponse<boolean>> {
   const res = await fetch(`${baseUrl}/api/${meldekortId}/slett`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   });
-  return res.ok;
+
+  return await res.json();
 }
 
 export async function startInnsendingClient(
   startInnsendingRequest: StartUtfyllingRequest
-): Promise<StartUtfyllingResponse | undefined> {
+): Promise<FetchResponse<StartUtfyllingResponse>> {
   return await clientFetch<StartUtfyllingResponse>(
     `${baseUrl}/api/meldeperiode/start-innsending`,
     'POST',
@@ -67,7 +71,7 @@ export async function startInnsendingClient(
 
 export async function startKorrigeringClient(
   startInnsendingRequest: StartUtfyllingRequest
-): Promise<StartUtfyllingResponse | undefined> {
+): Promise<FetchResponse<StartUtfyllingResponse>> {
   return await clientFetch<StartUtfyllingResponse>(
     `${baseUrl}/api/meldeperiode/start-korrigering`,
     'POST',

@@ -7,9 +7,8 @@ export async function POST(req: NextRequest) {
   const startUtfyllingRequest: StartUtfyllingRequest = await req.json();
 
   try {
-    const meldekort = await startInnsending(startUtfyllingRequest);
-
-    return NextResponse.json(meldekort, { status: 200 });
+    const res = await startInnsending(startUtfyllingRequest);
+    return NextResponse.json(res, { status: res.status });
   } catch (err) {
     logError(`/meldeperiode/start-innsending`, err);
     return NextResponse.json({ message: 'Start innsending av meldekort gikk dårlig' }, { status: 500 });

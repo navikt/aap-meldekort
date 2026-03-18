@@ -11,6 +11,7 @@ import { InnsendingType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
 
 import styles from 'components/navigationpanel/NavigationPanel.module.css';
+import { isSuccess } from 'lib/utils/api';
 
 interface Props {
   innsendteMeldeperioder: HistoriskMeldeperiode[];
@@ -37,13 +38,11 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
               return (
                 <button
                   onClick={async () => {
-                    const startInnsendingAvMeldekortResponse = await startKorrigeringClient(
-                      innsendtMeldekort.meldeperiode
-                    );
+                    const response = await startKorrigeringClient(innsendtMeldekort.meldeperiode);
 
-                    if (!startInnsendingAvMeldekortResponse?.feil && startInnsendingAvMeldekortResponse) {
+                    if (isSuccess(response)) {
                       router.push(
-                        `/${InnsendingType.KORRIGERING}/${startInnsendingAvMeldekortResponse.metadata?.referanse}/${startInnsendingAvMeldekortResponse.tilstand?.aktivtSteg}`
+                        `/${InnsendingType.KORRIGERING}/${response.data.metadata?.referanse}/${response.data.tilstand?.aktivtSteg}`
                       );
                     }
                   }}
