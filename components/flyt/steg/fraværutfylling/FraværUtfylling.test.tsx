@@ -241,8 +241,9 @@ describe('Fravær utfylling', () => {
 
     it('viser en oppsummering når brukeren har registrert fravær som fører til trekk', () => {
       render(<FraværUtfylling utfylling={meldekortMedFravær} />);
-      expect(screen.getByText('Du har 2 dager som blir trukket fra utbetalingen din på grunn av:')).toBeVisible();
-      expect(screen.getByText('Du har mer enn en dag med annet fravær')).toBeVisible();
+      expect(screen.getByText('Du får trekk i utbetalingen din')).toBeVisible();
+      expect(screen.getByText('Du får 2 dager trekk fordi du har:')).toBeVisible();
+      expect(screen.getByText('mer enn en dag med annet fravær')).toBeVisible();
     });
   });
 });
