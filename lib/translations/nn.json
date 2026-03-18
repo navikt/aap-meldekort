@@ -163,7 +163,7 @@
           "heading": "Du har ført arbeidstimer og fråvær på same dag",
           "description": "Sjå over om opplysningane stemmer for disse dagane:"
         },
-        "timerArbeidet": "{timerArbeidet} timar arbeidet",
+        "timerArbeidet": "{timerArbeidet, plural, =1 {# time} other {# timar}} arbeidet",
         "trekk": {
           "tag": "Trekk",
           "infocard": {
