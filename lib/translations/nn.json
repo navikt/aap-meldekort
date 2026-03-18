@@ -144,7 +144,7 @@
           "error": "Du må svara på om du har gjennomført alle avtalte aktivitetar",
           "readMore": {
             "header": "Kva siktar ein til med avtalt aktivitet?",
-            "content": "Aktivitetar som om er i aktivitetsplanen din og merka med “avtalte med Nav”."
+            "content": "Aktivitetar som er i aktivitetsplanen din og merka med “avtalte med Nav”."
           },
           "options": {
             "gjennomførtAvtaltAktivitet": "Ja, eg har gjennomført alle avtalte aktivitetar",
