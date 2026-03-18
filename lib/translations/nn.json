@@ -168,7 +168,7 @@
           "tag": "Trekk",
           "infocard": {
             "title": "Du får trekk i utbetalinga di",
-            "description": "Du har {dagerMedFravær} dager som blir trekte frå utbetalinga di på grunn av:",
+            "description": "Du har {dagerMedFravær, plural, =1 {# dag} other {# dagar}} dager som blir trekte frå utbetalinga di på grunn av:",
             "annetFravær": "meir enn ein dag med andre fråvær",
             "oppfølgingAvBarn": "meir enn tre dagar med fråvær på grunn av første skuledag, tilvenning i barnehage eller anna oppfølging av barn.",
             "dødsfall": "meir enn tre dagar med fråvær grunna dødsfall",
