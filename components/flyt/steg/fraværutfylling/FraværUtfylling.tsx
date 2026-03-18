@@ -77,13 +77,9 @@ export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Prop
     },
   });
 
-  const dagerMedFraværOgRegistrertArbeid = fields
-    .filter((field) =>
-      utfylling.tilstand.svar.dager.some(
-        (dag) => isSameDay(dag.dato, field.dato) && dag.timerArbeidet && dag.timerArbeidet > 0
-      )
-    )
-    .map((dag) => dag.dato);
+  const dagerMedFraværOgRegistrertArbeid = utfylling.tilstand.svar.dager.filter((dag) =>
+    fields.some((felt) => isSameDay(felt.dato, dag.dato) && dag.timerArbeidet && dag.timerArbeidet > 0)
+  );
 
   const fraDato = new Date(utfylling.metadata.periode.fom);
   const tilDato = new Date(utfylling.metadata.periode.tom);
@@ -186,7 +182,10 @@ export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Prop
               <BodyShort>{t('client.steg.fraværutfylling.fraværSammeDagSomArbeid.description')}</BodyShort>
               <ul>
                 {dagerMedFraværOgRegistrertArbeid.map((dag) => (
-                  <li key={dag.getTime()}>{storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag))}</li>
+                  <li key={dag.dato}>
+                    {storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag.dato))},{' '}
+                    {`${dag.timerArbeidet} ${dag.timerArbeidet === 1 ? 'time' : 'timer'}`}
+                  </li>
                 ))}
               </ul>
             </InfoCard.Content>
