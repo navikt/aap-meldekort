@@ -36,7 +36,7 @@ const hentLocalToken = async () => {
   }
   const url = 'http://localhost:8081/token';
   try {
-    return fetch(url, { method: 'POST', next: { revalidate: 0 } })
+    return fetch(url, { method: 'POST', body: '11111111112', next: { revalidate: 0 } })
       .then((res) => res.json())
       .then((data) => data?.access_token);
   } catch (err) {
