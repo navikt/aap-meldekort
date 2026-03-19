@@ -3,7 +3,7 @@ import {
   formaterDatoForBackend,
   hentUkeNummerForPeriode,
   parseDatoFraDatePicker,
-  sorterEtterNyesteDato,
+  sorterEtterNyesteDatoString,
   stringToDate,
 } from 'lib/utils/date';
 import { addWeeks, getISOWeek } from 'date-fns';
@@ -25,7 +25,7 @@ describe('formaterDatoForBackend', () => {
 describe('sorterEtterNyesteDato', () => {
   const datoer = ['2024-04-30', '2024-05-02', '2024-05-03'];
   it('skal sortere korrekt', () => {
-    const sorterteDatoer = datoer.sort(sorterEtterNyesteDato);
+    const sorterteDatoer = datoer.sort(sorterEtterNyesteDatoString);
     expect(sorterteDatoer).toEqual(['2024-05-03', '2024-05-02', '2024-04-30']);
   });
 });

@@ -98,7 +98,7 @@
           "heading": "Endre meldekort"
         },
         "innsending": {
-          "heading": "Fyll ut meldekort"
+          "heading": "Arbeid og avtalt aktivitet"
         },
         "periode": "Veke {uker} ({periode})",
         "skjema": {
@@ -115,7 +115,7 @@
           "heading": "Endre meldekort"
         },
         "innsending": {
-          "heading": "Fyll ut meldekort"
+          "heading": "Kva dagar har du arbeidd?"
         },
         "periode": "Uke {uker} ({periode})",
         "beskrivelse": "Legg inn timane du har jobba i perioden. Skriv timane med desimal til nærmaste halvtime. Døme: 7 timar og 30 minutt = 7,5 timar.",
@@ -131,6 +131,75 @@
               "validering": {
                 "bareNummer": "Du kan berre skrive tal mellom 0 og 24. ({dato}).",
                 "heleHalveTimer": "Du kan berre skrive inn heile eller halve timar. ({dato})."
+              }
+            }
+          }
+        }
+      },
+      "fraværspørsmål": {
+        "heading": "Fråvær frå avtalt aktivitet?",
+        "periode": "Uke {uker} ({periode})",
+        "harDuGjennomførtAvtaltAktivitet": {
+          "label": "Har du gjennomført alle aktivitetar som er avtalte med oss?",
+          "error": "Du må svara på om du har gjennomført alle avtalte aktivitetar",
+          "readMore": {
+            "header": "Kva siktar ein til med avtalt aktivitet?",
+            "content": "Aktivitetar som er i aktivitetsplanen din og merka med “avtalte med Nav”."
+          },
+          "options": {
+            "gjennomførtAvtaltAktivitet": "Ja, eg har gjennomført alle avtalte aktivitetar",
+            "neiIkkeGjennomførtAvtaltAktivitet": "Nei, eg har ikkje gjennomført alle avtalte aktivitetar",
+            "ingenAvtalteAktiviteter": "Eg har ingen avtalte aktivitetar"
+          }
+        }
+      },
+      "fraværutfylling": {
+        "heading": "Kva dagar var du borte frå avtalt aktivitet?",
+        "periode": "Uke {uker} ({periode})",
+        "description": "Du melder berre inn aktivitetar som er i aktivitetsplanen og avtalte med Nav.",
+        "underheading": "Dagar du var borte",
+        "leggTilDag": "Legg til dag",
+        "fraværSammeDagSomArbeid": {
+          "heading": "Du har ført arbeidstimer og fråvær på same dag",
+          "description": "Sjå over om opplysningane stemmer for disse dagane:"
+        },
+        "timerArbeidet": "{timerArbeidet, plural, =1 {# time} other {# timar}} arbeidet",
+        "trekk": {
+          "tag": "Trekk",
+          "infocard": {
+            "title": "Du får trekk i utbetalinga di",
+            "description": "Du har {dagerMedFravær, plural, =1 {# dag} other {# dagar}} dager som blir trekte frå utbetalinga di på grunn av:",
+            "annetFravær": "meir enn ein dag med andre fråvær",
+            "oppfølgingAvBarn": "meir enn tre dagar med fråvær på grunn av første skuledag, tilvenning i barnehage eller anna oppfølging av barn.",
+            "dødsfall": "meir enn tre dagar med fråvær grunna dødsfall",
+            "over10Dager": "meir enn ti dagar med fråvær i år"
+          }
+        },
+        "error": "Legg til dagane du har vore borte. Du har svart at du har vore borte frå avtalt aktivitet og må leggja til dette før du kan halda fram.",
+        "dialog": {
+          "title": "Legg til dag",
+          "avbryt": "Avbryt",
+          "bekreft": "Bekreft",
+          "dato": {
+            "label": "Kva dag var du borte?",
+            "error": "Du må seia kva dag du var borte"
+          },
+          "grunn": {
+            "label": "Kva var grunnen?",
+            "error": "Du må velja grunn",
+            "grunner": {
+              "sykdomSkade": {
+                "label": "Sykdom eller skade",
+                "description": "Om du, barn eller barnepass har vore sjuke eller skadde."
+              },
+              "omsorgAnnenSterkGrunn": { "label": "Annan sterk velferdsgrunn" },
+              "omsorgPleieIHjemmet": { "label": "Pleie i heimen av nær pårørande" },
+              "oppfølgingAvBarn": { "label": "Første skuledag, tilvenning eller anna oppfølging av barn" },
+              "dødsfall": { "label": "Dødsfall i familie eller vennekrets" },
+              "annen": { "label": "Annan", "description": "Fråvær som ikkje kjem av velferdsgrunn." },
+              "omsorg": {
+                "label": "Omsorgsoppgåver eller pliktar",
+                "description": "Om du har hatt oppfølging av barn, sjukdom eller dødsfall i familien eller andre grunnar."
               }
             }
           }
@@ -159,6 +228,9 @@
             "periodeLabel": "Veke {ukenummer} ({periode})",
             "timerArbeidet": "{timer} timar med arbeid",
             "sammenlagt": "Samanlagt for perioden"
+          },
+          "harDuGjennomførtAvtaltAktivitet": {
+            "label": "Har du gjennomført alle aktivitetar som er avtalte med oss?"
           }
         },
         "skjema": {
@@ -206,6 +278,15 @@
     },
     "sammenlagtForPerioden": {
       "label": "Samanlagt for perioden"
+    },
+    "fraværFraAvtaltAktivitet": {
+      "harDuGjennomførtAvtaltAktivitet": {
+        "valg": {
+          "gjennomførtAvtaltAktivitet": "Ja, eg har gjennomført alle avtalte aktivitetar",
+          "neiIkkeGjennomførtAvtaltAktivitet": "Nei, eg har ikkje gjennomført alle avtalte aktivitetar",
+          "ingenAvtalteAktiviteter": "Eg har ingen avtalte aktivitetar"
+        }
+      }
     }
   }
 }

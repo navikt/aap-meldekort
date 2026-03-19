@@ -9,7 +9,7 @@ import { FieldArrayWithIndex } from 'components/utfyllingkalender/UtfyllingKalen
 
 import styles from './UkeDag.module.css';
 import { useTranslations } from 'next-intl';
-import { formaterDatoMedMånedIBokstaver, formaterDatoUtenÅrForFrontend } from 'lib/utils/date';
+import { formaterDatoMedMånedIBokstaver, formaterDatoUtenÅrForFrontend, fullDag } from 'lib/utils/date';
 import { nb } from 'date-fns/locale';
 import { storForbokstav } from 'lib/utils/string';
 
@@ -104,10 +104,5 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
     const ukedag = format(dato, 'EEEE', { locale: nb });
 
     return erLitenSkjerm ? ukedag : ukedag.substring(0, 2) + '.';
-  }
-
-  function fullDag(date: string | Date): string {
-    const dato = new Date(date);
-    return format(dato, 'EEEE', { locale: nb });
   }
 };

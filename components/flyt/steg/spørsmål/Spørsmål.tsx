@@ -2,16 +2,17 @@
 
 import { Form } from 'components/form/Form';
 import { getJaNeiEllerUndefined, JaEllerNei } from 'lib/utils/form';
-import { BodyShort, Heading, Radio, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, Radio, ReadMore, VStack } from '@navikt/ds-react';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import { UtfyllingResponse } from 'lib/types/types';
+import { FraværSvar, UtfyllingResponse } from 'lib/types/types';
 import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
 import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { RadioGroupWrapper } from 'components/form/radiogroupwrapper/RadioGroupWrapper';
+import { isSameDay } from 'date-fns';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -19,6 +20,7 @@ interface Props {
 
 interface FormFields {
   harDuJobbet: JaEllerNei;
+  harDuGjennomførtAvtaltAktivitet: NonNullable<FraværSvar>;
 }
 
 export const Spørsmål = ({ utfylling }: Props) => {
@@ -28,14 +30,24 @@ export const Spørsmål = ({ utfylling }: Props) => {
   const { isLoading, løsStegOgGåTilNeste, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const { mellomlagreMeldekort, sistLagret } = useMellomlagring();
 
+  const brukV2Flyt =
+    utfylling.metadata.flytNavn === 'AAP_KORRIGERING_FLYT_V2' || utfylling.metadata.flytNavn === 'AAP_FLYT_V2';
+
   const form = useForm<FormFields>({
-    defaultValues: { harDuJobbet: getJaNeiEllerUndefined(utfylling.tilstand.svar.harDuJobbet) },
+    defaultValues: {
+      harDuJobbet: getJaNeiEllerUndefined(utfylling.tilstand.svar.harDuJobbet),
+      harDuGjennomførtAvtaltAktivitet: utfylling.tilstand.svar.harDuGjennomførtAvtaltAktivitet || undefined,
+    },
   });
 
   const fraDato = new Date(utfylling.metadata.periode.fom);
   const tilDato = new Date(utfylling.metadata.periode.tom);
 
   const harDuJobbetValue = useWatch({ control: form.control, name: 'harDuJobbet' });
+  const harDuGjennomførtAvtaltAktivitetValue = useWatch({
+    control: form.control,
+    name: 'harDuGjennomførtAvtaltAktivitet',
+  });
 
   useEffect(() => {
     if (harDuJobbetValue !== null) {
@@ -45,11 +57,12 @@ export const Spørsmål = ({ utfylling }: Props) => {
           svar: {
             ...utfylling.tilstand.svar,
             harDuJobbet: harDuJobbetValue === JaEllerNei.Ja,
+            harDuGjennomførtAvtaltAktivitet: harDuGjennomførtAvtaltAktivitetValue,
           },
         },
       });
     }
-  }, [harDuJobbetValue]);
+  }, [harDuJobbetValue, harDuGjennomførtAvtaltAktivitetValue]);
 
   return (
     <Form
@@ -65,9 +78,12 @@ export const Spørsmål = ({ utfylling }: Props) => {
                 return {
                   dato: dag.dato,
                   timerArbeidet: data.harDuJobbet === JaEllerNei.Nei ? 0 : dag.timerArbeidet,
+                  fravær: utfylling.tilstand.svar.dager.find((tilstandDag) => isSameDay(tilstandDag.dato, dag.dato))
+                    ?.fravær,
                 };
               }),
               harDuJobbet: data.harDuJobbet === JaEllerNei.Ja,
+              harDuGjennomførtAvtaltAktivitet: data.harDuGjennomførtAvtaltAktivitet,
             },
           },
         });
@@ -99,6 +115,30 @@ export const Spørsmål = ({ utfylling }: Props) => {
           <Radio value={JaEllerNei.Ja}>Ja</Radio>
           <Radio value={JaEllerNei.Nei}>Nei</Radio>
         </RadioGroupWrapper>
+        {brukV2Flyt && (
+          <RadioGroupWrapper
+            name={'harDuGjennomførtAvtaltAktivitet'}
+            control={form.control}
+            label={t('client.steg.fraværspørsmål.harDuGjennomførtAvtaltAktivitet.label')}
+            size={'medium'}
+            rules={{ required: t('client.steg.fraværspørsmål.harDuGjennomførtAvtaltAktivitet.error') }}
+          >
+            <ReadMore header={t('client.steg.fraværspørsmål.harDuGjennomførtAvtaltAktivitet.readMore.header')}>
+              {t('client.steg.fraværspørsmål.harDuGjennomførtAvtaltAktivitet.readMore.content')}
+            </ReadMore>
+            <Radio value={'GJENNOMFØRT_AVTALT_AKTIVITET'}>
+              {t('client.fraværFraAvtaltAktivitet.harDuGjennomførtAvtaltAktivitet.valg.gjennomførtAvtaltAktivitet')}
+            </Radio>
+            <Radio value={'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET'}>
+              {t(
+                'client.fraværFraAvtaltAktivitet.harDuGjennomførtAvtaltAktivitet.valg.neiIkkeGjennomførtAvtaltAktivitet'
+              )}
+            </Radio>
+            <Radio value={'INGEN_AVTALTE_AKTIVITETER'}>
+              {t('client.fraværFraAvtaltAktivitet.harDuGjennomførtAvtaltAktivitet.valg.ingenAvtalteAktiviteter')}
+            </Radio>
+          </RadioGroupWrapper>
+        )}
       </VStack>
     </Form>
   );

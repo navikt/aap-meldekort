@@ -35,7 +35,7 @@ describe('Kvittering', () => {
 
   it('har en accordion for å se hva som ble sendt inn', () => {
     render(<Kvittering utfylling={meldekort} />);
-    expect(screen.getByText('Se hva du sendte inn')).toBeVisible();
+    expect(screen.getByText('Se hva du har sendt inn')).toBeVisible();
   });
 
   it('skal ha en knapp for å gå tilbake til oversikt siden', () => {

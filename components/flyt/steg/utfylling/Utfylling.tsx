@@ -11,6 +11,7 @@ import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/util
 import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
 import { useTranslations } from 'next-intl';
+import { isSameDay } from 'date-fns';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -73,6 +74,7 @@ export const Utfylling = ({ utfylling }: Props) => {
           dager: dager.map((dag) => ({
             dato: dag.dag,
             timerArbeidet: dag.timer ? Number(replaceCommasWithDots(dag.timer)) : null,
+            fravær: utfylling.tilstand.svar.dager.find((tilstandDag) => isSameDay(tilstandDag.dato, dag.dag))?.fravær,
           })),
         },
       },
@@ -99,6 +101,8 @@ export const Utfylling = ({ utfylling }: Props) => {
                   dager: data.dager.map((dag) => ({
                     dato: dag.dag,
                     timerArbeidet: dag.timer ? Number(replaceCommasWithDots(dag.timer)) : null,
+                    fravær: utfylling.tilstand.svar.dager.find((tilstandDag) => isSameDay(tilstandDag.dato, dag.dag))
+                      ?.fravær,
                   })),
                 },
               },

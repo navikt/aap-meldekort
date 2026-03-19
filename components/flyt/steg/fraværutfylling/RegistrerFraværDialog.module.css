@@ -1,0 +1,3 @@
+.feil input[type='radio'] {
+  border-color: var(--ax-border-danger-strong);
+}

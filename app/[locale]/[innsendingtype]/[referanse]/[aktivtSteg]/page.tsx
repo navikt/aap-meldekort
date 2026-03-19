@@ -6,6 +6,7 @@ import { Spørsmål } from 'components/flyt/steg/spørsmål/Spørsmål';
 import { Utfylling } from 'components/flyt/steg/utfylling/Utfylling';
 import { Bekreft } from 'components/flyt/steg/bekreft/Bekreft';
 import { KvitteringMedDataFetching } from 'components/flyt/steg/kvittering/KvitteringMedDataFetching';
+import { FraværUtfylling } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
 import { isError, isSuccess, SuccessResponseBody } from 'lib/utils/api';
 import { Alert } from '@navikt/ds-react';
 
@@ -22,7 +23,7 @@ interface Props {
  * Denne må være lik rekkefølgen for flyten for innsending/korrigering.
  * Lager en tuple slik at typescript sier i fra dersom steg endrer seg.
  */
-const alleSteg = ['INTRODUKSJON', 'SPØRSMÅL', 'UTFYLLING', 'BEKREFT', 'KVITTERING'] as const;
+const alleSteg = ['INTRODUKSJON', 'SPØRSMÅL', 'UTFYLLING', 'FRAVÆR_UTFYLLING', 'BEKREFT', 'KVITTERING'] as const;
 type StegTuple = typeof alleSteg;
 
 const AktivtStegPage = async (props: Props) => {
@@ -65,6 +66,7 @@ const AktivtStegPage = async (props: Props) => {
       {aktivtSteg === 'INTRODUKSJON' && <Introduksjon utfylling={utfylling.data} />}
       {aktivtSteg === 'SPØRSMÅL' && <Spørsmål utfylling={utfylling.data} />}
       {aktivtSteg === 'UTFYLLING' && <Utfylling utfylling={utfylling.data} />}
+      {aktivtSteg === 'FRAVÆR_UTFYLLING' && <FraværUtfylling utfylling={utfylling.data} />}
       {aktivtSteg === 'BEKREFT' && <Bekreft utfylling={utfylling.data} />}
       {aktivtSteg === 'KVITTERING' && <KvitteringMedDataFetching utfylling={utfylling.data} />}
     </>

@@ -47,7 +47,7 @@ describe('Utfylling', () => {
   });
 
   it('skal ha en heading', () => {
-    const heading = screen.getByRole('heading', { name: 'Fyll ut meldekort', level: 2 });
+    const heading = screen.getByRole('heading', { name: 'Hvilke dager har du arbeidet?', level: 2 });
     expect(heading).toBeVisible();
   });
 
