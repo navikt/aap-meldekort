@@ -473,6 +473,41 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/drift/api/jobb/feilende/antall": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": number;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/drift/api/jobb/planlagte-jobber": {
         parameters: {
             query?: never;
@@ -777,7 +812,7 @@ export interface components {
              */
             dato: string;
             /** @enum {string|null} */
-            "frav\u00E6r"?: "SYKDOM_ELLER_SKADE" | "OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN" | "OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE" | "OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS" | "OMSORG_MEDDOMMER_ELLER_ANDRE_OFFENTLIGE_PLIKTER" | "OMSORG_ANNEN_STERK_GRUNN" | "ANNEN" | null;
+            "frav\u00E6r"?: "ANNEN" | "OMSORG_ANNEN_STERK_GRUNN" | "OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS" | "OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN" | "OMSORG_PLEIE_I_HJEMMET_AV_NÆR_PÅRØRENDE" | "SYKDOM_ELLER_SKADE" | null;
             /** Format: double */
             timerArbeidet?: number | null;
         };
@@ -853,7 +888,7 @@ export interface components {
         "no.nav.aap.meldekort.SvarDto": {
             dager: components["schemas"]["no.nav.aap.meldekort.DagSvarDto"][];
             /** @enum {string|null} */
-            "harDuGjennomf\u00F8rtAvtaltAktivitet"?: "GJENNOMFØRT_AVTALT_AKTIVITET" | "NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET" | "INGEN_AVTALTE_AKTIVITETER" | null;
+            "harDuGjennomf\u00F8rtAvtaltAktivitet"?: "GJENNOMFØRT_AVTALT_AKTIVITET" | "INGEN_AVTALTE_AKTIVITETER" | "NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET" | null;
             harDuJobbet?: boolean | null;
             stemmerOpplysningene?: boolean | null;
             vilSvareRiktig?: boolean | null;
@@ -888,7 +923,7 @@ export interface components {
         };
         "no.nav.aap.meldekort.UtfyllingTilstandDto": {
             /** @enum {string} */
-            aktivtSteg: "INTRODUKSJON" | "SPØRSMÅL" | "UTFYLLING" | "FRAVÆR_UTFYLLING" | "BEKREFT" | "KVITTERING";
+            aktivtSteg: "BEKREFT" | "FRAVÆR_UTFYLLING" | "INTRODUKSJON" | "KVITTERING" | "SPØRSMÅL" | "UTFYLLING";
             svar: components["schemas"]["no.nav.aap.meldekort.SvarDto"];
         };
         "no.nav.aap.meldekort.kontrakt.Periode": {
@@ -903,20 +938,12 @@ export interface components {
              */
             tom: string;
         };
-        "no.nav.aap.meldekort.kontrakt.sak.AktivitetsInformasjonDto": {
-            /** Format: double */
-            aktivitetsInformasjon: number;
-            /**
-             * Format: date
-             * @example 2025-04-01
-             */
-            dato: string;
-        };
         "no.nav.aap.meldekort.kontrakt.sak.BehandslingsflytUtfyllingRequest": {
-            dager: components["schemas"]["no.nav.aap.meldekort.kontrakt.sak.AktivitetsInformasjonDto"][];
+            dager: components["schemas"]["no.nav.aap.meldekort.kontrakt.sak.TimerArbeidetDto"][];
             harDuJobbet: boolean;
             ident: string;
             periode: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"];
+            sakenGjelderFor: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"];
             saksnummer: string;
         };
         "no.nav.aap.meldekort.kontrakt.sak.MeldeperioderV0": {
@@ -925,9 +952,18 @@ export interface components {
             meldeplikt: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"][];
             opplysningsbehov: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"][];
             /** @enum {string|null} */
-            sakStatus?: "UTREDES" | "LØPENDE" | "AVSLUTTET" | null;
+            sakStatus?: "AVSLUTTET" | "LØPENDE" | "UTREDES" | null;
             sakenGjelderFor: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"];
             saksnummer: string;
+        };
+        "no.nav.aap.meldekort.kontrakt.sak.TimerArbeidetDto": {
+            /**
+             * Format: date
+             * @example 2025-04-01
+             */
+            dato: string;
+            /** Format: double */
+            timerArbeidet: number;
         };
         "no.nav.aap.motor.api.JobbInfoDto": {
             /** Format: int32 */
@@ -952,7 +988,7 @@ export interface components {
              */
             "planlagtKj\u00F8retidspunkt": string;
             /** @enum {string} */
-            status: "KLAR" | "PLUKKET" | "FERDIG" | "FEILET" | "AVBRUTT";
+            status: "AVBRUTT" | "FEILET" | "FERDIG" | "KLAR" | "PLUKKET";
             type: string;
         };
     };
