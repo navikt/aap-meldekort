@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from 'lib/utils/test/customRender';
-import { Utfylling } from 'components/flyt/steg/utfylling/Utfylling';
+import { manglerTimerPåArbeid, Utfylling } from 'components/flyt/steg/utfylling/Utfylling';
 import { UtfyllingResponse } from 'lib/types/types';
 import createFetchMock from 'vitest-fetch-mock';
 
@@ -78,4 +78,28 @@ describe('rapporteringskalender', () => {
     const ukenummer = screen.getByText('Uke 47');
     expect(ukenummer).toBeVisible();
   });
+});
+
+describe('manglerTimerPåArbeid', () => {
+  it('mangler ikke timer på arbeid dersom det er fylt ut noe som kan parses som et nummer', () => {
+    expect(manglerTimerPåArbeid([{ dag: '2025-12-01', timer: '3,5' }], true)).toBe(false);
+    expect(manglerTimerPåArbeid([{ dag: '2025-12-01', timer: '3.5' }], true)).toBe(false);
+  })
+
+  it('mangler ikke timer på arbeid dersom det er svart "nei" på at det er arbeidet', () => {
+    expect(manglerTimerPåArbeid([], false)).toBe(false);
+  })
+
+  it('mangler timer på arbeid dersom det er svart ja på arbeid uten at det er fylt ut noen timer', () => {
+    expect(manglerTimerPåArbeid([], true)).toBe(true);
+  });
+
+  // denne burde ikke være så relevant da det blir håndtert i validering av hvert enkelt felt
+  it('mangler timer på arbeid dersom det er fylt ut en ugyldig timeverdi', () => {
+    expect(manglerTimerPåArbeid([{ dag: '2025-12-01', timer: 'tre og en halv' }], true)).toBe(true);
+  })
+
+  it('mangler timer på arbeid hvis timeantall er null', () => {
+    expect(manglerTimerPåArbeid([{ dag: '2025-12-01', timer: null }], true)).toBe(true);
+  })
 });
