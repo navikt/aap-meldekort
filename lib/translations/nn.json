@@ -192,7 +192,7 @@
                 "label": "Sykdom eller skade",
                 "description": "Om du, barn eller barnepass har vore sjuke eller skadde."
               },
-              "omsorgAnnenSterkGrunn": { "label": "Annan sterk grunn" },
+              "omsorgAnnenSterkGrunn": { "label": "Annan sterk velferdsgrunn" },
               "omsorgPleieIHjemmet": { "label": "Pleie i heimen av nær pårørande" },
               "oppfølgingAvBarn": { "label": "Første skuledag, tilvenning eller anna oppfølging av barn" },
               "dødsfall": { "label": "Dødsfall i familie eller vennekrets" },
