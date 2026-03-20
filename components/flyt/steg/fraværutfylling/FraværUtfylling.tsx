@@ -68,6 +68,8 @@ export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Prop
     },
   });
 
+  const forrigeSteg = utfylling.tilstand.svar.harDuJobbet ? 'UTFYLLING' : 'SPØRSMÅL';
+
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: 'dager',
@@ -125,7 +127,7 @@ export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Prop
         })}
         isLoading={isLoading}
         errorMessage={errorMessage}
-        forrigeStegOnClick={() => gåTilSteg('UTFYLLING')}
+        forrigeStegOnClick={() => gåTilSteg(forrigeSteg)}
         sistLagret={sistLagret}
       >
         <VStack gap={'space-32'}>
