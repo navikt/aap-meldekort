@@ -1,3 +1,10 @@
 .feil input[type='radio'] {
   border-color: var(--ax-border-danger-strong);
 }
+
+.modalKnapper {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: var(--ax-space-16);
+  justify-content: flex-start;
+}

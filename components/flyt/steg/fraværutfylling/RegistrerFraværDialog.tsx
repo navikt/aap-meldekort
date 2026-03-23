@@ -130,15 +130,15 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
             </VStack>
           </form>
         </Dialog.Body>
-        <Dialog.Footer>
+        <Dialog.Footer className={styles.modalKnapper}>
+          <Button variant={'primary'} form="skjemaet">
+            {t('client.steg.fraværutfylling.dialog.bekreft')}
+          </Button>
           <Dialog.CloseTrigger>
             <Button variant={'secondary'} type={'button'}>
               {t('client.steg.fraværutfylling.dialog.avbryt')}
             </Button>
           </Dialog.CloseTrigger>
-          <Button variant={'primary'} form="skjemaet">
-            {t('client.steg.fraværutfylling.dialog.bekreft')}
-          </Button>
         </Dialog.Footer>
       </Dialog.Popup>
     </Dialog>
