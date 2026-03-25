@@ -91,19 +91,11 @@ export const Bekreft = ({ utfylling }: Props) => {
           <Alert variant={'info'}>
             <BodyShort>
               {
-                // Infotekst som dekker julen 2025
-                hentUkeNummerForPeriode(
-                  new Date(utfylling.metadata.periode.fom),
-                  new Date(utfylling.metadata.periode.tom)
-                ) === '50 og 51' && new Date().getFullYear() === 2025 ? (
-                  <>{t('client.steg.bekreft.kanIkkeSendesInnJulen2025')}</>
-                ) : (
-                  <>
-                    {t('client.steg.bekreft.kanIkkeSendesInn', {
-                      dato: formaterDatoMedMånedIBokstaver(utfylling.metadata.tidligsteInnsendingstidspunkt!),
-                    })}
-                  </>
-                )
+                <>
+                  {t('client.steg.bekreft.kanIkkeSendesInn', {
+                    dato: formaterDatoMedMånedIBokstaver(utfylling.metadata.tidligsteInnsendingstidspunkt!),
+                  })}
+                </>
               }
             </BodyShort>
 
