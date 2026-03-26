@@ -141,7 +141,7 @@
         "periode": "Uke {uker} ({periode})",
         "harDuGjennomførtAvtaltAktivitet": {
           "label": "Har du gjennomført alle aktivitetar som er avtalt med oss?",
-          "error": "Du må svara på om du har gjennomført alle avtalt aktivitetar",
+          "error": "Du må svara på om du har gjennomført alle avtalte aktivitetar",
           "readMore": {
             "header": "Kva siktar ein til med avtalt aktivitet?",
             "content": "Aktivitetar som er i aktivitetsplanen din og merka med “avtalte med Nav”."
