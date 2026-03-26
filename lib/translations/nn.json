@@ -1,34 +1,34 @@
 {
   "metadata": {
     "title": "AAP Meldekort",
-    "description": "Innbyggerflate for å sende inn meldekort"
+    "description": "Innbyggjarflate for å sende inn meldekort"
   },
   "page": {
     "notFound": {
-      "heading": "Denne siden finnes ikke.",
+      "heading": "Denne siden finnast ikkje.",
       "tilbakeLink": "Gå tilbake til oversikt"
     }
   },
   "client": {
     "page": {
       "error": {
-        "heading": "Beklager, noe gikk galt.",
-        "description": "En teknisk feil på våre servere gjør at meldekort er utilgjengelig.",
+        "heading": "Beklagar, noko gjekk gale.",
+        "description": "Ein teknisk feil på våre serverar gjer at meldekort er utilgjengeleg.",
         "bulletList": {
           "title": "Du kan prøve å",
           "items": {
-            "1": "vente noen minutter og <a>laste siden på nytt</a>",
+            "1": "venta nokre minuttar og <a>laste siden på nytt</a>",
             "2": "gå tilbake til <a>meldekort oversikt</a>"
           }
         },
-        "vedvarer": "Hvis problemet vedvarer, kan du <a>kontakte oss (åpnes i ny fane)</a>"
+        "vedvarer": "Hvis problemet vedvarer, kan du <a>kontakte oss (opner i ny fane)</a>"
       }
     },
     "link": {
       "gåTilOversikten": "Tilbake til oversikta"
     },
     "oversikt": {
-      "ingenMeldekort": "Kunne ikke finne noen meldeperioder",
+      "ingenMeldekort": "Kunne ikkje finna nokre meldeperioder",
       "mottaAAP": "For at du skal kunne få AAP, må du sende inn meldekort kvar 14. dag. På meldekortet må du fylle ut kor mange timar du har jobba.",
       "infoAlert": "Du kan fylle ut meldekortet no, men det kan ikkje sendast inn før tidlegast {dato}.",
       "infoAlertJulen2025": "Du kan fylle ut meldekort no. Denne perioden kan du sende inn allereie frå onsdag 17. desember for å få utbetaling før jul.",
@@ -76,7 +76,7 @@
         },
         "opplysninger": {
           "title": "Vi vil innhente og bruke informasjon om deg",
-          "link": "<a>Du kan lese mer om hvordan NAV behandler personopplysninger på nav.no (åpnes i ny fane).</a>",
+          "link": "<a>Du kan lese meir om korleis NAV behandlar personopplysningar på nav.no (opnar i ny fane).</a>",
           "label": "I tillegg til informasjonen du oppgir i meldekortet, hentar vi følgjande:",
           "bulletList": {
             "item": {
@@ -84,7 +84,7 @@
               "2": "Inntektsinformasjon frå Skatteetaten.",
               "3": "Helseinformasjon frå lege/behandlar for å kartleggje arbeidsevna di.",
               "4": "Opplysningar om arbeidsforholdet ditt frå Arbeidsgivar- og arbeidstakarregisteret.",
-              "5": "Opplysninger vi har om deg fra før."
+              "5": "Opplysningar vi har om deg fra før."
             }
           }
         },
@@ -140,8 +140,8 @@
         "heading": "Fråvær frå avtalt aktivitet?",
         "periode": "Uke {uker} ({periode})",
         "harDuGjennomførtAvtaltAktivitet": {
-          "label": "Har du gjennomført alle aktivitetar som er avtalte med oss?",
-          "error": "Du må svara på om du har gjennomført alle avtalte aktivitetar",
+          "label": "Har du gjennomført alle aktivitetar som er avtalt med oss?",
+          "error": "Du må svara på om du har gjennomført alle avtalt aktivitetar",
           "readMore": {
             "header": "Kva siktar ein til med avtalt aktivitet?",
             "content": "Aktivitetar som er i aktivitetsplanen din og merka med “avtalte med Nav”."
@@ -230,12 +230,12 @@
             "sammenlagt": "Samanlagt for perioden"
           },
           "harDuGjennomførtAvtaltAktivitet": {
-            "label": "Har du gjennomført alle aktivitetar som er avtalte med oss?"
+            "label": "Har du gjennomført alle aktivitetar som er avtala med oss?"
           }
         },
         "skjema": {
           "label": "Eg stadfestar å ha gitt korrekte opplysningar.",
-          "error": "Du må bekrefte at disse opplysningene stemmer."
+          "error": "Du må bekrefta at desse opplysningene stemmer."
         }
       },
       "kvittering": {
@@ -267,7 +267,7 @@
       "innsending": {
         "content": "Dersom du avbryt, vil informasjonen du har fylt ut, bli sletta."
       },
-      "error": "Noe gikk galt ved sletting av meldekort.",
+      "error": "Noko gjekk gale ved sletting av meldekort.",
       "forstettKnappTekst": "Hald fram med å fylle ut"
     },
     "fortsettSenere": {
