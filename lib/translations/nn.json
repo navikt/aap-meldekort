@@ -235,7 +235,7 @@
         },
         "skjema": {
           "label": "Eg stadfestar å ha gitt korrekte opplysningar.",
-          "error": "Du må bekrefta at desse opplysningene stemmer."
+          "error": "Du må bekrefte at desse opplysningene stemmer."
         }
       },
       "kvittering": {
