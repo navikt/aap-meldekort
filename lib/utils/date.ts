@@ -27,10 +27,6 @@ export function formaterDatoMedMånedIBokstaver(dato: Date | string): string {
   return format(dato, DATO_FORMATER.dMMMM, { locale: nb });
 }
 
-export function formaterDatoMedMånedIBokstaverOgÅr(dato: Date | string): string {
-  return format(dato, DATO_FORMATER.dMMMMyyyy, { locale: nb });
-}
-
 export function formaterDatoMedTidspunktForFrontend(dato: Date | string): string {
   return format(dato, DATO_FORMATER.ddMMyyyy_HHmm, { locale: nb });
 }
