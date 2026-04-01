@@ -77,19 +77,9 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
 
             {kommendeMeldeperiode.antallUbesvarteMeldeperioder === 0 && kommendeMeldeperiode.nesteMeldeperiode && (
               <Alert variant={'info'}>
-                {
-                  // Infotekst som dekker julen 2025
-                  hentUkeNummerForPeriode(
-                    new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
-                    new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
-                  ) === '50 og 51' && new Date().getFullYear() === 2025
-                    ? t('client.oversikt.infoAlertJulen2025')
-                    : t('client.oversikt.infoAlert', {
-                        dato: formaterDatoMedMånedIBokstaver(
-                          kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom
-                        ),
-                      })
-                }
+                {t('client.oversikt.infoAlert', {
+                  dato: formaterDatoMedMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
+                })}
               </Alert>
             )}
           </>
