@@ -183,12 +183,11 @@
         "trekk": {
           "tag": "Trekk",
           "infocard": {
-            "title": "Du får trekk i utbetalinga di",
-            "description": "Du har {dagerMedFravær, plural, =1 {# dag} other {# dagar}} dager som blir trekte frå utbetalinga di på grunn av:",
-            "annetFravær": "meir enn ein dag med andre fråvær",
-            "oppfølgingAvBarn": "meir enn tre dagar med fråvær på grunn av første skuledag, tilvenning i barnehage eller anna oppfølging av barn.",
-            "dødsfall": "meir enn tre dagar med fråvær grunna dødsfall",
-            "over10Dager": "meir enn ti dagar med fråvær i år"
+            "title": "Du har {dagerMedFravær, plural, =1 {#dag} other {# dager}} som blir trekte fra utbetalinga di på grunn av:",
+            "annetFravær": "Du har meir enn ein dag med andre fråvær",
+            "oppfølgingAvBarn": "Du har meir enn tre dagar med fråvær på grunn av første skuledag, tilvenning i barnehage eller anna oppfølging av barn.",
+            "dødsfall": "Du har meir enn tre dagar med fråvær grunna dødsfall",
+            "over10Dager": "Du har meir enn ti dagar med fråvær i år"
           }
         },
         "error": "Legg til dagane du har vore borte. Du har svart at du har vore borte frå avtalt aktivitet og må leggja til dette før du kan halda fram.",
@@ -205,14 +204,17 @@
             "error": "Du må velja grunn",
             "grunner": {
               "sykdomSkade": {
-                "label": "Sykdom eller skade",
+                "label": "Sjuk eller skadd",
                 "description": "Om du, barn eller barnepass har vore sjuke eller skadde."
               },
               "omsorgAnnenSterkGrunn": { "label": "Annan sterk velferdsgrunn" },
               "omsorgPleieIHjemmet": { "label": "Pleie i heimen av nær pårørande" },
               "oppfølgingAvBarn": { "label": "Første skuledag, tilvenning eller anna oppfølging av barn" },
               "dødsfall": { "label": "Dødsfall i familie eller vennekrets" },
-              "annen": { "label": "Annan", "description": "Fråvær som ikkje kjem av velferdsgrunn." },
+              "annen": {
+                "label": "Anna fravær",
+                "description": "Fråvær som ikkje kjem av nokon av dei andre grunnane."
+              },
               "omsorg": {
                 "label": "Omsorgsoppgåver eller pliktar",
                 "description": "Om du har hatt oppfølging av barn, sjukdom eller dødsfall i familien eller andre grunnar."

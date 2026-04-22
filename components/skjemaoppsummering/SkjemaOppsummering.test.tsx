@@ -209,7 +209,7 @@ describe('skjema oppsummering', () => {
   it('fravær grupperes etter type', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedFravær} visLenkeTilbakeTilSteg={false} />);
 
-    const sykdomsgruppe = screen.getByText('Sykdom eller skade:').parentElement;
+    const sykdomsgruppe = screen.getByText('Syk eller skadet:').parentElement;
     expect(sykdomsgruppe).not.toBeNull();
     if (sykdomsgruppe) {
       meldekortMedFravær.tilstand.svar.dager
