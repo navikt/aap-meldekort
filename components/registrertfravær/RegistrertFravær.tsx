@@ -49,18 +49,8 @@ export const RegistrertFravær = ({ felt, slettFravær, timerArbeidet, visTrekkT
   return (
     <HStack justify={'space-between'} align={'center'} className={styles.fravær}>
       <VStack gap={'space-4'}>
-        <BodyShort
-          weight={'semibold'}
-        >{storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(felt.dato))}</BodyShort>
-        <BodyShort>{t(`${mapFraværEnumTilString(felt.fravær)}.label`)}</BodyShort>
-        <HStack gap={'space-4'}>
-          {timerArbeidet && (
-            <div>
-              <Tag variant={'outline'} data-color="info" size="small">
-                {t('client.steg.fraværutfylling.timerArbeidet', { timerArbeidet })}
-              </Tag>
-            </div>
-          )}
+        <HStack gap={'space-8'}>
+          <BodyShort weight={'semibold'}>{storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(felt.dato))}</BodyShort>
           {visTrekkTag && (
             <div>
               <Tag variant={'outline'} data-color="warning" size="small">
@@ -69,6 +59,14 @@ export const RegistrertFravær = ({ felt, slettFravær, timerArbeidet, visTrekkT
             </div>
           )}
         </HStack>
+        <BodyShort>{t(`${mapFraværEnumTilString(felt.fravær)}.label`)}</BodyShort>
+        {timerArbeidet && (
+          <div>
+            <Tag variant={'outline'} data-color="info" size="small">
+              {t('client.steg.fraværutfylling.timerArbeidet', { timerArbeidet })}
+            </Tag>
+          </div>
+        )}
       </VStack>
 
       <Button onClick={slettFravær} type={'button'} variant={'tertiary'}>
