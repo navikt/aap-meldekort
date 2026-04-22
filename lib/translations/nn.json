@@ -183,7 +183,7 @@
         "trekk": {
           "tag": "Trekk",
           "infocard": {
-            "title": "Du har {dagerMedFravær, plural, =1 {#dag} other {# dager}} som blir trekte fra utbetalinga di på grunn av:",
+            "title": "Du har {dagerMedFravær, plural, =1 {# dag} other {# dager}} som blir trekte fra utbetalinga di på grunn av:",
             "annetFravær": "Du har meir enn ein dag med andre fråvær",
             "oppfølgingAvBarn": "Du har meir enn tre dagar med fråvær på grunn av første skuledag, tilvenning i barnehage eller anna oppfølging av barn.",
             "dødsfall": "Du har meir enn tre dagar med fråvær grunna dødsfall",
