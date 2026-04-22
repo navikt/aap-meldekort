@@ -91,7 +91,7 @@
           "heading": "Endre meldekort"
         },
         "innsending": {
-          "heading": "Arbeid og avtalt aktivitet"
+          "heading": "Arbeid"
         },
         "periode": "Uke {uker} ({periode})",
         "skjema": {
@@ -130,8 +130,31 @@
         }
       },
       "fraværspørsmål": {
-        "heading": "Fravær fra avtalt aktivitet",
+        "heading": "Aktivitet",
         "periode": "Uke {uker} ({periode})",
+        "skjema": {
+          "felter": {
+            "harDuHattAvtalteAktiviteter": {
+              "label": "Har du hatt avtalte aktiviteter i perioden?",
+              "error": "Du må svare på om du har hatt avtalte aktiviteter i perioden.",
+              "readMore": {
+                "title": "Hva menes med avtalt aktivitet?",
+                "innledning": "Aktiviteter som er i aktivitetsplanen din og avtalt med Nav.",
+                "listeHeading": "Med aktiviteter mener vi:",
+                "listItem1": "arbeidsrettede tiltak",
+                "listItem2": "medisinsk behandling",
+                "listItem3": "kurs, utdanning eller selvstudier",
+                "unntak": "Det gjelder ikke:",
+                "unntak1": "aktiviteter du selv har lagt inn i aktivitetsplanen",
+                "unntak2": "arbeid ved siden av AAP"
+              }
+            },
+            "harDuHattFravær": {
+              "label": "Var du borte fra noen av disse aktivitetene?",
+              "error": "Du må svare på om du var borte fra noen av aktivitetene."
+            }
+          }
+        },
         "harDuGjennomførtAvtaltAktivitet": {
           "label": "Har du gjennomført alle aktiviteter som er avtalt med oss?",
           "error": "Du må svare på om du har gjennomført alle avtalte aktiviteter",
@@ -222,8 +245,11 @@
             "timerArbeidet": "{timer} timer arbeidet",
             "sammenlagt": "Sammenlagt for perioden"
           },
-          "harDuGjennomførtAvtaltAktivitet": {
-            "label": "Har du gjennomført alle aktiviteter som er avtalt med oss?"
+          "harDuHattAvtalteAktiviteter": {
+            "label": "Har du hatt avtalte aktiviteter i perioden?"
+          },
+          "harDuHattFravær": {
+            "label": "Var du borte fra noen av disse aktivitetene?"
           }
         },
         "skjema": {

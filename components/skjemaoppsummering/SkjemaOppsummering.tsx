@@ -1,4 +1,4 @@
-import { DagSvar, FraværSvar, UtfyllingResponse } from 'lib/types/types';
+import { DagSvar, UtfyllingResponse } from 'lib/types/types';
 import { BodyShort, FormSummary, HStack } from '@navikt/ds-react';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';
@@ -73,23 +73,36 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
           </FormSummary.Label>
           <FormSummary.Value>{utfylling.tilstand.svar.harDuJobbet ? 'Ja' : 'Nei'}</FormSummary.Value>
         </FormSummary.Answer>
-        {utfylling.tilstand.svar.harDuGjennomførtAvtaltAktivitet && (
+        {utfylling.tilstand.svar.harDuHattAvtalteAktiviteter !== null && (
           <FormSummary.Answer>
             <FormSummary.Label>
               <HStack justify={'space-between'}>
-                <BodyShort weight={'semibold'}>
-                  {t('client.steg.bekreft.oppsummering.harDuGjennomførtAvtaltAktivitet.label')}
+                <BodyShort weight="semibold">
+                  {t('client.steg.bekreft.oppsummering.harDuHattAvtalteAktiviteter.label')}
                 </BodyShort>
                 {visLenkeTilbakeTilSteg && (
-                  <MeldekortLenke label={'Endre'} href={hentUrlForSteg('SPØRSMÅL')} visIcon={false} />
+                  <MeldekortLenke label={'Endre'} href={hentUrlForSteg('FRAVÆR_SPØRSMÅL')} visIcon={false} />
                 )}
               </HStack>
             </FormSummary.Label>
-            <FormSummary.Value>
-              {t(
-                `client.fraværFraAvtaltAktivitet.harDuGjennomførtAvtaltAktivitet.valg.${mapAktivitetEnumTilTekstnøkkel(utfylling.tilstand.svar.harDuGjennomførtAvtaltAktivitet)}`
-              )}
-            </FormSummary.Value>
+            <FormSummary.Answer>
+              {utfylling.tilstand.svar.harDuHattAvtalteAktiviteter ? 'Ja' : 'Nei'}
+            </FormSummary.Answer>
+          </FormSummary.Answer>
+        )}
+        {utfylling.tilstand.svar.harDuHattAvtalteAktiviteter && (
+          <FormSummary.Answer>
+            <FormSummary.Label>
+              <HStack justify={'space-between'}>
+                <BodyShort weight="semibold">{t('client.steg.bekreft.oppsummering.harDuHattFravær.label')}</BodyShort>
+                {visLenkeTilbakeTilSteg && (
+                  <MeldekortLenke label={'Endre'} href={hentUrlForSteg('FRAVÆR_SPØRSMÅL')} visIcon={false} />
+                )}
+              </HStack>
+            </FormSummary.Label>
+            <FormSummary.Answer>
+              {utfylling.tilstand.svar.harDuHattFravær === 'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET' ? 'Ja' : 'Nei'}
+            </FormSummary.Answer>
           </FormSummary.Answer>
         )}
 
@@ -154,7 +167,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
             </FormSummary.Value>
           </FormSummary.Answer>
         )}
-        {utfylling.tilstand.svar.harDuGjennomførtAvtaltAktivitet === 'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET' && (
+        {utfylling.tilstand.svar.harDuHattFravær === 'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET' && (
           <FormSummary.Answer>
             <FormSummary.Label>
               <HStack justify={'space-between'}>
@@ -189,14 +202,3 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
     </FormSummary>
   );
 };
-
-function mapAktivitetEnumTilTekstnøkkel(key: FraværSvar) {
-  switch (key) {
-    case 'GJENNOMFØRT_AVTALT_AKTIVITET':
-      return 'gjennomførtAvtaltAktivitet';
-    case 'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET':
-      return 'neiIkkeGjennomførtAvtaltAktivitet';
-    case 'INGEN_AVTALTE_AKTIVITETER':
-      return 'ingenAvtalteAktiviteter';
-  }
-}

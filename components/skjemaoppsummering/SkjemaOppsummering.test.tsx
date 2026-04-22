@@ -17,6 +17,7 @@ const meldekortMedArbeid: UtfyllingResponse = {
     aktivtSteg: 'KVITTERING',
     svar: {
       harDuJobbet: true,
+      harDuHattAvtalteAktiviteter: false,
       dager: [
         {
           dato: '2024-11-06',
@@ -73,7 +74,8 @@ const meldekortMedFravær: UtfyllingResponse = {
     ...meldekortMedArbeid.tilstand,
     svar: {
       ...meldekortMedArbeid.tilstand.svar,
-      harDuGjennomførtAvtaltAktivitet: 'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET',
+      harDuHattAvtalteAktiviteter: true,
+      harDuHattFravær: 'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET',
       dager: [
         {
           dato: '2024-11-06',
@@ -167,7 +169,7 @@ describe('skjema oppsummering', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedArbeid} visLenkeTilbakeTilSteg={true} />);
 
     const endreLinks = screen.getAllByRole('link', { name: 'Endre' });
-    expect(endreLinks).toHaveLength(2);
+    expect(endreLinks).toHaveLength(3);
   });
 
   it('skal ikke vise lenker tilbake til stegene dersom flagget for å vise lenker er satt til false', () => {
@@ -232,9 +234,16 @@ describe('skjema oppsummering', () => {
     }
   });
 
-  it('viser hva bruker har svart på fravær fra aktivitet', () => {
+  it('viser at bruker har svart "Ja" på at de har hatt avtalte aktiviteter', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedFravær} visLenkeTilbakeTilSteg={false} />);
-    expect(screen.getByText('Har du gjennomført alle aktiviteter som er avtalt med oss?')).toBeVisible();
-    expect(screen.getByText('Nei, jeg har ikke gjennomført alle avtalte aktiviteter')).toBeVisible();
+    expect(screen.getByText('Har du hatt avtalte aktiviteter i perioden?')).toBeVisible();
+    // expect(screen.getAllByText('Ja')).toHaveLength(2);
+    expect(screen.getByText('Var du borte fra noen av disse aktivitetene?')).toBeVisible();
+  });
+
+  it('viser at bruker har svart "Nei" på at de har hatt avtalte aktiviteter', () => {
+    render(<SkjemaOppsummering utfylling={meldekortMedArbeid} visLenkeTilbakeTilSteg={false} />);
+    expect(screen.getByText('Har du hatt avtalte aktiviteter i perioden?')).toBeVisible();
+    expect(screen.getByText('Nei')).toBeVisible();
   });
 });
