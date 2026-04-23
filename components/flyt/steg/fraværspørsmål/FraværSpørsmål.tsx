@@ -20,7 +20,7 @@ interface Props {
 
 interface FormFields {
   harDuHattAvtalteAktiviteter: JaEllerNei;
-  harDuHattFravær?: 'GJENNOMFØRT_AVTALT_AKTIVITET' | 'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET';
+  harDuHattFravær?: JaEllerNei;
 }
 
 export const FraværSpørsmål = ({ utfylling }: Props) => {
@@ -32,7 +32,7 @@ export const FraværSpørsmål = ({ utfylling }: Props) => {
   const form = useForm<FormFields>({
     defaultValues: {
       harDuHattAvtalteAktiviteter: getJaNeiEllerUndefined(utfylling.tilstand.svar.harDuHattAvtalteAktiviteter),
-      harDuHattFravær: utfylling.tilstand.svar.harDuHattFravær ?? undefined,
+      harDuHattFravær: getJaNeiEllerUndefined(utfylling.tilstand.svar.harDuHattFravær),
     },
     shouldUnregister: true,
   });
@@ -48,7 +48,7 @@ export const FraværSpørsmål = ({ utfylling }: Props) => {
           svar: {
             ...utfylling.tilstand.svar,
             harDuHattAvtalteAktiviteter: harDuAvtalteAktiviteterValue === JaEllerNei.Ja,
-            harDuHattFravær: harDuHattFraværValue ?? undefined,
+            harDuHattFravær: harDuHattFraværValue ? harDuHattFraværValue === JaEllerNei.Ja : undefined,
           },
         },
       });
@@ -70,7 +70,7 @@ export const FraværSpørsmål = ({ utfylling }: Props) => {
             svar: {
               ...utfylling.tilstand.svar,
               harDuHattAvtalteAktiviteter: data.harDuHattAvtalteAktiviteter === JaEllerNei.Ja,
-              harDuHattFravær: data.harDuHattFravær ?? undefined,
+              harDuHattFravær: data.harDuHattFravær ? data.harDuHattFravær === JaEllerNei.Ja : undefined,
             },
           },
         });
@@ -137,8 +137,8 @@ export const FraværSpørsmål = ({ utfylling }: Props) => {
             label={t('client.steg.fraværspørsmål.skjema.felter.harDuHattFravær.label')}
             rules={{ required: t('client.steg.fraværspørsmål.skjema.felter.harDuHattFravær.error') }}
           >
-            <Radio value={'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET'}>Ja</Radio>
-            <Radio value={'GJENNOMFØRT_AVTALT_AKTIVITET'}>Nei</Radio>
+            <Radio value={JaEllerNei.Ja}>Ja</Radio>
+            <Radio value={JaEllerNei.Nei}>Nei</Radio>
           </RadioGroupWrapper>
         )}
       </VStack>

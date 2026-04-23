@@ -90,7 +90,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
             </FormSummary.Answer>
           </FormSummary.Answer>
         )}
-        {utfylling.tilstand.svar.harDuHattAvtalteAktiviteter && (
+        {utfylling.tilstand.svar.harDuHattFravær != null && (
           <FormSummary.Answer>
             <FormSummary.Label>
               <HStack justify={'space-between'}>
@@ -100,9 +100,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                 )}
               </HStack>
             </FormSummary.Label>
-            <FormSummary.Answer>
-              {utfylling.tilstand.svar.harDuHattFravær === 'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET' ? 'Ja' : 'Nei'}
-            </FormSummary.Answer>
+            <FormSummary.Answer>{utfylling.tilstand.svar.harDuHattFravær ? 'Ja' : 'Nei'}</FormSummary.Answer>
           </FormSummary.Answer>
         )}
 
@@ -167,7 +165,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
             </FormSummary.Value>
           </FormSummary.Answer>
         )}
-        {utfylling.tilstand.svar.harDuHattFravær === 'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET' && (
+        {utfylling.tilstand.svar.harDuHattFravær && (
           <FormSummary.Answer>
             <FormSummary.Label>
               <HStack justify={'space-between'}>

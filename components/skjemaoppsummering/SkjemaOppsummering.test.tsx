@@ -68,6 +68,18 @@ const meldekortMedArbeid: UtfyllingResponse = {
   },
 };
 
+const meldekortMedAvtalteAktiviterUtenFravær: UtfyllingResponse = {
+  ...meldekortMedArbeid,
+  tilstand: {
+    ...meldekortMedArbeid.tilstand,
+    svar: {
+      ...meldekortMedArbeid.tilstand.svar,
+      harDuHattAvtalteAktiviteter: true,
+      harDuHattFravær: false,
+    },
+  },
+};
+
 const meldekortMedFravær: UtfyllingResponse = {
   ...meldekortMedArbeid,
   tilstand: {
@@ -75,7 +87,7 @@ const meldekortMedFravær: UtfyllingResponse = {
     svar: {
       ...meldekortMedArbeid.tilstand.svar,
       harDuHattAvtalteAktiviteter: true,
-      harDuHattFravær: 'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET',
+      harDuHattFravær: true,
       dager: [
         {
           dato: '2024-11-06',
@@ -167,7 +179,6 @@ describe('skjema oppsummering', () => {
 
   it('skal vise lenker tilbake til stegene dersom flagget for å vise lenker er satt til true', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedArbeid} visLenkeTilbakeTilSteg={true} />);
-
     const endreLinks = screen.getAllByRole('link', { name: 'Endre' });
     expect(endreLinks).toHaveLength(3);
   });
@@ -237,13 +248,18 @@ describe('skjema oppsummering', () => {
   it('viser at bruker har svart "Ja" på at de har hatt avtalte aktiviteter', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedFravær} visLenkeTilbakeTilSteg={false} />);
     expect(screen.getByText('Har du hatt avtalte aktiviteter i perioden?')).toBeVisible();
-    // expect(screen.getAllByText('Ja')).toHaveLength(2);
     expect(screen.getByText('Var du borte fra noen av disse aktivitetene?')).toBeVisible();
   });
 
-  it('viser at bruker har svart "Nei" på at de har hatt avtalte aktiviteter', () => {
+  it('viser svar på om bruker har vært borte fra aktiviteter når de har svart at de har avtalte akitviteter', () => {
+    render(<SkjemaOppsummering utfylling={meldekortMedAvtalteAktiviterUtenFravær} visLenkeTilbakeTilSteg={false} />);
+    expect(screen.getByText('Har du hatt avtalte aktiviteter i perioden?')).toBeVisible();
+    expect(screen.getByText('Var du borte fra noen av disse aktivitetene?')).toBeVisible();
+  });
+
+  it('viser ikke svar på om bruker har hatt fravær hvis de ikke har hatt aktiviteter', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedArbeid} visLenkeTilbakeTilSteg={false} />);
     expect(screen.getByText('Har du hatt avtalte aktiviteter i perioden?')).toBeVisible();
-    expect(screen.getByText('Nei')).toBeVisible();
+    expect(screen.queryByText('Var du borte fra noen av disse aktivitetene?')).not.toBeInTheDocument();
   });
 });

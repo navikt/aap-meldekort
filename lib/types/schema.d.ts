@@ -1017,8 +1017,7 @@ export interface components {
         "no.nav.aap.meldekort.SvarDto": {
             dager: components["schemas"]["no.nav.aap.meldekort.DagSvarDto"][];
             harDuHattAvtalteAktiviteter?: boolean | null;
-            /** @enum {string|null} */
-            "harDuHattFrav\u00E6r"?: "GJENNOMFØRT_AVTALT_AKTIVITET" | "NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET" | null;
+            "harDuHattFrav\u00E6r"?: boolean | null;
             harDuJobbet?: boolean | null;
             stemmerOpplysningene?: boolean | null;
             vilSvareRiktig?: boolean | null;
