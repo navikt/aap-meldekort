@@ -1,5 +1,5 @@
 import { DagSvar, UtfyllingResponse } from 'lib/types/types';
-import { BodyShort, FormSummary, HStack } from '@navikt/ds-react';
+import { BodyShort, FormSummary, HStack, Tag, VStack } from '@navikt/ds-react';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';
 import { useGåTilSteg } from 'lib/utils/url';
@@ -13,6 +13,7 @@ import { nb } from 'date-fns/locale';
 import { regnUtTimer } from 'lib/utils/meldekort';
 import { useTranslations } from 'next-intl';
 import { fraværsgrunner } from 'components/registrertfravær/RegistrertFravær';
+import { skalViseTrekkTag } from 'lib/utils/fraværTrekk';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -185,9 +186,18 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                       {utfylling.tilstand.svar.dager
                         .filter((dag) => dag.fravær && dag.fravær === fraværsgrunn)
                         .map((dag) => (
-                          <FormSummary.Value key={`fravær-${dag.dato}`}>
-                            {storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag.dato))}
-                          </FormSummary.Value>
+                          <VStack gap={'space-8'} key={`fravær-${dag.dato}`}>
+                            <FormSummary.Value>
+                              <HStack gap={'space-8'}>
+                                {storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag.dato))}
+                                {skalViseTrekkTag(dag, utfylling.tilstand.svar.dager) && (
+                                  <Tag variant={'outline'} data-color="warning" size="small">
+                                    {t('client.steg.fraværutfylling.trekk.tag')}
+                                  </Tag>
+                                )}
+                              </HStack>
+                            </FormSummary.Value>
+                          </VStack>
                         ))}
                     </FormSummary.Answer>
                   );

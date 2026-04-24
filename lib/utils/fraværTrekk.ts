@@ -1,6 +1,12 @@
 import { FraværDag } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
 import { isSameDay } from 'date-fns';
+import { Fravær } from 'lib/types/types';
 import { sorterEtterEldsteDatoDate } from 'lib/utils/date';
+
+interface FraværDagOverstyrt extends Omit<FraværDag, 'dato' | 'fravær'> {
+  dato: Date | string;
+  fravær?: Fravær;
+}
 
 // kladd, må komme fra backend
 export interface TidligereRegistrertFravær {
@@ -14,20 +20,20 @@ const MAKS_ANTALL_OMSORG_BARN_DAGER = 3; // gjelder hele året
 const MAKS_ANTALL_OMSORG_DØDSFALL_DAGER = 3; // gjelder hele året
 const MAKS_ANTALL_ANNEN_DAGER_I_PERIODEN = 1; // gjelder meldeperioden
 
-export function annetFraværOverstigerGrenseIPeriode(alleDager: FraværDag[]): boolean {
+export function annetFraværOverstigerGrenseIPeriode(alleDager: FraværDagOverstyrt[]): boolean {
   const antallDagerMedANNEN = alleDager.filter((f) => f.fravær === 'ANNEN').length;
   return antallDagerMedANNEN > MAKS_ANTALL_ANNEN_DAGER_I_PERIODEN;
 }
 
 export function fraværOverstigerMaksGrense(
-  alleDager: FraværDag[],
+  alleDager: FraværDagOverstyrt[],
   tidligereRegistrertFravær?: TidligereRegistrertFravær
 ): boolean {
   return alleDager.length + (tidligereRegistrertFravær?.totaltAntallFraværsdager || 0) > MAKS_TOTAL_DAGER;
 }
 
 export function fraværForDødsfallOverstigerMaksGrense(
-  alleDager: FraværDag[],
+  alleDager: FraværDagOverstyrt[],
   tidligereRegistrertFravær?: TidligereRegistrertFravær
 ): boolean {
   return (
@@ -38,7 +44,7 @@ export function fraværForDødsfallOverstigerMaksGrense(
 }
 
 export function fraværForOppfølgingAvBarnOverstigerMaksGrense(
-  alleDager: FraværDag[],
+  alleDager: FraværDagOverstyrt[],
   tidligereRegistrertFravær?: TidligereRegistrertFravær
 ): boolean {
   return (
@@ -49,11 +55,11 @@ export function fraværForOppfølgingAvBarnOverstigerMaksGrense(
 }
 
 export function skalViseTrekkTag(
-  dag: FraværDag,
-  alleDager: FraværDag[],
+  dag: FraværDagOverstyrt,
+  alleDager: FraværDagOverstyrt[],
   tidligereRegistrertFravær?: TidligereRegistrertFravær
 ): boolean {
-  const sorterteDager = alleDager.toSorted((a, b) => sorterEtterEldsteDatoDate(a.dato, b.dato));
+  const sorterteDager = alleDager.toSorted((a, b) => sorterEtterEldsteDatoDate(new Date(a.dato), new Date(b.dato)));
   const dagIndexIPeriode = sorterteDager.findIndex((f) => isSameDay(f.dato, dag.dato));
 
   const posisjon = (tidligereRegistrertFravær?.totaltAntallFraværsdager ?? 0) + dagIndexIPeriode + 1;
@@ -68,7 +74,7 @@ export function skalViseTrekkTag(
   if (dag.fravær === 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN') {
     const kategoridager = alleDager
       .filter((f) => f.fravær === 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN')
-      .toSorted((a, b) => sorterEtterEldsteDatoDate(a.dato, b.dato));
+      .toSorted((a, b) => sorterEtterEldsteDatoDate(new Date(a.dato), new Date(b.dato)));
 
     const dagIndexIKategori = kategoridager.findIndex((f) => isSameDay(f.dato, dag.dato));
     const dagnummer = (tidligereRegistrertFravær?.omsorgBarn ?? 0) + dagIndexIKategori + 1;
@@ -78,7 +84,7 @@ export function skalViseTrekkTag(
   if (dag.fravær === 'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS') {
     const kategoridager = alleDager
       .filter((f) => f.fravær === 'OMSORG_DØDSFALL_I_FAMILIE_ELLER_VENNEKRETS')
-      .toSorted((a, b) => sorterEtterEldsteDatoDate(a.dato, b.dato));
+      .toSorted((a, b) => sorterEtterEldsteDatoDate(new Date(a.dato), new Date(b.dato)));
 
     const dagIndexIKategori = kategoridager.findIndex((f) => isSameDay(f.dato, dag.dato));
     const dagnummer = (tidligereRegistrertFravær?.omsorgDødsfall ?? 0) + dagIndexIKategori + 1;
@@ -89,7 +95,7 @@ export function skalViseTrekkTag(
 }
 
 export function antallDagerSomFørerTilTrekk(
-  alleDager: FraværDag[],
+  alleDager: FraværDagOverstyrt[],
   tidligereRegistrertFravær?: TidligereRegistrertFravær
 ): number {
   return alleDager.filter((dag) => skalViseTrekkTag(dag, alleDager, tidligereRegistrertFravær)).length;

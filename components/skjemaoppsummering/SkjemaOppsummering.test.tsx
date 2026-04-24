@@ -1,147 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen, within } from 'lib/utils/test/customRender';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
-import { UtfyllingResponse } from 'lib/types/types';
 import { formaterDatoMedDagOgMåndedIBokstaver } from 'lib/utils/date';
 import { storForbokstav } from 'lib/utils/string';
-
-const meldekortMedArbeid: UtfyllingResponse = {
-  metadata: {
-    antallUbesvarteMeldeperioder: 1,
-    kanSendesInn: true,
-    referanse: '123456789',
-    periode: { fom: '2024-11.04', tom: '2024-11-17' },
-    visFrist: true,
-  },
-  tilstand: {
-    aktivtSteg: 'KVITTERING',
-    svar: {
-      harDuJobbet: true,
-      harDuHattAvtalteAktiviteter: false,
-      dager: [
-        {
-          dato: '2024-11-06',
-          timerArbeidet: 7.5,
-        },
-        {
-          dato: '2024-11-07',
-        },
-        {
-          dato: '2024-11-08',
-        },
-        {
-          dato: '2024-11-09',
-        },
-        {
-          dato: '2024-11-10',
-        },
-        {
-          dato: '2024-11-11',
-        },
-        {
-          dato: '2024-11-12',
-        },
-        {
-          dato: '2024-11-13',
-        },
-        {
-          dato: '2024-11-14',
-        },
-        {
-          dato: '2024-11-15',
-        },
-        {
-          dato: '2024-11-16',
-        },
-        {
-          dato: '2024-11-17',
-          timerArbeidet: 5,
-        },
-        {
-          dato: '2024-11-18',
-        },
-        {
-          dato: '2024-11-19',
-        },
-      ],
-    },
-  },
-};
-
-const meldekortMedAvtalteAktiviterUtenFravær: UtfyllingResponse = {
-  ...meldekortMedArbeid,
-  tilstand: {
-    ...meldekortMedArbeid.tilstand,
-    svar: {
-      ...meldekortMedArbeid.tilstand.svar,
-      harDuHattAvtalteAktiviteter: true,
-      harDuHattFravær: false,
-    },
-  },
-};
-
-const meldekortMedFravær: UtfyllingResponse = {
-  ...meldekortMedArbeid,
-  tilstand: {
-    ...meldekortMedArbeid.tilstand,
-    svar: {
-      ...meldekortMedArbeid.tilstand.svar,
-      harDuHattAvtalteAktiviteter: true,
-      harDuHattFravær: true,
-      dager: [
-        {
-          dato: '2024-11-06',
-          timerArbeidet: 7.5,
-        },
-        {
-          dato: '2024-11-07',
-          fravær: 'SYKDOM_ELLER_SKADE',
-        },
-        {
-          dato: '2024-11-08',
-          fravær: 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN',
-        },
-        {
-          dato: '2024-11-09',
-          fravær: 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN',
-        },
-        {
-          dato: '2024-11-10',
-        },
-        {
-          dato: '2024-11-11',
-        },
-        {
-          dato: '2024-11-12',
-        },
-        {
-          dato: '2024-11-13',
-        },
-        {
-          dato: '2024-11-14',
-        },
-        {
-          dato: '2024-11-15',
-        },
-        {
-          dato: '2024-11-16',
-        },
-        {
-          dato: '2024-11-17',
-          timerArbeidet: 5,
-        },
-        {
-          dato: '2024-11-18',
-          fravær: 'SYKDOM_ELLER_SKADE',
-        },
-        {
-          dato: '2024-11-19',
-          fravær: 'SYKDOM_ELLER_SKADE',
-        },
-      ],
-    },
-  },
-};
+import {
+  meldekortMedArbeid,
+  meldekortMedAvtalteAktiviterUtenFravær,
+  meldekortMedFravær,
+  meldekortMedTreDagerAnnetFravær,
+} from 'lib/utils/test/testdata';
 
 describe('skjema oppsummering', () => {
   it('skal ha et felt for å vise hva som er besvart på om innbygger har vært i arbeid siste 14 dager', () => {
@@ -261,5 +128,10 @@ describe('skjema oppsummering', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedArbeid} visLenkeTilbakeTilSteg={false} />);
     expect(screen.getByText('Har du hatt avtalte aktiviteter i perioden?')).toBeVisible();
     expect(screen.queryByText('Var du borte fra noen av disse aktivitetene?')).not.toBeInTheDocument();
+  });
+
+  it('skal vise tag for trekk dersom man har mer enn to dager med annet fravær', () => {
+    render(<SkjemaOppsummering utfylling={meldekortMedTreDagerAnnetFravær} visLenkeTilbakeTilSteg={false} />);
+    expect(screen.getAllByText('Trekk')).toHaveLength(3);
   });
 });
