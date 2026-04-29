@@ -85,7 +85,7 @@ describe('Stemmer opplysningene', () => {
   it('skal vise korrekt svar dersom bruker har oppgitt at hen ikke har jobbet ', () => {
     render(<Bekreft utfylling={meldekortUtenArbeid} />);
     const neiSvar = screen.getAllByText('Nei');
-    expect(neiSvar).toHaveLength(2);
+    expect(neiSvar).toHaveLength(1);
   });
 
   it('skal ha et felt for å bekrefte at opplysningene stemmer', () => {
