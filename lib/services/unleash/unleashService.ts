@@ -23,10 +23,19 @@ function createMockUnleash(): IUnleash {
   };
 }
 
+let unleashService: IUnleash | undefined;
+
 // Bruk mock-unleash hvis LOKALT og env-variabel ikke er satt, for DEV og PROD bruker den alltid ekte unleash
-export const unleashService =
-  process.env.UNLEASH_SERVER_API_URL == null && isLocal() ? createMockUnleash() : createRealUnleash();
+export function getUnleashService(): IUnleash {
+  if (unleashService == null) {
+    unleashService =
+      process.env.UNLEASH_SERVER_API_URL == null && isLocal() ? createMockUnleash() : createRealUnleash();
+  }
+
+  return unleashService;
+}
 
 export function getAllFlags(): Flags {
+  const unleashService = getUnleashService();
   return Object.fromEntries(FLAGS.map((name) => [name, unleashService.isEnabled(name)])) as Flags;
 }
