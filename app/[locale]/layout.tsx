@@ -42,12 +42,12 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <FeatureFlagProvider flags={getAllFlags()}>
-        <head>
-          <Decorator.HeadAssets />
-        </head>
-        <body>
-          <Decorator.Header />
+      <head>
+        <Decorator.HeadAssets />
+      </head>
+      <body>
+        <Decorator.Header />
+        <FeatureFlagProvider flags={getAllFlags()}>
           <NextIntlClientProvider messages={messages}>
             <div className={styles.meldekortheader}>
               <div className={styles.innhold}>
@@ -59,10 +59,10 @@ export default async function RootLayout({
             </div>
             <main className={styles.meldekortcontainer}>{children}</main>
           </NextIntlClientProvider>
-          <Decorator.Footer />
-          <Decorator.Scripts loader={Script} />
-        </body>
-      </FeatureFlagProvider>
+        </FeatureFlagProvider>
+        <Decorator.Footer />
+        <Decorator.Scripts loader={Script} />
+      </body>
     </html>
   );
 }
