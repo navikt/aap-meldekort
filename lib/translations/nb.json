@@ -91,7 +91,7 @@
           "heading": "Endre meldekort"
         },
         "innsending": {
-          "heading": "Arbeid"
+          "heading": "Arbeid og avtalt aktivitet"
         },
         "periode": "Uke {uker} ({periode})",
         "skjema": {
@@ -130,31 +130,8 @@
         }
       },
       "fraværspørsmål": {
-        "heading": "Aktivitet",
+        "heading": "Fravær fra avtalt aktivitet",
         "periode": "Uke {uker} ({periode})",
-        "skjema": {
-          "felter": {
-            "harDuHattAvtalteAktiviteter": {
-              "label": "Har du hatt avtalte aktiviteter i perioden?",
-              "error": "Du må svare på om du har hatt avtalte aktiviteter i perioden.",
-              "readMore": {
-                "title": "Hva menes med avtalt aktivitet?",
-                "innledning": "Aktiviteter som er i aktivitetsplanen din og avtalt med Nav.",
-                "listeHeading": "Med aktiviteter mener vi:",
-                "listItem1": "arbeidsrettede tiltak",
-                "listItem2": "medisinsk behandling",
-                "listItem3": "kurs, utdanning eller selvstudier",
-                "unntak": "Det gjelder ikke:",
-                "unntak1": "aktiviteter du selv har lagt inn i aktivitetsplanen",
-                "unntak2": "arbeid ved siden av AAP"
-              }
-            },
-            "harDuHattFravær": {
-              "label": "Var du borte fra noen av disse aktivitetene?",
-              "error": "Du må svare på om du var borte fra noen av aktivitetene."
-            }
-          }
-        },
         "harDuGjennomførtAvtaltAktivitet": {
           "label": "Har du gjennomført alle aktiviteter som er avtalt med oss?",
           "error": "Du må svare på om du har gjennomført alle avtalte aktiviteter",
@@ -183,11 +160,12 @@
         "trekk": {
           "tag": "Trekk",
           "infocard": {
-            "title": "Du har {dagerMedFravær, plural, =1 {# dag} other {# dager}} som blir trukket fra utbetalingen din på grunn av:",
-            "annetFravær": "Du har mer enn en dag med annet fravær",
-            "oppfølgingAvBarn": "Du har mer enn tre dager med fravær på grunn av første skoledag, tilvenning i barnehage eller annen oppfølging av barn",
-            "dødsfall": "Du har mer enn tre dager med fravær på grunn av dødsfall",
-            "over10Dager": "Du har mer enn ti dager med fravær i år"
+            "title": "Du får trekk i utbetalingen din",
+            "description": "Du får {dagerMedFravær, plural, =1 {# dag} other {# dager}} trekk fordi du har:",
+            "annetFravær": "mer enn en dag med annet fravær",
+            "oppfølgingAvBarn": "mer enn tre dager med fravær på grunn av første skoledag, tilvenning i barnehage eller annen oppfølging av barn",
+            "dødsfall": "mer enn tre dager med fravær på grunn av dødsfall",
+            "over10Dager": "mer enn ti dager med fravær i år"
           }
         },
         "error": "Legg til dagene du har vært borte. Du har svart at du har vært borte fra avtalt aktivitet og må legge til dette før du kan fortsette.",
@@ -204,14 +182,14 @@
             "error": "Du må velge grunn",
             "grunner": {
               "sykdomSkade": {
-                "label": "Syk eller skadet",
+                "label": "Sykdom eller skade",
                 "description": "Hvis du, barn eller barnepasser har vært syk eller skadet."
               },
               "omsorgAnnenSterkGrunn": { "label": "Annen sterk velferdsgrunn" },
               "omsorgPleieIHjemmet": { "label": "Pleie i hjemmet av nær pårørende" },
               "oppfølgingAvBarn": { "label": "Første skoledag, tilvenning eller annen oppfølging av barn" },
               "dødsfall": { "label": "Dødsfall i familie eller vennekrets" },
-              "annen": { "label": "Annet fravær", "description": "Fravær som ikke skyldes noen av de andre grunnene." },
+              "annen": { "label": "Annen", "description": "Fravær som ikke skyldes velferdsgrunn." },
               "omsorg": {
                 "label": "Omsorgsoppgaver eller plikter",
                 "description": "Hvis du har hatt oppfølging av barn, sykdom eller dødsfall i familien eller andre grunner."
@@ -244,11 +222,8 @@
             "timerArbeidet": "{timer} timer arbeidet",
             "sammenlagt": "Sammenlagt for perioden"
           },
-          "harDuHattAvtalteAktiviteter": {
-            "label": "Har du hatt avtalte aktiviteter i perioden?"
-          },
-          "harDuHattFravær": {
-            "label": "Var du borte fra noen av disse aktivitetene?"
+          "harDuGjennomførtAvtaltAktivitet": {
+            "label": "Har du gjennomført alle aktiviteter som er avtalt med oss?"
           }
         },
         "skjema": {

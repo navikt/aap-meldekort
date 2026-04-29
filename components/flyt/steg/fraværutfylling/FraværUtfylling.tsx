@@ -196,11 +196,14 @@ export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Prop
         {antallTrekkdager > 0 && (
           <InfoCard data-color="warning">
             <InfoCard.Header icon={<ExclamationmarkTriangleIcon aria-hidden />}>
-              <InfoCard.Title>
-                {t('client.steg.fraværutfylling.trekk.infocard.title', { dagerMedFravær: antallTrekkdager })}
-              </InfoCard.Title>
+              <InfoCard.Title>{t('client.steg.fraværutfylling.trekk.infocard.title')}</InfoCard.Title>
             </InfoCard.Header>
             <InfoCard.Content>
+              <BodyShort>
+                {t('client.steg.fraværutfylling.trekk.infocard.description', {
+                  dagerMedFravær: antallTrekkdager,
+                })}
+              </BodyShort>
               <ul>
                 {annetFraværOverstigerGrenseIPeriode(fields) && (
                   <li>{t('client.steg.fraværutfylling.trekk.infocard.annetFravær')}</li>
