@@ -2,7 +2,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { faro, getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk';
+import { faro, getWebInstrumentations, initializeFaro, LogLevel } from '@grafana/faro-web-sdk';
 import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 
 export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
@@ -17,6 +17,9 @@ export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
           name: 'meldekort',
         },
         instrumentations: [...getWebInstrumentations(), new TracingInstrumentation()],
+        consoleInstrumentation: {
+          disabledLevels: [LogLevel.DEBUG, LogLevel.TRACE], // capture log, info, warn, error
+        },
       });
     } catch (e) {
       console.warn('Faro initialization failed', e);
