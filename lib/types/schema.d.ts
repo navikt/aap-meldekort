@@ -438,6 +438,41 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/meldekort-status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["no.nav.aap.meldekort.MeldekortstatusDto"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/drift/api/jobb/feilende": {
         parameters: {
             query?: never;
@@ -657,6 +692,41 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/drift/api/jobb/avbrytAlleFeilede": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/drift/api/jobb/rekjorAlleFeilede": {
         parameters: {
             query?: never;
@@ -801,6 +871,43 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/behandlingsflyt/sak/oppdater-identer": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["no.nav.aap.meldekort.kontrakt.sak.OppdaterIdenterV0"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -831,6 +938,28 @@ export interface components {
             antallUbesvarteMeldeperioder: number;
             manglerOpplysninger?: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
             nesteMeldeperiode?: components["schemas"]["no.nav.aap.meldekort.MeldeperiodeDto"];
+        };
+        "no.nav.aap.meldekort.MeldekortTilUtfyllingDto": {
+            /**
+             * Format: date
+             * @example 2025-04-01
+             */
+            fristForInnsending: string;
+            /**
+             * Format: date
+             * @example 2025-04-01
+             */
+            kanFyllesUtFra?: string | null;
+            /**
+             * Format: date
+             * @example 2025-04-01
+             */
+            kanSendesFra: string;
+        };
+        "no.nav.aap.meldekort.MeldekortstatusDto": {
+            harInnsendteMeldekort: boolean;
+            meldekortTilUtfylling: components["schemas"]["no.nav.aap.meldekort.MeldekortTilUtfyllingDto"][];
+            redirectUrl: string;
         };
         "no.nav.aap.meldekort.MeldeperiodeDto": {
             innsendingsvindu: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
@@ -887,8 +1016,8 @@ export interface components {
         };
         "no.nav.aap.meldekort.SvarDto": {
             dager: components["schemas"]["no.nav.aap.meldekort.DagSvarDto"][];
-            /** @enum {string|null} */
-            "harDuGjennomf\u00F8rtAvtaltAktivitet"?: "GJENNOMFØRT_AVTALT_AKTIVITET" | "INGEN_AVTALTE_AKTIVITETER" | "NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET" | null;
+            harDuHattAvtalteAktiviteter?: boolean | null;
+            "harDuHattFrav\u00E6r"?: boolean | null;
             harDuJobbet?: boolean | null;
             stemmerOpplysningene?: boolean | null;
             vilSvareRiktig?: boolean | null;
@@ -896,8 +1025,6 @@ export interface components {
         "no.nav.aap.meldekort.UtfyllingMetadataDto": {
             /** Format: int32 */
             antallUbesvarteMeldeperioder: number;
-            /** @enum {string|null} */
-            flytNavn?: "AAP_FLYT" | "AAP_FLYT_V2" | "AAP_KORRIGERING_FLYT" | "AAP_KORRIGERING_FLYT_V2" | null;
             /**
              * Format: date-time
              * @example 2025-04-01T12:30:00
@@ -923,7 +1050,7 @@ export interface components {
         };
         "no.nav.aap.meldekort.UtfyllingTilstandDto": {
             /** @enum {string} */
-            aktivtSteg: "BEKREFT" | "FRAVÆR_UTFYLLING" | "INTRODUKSJON" | "KVITTERING" | "SPØRSMÅL" | "UTFYLLING";
+            aktivtSteg: "BEKREFT" | "FRAVÆR_SPØRSMÅL" | "FRAVÆR_UTFYLLING" | "INTRODUKSJON" | "KVITTERING" | "SPØRSMÅL" | "UTFYLLING";
             svar: components["schemas"]["no.nav.aap.meldekort.SvarDto"];
         };
         "no.nav.aap.meldekort.kontrakt.Periode": {
@@ -946,14 +1073,22 @@ export interface components {
             sakenGjelderFor: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"];
             saksnummer: string;
         };
+        "no.nav.aap.meldekort.kontrakt.sak.Ident": {
+            aktiv: boolean;
+            ident: string;
+        };
         "no.nav.aap.meldekort.kontrakt.sak.MeldeperioderV0": {
-            identer: string[];
             meldeperioder: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"][];
             meldeplikt: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"][];
             opplysningsbehov: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"][];
+            personIdenter: components["schemas"]["no.nav.aap.meldekort.kontrakt.sak.Ident"][];
             /** @enum {string|null} */
             sakStatus?: "AVSLUTTET" | "LØPENDE" | "UTREDES" | null;
             sakenGjelderFor: components["schemas"]["no.nav.aap.meldekort.kontrakt.Periode"];
+            saksnummer: string;
+        };
+        "no.nav.aap.meldekort.kontrakt.sak.OppdaterIdenterV0": {
+            personIdenter: components["schemas"]["no.nav.aap.meldekort.kontrakt.sak.Ident"][];
             saksnummer: string;
         };
         "no.nav.aap.meldekort.kontrakt.sak.TimerArbeidetDto": {

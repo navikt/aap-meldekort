@@ -22,6 +22,4 @@ export type UtfyllingTilstandDto = components['schemas']['no.nav.aap.meldekort.U
 
 export type Steg = UtfyllingResponse['tilstand']['aktivtSteg'];
 
-export type FraværSvar = components['schemas']['no.nav.aap.meldekort.SvarDto']['harDuGjennomførtAvtaltAktivitet'];
-
 export type Fravær = DagSvar['fravær'];
