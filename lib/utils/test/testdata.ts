@@ -75,6 +75,17 @@ export const meldekortMedAvtalteAktiviterUtenFravær: UtfyllingResponse = {
   },
 };
 
+export const meldekortUtenAvtalteAktiviteter: UtfyllingResponse = {
+  ...meldekortMedArbeid,
+  tilstand: {
+    ...meldekortMedArbeid.tilstand,
+    svar: {
+      ...meldekortMedArbeid.tilstand.svar,
+      harDuHattAvtalteAktiviteter: false,
+    },
+  },
+};
+
 export const meldekortMedFravær: UtfyllingResponse = {
   ...meldekortMedArbeid,
   tilstand: {
@@ -189,6 +200,66 @@ export const meldekortMedTreDagerAnnetFravær: UtfyllingResponse = {
         {
           dato: '2024-11-17',
           timerArbeidet: 5,
+        },
+        {
+          dato: '2024-11-18',
+        },
+        {
+          dato: '2024-11-19',
+        },
+      ],
+    },
+  },
+};
+
+export const minimaltMeldekortFørBrukermeldtFravær: UtfyllingResponse = {
+  metadata: {
+    antallUbesvarteMeldeperioder: 1,
+    kanSendesInn: true,
+    referanse: '123456789',
+    periode: { fom: '2024-11.04', tom: '2024-11-17' },
+    visFrist: true,
+  },
+  tilstand: {
+    aktivtSteg: 'KVITTERING',
+    svar: {
+      harDuJobbet: false,
+      dager: [
+        {
+          dato: '2024-11-06',
+        },
+        {
+          dato: '2024-11-07',
+        },
+        {
+          dato: '2024-11-08',
+        },
+        {
+          dato: '2024-11-09',
+        },
+        {
+          dato: '2024-11-10',
+        },
+        {
+          dato: '2024-11-11',
+        },
+        {
+          dato: '2024-11-12',
+        },
+        {
+          dato: '2024-11-13',
+        },
+        {
+          dato: '2024-11-14',
+        },
+        {
+          dato: '2024-11-15',
+        },
+        {
+          dato: '2024-11-16',
+        },
+        {
+          dato: '2024-11-17',
         },
         {
           dato: '2024-11-18',

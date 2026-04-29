@@ -8,7 +8,10 @@ import {
   meldekortMedAvtalteAktiviterUtenFravær,
   meldekortMedFravær,
   meldekortMedTreDagerAnnetFravær,
+  meldekortUtenAvtalteAktiviteter,
+  minimaltMeldekortFørBrukermeldtFravær,
 } from 'lib/utils/test/testdata';
+import { UtfyllingResponse } from 'lib/types/types';
 
 describe('skjema oppsummering', () => {
   it('skal ha et felt for å vise hva som er besvart på om innbygger har vært i arbeid siste 14 dager', () => {
@@ -118,6 +121,13 @@ describe('skjema oppsummering', () => {
     expect(screen.getByText('Var du borte fra noen av disse aktivitetene?')).toBeVisible();
   });
 
+  it('viser at bruker har svart "Nei" på at de har hatt avtalte aktiviteter', () => {
+    render(<SkjemaOppsummering utfylling={meldekortUtenAvtalteAktiviteter} visLenkeTilbakeTilSteg={false} />);
+    screen.logTestingPlaygroundURL();
+    expect(screen.getByText('Har du hatt avtalte aktiviteter i perioden?')).toBeVisible();
+    expect(screen.queryByText('Var du borte fra noen av disse aktivitetene?')).not.toBeInTheDocument();
+  });
+
   it('viser svar på om bruker har vært borte fra aktiviteter når de har svart at de har avtalte akitviteter', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedAvtalteAktiviterUtenFravær} visLenkeTilbakeTilSteg={false} />);
     expect(screen.getByText('Har du hatt avtalte aktiviteter i perioden?')).toBeVisible();
@@ -133,5 +143,43 @@ describe('skjema oppsummering', () => {
   it('skal vise tag for trekk dersom man har mer enn to dager med annet fravær', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedTreDagerAnnetFravær} visLenkeTilbakeTilSteg={false} />);
     expect(screen.getAllByText('Trekk')).toHaveLength(3);
+  });
+
+  // overgangssjekker, kan slettes når alt er i prod
+  describe('overgangssjekker', () => {
+    it('viser ikke spørsmål om avtalte aktiviteter når det ikke finnes i modellen', () => {
+      render(<SkjemaOppsummering utfylling={minimaltMeldekortFørBrukermeldtFravær} visLenkeTilbakeTilSteg={false} />);
+      expect(screen.queryByText('Har du hatt avtalte aktiviteter i perioden?')).not.toBeInTheDocument();
+    });
+
+    it('viser ikke oppsummering for spørsmål om avtalte aktiviteter hvis verdien er null', () => {
+      const utfylling: UtfyllingResponse = {
+        ...minimaltMeldekortFørBrukermeldtFravær,
+        tilstand: {
+          ...minimaltMeldekortFørBrukermeldtFravær.tilstand,
+          svar: {
+            ...minimaltMeldekortFørBrukermeldtFravær.tilstand.svar,
+            harDuHattAvtalteAktiviteter: null,
+          },
+        },
+      };
+      render(<SkjemaOppsummering utfylling={utfylling} visLenkeTilbakeTilSteg={false} />);
+      expect(screen.queryByText('Har du hatt avtalte aktiviteter i perioden?')).not.toBeInTheDocument();
+    });
+
+    it('viser ikke oppsummering for spørsmål om avtalte aktiviteter hvis verdien er undefined', () => {
+      const utfylling: UtfyllingResponse = {
+        ...minimaltMeldekortFørBrukermeldtFravær,
+        tilstand: {
+          ...minimaltMeldekortFørBrukermeldtFravær.tilstand,
+          svar: {
+            ...minimaltMeldekortFørBrukermeldtFravær.tilstand.svar,
+            harDuHattAvtalteAktiviteter: undefined,
+          },
+        },
+      };
+      render(<SkjemaOppsummering utfylling={utfylling} visLenkeTilbakeTilSteg={false} />);
+      expect(screen.queryByText('Har du hatt avtalte aktiviteter i perioden?')).not.toBeInTheDocument();
+    });
   });
 });
