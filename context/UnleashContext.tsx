@@ -1,11 +1,11 @@
 'use client';
 
-import { createContext, useContext } from 'react';
+import { createContext, type ReactNode, useContext } from 'react';
 import { FlagNames, Flags } from 'lib/services/unleash/unleashToggles';
 
 const FeatureFlagContext = createContext<Flags | null>(null);
 
-export function FeatureFlagProvider({ flags, children }: { flags: Flags; children: React.ReactNode }) {
+export function FeatureFlagProvider({ flags, children }: { flags: Flags; children: ReactNode }) {
   return <FeatureFlagContext.Provider value={flags}>{children}</FeatureFlagContext.Provider>;
 }
 
