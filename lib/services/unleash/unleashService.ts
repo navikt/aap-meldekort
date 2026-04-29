@@ -1,6 +1,7 @@
 import { Unleash } from 'unleash-client';
 import { FlagNames, FLAGS, Flags, mockedFlags } from 'lib/services/unleash/unleashToggles';
 import { isLocal } from 'lib/utils/environments';
+import { isFunctionalTest } from 'lib/services/meldekortservice';
 
 export interface IUnleash {
   isEnabled(flagName: FlagNames): boolean;
@@ -43,7 +44,7 @@ let unleashService: IUnleash | undefined;
 export function getUnleashService(): IUnleash {
   if (unleashService == null) {
     unleashService =
-      process.env.UNLEASH_SERVER_API_URL == null && isLocal() ? createMockUnleash() : createRealUnleash();
+      process.env.UNLEASH_SERVER_API_URL == null && (isLocal() || isFunctionalTest()) ? createMockUnleash() : createRealUnleash();
   }
 
   return unleashService;
