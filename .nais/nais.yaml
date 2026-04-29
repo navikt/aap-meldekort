@@ -64,3 +64,4 @@ spec:
       external:
         - host: "cdn.nav.no"
         - host: www.nav.no
+        - host: aap-unleash-api.nav.cloud.nais.io
