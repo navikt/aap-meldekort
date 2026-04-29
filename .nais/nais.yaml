@@ -56,6 +56,8 @@ spec:
   {{/each}}
   tokenx:
     enabled: true
+  envFrom:
+    - secret: kelvin-unleash-api-token
   accessPolicy:
     outbound:
       rules:
@@ -65,3 +67,4 @@ spec:
       external:
         - host: "cdn.nav.no"
         - host: www.nav.no
+        - host: aap-unleash-api.nav.cloud.nais.io

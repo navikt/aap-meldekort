@@ -1,6 +1,8 @@
 import { cleanup, render } from '@testing-library/react';
 import { ReactElement } from 'react';
 import { afterEach } from 'vitest';
+import { FeatureFlagProvider } from 'context/UnleashContext';
+import { mockedFlags } from 'lib/services/unleash/unleashToggles';
 import { NextIntlClientProvider } from 'next-intl';
 import messagesNb from 'lib/translations/nb.json';
 
@@ -10,9 +12,11 @@ afterEach(() => {
 
 export function customRender(ui: ReactElement) {
   render(
-    <NextIntlClientProvider locale={'nb'} messages={messagesNb}>
-      {ui}
-    </NextIntlClientProvider>
+    <FeatureFlagProvider flags={mockedFlags}>
+      <NextIntlClientProvider locale={'nb'} messages={messagesNb}>
+        {ui}
+      </NextIntlClientProvider>
+    </FeatureFlagProvider>
   );
 }
 
