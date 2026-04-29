@@ -16,7 +16,14 @@ export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
         app: {
           name: 'meldekort',
         },
-        instrumentations: [...getWebInstrumentations(), new TracingInstrumentation()],
+        instrumentations: [
+          ...getWebInstrumentations(),
+          new TracingInstrumentation({
+            instrumentationOptions: {
+              propagateTraceHeaderCorsUrls: [/https:\/\/[^/]+\.nav\.no\/.*/],
+            },
+          }),
+        ],
         consoleInstrumentation: {
           disabledLevels: [LogLevel.DEBUG, LogLevel.TRACE], // capture log, info, warn, error
         },
