@@ -1,133 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen, within } from 'lib/utils/test/customRender';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
-import { UtfyllingResponse } from 'lib/types/types';
 import { formaterDatoMedDagOgMåndedIBokstaver } from 'lib/utils/date';
 import { storForbokstav } from 'lib/utils/string';
-
-const meldekortMedArbeid: UtfyllingResponse = {
-  metadata: {
-    antallUbesvarteMeldeperioder: 1,
-    kanSendesInn: true,
-    referanse: '123456789',
-    periode: { fom: '2024-11.04', tom: '2024-11-17' },
-    visFrist: true,
-  },
-  tilstand: {
-    aktivtSteg: 'KVITTERING',
-    svar: {
-      harDuJobbet: true,
-      dager: [
-        {
-          dato: '2024-11-06',
-          timerArbeidet: 7.5,
-        },
-        {
-          dato: '2024-11-07',
-        },
-        {
-          dato: '2024-11-08',
-        },
-        {
-          dato: '2024-11-09',
-        },
-        {
-          dato: '2024-11-10',
-        },
-        {
-          dato: '2024-11-11',
-        },
-        {
-          dato: '2024-11-12',
-        },
-        {
-          dato: '2024-11-13',
-        },
-        {
-          dato: '2024-11-14',
-        },
-        {
-          dato: '2024-11-15',
-        },
-        {
-          dato: '2024-11-16',
-        },
-        {
-          dato: '2024-11-17',
-          timerArbeidet: 5,
-        },
-        {
-          dato: '2024-11-18',
-        },
-        {
-          dato: '2024-11-19',
-        },
-      ],
-    },
-  },
-};
-
-const meldekortMedFravær: UtfyllingResponse = {
-  ...meldekortMedArbeid,
-  tilstand: {
-    ...meldekortMedArbeid.tilstand,
-    svar: {
-      ...meldekortMedArbeid.tilstand.svar,
-      harDuGjennomførtAvtaltAktivitet: 'NEI_IKKE_GJENNOMFORT_AVTALT_AKTIVITET',
-      dager: [
-        {
-          dato: '2024-11-06',
-          timerArbeidet: 7.5,
-        },
-        {
-          dato: '2024-11-07',
-          fravær: 'SYKDOM_ELLER_SKADE',
-        },
-        {
-          dato: '2024-11-08',
-          fravær: 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN',
-        },
-        {
-          dato: '2024-11-09',
-          fravær: 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN',
-        },
-        {
-          dato: '2024-11-10',
-        },
-        {
-          dato: '2024-11-11',
-        },
-        {
-          dato: '2024-11-12',
-        },
-        {
-          dato: '2024-11-13',
-        },
-        {
-          dato: '2024-11-14',
-        },
-        {
-          dato: '2024-11-15',
-        },
-        {
-          dato: '2024-11-16',
-        },
-        {
-          dato: '2024-11-17',
-          timerArbeidet: 5,
-        },
-        {
-          dato: '2024-11-18',
-          fravær: 'SYKDOM_ELLER_SKADE',
-        },
-        {
-          dato: '2024-11-19',
-          fravær: 'SYKDOM_ELLER_SKADE',
-        },
-      ],
-    },
-  },
-};
+import {
+  meldekortMedArbeid,
+  meldekortMedAvtalteAktiviterUtenFravær,
+  meldekortMedFravær,
+  meldekortMedTreDagerAnnetFravær,
+} from 'lib/utils/test/testdata';
 
 describe('skjema oppsummering', () => {
   it('skal ha et felt for å vise hva som er besvart på om innbygger har vært i arbeid siste 14 dager', () => {
@@ -165,9 +46,8 @@ describe('skjema oppsummering', () => {
 
   it('skal vise lenker tilbake til stegene dersom flagget for å vise lenker er satt til true', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedArbeid} visLenkeTilbakeTilSteg={true} />);
-
     const endreLinks = screen.getAllByRole('link', { name: 'Endre' });
-    expect(endreLinks).toHaveLength(2);
+    expect(endreLinks).toHaveLength(3);
   });
 
   it('skal ikke vise lenker tilbake til stegene dersom flagget for å vise lenker er satt til false', () => {
@@ -207,7 +87,7 @@ describe('skjema oppsummering', () => {
   it('fravær grupperes etter type', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedFravær} visLenkeTilbakeTilSteg={false} />);
 
-    const sykdomsgruppe = screen.getByText('Sykdom eller skade:').parentElement;
+    const sykdomsgruppe = screen.getByText('Syk eller skadet:').parentElement;
     expect(sykdomsgruppe).not.toBeNull();
     if (sykdomsgruppe) {
       meldekortMedFravær.tilstand.svar.dager
@@ -232,9 +112,26 @@ describe('skjema oppsummering', () => {
     }
   });
 
-  it('viser hva bruker har svart på fravær fra aktivitet', () => {
+  it('viser at bruker har svart "Ja" på at de har hatt avtalte aktiviteter', () => {
     render(<SkjemaOppsummering utfylling={meldekortMedFravær} visLenkeTilbakeTilSteg={false} />);
-    expect(screen.getByText('Har du gjennomført alle aktiviteter som er avtalt med oss?')).toBeVisible();
-    expect(screen.getByText('Nei, jeg har ikke gjennomført alle avtalte aktiviteter')).toBeVisible();
+    expect(screen.getByText('Har du hatt avtalte aktiviteter i perioden?')).toBeVisible();
+    expect(screen.getByText('Var du borte fra noen av disse aktivitetene?')).toBeVisible();
+  });
+
+  it('viser svar på om bruker har vært borte fra aktiviteter når de har svart at de har avtalte akitviteter', () => {
+    render(<SkjemaOppsummering utfylling={meldekortMedAvtalteAktiviterUtenFravær} visLenkeTilbakeTilSteg={false} />);
+    expect(screen.getByText('Har du hatt avtalte aktiviteter i perioden?')).toBeVisible();
+    expect(screen.getByText('Var du borte fra noen av disse aktivitetene?')).toBeVisible();
+  });
+
+  it('viser ikke svar på om bruker har hatt fravær hvis de ikke har hatt aktiviteter', () => {
+    render(<SkjemaOppsummering utfylling={meldekortMedArbeid} visLenkeTilbakeTilSteg={false} />);
+    expect(screen.getByText('Har du hatt avtalte aktiviteter i perioden?')).toBeVisible();
+    expect(screen.queryByText('Var du borte fra noen av disse aktivitetene?')).not.toBeInTheDocument();
+  });
+
+  it('skal vise tag for trekk dersom man har mer enn to dager med annet fravær', () => {
+    render(<SkjemaOppsummering utfylling={meldekortMedTreDagerAnnetFravær} visLenkeTilbakeTilSteg={false} />);
+    expect(screen.getAllByText('Trekk')).toHaveLength(3);
   });
 });
