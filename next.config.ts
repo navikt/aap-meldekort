@@ -21,7 +21,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   assetPrefix: process.env.ASSET_PREFIX ?? undefined,
-
+  productionBrowserSourceMaps: true,
   experimental: {
     optimizePackageImports: ['@navikt/ds-react', '@navikt/aksel-icons'],
   },
