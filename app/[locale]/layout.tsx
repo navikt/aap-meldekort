@@ -12,6 +12,7 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { redirect, routing } from 'i18n/routing';
 import { NextIntlClientProvider } from 'next-intl';
 import { logWarning } from '@navikt/aap-felles-utils';
+import Faro from 'app/faro';
 
 export async function generateMetadata() {
   const t = await getTranslations();
@@ -44,6 +45,7 @@ export default async function RootLayout({
         <Decorator.HeadAssets />
       </head>
       <body>
+        <Faro collectorUrl={process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL} />
         <Decorator.Header />
         <NextIntlClientProvider messages={messages}>
           <div className={styles.meldekortheader}>

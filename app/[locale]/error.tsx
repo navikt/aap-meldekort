@@ -1,11 +1,17 @@
 'use client';
 
+import { faro } from '@grafana/faro-web-sdk';
 import { BodyShort, Heading, Link, List } from '@navikt/ds-react';
 import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
 
 //500 Page
-const Error = () => {
+const Error = ({error}: {error: Error}) => {
   const t = useTranslations();
+
+  useEffect(() => {
+    faro.api?.pushError(error);
+  }, [error]);
 
   return (
     <div>
