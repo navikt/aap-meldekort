@@ -12,6 +12,8 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { redirect, routing } from 'i18n/routing';
 import { NextIntlClientProvider } from 'next-intl';
 import { logWarning } from '@navikt/aap-felles-utils';
+import { FeatureFlagProvider } from 'context/UnleashContext';
+import { getAllFlags } from 'lib/services/unleash/unleashService';
 
 export async function generateMetadata() {
   const t = await getTranslations();
@@ -40,25 +42,27 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <head>
-        <Decorator.HeadAssets />
-      </head>
-      <body>
-        <Decorator.Header />
-        <NextIntlClientProvider messages={messages}>
-          <div className={styles.meldekortheader}>
-            <div className={styles.innhold}>
-              <Heading level={'1'} size={'xlarge'}>
-                Meldekort for AAP
-              </Heading>
-              <Språkvelger />
+      <FeatureFlagProvider flags={getAllFlags()}>
+        <head>
+          <Decorator.HeadAssets />
+        </head>
+        <body>
+          <Decorator.Header />
+          <NextIntlClientProvider messages={messages}>
+            <div className={styles.meldekortheader}>
+              <div className={styles.innhold}>
+                <Heading level={'1'} size={'xlarge'}>
+                  Meldekort for AAP
+                </Heading>
+                <Språkvelger />
+              </div>
             </div>
-          </div>
-          <main className={styles.meldekortcontainer}>{children}</main>
-        </NextIntlClientProvider>
-        <Decorator.Footer />
-        <Decorator.Scripts loader={Script} />
-      </body>
+            <main className={styles.meldekortcontainer}>{children}</main>
+          </NextIntlClientProvider>
+          <Decorator.Footer />
+          <Decorator.Scripts loader={Script} />
+        </body>
+      </FeatureFlagProvider>
     </html>
   );
 }

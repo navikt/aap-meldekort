@@ -53,6 +53,8 @@ spec:
   {{/each}}
   tokenx:
     enabled: true
+  envFrom:
+    - secret: kelvin-unleash-api-token
   accessPolicy:
     outbound:
       rules:
