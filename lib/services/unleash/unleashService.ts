@@ -6,13 +6,27 @@ export interface IUnleash {
   isEnabled(flagName: FlagNames): boolean;
 }
 
+function getRequiredEnv(name: 'UNLEASH_SERVER_API_URL' | 'UNLEASH_SERVER_API_ENV' | 'UNLEASH_SERVER_API_TOKEN'): string {
+  const value = process.env[name];
+
+  if (value == null || value.trim() === '') {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+
+  return value;
+}
+
 function createRealUnleash(): IUnleash {
+  const url = getRequiredEnv('UNLEASH_SERVER_API_URL');
+  const environment = getRequiredEnv('UNLEASH_SERVER_API_ENV');
+  const token = getRequiredEnv('UNLEASH_SERVER_API_TOKEN');
+
   return new Unleash({
-    url: `${process.env.UNLEASH_SERVER_API_URL}/api`,
-    environment: process.env.UNLEASH_SERVER_API_ENV!,
-    appName: 'aap-saksbehandling',
+    url: `${url}/api`,
+    environment,
+    appName: 'aap-meldekort',
     customHeaders: {
-      Authorization: process.env.UNLEASH_SERVER_API_TOKEN!,
+      Authorization: token,
     },
   });
 }
