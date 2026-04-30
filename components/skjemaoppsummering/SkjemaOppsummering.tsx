@@ -74,24 +74,23 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
           </FormSummary.Label>
           <FormSummary.Value>{utfylling.tilstand.svar.harDuJobbet ? 'Ja' : 'Nei'}</FormSummary.Value>
         </FormSummary.Answer>
-        {typeof utfylling.tilstand.svar.harDuHattAvtalteAktiviteter === 'boolean' &&
-          utfylling.tilstand.svar.harDuHattAvtalteAktiviteter !== null && (
+        {typeof utfylling.tilstand.svar.harDuHattAvtalteAktiviteter === 'boolean' && (
+          <FormSummary.Answer>
+            <FormSummary.Label>
+              <HStack justify={'space-between'}>
+                <BodyShort weight="semibold">
+                  {t('client.steg.bekreft.oppsummering.harDuHattAvtalteAktiviteter.label')}
+                </BodyShort>
+                {visLenkeTilbakeTilSteg && (
+                  <MeldekortLenke label={'Endre'} href={hentUrlForSteg('FRAVÆR_SPØRSMÅL')} visIcon={false} />
+                )}
+              </HStack>
+            </FormSummary.Label>
             <FormSummary.Answer>
-              <FormSummary.Label>
-                <HStack justify={'space-between'}>
-                  <BodyShort weight="semibold">
-                    {t('client.steg.bekreft.oppsummering.harDuHattAvtalteAktiviteter.label')}
-                  </BodyShort>
-                  {visLenkeTilbakeTilSteg && (
-                    <MeldekortLenke label={'Endre'} href={hentUrlForSteg('FRAVÆR_SPØRSMÅL')} visIcon={false} />
-                  )}
-                </HStack>
-              </FormSummary.Label>
-              <FormSummary.Answer>
-                {utfylling.tilstand.svar.harDuHattAvtalteAktiviteter ? 'Ja' : 'Nei'}
-              </FormSummary.Answer>
+              {utfylling.tilstand.svar.harDuHattAvtalteAktiviteter ? 'Ja' : 'Nei'}
             </FormSummary.Answer>
-          )}
+          </FormSummary.Answer>
+        )}
         {utfylling.tilstand.svar.harDuHattFravær != null && (
           <FormSummary.Answer>
             <FormSummary.Label>
