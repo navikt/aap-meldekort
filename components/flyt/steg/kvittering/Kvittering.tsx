@@ -1,6 +1,6 @@
 'use client';
 
-import { Accordion, Alert, Button, List, VStack } from '@navikt/ds-react';
+import { Alert, Button, ExpansionCard, List, VStack } from '@navikt/ds-react';
 import { KommendeMeldekort, UtfyllingResponse } from 'lib/types/types';
 import { Link, useRouter } from 'i18n/routing';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
@@ -57,15 +57,14 @@ export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
         )}
       </List>
 
-      <Accordion>
-        <Accordion.Item>
-          <Accordion.Header>{t('client.steg.kvittering.seHvaDuSendteInn')}</Accordion.Header>
-          <Accordion.Content>
-            <SkjemaOppsummering utfylling={utfylling} />
-          </Accordion.Content>
-        </Accordion.Item>
-      </Accordion>
-
+      <ExpansionCard aria-label="fixme">
+        <ExpansionCard.Header>
+          <ExpansionCard.Title size="small">{t('client.steg.kvittering.seHvaDuSendteInn')}</ExpansionCard.Title>
+        </ExpansionCard.Header>
+        <ExpansionCard.Content>
+          <SkjemaOppsummering utfylling={utfylling} />
+        </ExpansionCard.Content>
+      </ExpansionCard>
       <VStack gap={'space-32'} align={'center'}>
         {skalViseKnappForKommendeMeldeperiode && (
           <Button
