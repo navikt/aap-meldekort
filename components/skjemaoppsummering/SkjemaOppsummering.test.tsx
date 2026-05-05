@@ -123,7 +123,6 @@ describe('skjema oppsummering', () => {
 
   it('viser at bruker har svart "Nei" på at de har hatt avtalte aktiviteter', () => {
     render(<SkjemaOppsummering utfylling={meldekortUtenAvtalteAktiviteter} visLenkeTilbakeTilSteg={false} />);
-    screen.logTestingPlaygroundURL();
     expect(screen.getByText('Har du hatt avtalte aktiviteter i perioden?')).toBeVisible();
     expect(screen.queryByText('Var du borte fra noen av disse aktivitetene?')).not.toBeInTheDocument();
   });
