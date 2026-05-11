@@ -93,6 +93,15 @@
         "innsending": {
           "heading": "Arbeid"
         },
+        "hvaErArbeid": "Alle aktivitetar som er lønte, eller som normalt ville ha vore lønte, blir rekna som arbeid og skal førast på meldekortet.",
+        "siste14": {
+          "label": "Har du vore i arbeid dei siste 14 dagane?",
+          "description": "Det gjeld heile veka, måndag til sundag, uansett når på døgnet du jobbar.",
+          "readmore": {
+            "header": "Kva aktivitetar blir rekna som arbeid?",
+            "body": "Du skal svara «ja» viss du har motteke omsorgslønn, lønn frå arbeidsgjevar, lønn frå eigen næringsverksemd eller andre betalingar for arbeid eller oppdrag dei siste 14 dagane. <br></br><br></br> Du skal òg svara «ja» viss du har utført frivillig arbeid som normalt er lønna."
+          }
+        },
         "periode": "Veke {uker} ({periode})",
         "skjema": {
           "felter": {
@@ -109,6 +118,19 @@
         },
         "innsending": {
           "heading": "Kva dagar har du arbeidd?"
+        },
+        "bulletList": {
+          "title": "Kontakt Nav viss du:",
+          "items": {
+            "1": "Er i tvil om kor mange timar du skal føra opp.",
+            "2": "Jobbar turnus eller skift.",
+            "3": "Har eit yrke som ikkje har 37,5 timar per veke som normal arbeidstid.",
+            "4": "Deltek på deltidstiltak eller tiltak med lønn"
+          }
+        },
+        "hvordanSkalJegFøreTimer": {
+          "title": "Korleis skal eg føra timane?",
+          "content": "Får du lønn for ein fast stillingsprosent, skal du føra timar ut frå stillingsprosenten din. Vi reknar full stilling som 37,5 timar per veke, uavhengig av kva som er normal arbeidstid i ditt yrke. <br></br><br></br> Viss du får lønn for fleire timar enn du faktisk har jobba, skal du føra alle timane du får lønn for."
         },
         "periode": "Uke {uker} ({periode})",
         "beskrivelse": "Legg inn timane du har jobba i perioden. Skriv timane med desimal til nærmaste halvtime. Døme: 7 timar og 30 minutt = 7,5 timar.",
