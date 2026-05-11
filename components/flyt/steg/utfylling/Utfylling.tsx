@@ -2,7 +2,7 @@
 
 import { Form } from 'components/form/Form';
 import { UtfyllingKalender, utfyllingKalenderId } from 'components/utfyllingkalender/UtfyllingKalender';
-import { BodyLong, BodyShort, ErrorSummary, Heading, Link, ReadMore, VStack } from '@navikt/ds-react';
+import { BodyLong, BodyShort, ErrorSummary, Heading, Link, List, ReadMore, VStack } from '@navikt/ds-react';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
@@ -12,6 +12,7 @@ import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
 import { useTranslations } from 'next-intl';
 import { isSameDay } from 'date-fns';
+import { useFeatureFlag } from 'context/UnleashContext';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -27,6 +28,7 @@ interface Dag {
 }
 
 export const Utfylling = ({ utfylling }: Props) => {
+  const visTekstendringer = useFeatureFlag('MeldekortTekstendringer');
   const t = useTranslations();
   const { referanse, innsendingtype } = useParamsMedType();
   const { gåTilSteg } = useGåTilSteg();
@@ -127,19 +129,39 @@ export const Utfylling = ({ utfylling }: Props) => {
                 })}
               </BodyShort>
             </VStack>
-            <BodyLong>{t('client.steg.utfylling.beskrivelse')}</BodyLong>
-            <ReadMore header={t('client.steg.utfylling.readmore.label')}>
-              <BodyShort>
-                {t('client.steg.utfylling.readmore.content')}{' '}
-                {t.rich('client.steg.utfylling.readmore.link', {
-                  a: (chunks) => (
-                    <Link href="https://www.nav.no/send-meldekort-aap#arbeid" target="_blank">
-                      {chunks}
-                    </Link>
-                  ),
-                })}
-              </BodyShort>
-            </ReadMore>
+            {visTekstendringer && (<>
+              <BodyLong>{t('client.steg.spørsmål.hvaErArbeid')}</BodyLong>
+              <BodyShort size={'small'}>{t('client.steg.utfylling.bulletList.title')}</BodyShort>
+              <List size={'small'}>
+                <List.Item>{t('client.steg.utfylling.bulletList.items.1')}</List.Item>
+                <List.Item>{t('client.steg.utfylling.bulletList.items.2')}</List.Item>
+                <List.Item>{t('client.steg.utfylling.bulletList.items.3')}</List.Item>
+                <List.Item>{t('client.steg.utfylling.bulletList.items.4')}</List.Item>
+              </List>
+              <ReadMore header={t('client.steg.utfylling.hvordanSkalJegFøreTimer.title')}>
+                <BodyShort>
+                  {t.rich(
+                    'client.steg.utfylling.hvordanSkalJegFøreTimer.content',
+                      {br: () => <br />}
+                  )}
+                </BodyShort>
+              </ReadMore>
+            </>)}
+            {!visTekstendringer && (<>
+              <BodyLong>{t('client.steg.utfylling.beskrivelse')}</BodyLong>
+              <ReadMore header={t('client.steg.utfylling.readmore.label')}>
+                <BodyShort>
+                  {t('client.steg.utfylling.readmore.content')}{' '}
+                  {t.rich('client.steg.utfylling.readmore.link', {
+                    a: (chunks) => (
+                      <Link href="https://www.nav.no/send-meldekort-aap#arbeid" target="_blank">
+                        {chunks}
+                      </Link>
+                    ),
+                  })}
+                </BodyShort>
+              </ReadMore>
+            </>)}
           </VStack>
 
           <UtfyllingKalender />

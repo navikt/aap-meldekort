@@ -93,6 +93,15 @@
         "innsending": {
           "heading": "Arbeid"
         },
+        "hvaErArbeid": "Alle aktiviteter som er lønnet, eller som normalt ville vært lønnet, regnes som arbeid og skal føres på meldekortet.",
+        "siste14": {
+          "label": "Har du vært i arbeid de siste 14 dagene?",
+          "description": "Det gjelder hele uken, mandag til søndag, uansett når på døgnet du jobber.",
+          "readmore": {
+            "header": "Hvilke aktiviteter regnes som arbeid?",
+            "body": "Du skal svare «ja» hvis du har hatt mottatt omsorgslønn, lønn fra arbeidsgiver, lønn fra egen næringsvirksomhet eller andre betalinger for arbeid eller oppdrag de siste 14 dagene. <br></br><br></br> Du skal også svare «ja» hvis du har utført frivillig arbeid som normalt er lønnet."
+          }
+        },
         "periode": "Uke {uker} ({periode})",
         "skjema": {
           "felter": {
@@ -109,6 +118,19 @@
         },
         "innsending": {
           "heading": "Hvilke dager har du arbeidet?"
+        },
+        "bulletList": {
+          "title": "Kontakt Nav hvis du:",
+          "items": {
+            "1": "Er i tvil om hvor mange timer du skal føre opp.",
+            "2": "Jobber turnus eller skift.",
+            "3": "Har et yrke som ikke har 37,5 timer per uke som normal arbeidstid.",
+            "4": "Deltar på deltidstiltak eller tiltak med lønn"
+          }
+        },
+        "hvordanSkalJegFøreTimer": {
+          "title": "Hvordan skal jeg føre timene?",
+          "content": "Får du lønn for en fast stillingsprosent, skal du føre timer ut fra stillingsprosenten din. Vi regner full stilling som 37,5 timer per uke, uavhengig av hva som er normal arbeidstid i ditt yrke. <br></br><br></br> Hvis du får lønn for flere timer enn du faktisk har jobbet, skal du føre alle timene du får lønn for."
         },
         "periode": "Uke {uker} ({periode})",
         "beskrivelse": "Skriv inn timene du har arbeidet for perioden. Timer skrives med desimal til nærmeste halvtime. For eksempel blir 7 timer og 30 min = 7,5 timer.",
