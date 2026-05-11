@@ -52,7 +52,7 @@ describe('Utfylling', () => {
   });
 
   it('skal ha en readmore som forklarer hva som skal fylles ut', () => {
-    const readMore = screen.getByText('Les mer om hva som skal fylles ut');
+    const readMore = screen.getByText('Hvordan skal jeg føre timene?');
     expect(readMore).toBeVisible();
   });
 
