@@ -2,7 +2,7 @@
 
 import { Form } from 'components/form/Form';
 import { getJaNeiEllerUndefined, JaEllerNei } from 'lib/utils/form';
-import { BodyShort, Heading, Radio, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, Label, Radio, ReadMore, VStack } from '@navikt/ds-react';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { UtfyllingResponse } from 'lib/types/types';
@@ -13,6 +13,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { RadioGroupWrapper } from 'components/form/radiogroupwrapper/RadioGroupWrapper';
 import { isSameDay } from 'date-fns';
+import { useFeatureFlag } from 'context/UnleashContext';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -23,6 +24,7 @@ interface FormFields {
 }
 
 export const Spørsmål = ({ utfylling }: Props) => {
+  const visTekstendringer = useFeatureFlag('MeldekortTekstendringer');
   const t = useTranslations();
   const { referanse, innsendingtype } = useParamsMedType();
   const { gåTilSteg } = useGåTilSteg();
@@ -93,6 +95,20 @@ export const Spørsmål = ({ utfylling }: Props) => {
               periode: `${formaterDatoMedÅrForFrontend(fraDato)} - ${formaterDatoMedÅrForFrontend(tilDato)}`,
             })}
           </BodyShort>
+          {visTekstendringer && (
+            <>
+              <BodyShort>{t('client.steg.spørsmål.hvaErArbeid')}</BodyShort>
+              <VStack>
+                <Label>{t('client.steg.spørsmål.siste14.label')}</Label>
+                <BodyShort>{t('client.steg.spørsmål.siste14.description')}</BodyShort>
+                <ReadMore header={t('client.steg.spørsmål.siste14.readmore.header')}>
+                  <VStack gap={'space-8'}>
+                    <BodyShort>{t.rich('client.steg.spørsmål.siste14.readmore.body', { br: () => <br /> })}</BodyShort>
+                  </VStack>
+                </ReadMore>
+              </VStack>
+            </>
+          )}
         </VStack>
         <RadioGroupWrapper
           name={'harDuJobbet'}
