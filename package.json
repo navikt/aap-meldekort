@@ -27,8 +27,8 @@
     "html-react-parser": "^5.2.17",
     "next": "16.2.6",
     "next-intl": "^4.9.1",
-    "react": "19.2.5",
-    "react-dom": "19.2.5",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
     "react-hook-form": "^7.72.1",
     "unleash-client": "6.10.1"
   },
