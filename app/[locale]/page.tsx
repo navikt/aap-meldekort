@@ -7,12 +7,17 @@ import {
 import { redirect } from 'next/navigation';
 import { isError, isSuccess } from 'lib/utils/api';
 import { Alert } from '@navikt/ds-react';
+import { isProduction } from 'lib/utils/environments';
 
 export default async function Page() {
   const ansvarligSystem = await hentAnsvarligSystem();
 
   if (isSuccess(ansvarligSystem) && ansvarligSystem.data === 'FELLES') {
-    redirect('https://www.nav.no/nav.no-ressurser/lenker/selvbetjening/tjenester-pa-nav.no/send-meldekort');
+    if (!isProduction()) {
+      redirect('https://meldekort-frontend-q2.intern.dev.nav.no/felles-meldekort');
+    } else {
+      redirect('https://www.nav.no/felles-meldekort');
+    }
   }
 
   const innsendteMeldeperioder = await hentInnsendteMeldeperioder();
