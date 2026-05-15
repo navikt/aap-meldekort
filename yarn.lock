@@ -3520,7 +3520,7 @@ __metadata:
     react-dom: "npm:19.2.6"
     react-hook-form: "npm:^7.75.0"
     typescript: "npm:^5.9.3"
-    unleash-client: "npm:6.10.1"
+    unleash-client: "npm:6.11.0"
     vite-tsconfig-paths: "npm:^5.1.4"
     vitest: "npm:^3.2.4"
     vitest-fetch-mock: "npm:^0.4.5"
@@ -6463,6 +6463,13 @@ __metadata:
     "@formatjs/icu-messageformat-parser": "npm:3.5.1"
     tslib: "npm:^2.8.1"
   checksum: 10c0/39e39ad9067c3811046e1471e6e504c526e0b6ad1eb1d06427fd781aba97076d189b3f6127f088bd0159166b01c8a74ad75cdc2baccc104c92c32a5b0ec1f943
+  languageName: node
+  linkType: hard
+
+"ip-address@npm:^10.0.0":
+  version: 10.2.0
+  resolution: "ip-address@npm:10.2.0"
+  checksum: 10c0/5a00aada6e922c9c69dfc800ed5d0fa3348675ebdeed0e1575f503f27ca385b5f534363c9af7ad1daf64c1f1409388cdd3cc2e9b9b0fe1c924a431378d55075a
   languageName: node
   linkType: hard
 
@@ -10213,13 +10220,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unleash-client@npm:6.10.1":
-  version: 6.10.1
-  resolution: "unleash-client@npm:6.10.1"
+"unleash-client@npm:6.11.0":
+  version: 6.11.0
+  resolution: "unleash-client@npm:6.11.0"
   dependencies:
     http-proxy-agent: "npm:^7.0.2"
     https-proxy-agent: "npm:^7.0.5"
-    ip-address: "npm:^9.0.5"
+    ip-address: "npm:^10.0.0"
     launchdarkly-eventsource: "npm:2.2.0"
     lru-cache: "npm:^11.2.5"
     make-fetch-happen: "npm:^15.0.3"
@@ -10227,7 +10234,7 @@ __metadata:
     proxy-from-env: "npm:^1.1.0"
     re2js: "npm:^1.2.2"
     semver: "npm:^7.7.3"
-  checksum: 10c0/66a6f988edc678117acbafa5d546a9ff9320f9e48a7a5d9799492ea08a7108218c191df7a73dce762c3727e6924cfda22dc75ecbe239ed22110162148cc2c219
+  checksum: 10c0/3c33193e90f66381c291ec68567b588ac68ed7aa2b188fc0954caabcd2d9053c010123b69e976e8821182adf4188d868ee80dfe96defcba653eb1abb15440264
   languageName: node
   linkType: hard
 
