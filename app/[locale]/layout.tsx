@@ -12,7 +12,7 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { redirect, routing } from 'i18n/routing';
 import { NextIntlClientProvider } from 'next-intl';
 import { logWarning } from '@navikt/aap-felles-utils';
-import Faro from 'app/faro';
+import Faro from 'components/frontendobservability/faro';
 import { FeatureFlagProvider } from 'context/UnleashContext';
 import { getAllFlags } from 'lib/services/unleash/unleashService';
 
