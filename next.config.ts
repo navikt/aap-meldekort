@@ -11,7 +11,7 @@ const appDirectives = {
   'object-src': ['blob:'],
   'script-src-elem': ["'self'"],
   'style-src-elem': ["'self'"],
-  'frame-src': ['self', 'blob:'],
+  'frame-src': ["'self'", 'blob:'],
   'img-src': ["'self'", 'data:', 'blob:'],
 };
 
