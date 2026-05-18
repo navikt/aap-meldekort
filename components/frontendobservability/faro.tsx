@@ -15,6 +15,7 @@ export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
         paused: window.location.hostname === 'localhost',
         app: {
           name: 'meldekort',
+          namespace: 'aap',
         },
         instrumentations: [
           ...getWebInstrumentations(),
