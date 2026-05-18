@@ -6,10 +6,15 @@ const withNextIntl = createNextIntlPlugin();
 const ssr = require('@navikt/nav-dekoratoren-moduler/ssr');
 
 const appDirectives = {
-  'connect-src': ["'self'", 'https://telemetry.ekstern.dev.nav.no', 'https://telemetry.nav.no'],
+  'connect-src': [
+    "'self'",
+    'https://telemetry.ekstern.dev.nav.no',
+    'https://telemetry.nav.no',
+    'https://api.uxsignals.com',
+  ],
   'font-src': ['https://fonts.gstatic.com'],
   'object-src': ['blob:'],
-  'script-src-elem': ["'self'"],
+  'script-src-elem': ["'self'", 'https://widget.uxsignals.com/embed.js'],
   'style-src-elem': ["'self'"],
   'frame-src': ["'self'", 'blob:'],
   'img-src': ["'self'", 'data:', 'blob:'],
