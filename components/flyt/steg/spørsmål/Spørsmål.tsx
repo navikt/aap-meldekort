@@ -2,7 +2,7 @@
 
 import { Form } from 'components/form/Form';
 import { getJaNeiEllerUndefined, JaEllerNei } from 'lib/utils/form';
-import { BodyShort, Heading, Label, Radio, ReadMore, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, Label, Link, Radio, ReadMore, VStack } from '@navikt/ds-react';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
 import { UtfyllingResponse } from 'lib/types/types';
@@ -103,7 +103,13 @@ export const Spørsmål = ({ utfylling }: Props) => {
                 <BodyShort>{t('client.steg.spørsmål.siste14.description')}</BodyShort>
                 <ReadMore header={t('client.steg.spørsmål.siste14.readmore.header')}>
                   <VStack gap={'space-8'}>
-                    <BodyShort>{t.rich('client.steg.spørsmål.siste14.readmore.body', { br: () => <br /> })}</BodyShort>
+                    <BodyShort>{t.rich('client.steg.spørsmål.siste14.readmore.body', {
+                      br: () => <br />,
+                      a: (chunks) => (
+                        <Link href="https://www.nav.no/send-meldekort-aap#arbeid" target="_blank">
+                          {chunks}
+                        </Link>)
+                    })}</BodyShort>
                   </VStack>
                 </ReadMore>
               </VStack>

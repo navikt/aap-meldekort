@@ -44,7 +44,7 @@ let unleashService: IUnleash | undefined;
 export function getUnleashService(): IUnleash {
   if (unleashService == null) {
     unleashService =
-      process.env.UNLEASH_SERVER_API_URL == null && (isLocal() || isFunctionalTest()) ? createMockUnleash() : createRealUnleash();
+       (isLocal() || isFunctionalTest()) ? createMockUnleash() : createRealUnleash();
   }
 
   return unleashService;

@@ -10,6 +10,7 @@ export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
     try {
       initializeFaro({
         url: collectorUrl || 'https://telemetry.nav.no/collect',
+        paused: window.location.hostname === 'localhost',
         app: {
           name: 'meldekort',
           namespace: 'aap',
