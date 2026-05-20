@@ -93,7 +93,7 @@
         "innsending": {
           "heading": "Arbeid"
         },
-        "hvaErArbeid": "Alle aktivitetar som er lønte, eller som normalt ville ha vore lønte, blir rekna som arbeid og skal førast på meldekortet.",
+        "hvaErArbeid": "Alle aktivitetar som er betalte, eller som normalt ville ha vore betalte, blir rekna som arbeid og skal førast på meldekortet.",
         "siste14": {
           "label": "Har du vore i arbeid dei siste 14 dagane?",
           "description": "Det gjeld heile veka, måndag til sundag, uansett når på døgnet du jobbar.",
