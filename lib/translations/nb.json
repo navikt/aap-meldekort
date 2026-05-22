@@ -130,7 +130,7 @@
         },
         "hvordanSkalJegFøreTimer": {
           "title": "Hvordan skal jeg føre timene?",
-          "content": "Får du lønn for en fast stillingsprosent, skal du føre timer ut fra stillingsprosenten din. Vi regner full stilling som 37,5 timer per uke, uavhengig av hva som er normal arbeidstid i ditt yrke. <br></br><br></br> Hvis du får lønn for flere timer enn du faktisk har jobbet, skal du føre alle timene du får lønn for.<br></br><br></br> Timer skrives med desimal til nærmeste halvtime. For eksempel blir 7 timer og 30 min = 7,5 timer."
+          "content": "Får du lønn for en fast prosentstilling, skal du føre timer ut fra stillingsprosenten din. Hvis du får lønn for flere timer enn du faktisk har jobbet, skal du føre alle timene du får lønn for.<br></br>Vi regner full stilling som 37,5 timer per uke, uavhengig av hva som er normalarbeidstid i ditt yrke. På meldekortet kan du kun føre hele og halve timer.<br></br><br></br> Eksempel: Hvis du jobber i en 50 prosent stilling utgjør stillingen 18,75 timer pr uke. Når timene ikke går opp i hele eller halve timer, må du runde opp minuttene den ene uken, og runde ned den andre uken slik at du i meldeperioden totalt sett har ført timer som tilsvarer din stillingsprosent.<br></br> En 50 prosent stilling skal føres slik: 18,5 timer på meldekortet den ene uken, og 19 timer på meldekortet den andre uken."
         },
         "periode": "Uke {uker} ({periode})",
         "beskrivelse": "Skriv inn timene du har arbeidet for perioden. Timer skrives med desimal til nærmeste halvtime. For eksempel blir 7 timer og 30 min = 7,5 timer.",
