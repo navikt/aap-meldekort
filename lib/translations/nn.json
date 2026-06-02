@@ -98,8 +98,8 @@
           "label": "Har du vore i arbeid dei siste 14 dagane?",
           "description": "Det gjeld heile veka, måndag til sundag, uansett når på døgnet du jobbar.",
           "readmore": {
-            "header": "Kva aktivitetar blir rekna som arbeid?",
-            "body": "Du skal svara «ja» viss du har motteke omsorgslønn, lønn frå arbeidsgjevar, lønn frå eigen næringsverksemd eller andre betalingar for arbeid eller oppdrag dei siste 14 dagane. <br></br><br></br> Du skal òg svara «ja» viss du har utført frivillig arbeid som normalt er lønna.<br></br><br></br> <a>Les meir om kva som regnes som arbeid.</a>"
+            "header": "Kva skal føras som arbeid?",
+            "body": "Du skal svara «ja» viss du har motteke omsorgslønn, lønn frå arbeidsgjevar, lønn frå eigen næringsverksemd eller andre betalingar for arbeid eller oppdrag dei siste 14 dagane. <br></br><br></br> Du skal òg svara «ja» viss du har utført frivillig arbeid som normalt er lønna.<br></br><br></br> Om du får lønn for fleire timar enn du faktisk har jobba, skal du føra alle timane du får lønn for.<br></br><br></br> <a>Les meir om kva som regnes som arbeid.</a>"
           }
         },
         "periode": "Veke {uker} ({periode})",
