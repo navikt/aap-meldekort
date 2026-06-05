@@ -44,7 +44,7 @@ spec:
     sidecar:
       enabled: true
       autoLogin: true
-      level: Level4
+      level: idporten-loa-substantial
   ingresses:
   {{#each ingresses as |url|}}
     - {{url}}
