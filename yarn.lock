@@ -964,7 +964,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grafana/faro-web-sdk@npm:2.7.0, @grafana/faro-web-sdk@npm:^2.7.0":
+"@grafana/faro-core@npm:^2.7.1":
+  version: 2.7.1
+  resolution: "@grafana/faro-core@npm:2.7.1"
+  dependencies:
+    "@opentelemetry/api": "npm:^1.9.0"
+    "@opentelemetry/otlp-transformer": "npm:^0.218.0"
+  checksum: 10c0/30cfe6644c57cf8c515198eb058600537646568103549cc065f5a6362b8c5a56342d9f5c6dd51dcb6a8849bfc67b0a4268a2dcbeb8dc56c52067fa358d0f5379
+  languageName: node
+  linkType: hard
+
+"@grafana/faro-web-sdk@npm:2.7.0":
   version: 2.7.0
   resolution: "@grafana/faro-web-sdk@npm:2.7.0"
   dependencies:
@@ -975,11 +985,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grafana/faro-web-tracing@npm:2.7.0":
-  version: 2.7.0
-  resolution: "@grafana/faro-web-tracing@npm:2.7.0"
+"@grafana/faro-web-sdk@npm:^2.7.1":
+  version: 2.7.1
+  resolution: "@grafana/faro-web-sdk@npm:2.7.1"
   dependencies:
-    "@grafana/faro-web-sdk": "npm:^2.7.0"
+    "@grafana/faro-core": "npm:^2.7.1"
+    ua-parser-js: "npm:1.0.41"
+    web-vitals: "npm:^5.1.0"
+  checksum: 10c0/93e8c2dd2410fedb7d7a025fd038fcab19e86fc9baa0f66595b24226276d61882d94aad9acdc1330135bd7feccb0880ae05864966719a948d30a4f4999d3639a
+  languageName: node
+  linkType: hard
+
+"@grafana/faro-web-tracing@npm:2.7.1":
+  version: 2.7.1
+  resolution: "@grafana/faro-web-tracing@npm:2.7.1"
+  dependencies:
+    "@grafana/faro-web-sdk": "npm:^2.7.1"
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/core": "npm:^2.0.0"
     "@opentelemetry/exporter-trace-otlp-http": "npm:^0.218.0"
@@ -990,7 +1011,7 @@ __metadata:
     "@opentelemetry/resources": "npm:^2.0.0"
     "@opentelemetry/sdk-trace-web": "npm:^2.0.0"
     "@opentelemetry/semantic-conventions": "npm:^1.32.0"
-  checksum: 10c0/89ca8e6bee40bf216e0cb83fb1f996f554fefd7f057246591b00ae7f1e2f6adc9683d67bf9d8fd8bd89eb3b4acbcb904bedbd5740eaf265cd28abcd8ce185719
+  checksum: 10c0/de716be03213f0d167f371b76774829649f473c11226e3f476447f3badbc9391871622b5b8139e5b00b1dd3a4b8d89e5fe3839612ac79491cadfb5b77928fe73
   languageName: node
   linkType: hard
 
@@ -3159,7 +3180,7 @@ __metadata:
   resolution: "aap-meldekort@workspace:."
   dependencies:
     "@grafana/faro-web-sdk": "npm:2.7.0"
-    "@grafana/faro-web-tracing": "npm:2.7.0"
+    "@grafana/faro-web-tracing": "npm:2.7.1"
     "@navikt/aap-felles-prettier": "npm:^5.6.3"
     "@navikt/aap-felles-utils": "npm:5.6.3"
     "@navikt/aksel-icons": "npm:^8.9.1"
