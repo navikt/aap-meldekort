@@ -37,7 +37,15 @@ export default async function RootLayout({
     logWarning(`Invalid locale: ${locale}`);
     redirect({ href: '/', locale: routing.defaultLocale });
   }
-  const Decorator = await fetchDecoratorReact({ env: getEnvironment() });
+  const Decorator = await fetchDecoratorReact({ env: getEnvironment() }).catch(() => {
+    const noOp = () => null;
+    return {
+      HeadAssets: noOp,
+      Header: noOp,
+      Footer: noOp,
+      Scripts: noOp,
+    } as Awaited<ReturnType<typeof fetchDecoratorReact>>;
+  });
 
   const messages = await getMessages();
 
