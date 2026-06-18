@@ -64,7 +64,7 @@
     "prettier": "^3.5.3",
     "typescript": "^5.9.3",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^4.1.8",
+    "vitest": "^4.1.9",
     "vitest-fetch-mock": "^0.4.5"
   },
   "lint-staged": {
