@@ -52,12 +52,12 @@ describe('Spørsmål', () => {
   });
 
   it('skal ha et felt for om bruker har arbeidet i perioden', () => {
-    const felt = screen.getByRole('group', { name: 'Har du arbeidet i perioden?' });
+    const felt = screen.getByRole('radiogroup', { name: 'Har du arbeidet i perioden?' });
     expect(felt).toBeVisible();
   });
 
   it('skal ha Ja og Nei som options', () => {
-    const felt = screen.getByRole('group', { name: 'Har du arbeidet i perioden?' });
+    const felt = screen.getByRole('radiogroup', { name: 'Har du arbeidet i perioden?' });
     const jaOption = within(felt).getByRole('radio', { name: 'Ja' });
     expect(jaOption).toBeVisible();
 
