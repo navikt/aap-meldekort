@@ -47,7 +47,7 @@ describe('FraværSpørsmål', () => {
   });
 
   it('spør om bruker har hatt avtalte aktiviteter i perioden', () => {
-    expect(screen.getByRole('group', { name: 'Har du hatt avtalte aktiviteter i perioden?' })).toBeVisible();
+    expect(screen.getByRole('radiogroup', { name: 'Har du hatt avtalte aktiviteter i perioden?' })).toBeVisible();
   });
 
   it('har en beskrivelse av hva som menes med avtalt aktivitet', () => {
@@ -56,19 +56,19 @@ describe('FraværSpørsmål', () => {
 
   it('spørsmål om fravær vises ikke initielt', () => {
     expect(
-      screen.queryByRole('group', { name: 'Var du borte fra noen av disse aktivitetene?' })
+      screen.queryByRole('radiogroup', { name: 'Var du borte fra noen av disse aktivitetene?' })
     ).not.toBeInTheDocument();
   });
 
   it('spørsmål om fravær vises ikke når bruker svarer nei på at de har hatt avtalte aktiviteter', async () => {
     await user.click(screen.getByRole('radio', { name: 'Nei' }));
     expect(
-      screen.queryByRole('group', { name: 'Var du borte fra noen av disse aktivitetene?' })
+      screen.queryByRole('radiogroup', { name: 'Var du borte fra noen av disse aktivitetene?' })
     ).not.toBeInTheDocument();
   });
 
   it('spørsmål om fravær vises når bruker svarer ja på at de har hatt avtalte aktiviteter', async () => {
     await user.click(screen.getByRole('radio', { name: 'Ja' }));
-    expect(screen.getByRole('group', { name: 'Var du borte fra noen av disse aktivitetene?' })).toBeVisible();
+    expect(screen.getByRole('radiogroup', { name: 'Var du borte fra noen av disse aktivitetene?' })).toBeVisible();
   });
 });
