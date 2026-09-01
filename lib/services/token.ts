@@ -1,6 +1,7 @@
 import { getAccessTokenOrRedirectToLogin, logError } from '@navikt/aap-felles-utils';
 import { requestOboToken, validateToken } from '@navikt/oasis';
 import { headers } from 'next/headers';
+
 import { isFunctionalTest, isLocal } from './meldekortservice';
 
 export const getToken = async (audience: string, url: string): Promise<string> => {
@@ -34,7 +35,7 @@ const hentLocalToken = async () => {
   if (isFunctionalTest()) {
     return 'functionalTest-token';
   }
-  const url = 'http://localhost:8081/token';
+  const url = 'http://localhost:8081/localToken';
   try {
     return fetch(url, { method: 'POST', next: { revalidate: 0 } })
       .then((res) => res.json())
