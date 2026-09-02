@@ -1,6 +1,7 @@
 import { getAccessTokenOrRedirectToLogin, logError } from '@navikt/aap-felles-utils';
 import { requestOboToken, validateToken } from '@navikt/oasis';
 import { headers } from 'next/headers';
+
 import { isFunctionalTest, isLocal } from './meldekortservice';
 
 export const getToken = async (audience: string, url: string): Promise<string> => {
@@ -34,13 +35,11 @@ const hentLocalToken = async () => {
   if (isFunctionalTest()) {
     return 'functionalTest-token';
   }
-  const url = 'http://localhost:8081/token';
   try {
-    return fetch(url, { method: 'POST', next: { revalidate: 0 } })
-      .then((res) => res.json())
-      .then((data) => data?.access_token);
-  } catch (err) {
-    logError('hentLocalToken feilet', err);
+    const url = 'https://fakedings.intern.dev.nav.no/fake/idporten?pid=11111111111&acr=idporten-loa-substantial';
+    return fetch(url, { method: 'GET', next: { revalidate: 0 } }).then((token) => token.text());
+  } catch (error) {
+    logError('hentLocalToken feilet', error);
     return Promise.resolve('dummy-token');
   }
 };
