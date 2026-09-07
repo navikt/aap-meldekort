@@ -133,12 +133,6 @@
           "content": "Får du lønn for en fast prosentstilling, skal du føre timer ut fra stillingsprosenten din. Hvis du får lønn for flere timer enn du faktisk har jobbet, skal du føre alle timene du får lønn for.<br></br>Vi regner full stilling som 37,5 timer per uke, uavhengig av hva som er normalarbeidstid i ditt yrke. På meldekortet kan du kun føre hele og halve timer.<br></br><br></br> Eksempel: Hvis du jobber i en 50 prosent stilling utgjør stillingen 18,75 timer pr uke. Når timene ikke går opp i hele eller halve timer, må du runde opp minuttene den ene uken, og runde ned den andre uken slik at du i meldeperioden totalt sett har ført timer som tilsvarer din stillingsprosent.<br></br> En 50 prosent stilling skal føres slik: 18,5 timer på meldekortet den ene uken, og 19 timer på meldekortet den andre uken."
         },
         "periode": "Uke {uker} ({periode})",
-        "beskrivelse": "Skriv inn timene du har arbeidet for perioden. Timer skrives med desimal til nærmeste halvtime. For eksempel blir 7 timer og 30 min = 7,5 timer.",
-        "readmore": {
-          "label": "Les mer om hva som skal fylles ut",
-          "content": "Alle aktiviteter som er betalt, eller som normalt ville ha vært betalt, regnes som arbeid og skal føres på meldekortet. For eksempel regnes gratisarbeid for andre som vanligvis er betalt, frilansarbeid og lønnede verv som arbeid.",
-          "link": "<a>Les mer om hva som regnes som arbeid.</a>"
-        },
         "skjema": {
           "ingenFørteTimer": "Du må fylle inn timene du har jobbet. Siden du har svart at du har arbeidet i perioden kan du ikke sende inn et tomt meldekort.",
           "felter": {
