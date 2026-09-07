@@ -1,10 +1,6 @@
-export const FLAGS = [
-  'MeldekortTekstendringer',
-] as const;
+export const FLAGS = [] as const;
 
 export type FlagNames = (typeof FLAGS)[number];
 export type Flags = Record<FlagNames, boolean>;
 
-export const mockedFlags: Flags = {
-  MeldekortTekstendringer: true,
-};
+export const mockedFlags: Flags = {};
