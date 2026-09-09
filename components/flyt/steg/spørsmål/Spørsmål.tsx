@@ -1,7 +1,7 @@
 'use client';
 
 import { Form } from 'components/form/Form';
-import { getJaNeiEllerUndefined, JaEllerNei } from 'lib/utils/form';
+import { erJaNeiSpørsmålBesvart, getJaNeiEllerUndefined, JaEllerNei } from 'lib/utils/form';
 import { BodyShort, Heading, Label, Link, Radio, ReadMore, VStack } from '@navikt/ds-react';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
@@ -41,7 +41,7 @@ export const Spørsmål = ({ utfylling }: Props) => {
   const harDuJobbetValue = useWatch({ control: form.control, name: 'harDuJobbet' });
 
   useEffect(() => {
-    if (harDuJobbetValue !== null) {
+    if (erJaNeiSpørsmålBesvart(harDuJobbetValue)) {
       mellomlagreMeldekort({
         nyTilstand: {
           aktivtSteg: 'SPØRSMÅL',

@@ -9,3 +9,6 @@ export const getJaNeiEllerUndefined = (value?: boolean | null) => {
   }
   return value ? JaEllerNei.Ja : JaEllerNei.Nei;
 };
+
+export const erJaNeiSpørsmålBesvart = (value?: JaEllerNei | null): value is JaEllerNei =>
+  value === JaEllerNei.Ja || value === JaEllerNei.Nei;

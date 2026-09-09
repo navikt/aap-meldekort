@@ -9,6 +9,8 @@ export type Periode = components['schemas']['no.nav.aap.meldekort.PeriodeDto'];
 
 export type DagSvar = components['schemas']['no.nav.aap.meldekort.DagSvarDto'];
 
+export type Svar = components['schemas']['no.nav.aap.meldekort.SvarDto'];
+
 export type Status = components['schemas']['no.nav.aap.meldekort.HistoriskMeldeperiodeDto']['status'];
 
 export type StartUtfyllingRequest = components['schemas']['no.nav.aap.meldekort.StartUtfyllingRequest'];
