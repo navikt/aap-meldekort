@@ -1,10 +1,5 @@
 import { FetchMock } from 'vitest-fetch-mock';
 
-/**
- * Mellomlagring går mot `${baseUrl}/api/${referanse}/lagre`. Vi filtrerer på selve
- * `/lagre`-segmentet slik at hjelperen kan brukes uavhengig av hvilken referanse
- * testen bruker.
- */
 const LAGRE_SEGMENT = '/lagre';
 
 function hentUrl(kall: Parameters<typeof fetch>): string {
@@ -20,13 +15,6 @@ function parseBody(kall: Parameters<typeof fetch> | undefined): unknown {
   return JSON.parse(body);
 }
 
-/**
- * Lar tester se hvilke mellomlagringskall som faktisk ble gjort.
- *
- * Skillet mellom «ubesvart» og «Nei» er ikke synlig i payloaden – begge gir
- * `harDuJobbet: false`. Det eneste signalet er om kallet skjer i det hele tatt,
- * og derfor er `antall()` den viktigste assertion-en her.
- */
 export function mellomlagringSpion(fetchMock: FetchMock) {
   const kall = () => fetchMock.mock.calls.filter((kall) => hentUrl(kall).includes(LAGRE_SEGMENT));
 

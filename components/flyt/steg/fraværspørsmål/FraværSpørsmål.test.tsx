@@ -71,11 +71,6 @@ describe('FraværSpørsmål', () => {
     expect(screen.getByRole('radiogroup', { name: 'Var du borte fra noen av disse aktivitetene?' })).toBeVisible();
   });
 
-  /**
-   * Samme bugklasse som i Spørsmål.tsx: `getJaNeiEllerUndefined(undefined)` gir
-   * `undefined`, så vakten `if (harDuAvtalteAktiviteterValue !== null)` slapp gjennom
-   * ved mount og lagret `harDuHattAvtalteAktiviteter: false` for et ubesvart felt.
-   */
   describe('mellomlagring av ubesvart felt', () => {
     it('mellomlagrer ikke når harDuHattAvtalteAktiviteter er ubesvart (undefined)', () => {
       renderFraværSpørsmål();

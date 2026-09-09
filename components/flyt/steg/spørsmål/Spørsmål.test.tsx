@@ -69,17 +69,6 @@ describe('Spørsmål', () => {
     expect(feilmelding).toBeVisible();
   });
 
-  /**
-   * Regresjonstester for bug der et ubesvart harDuJobbet ble mellomlagret som `false`.
-   *
-   * `getJaNeiEllerUndefined(undefined)` gir `undefined`, ikke `null`, så vakten
-   * `if (harDuJobbetValue !== null)` slapp gjennom ved mount. Deretter ga
-   * `undefined === JaEllerNei.Ja` verdien `false`, og `harDuJobbet: false` ble lagret.
-   * Ved refresh ble feltet da vist som «Nei» uten at bruker hadde svart.
-   *
-   * Merk at «ubesvart» og «Nei» gir identisk payload (`harDuJobbet: false`). Det eneste
-   * signalet som skiller dem er om kallet skjer i det hele tatt.
-   */
   describe('mellomlagring av ubesvart felt', () => {
     it('mellomlagrer ikke når harDuJobbet er ubesvart (undefined)', () => {
       renderSpørsmål();

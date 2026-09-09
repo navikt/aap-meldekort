@@ -19,7 +19,6 @@ describe('getJaNeiEllerUndefined', () => {
   });
 
   it('skiller ubesvart fra Nei', () => {
-    // Kjernen i bugen: et ubesvart felt må ikke bli tolket som «Nei».
     expect(getJaNeiEllerUndefined(undefined)).not.toBe(JaEllerNei.Nei);
     expect(getJaNeiEllerUndefined(null)).not.toBe(JaEllerNei.Nei);
   });
@@ -43,7 +42,6 @@ describe('erJaNeiSpørsmålBesvart', () => {
   });
 
   it('er false for verdien getJaNeiEllerUndefined gir for et ubesvart felt', () => {
-    // Dette er akkurat kombinasjonen som feilet: undefined slapp gjennom en !== null-sjekk.
     expect(erJaNeiSpørsmålBesvart(getJaNeiEllerUndefined(undefined))).toBe(false);
     expect(erJaNeiSpørsmålBesvart(getJaNeiEllerUndefined(null))).toBe(false);
   });
