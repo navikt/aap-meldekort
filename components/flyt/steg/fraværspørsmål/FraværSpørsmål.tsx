@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { BodyShort, Heading, List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { UtfyllingResponse } from 'lib/types/types';
-import { getJaNeiEllerUndefined, JaEllerNei } from 'lib/utils/form';
+import { erJaNeiSpørsmålBesvart, getJaNeiEllerUndefined, JaEllerNei } from 'lib/utils/form';
 import { useForm, useWatch } from 'react-hook-form';
 import { Form } from 'components/form/Form';
 import { useGåTilSteg, useParamsMedType } from 'lib/utils/url';
@@ -41,7 +41,7 @@ export const FraværSpørsmål = ({ utfylling }: Props) => {
   const harDuHattFraværValue = useWatch({ control: form.control, name: 'harDuHattFravær' });
 
   useEffect(() => {
-    if (harDuAvtalteAktiviteterValue !== null) {
+    if (erJaNeiSpørsmålBesvart(harDuAvtalteAktiviteterValue)) {
       mellomlagreMeldekort({
         nyTilstand: {
           aktivtSteg: 'FRAVÆR_SPØRSMÅL',

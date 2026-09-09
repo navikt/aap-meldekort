@@ -1,4 +1,39 @@
-import { UtfyllingResponse } from 'lib/types/types';
+import { Steg, Svar, UtfyllingResponse } from 'lib/types/types';
+
+interface ByggUtfyllingOptions {
+  aktivtSteg?: Steg;
+  metadata?: Partial<UtfyllingResponse['metadata']>;
+}
+
+/**
+ * Bygger en minimal UtfyllingResponse for komponenttester.
+ *
+ * Utelates et svarfelt, er det `undefined` – altså ubesvart. Det er nettopp
+ * skillet mellom ubesvart og besvart-med-Nei som er kritisk her, så unngå å
+ * sette feltene til `false` med mindre testen faktisk mener «Nei».
+ */
+export function byggUtfylling(svar: Partial<Svar> = {}, options: ByggUtfyllingOptions = {}): UtfyllingResponse {
+  return {
+    tilstand: {
+      aktivtSteg: options.aktivtSteg ?? 'SPØRSMÅL',
+      svar: {
+        dager: [],
+        ...svar,
+      },
+    },
+    metadata: {
+      antallUbesvarteMeldeperioder: 1,
+      kanSendesInn: true,
+      periode: {
+        fom: '2024-11-18',
+        tom: '2024-12-01',
+      },
+      referanse: '123456789',
+      visFrist: true,
+      ...options.metadata,
+    },
+  };
+}
 
 export const meldekortMedArbeid: UtfyllingResponse = {
   metadata: {
