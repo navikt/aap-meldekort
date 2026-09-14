@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from 'lib/utils/test/customRender';
 
-import { UtfyllingResponse } from 'lib/types/types';
+import type { UtfyllingResponse } from 'lib/types/types';
 import { userEvent } from '@testing-library/user-event';
 import { Bekreft } from 'components/flyt/steg/bekreft/Bekreft';
 

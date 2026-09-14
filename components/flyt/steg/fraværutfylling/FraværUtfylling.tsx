@@ -3,7 +3,7 @@
 import { BodyShort, Button, ErrorSummary, Heading, InfoCard, VStack } from '@navikt/ds-react';
 import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/RegistrerFraværDialog';
 import { Form } from 'components/form/Form';
-import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
+import type { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
 import {
   formaterDatoMedDagOgMåndedIBokstaver,
   formaterDatoMedÅrForFrontend,
@@ -17,7 +17,7 @@ import {
   fraværForOppfølgingAvBarnOverstigerMaksGrense,
   fraværOverstigerMaksGrense,
   skalViseTrekkTag,
-  TidligereRegistrertFravær,
+  type TidligereRegistrertFravær,
 } from 'lib/utils/fraværTrekk';
 import { useTranslations } from 'next-intl';
 import { useFieldArray, useForm, useWatch } from 'react-hook-form';
@@ -87,6 +87,7 @@ export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Prop
   const tilDato = new Date(utfylling.metadata.periode.tom);
   const inputDagerMedFravær = useWatch({ control: form.control, name: 'dager' });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: bør fikses
   useEffect(() => {
     const dagerMedFravær = mapDagerMedFravær(utfylling.tilstand.svar.dager, inputDagerMedFravær);
 

@@ -1,7 +1,7 @@
 import '@navikt/ds-css';
 import 'styles/globals.css';
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import Script from 'next/script';
 import { getEnvironment } from 'lib/utils/environments';
@@ -33,7 +33,8 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
-  if (!routing.locales.includes(locale as any)) {
+  const isSupportedLocale = routing.locales.some((supportedLocale) => supportedLocale === locale);
+  if (!isSupportedLocale) {
     logWarning(`Invalid locale: ${locale}`);
     redirect({ href: '/', locale: routing.defaultLocale });
   }

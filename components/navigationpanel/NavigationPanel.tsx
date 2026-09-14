@@ -2,7 +2,7 @@ import { BodyShort, HStack, VStack } from '@navikt/ds-react';
 
 import styles from 'components/navigationpanel/NavigationPanel.module.css';
 import { Link } from 'i18n/routing';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 type Props = NavigationPanelButton | NavigationPanelLink;
 

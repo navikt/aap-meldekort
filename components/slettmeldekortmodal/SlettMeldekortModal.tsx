@@ -1,5 +1,5 @@
 import { Alert, BodyShort, Button, Modal, VStack } from '@navikt/ds-react';
-import { RefObject, useState } from 'react';
+import { type RefObject, useState } from 'react';
 import { slettMeldekortUtfyllingClient } from 'lib/client/clientApi';
 import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { useRouter } from 'i18n/routing';

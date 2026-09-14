@@ -1,6 +1,6 @@
-import { FraværDag } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
+import type { FraværDag } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
 import { isSameDay } from 'date-fns';
-import { Fravær } from 'lib/types/types';
+import type { Fravær } from 'lib/types/types';
 import { sorterEtterEldsteDatoDate } from 'lib/utils/date';
 
 interface FraværDagOverstyrt extends Omit<FraværDag, 'dato' | 'fravær'> {

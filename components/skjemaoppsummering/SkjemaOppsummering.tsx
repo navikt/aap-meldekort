@@ -1,4 +1,4 @@
-import { DagSvar, UtfyllingResponse } from 'lib/types/types';
+import type { DagSvar, UtfyllingResponse } from 'lib/types/types';
 import { BodyShort, FormSummary, HStack, Tag, VStack } from '@navikt/ds-react';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';

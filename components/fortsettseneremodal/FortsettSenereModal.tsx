@@ -1,5 +1,5 @@
 import { BodyShort, Button, Modal, VStack } from '@navikt/ds-react';
-import { RefObject } from 'react';
+import type { RefObject } from 'react';
 import { useRouter } from 'i18n/routing';
 import { useTranslations } from 'next-intl';
 

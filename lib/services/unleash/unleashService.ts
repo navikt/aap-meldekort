@@ -1,5 +1,5 @@
 import { Unleash } from 'unleash-client';
-import { FlagNames, FLAGS, Flags, mockedFlags } from 'lib/services/unleash/unleashToggles';
+import { type FlagNames, FLAGS, type Flags, mockedFlags } from 'lib/services/unleash/unleashToggles';
 import { isLocal } from 'lib/utils/environments';
 import { isFunctionalTest } from 'lib/services/meldekortservice';
 
@@ -7,7 +7,9 @@ export interface IUnleash {
   isEnabled(flagName: FlagNames): boolean;
 }
 
-function getRequiredEnv(name: 'UNLEASH_SERVER_API_URL' | 'UNLEASH_SERVER_API_ENV' | 'UNLEASH_SERVER_API_TOKEN'): string {
+function getRequiredEnv(
+  name: 'UNLEASH_SERVER_API_URL' | 'UNLEASH_SERVER_API_ENV' | 'UNLEASH_SERVER_API_TOKEN'
+): string {
   const value = process.env[name];
 
   if (value == null || value.trim() === '') {
@@ -43,8 +45,7 @@ let unleashService: IUnleash | undefined;
 // Bruk mock-unleash hvis LOKALT og env-variabel ikke er satt, for DEV og PROD bruker den alltid ekte unleash
 export function getUnleashService(): IUnleash {
   if (unleashService == null) {
-    unleashService =
-       (isLocal() || isFunctionalTest()) ? createMockUnleash() : createRealUnleash();
+    unleashService = isLocal() || isFunctionalTest() ? createMockUnleash() : createRealUnleash();
   }
 
   return unleashService;

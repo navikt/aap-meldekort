@@ -6,7 +6,7 @@ import { BodyLong, BodyShort, ErrorSummary, Heading, List, ReadMore, VStack } fr
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import { UtfyllingResponse } from 'lib/types/types';
+import type { UtfyllingResponse } from 'lib/types/types';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
@@ -61,6 +61,7 @@ export const Utfylling = ({ utfylling }: Props) => {
   const tilDato = new Date(utfylling.metadata.periode.tom);
 
   const dager = useWatch({ control: form.control, name: 'dager' });
+  // biome-ignore lint/correctness/useExhaustiveDependencies: bør fikses
   useEffect(() => {
     if (!manglerTimerPåArbeid(dager, true)) {
       setSkjemaError(undefined);

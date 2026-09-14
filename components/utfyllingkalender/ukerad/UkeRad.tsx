@@ -1,13 +1,13 @@
 'use client';
 
-import { MeldeperiodeUke } from 'components/utfyllingkalender/UtfyllingKalender';
+import type { MeldeperiodeUke } from 'components/utfyllingkalender/UtfyllingKalender';
 import { eachDayOfInterval } from 'date-fns';
 
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 
 import styles from 'components/utfyllingkalender/ukerad/UkeRad.module.css';
 
-import { MeldepliktFormFields } from 'components/flyt/steg/utfylling/Utfylling';
+import type { MeldepliktFormFields } from 'components/flyt/steg/utfylling/Utfylling';
 import { useFormContext } from 'react-hook-form';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { UkeDag } from '../ukedag/UkeDag';
@@ -37,7 +37,7 @@ export const UkeRad = ({ felterIUken }: Props) => {
           }))
           .filter((error) => {
             // Henter ut index fra ref (dager.3.timer)
-            const index = parseInt(error.ref.split('.')[1]);
+            const index = parseInt(error.ref.split('.')[1], 10);
             return Array.from(felterMap.values()).some((field) => field.index === index);
           })
       : [];

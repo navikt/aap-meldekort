@@ -1,6 +1,6 @@
 import { RadioGroup } from '@navikt/ds-react';
-import React, { ReactNode } from 'react';
-import { Control, Controller, RegisterOptions, FieldValues, FieldPath } from 'react-hook-form';
+import type { ReactNode } from 'react';
+import { type Control, Controller, type RegisterOptions, type FieldValues, type FieldPath } from 'react-hook-form';
 
 interface RadioProps<FormFieldValues extends FieldValues> {
   name: FieldPath<FormFieldValues>;

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { slettUtfylling } from 'lib/services/meldekortservice';
 import { logError } from '@navikt/aap-felles-utils';
 

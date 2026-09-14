@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { EndreUtfyllingRequest } from 'lib/types/types';
+import type { EndreUtfyllingRequest } from 'lib/types/types';
 import { gåTilNesteStegClient } from 'lib/client/clientApi';
 import { useGåTilSteg } from 'lib/utils/url';
 import { redirect, routing, useRouter } from 'i18n/routing';
@@ -27,7 +27,7 @@ export function useLøsStegOgGåTilNesteSteg(referanse: string): {
       redirect({ href: '/', locale: routing.defaultLocale });
       return;
     } else {
-      setErrorMessage('Kunne ikke gå videre på grunn av: ' + response?.apiException.message);
+      setErrorMessage(`Kunne ikke gå videre på grunn av: ${response?.apiException.message}`);
       setIsLoading(false);
     }
   };

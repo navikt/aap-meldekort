@@ -1,6 +1,6 @@
 'use client';
 
-import { KommendeMeldekort } from 'lib/types/types';
+import type { KommendeMeldekort } from 'lib/types/types';
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { useTranslations } from 'next-intl';

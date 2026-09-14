@@ -1,11 +1,11 @@
 import { BodyShort, Detail, VStack } from '@navikt/ds-react';
 import { TextFieldWrapper } from 'components/textfieldwrapper/TextFieldWrapper';
-import { MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/steg/utfylling/Utfylling';
+import { type MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/steg/utfylling/Utfylling';
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import { format } from 'date-fns';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { useFormContext } from 'react-hook-form';
-import { FieldArrayWithIndex } from 'components/utfyllingkalender/UtfyllingKalender';
+import type { FieldArrayWithIndex } from 'components/utfyllingkalender/UtfyllingKalender';
 
 import styles from './UkeDag.module.css';
 import { useTranslations } from 'next-intl';
@@ -35,6 +35,7 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
     return null;
   }
 
+  // biome-ignore lint/style/noNonNullAssertion lint/suspicious/noNonNullAssertedOptionalChain: fordi dette er måten å slå opp i formfields
   const harVerdi = form.watch(`dager.${eksisterendeFelt?.index!}.timer`);
 
   const containerClassNames = [
@@ -74,7 +75,7 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
 
                     const valueAsNumber = Number(replaceCommasWithDots(value as string));
 
-                    if (isNaN(valueAsNumber) || valueAsNumber < 0 || valueAsNumber > 24) {
+                    if (Number.isNaN(valueAsNumber) || valueAsNumber < 0 || valueAsNumber > 24) {
                       return t('client.steg.utfylling.skjema.felter.dager.validering.bareNummer', {
                         dato: dagINummer,
                       });
@@ -103,6 +104,6 @@ export const UkeDag = ({ dag, felterMap, erSisteFeltiRaden, radHarError }: Props
     const dato = new Date(date);
     const ukedag = format(dato, 'EEEE', { locale: nb });
 
-    return erLitenSkjerm ? ukedag : ukedag.substring(0, 2) + '.';
+    return erLitenSkjerm ? ukedag : `${ukedag.substring(0, 2)}.`;
   }
 };

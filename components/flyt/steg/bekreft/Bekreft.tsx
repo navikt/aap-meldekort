@@ -5,7 +5,7 @@ import { Form } from 'components/form/Form';
 import { Alert, BodyShort, Heading, HStack, VStack } from '@navikt/ds-react';
 import { formaterDatoMedMånedIBokstaver, formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
-import { UtfyllingResponse } from 'lib/types/types';
+import type { UtfyllingResponse } from 'lib/types/types';
 import { useState } from 'react';
 import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
@@ -93,6 +93,7 @@ export const Bekreft = ({ utfylling }: Props) => {
               {
                 <>
                   {t('client.steg.bekreft.kanIkkeSendesInn', {
+                    // biome-ignore lint/style/noNonNullAssertion: bør fikses
                     dato: formaterDatoMedMånedIBokstaver(utfylling.metadata.tidligsteInnsendingstidspunkt!),
                   })}
                 </>
