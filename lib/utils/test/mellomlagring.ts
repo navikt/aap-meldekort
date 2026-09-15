@@ -1,4 +1,4 @@
-import { FetchMock } from 'vitest-fetch-mock';
+import type { FetchMock } from 'vitest-fetch-mock';
 
 const LAGRE_SEGMENT = '/lagre';
 

@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 
 import { BodyShort, Heading, List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
-import { UtfyllingResponse } from 'lib/types/types';
+import type { UtfyllingResponse } from 'lib/types/types';
 import { erJaNeiSpørsmålBesvart, getJaNeiEllerUndefined, JaEllerNei } from 'lib/utils/form';
 import { useForm, useWatch } from 'react-hook-form';
 import { Form } from 'components/form/Form';
@@ -40,6 +40,7 @@ export const FraværSpørsmål = ({ utfylling }: Props) => {
   const harDuAvtalteAktiviteterValue = useWatch({ control: form.control, name: 'harDuHattAvtalteAktiviteter' });
   const harDuHattFraværValue = useWatch({ control: form.control, name: 'harDuHattFravær' });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: bør fixes
   useEffect(() => {
     if (erJaNeiSpørsmålBesvart(harDuAvtalteAktiviteterValue)) {
       mellomlagreMeldekort({

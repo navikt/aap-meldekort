@@ -1,4 +1,4 @@
-import { Steg, Svar, UtfyllingResponse } from 'lib/types/types';
+import type { Steg, Svar, UtfyllingResponse } from 'lib/types/types';
 
 interface ByggUtfyllingOptions {
   aktivtSteg?: Steg;

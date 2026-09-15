@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Spørsmål } from 'components/flyt/steg/spørsmål/Spørsmål';
 import { render, screen, waitFor, within } from 'lib/utils/test/customRender';
 import { userEvent } from '@testing-library/user-event';
-import { Svar } from 'lib/types/types';
+import type { Svar } from 'lib/types/types';
 import createFetchMock from 'vitest-fetch-mock';
 import { byggUtfylling } from 'lib/utils/test/testdata';
 import { mellomlagringSpion } from 'lib/utils/test/mellomlagring';
