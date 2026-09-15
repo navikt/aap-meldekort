@@ -73,24 +73,6 @@
       "linter": {
         "rules": { "correctness": { "noUndeclaredVariables": "off" } }
       }
-    },
-    {
-      "includes": ["*.ts", "*.tsx"],
-      "linter": {
-        "rules": { "correctness": { "noUndeclaredVariables": "off" } }
-      }
-    },
-    {
-      "includes": ["*.ts", "*.tsx"],
-      "linter": {
-        "rules": { "correctness": { "noUndeclaredVariables": "off" } }
-      }
-    },
-    {
-      "includes": ["*.ts", "*.tsx"],
-      "linter": {
-        "rules": { "correctness": { "noUndeclaredVariables": "off" } }
-      }
     }
   ],
   "assist": {
