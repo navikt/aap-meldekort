@@ -1,10 +1,10 @@
 import { BodyShort, Button, HStack, Tag, VStack } from '@navikt/ds-react';
-import { FraværDag } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
+import type { FraværDag } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
 import { formaterDatoMedDagOgMåndedIBokstaver } from 'lib/utils/date';
 import { storForbokstav } from 'lib/utils/string';
 
 import styles from './RegistrertFravær.module.css';
-import { Fravær } from 'lib/types/types';
+import type { Fravær } from 'lib/types/types';
 import { useTranslations } from 'use-intl';
 
 interface RadioOptionsType<Enum = string, LabelKey = string> {

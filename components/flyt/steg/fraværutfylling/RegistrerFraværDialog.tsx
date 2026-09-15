@@ -1,8 +1,8 @@
 import { Box, Button, Dialog, ErrorMessage, Radio, VStack } from '@navikt/ds-react';
-import { FraværFormFields } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
+import type { FraværFormFields } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
 import { RadioGroupWrapper } from 'components/form/radiogroupwrapper/RadioGroupWrapper';
-import { UseFieldArrayAppend, useForm, useWatch } from 'react-hook-form';
-import { Fravær, UtfyllingResponse } from 'lib/types/types';
+import { type UseFieldArrayAppend, useForm, useWatch } from 'react-hook-form';
+import type { Fravær, UtfyllingResponse } from 'lib/types/types';
 import { DateWrapper } from 'components/datewrapper/DateWrapper';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
@@ -44,6 +44,7 @@ export const RegistrerFraværDialog = ({ utfylling, leggTilFravær, visDialog, s
   ].includes(useWatch({ control: form.control, name: 'typeFravær' }));
 
   // TODO Finnes det bedre måter?
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Vi må resette form-et når visning endrer seg
   useEffect(() => {
     form.reset();
   }, [form, visDialog]);

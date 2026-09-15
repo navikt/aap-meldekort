@@ -1,5 +1,5 @@
 import { TextField } from '@navikt/ds-react';
-import { Control, Controller, FieldPath, FieldValues, RegisterOptions } from 'react-hook-form';
+import { type Control, Controller, type FieldPath, type FieldValues, type RegisterOptions } from 'react-hook-form';
 
 export interface TextFieldProps<FormFieldValues extends FieldValues> {
   name: FieldPath<FormFieldValues>;

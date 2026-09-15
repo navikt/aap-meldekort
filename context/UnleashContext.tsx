@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, type ReactNode, useContext } from 'react';
-import { FlagNames, Flags } from 'lib/services/unleash/unleashToggles';
+import type { FlagNames, Flags } from 'lib/services/unleash/unleashToggles';
 
 const FeatureFlagContext = createContext<Flags | null>(null);
 

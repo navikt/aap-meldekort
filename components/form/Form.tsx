@@ -1,5 +1,5 @@
 import { Alert, Button, Detail } from '@navikt/ds-react';
-import { FormEvent, ReactNode, useRef } from 'react';
+import { type FormEvent, type ReactNode, useRef } from 'react';
 
 import styles from './Form.module.css';
 import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';

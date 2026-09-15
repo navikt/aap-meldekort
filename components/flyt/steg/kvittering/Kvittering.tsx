@@ -1,7 +1,7 @@
 'use client';
 
 import { Alert, Button, ExpansionCard, List, VStack } from '@navikt/ds-react';
-import { KommendeMeldekort, UtfyllingResponse } from 'lib/types/types';
+import type { KommendeMeldekort, UtfyllingResponse } from 'lib/types/types';
 import { Link, useRouter } from 'i18n/routing';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
 import { InnsendingType, useParamsMedType } from 'lib/utils/url';
@@ -29,6 +29,7 @@ export const Kvittering = ({ utfylling, kommendeMeldeperiode }: Props) => {
   useUXSignalsScript(true);
 
   // Ønsker ikke at bruker skal kunne gå tilbake til forrige steg når meldekort er endret/sendt inn
+  // biome-ignore lint/correctness/useExhaustiveDependencies: bør fikses
   useEffect(() => {
     const handlePopState = () => {
       router.push(innsendingtype === InnsendingType.INNSENDING ? '/' : '/innsendt');

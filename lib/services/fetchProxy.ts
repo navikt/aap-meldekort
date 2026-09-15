@@ -1,12 +1,13 @@
 import { logError, logInfo } from '@navikt/aap-felles-utils';
 import { getToken } from 'lib/services/token';
-import { ApiException, FetchResponse } from 'lib/utils/api';
+import type { ApiException, FetchResponse } from 'lib/utils/api';
 
 const AUDIENCE = process.env.MELDEKORT_AUDIENCE;
 
 export async function fetcher<ResponseBody>(
   url: string,
   method: 'GET' | 'POST' | 'DELETE',
+  // biome-ignore lint/complexity/noBannedTypes: kan denne types bedre?
   body?: Object
 ): Promise<FetchResponse<ResponseBody>> {
   if (!AUDIENCE) {

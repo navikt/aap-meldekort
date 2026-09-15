@@ -1,6 +1,6 @@
 import { Kvittering } from 'components/flyt/steg/kvittering/Kvittering';
 import { describe, expect, it } from 'vitest';
-import { KommendeMeldekort, UtfyllingResponse } from 'lib/types/types';
+import type { KommendeMeldekort, UtfyllingResponse } from 'lib/types/types';
 import { render, screen } from 'lib/utils/test/customRender';
 
 const meldekort: UtfyllingResponse = {

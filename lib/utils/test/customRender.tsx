@@ -1,5 +1,5 @@
 import { cleanup, render } from '@testing-library/react';
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import { afterEach } from 'vitest';
 import { FeatureFlagProvider } from 'context/UnleashContext';
 import { mockedFlags } from 'lib/services/unleash/unleashToggles';

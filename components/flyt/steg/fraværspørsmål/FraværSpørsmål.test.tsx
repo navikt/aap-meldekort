@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen, waitFor, within } from 'lib/utils/test/customRender';
 import { userEvent } from '@testing-library/user-event';
-import { Svar } from 'lib/types/types';
+import type { Svar } from 'lib/types/types';
 import createFetchMock from 'vitest-fetch-mock';
 import { FraværSpørsmål } from 'components/flyt/steg/fraværspørsmål/FraværSpørsmål';
 import { byggUtfylling } from 'lib/utils/test/testdata';

@@ -1,6 +1,6 @@
 'use client';
 
-import { Steg } from 'lib/types/types';
+import type { Steg } from 'lib/types/types';
 import { useParams } from 'next/navigation';
 import { useRouter } from 'i18n/routing';
 

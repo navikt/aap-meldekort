@@ -1,5 +1,5 @@
-import { FraværDag } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
-import { antallDagerSomFørerTilTrekk, TidligereRegistrertFravær, skalViseTrekkTag } from 'lib/utils/fraværTrekk';
+import type { FraværDag } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
+import { antallDagerSomFørerTilTrekk, type TidligereRegistrertFravær, skalViseTrekkTag } from 'lib/utils/fraværTrekk';
 import { describe, expect, it } from 'vitest';
 
 function lagDag(dato: string, fravær: FraværDag['fravær']): FraværDag {
@@ -209,6 +209,7 @@ describe('skalViseTrekkTag', () => {
         lagDag('2025-12-07', 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN'),
       ];
       const sisteDag = dager.at(-1);
+      // biome-ignore lint/style/noNonNullAssertion: går greit i en test
       expect(skalViseTrekkTag(sisteDag!, dager)).toBe(true);
     });
   });

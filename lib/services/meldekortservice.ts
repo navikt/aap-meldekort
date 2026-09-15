@@ -5,7 +5,7 @@ import {
   mockHentKommendeMeldeperioder,
   mockHentUtfylling,
 } from 'lib/services/mockData';
-import {
+import type {
   EndreUtfyllingRequest,
   HistoriskMeldeperiode,
   KommendeMeldekort,
@@ -13,7 +13,7 @@ import {
   StartUtfyllingResponse,
   UtfyllingResponse,
 } from 'lib/types/types';
-import { FetchResponse } from 'lib/utils/api';
+import type { FetchResponse } from 'lib/utils/api';
 
 const meldeKortBaseUrl = process.env.MELDEKORT_API_BASE_URL;
 

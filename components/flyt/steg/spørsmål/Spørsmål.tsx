@@ -5,7 +5,7 @@ import { erJaNeiSpørsmålBesvart, getJaNeiEllerUndefined, JaEllerNei } from 'li
 import { BodyShort, Heading, Label, Link, Radio, ReadMore, VStack } from '@navikt/ds-react';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { useLøsStegOgGåTilNesteSteg } from 'hooks/løsStegOgGåTilNesteStegHook';
-import { UtfyllingResponse } from 'lib/types/types';
+import type { UtfyllingResponse } from 'lib/types/types';
 import { InnsendingType, useGåTilSteg, useParamsMedType } from 'lib/utils/url';
 import { useMellomlagring } from 'hooks/mellomlagreMeldekortHook';
 import { useEffect } from 'react';
@@ -40,6 +40,7 @@ export const Spørsmål = ({ utfylling }: Props) => {
 
   const harDuJobbetValue = useWatch({ control: form.control, name: 'harDuJobbet' });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: bør fikses
   useEffect(() => {
     if (erJaNeiSpørsmålBesvart(harDuJobbetValue)) {
       mellomlagreMeldekort({

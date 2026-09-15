@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 //500 Page
-const Error = ({error}: {error: Error}) => {
+const ErrorPage = ({ error }: { error: Error }) => {
   const t = useTranslations();
 
   useEffect(() => {
@@ -51,4 +51,4 @@ const Error = ({error}: {error: Error}) => {
   );
 };
 
-export default Error;
+export default ErrorPage;

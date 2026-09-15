@@ -1,4 +1,4 @@
-import { Steg, UtfyllingResponse } from 'lib/types/types';
+import type { Steg, UtfyllingResponse } from 'lib/types/types';
 import { redirect, routing } from 'i18n/routing';
 import { hentUtfylling } from 'lib/services/meldekortservice';
 import { Introduksjon } from 'components/flyt/steg/introduksjon/Introduksjon';
@@ -7,7 +7,7 @@ import { Utfylling } from 'components/flyt/steg/utfylling/Utfylling';
 import { Bekreft } from 'components/flyt/steg/bekreft/Bekreft';
 import { KvitteringMedDataFetching } from 'components/flyt/steg/kvittering/KvitteringMedDataFetching';
 import { FraværUtfylling } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
-import { isError, isSuccess, SuccessResponseBody } from 'lib/utils/api';
+import { isError, isSuccess, type SuccessResponseBody } from 'lib/utils/api';
 import { Alert } from '@navikt/ds-react';
 import { FraværSpørsmål } from 'components/flyt/steg/fraværspørsmål/FraværSpørsmål';
 

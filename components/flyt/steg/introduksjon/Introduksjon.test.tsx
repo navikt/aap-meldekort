@@ -1,7 +1,7 @@
 import { render, screen } from 'lib/utils/test/customRender';
 import { describe, expect, it } from 'vitest';
 import { Introduksjon } from 'components/flyt/steg/introduksjon/Introduksjon';
-import { UtfyllingResponse } from 'lib/types/types';
+import type { UtfyllingResponse } from 'lib/types/types';
 
 const utfylling: UtfyllingResponse = {
   metadata: {

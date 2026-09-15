@@ -1,9 +1,9 @@
 'use client';
 
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';
-import { FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form';
+import { type FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form';
 
-import { MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/steg/utfylling/Utfylling';
+import { type MeldepliktFormFields, replaceCommasWithDots } from 'components/flyt/steg/utfylling/Utfylling';
 import { OppsummeringTimer } from 'components/oppsummeringtimer/OppsummeringTimer';
 import { UkeRad } from 'components/utfyllingkalender/ukerad/UkeRad';
 import { VStack } from '@navikt/ds-react';

@@ -1,5 +1,5 @@
 import { FraværUtfylling } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
-import { UtfyllingResponse } from 'lib/types/types';
+import type { UtfyllingResponse } from 'lib/types/types';
 import { render, screen } from 'lib/utils/test/customRender';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from '@testing-library/user-event';

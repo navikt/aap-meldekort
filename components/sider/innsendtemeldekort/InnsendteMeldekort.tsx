@@ -3,7 +3,7 @@
 import { Alert, BodyLong, BodyShort, Heading, HStack, VStack } from '@navikt/ds-react';
 import { formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
-import { HistoriskMeldeperiode } from 'lib/types/types';
+import type { HistoriskMeldeperiode } from 'lib/types/types';
 import { PencilIcon } from '@navikt/aksel-icons';
 import { startKorrigeringClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
@@ -33,6 +33,7 @@ export const InnsendteMeldekort = ({ innsendteMeldeperioder }: Props) => {
 
       <VStack gap={'space-16'}>
         {innsendteMeldeperioder.length > 0 ? (
+          // biome-ignore lint/complexity/noUselessFragments: bør fikses
           <>
             {innsendteMeldeperioder.map((innsendtMeldekort, key) => {
               return (

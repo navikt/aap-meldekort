@@ -1,4 +1,4 @@
-import { DagSvar } from 'lib/types/types';
+import type { DagSvar } from 'lib/types/types';
 
 export function regnUtTimer(timerArbeidet?: DagSvar[] | null): number {
   if (!timerArbeidet) {
@@ -12,5 +12,3 @@ const antallTimerIMeldepliktPerioden = 37.5 * 2;
 export function regnUtProsent(timer: number): number {
   return Math.round((timer / antallTimerIMeldepliktPerioden) * 100);
 }
-
-

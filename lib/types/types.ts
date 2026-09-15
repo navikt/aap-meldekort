@@ -1,4 +1,4 @@
-import { components } from 'lib/types/schema';
+import type { components } from 'lib/types/schema';
 
 export type KommendeMeldekort = components['schemas']['no.nav.aap.meldekort.KommendeMeldeperioderDto'];
 

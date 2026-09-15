@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { KommendeMeldekort } from 'lib/types/types';
+import type { KommendeMeldekort } from 'lib/types/types';
 import { render, screen } from 'lib/utils/test/customRender';
 import { Oversikt } from 'components/sider/oversikt/Oversikt';
 

@@ -1,10 +1,10 @@
-import {
+import type {
   EndreUtfyllingRequest,
   StartUtfyllingRequest,
   StartUtfyllingResponse,
   UtfyllingResponse,
 } from 'lib/types/types';
-import { FetchResponse } from 'lib/utils/api';
+import type { FetchResponse } from 'lib/utils/api';
 
 async function clientFetch<ResponseBody>(
   url: string,

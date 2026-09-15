@@ -1,4 +1,4 @@
-import { HistoriskMeldeperiode, KommendeMeldekort, UtfyllingResponse } from 'lib/types/types';
+import type { HistoriskMeldeperiode, KommendeMeldekort, UtfyllingResponse } from 'lib/types/types';
 
 export const mockHentUtfylling: UtfyllingResponse = {
   metadata: {

@@ -21,5 +21,6 @@ export const Språkvelger = () => {
     router.push(pathname, { locale: language.locale });
   });
 
+  // biome-ignore lint/complexity/noUselessFragments: trenger denne
   return <></>;
 };

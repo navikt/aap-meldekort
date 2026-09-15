@@ -1,6 +1,6 @@
 'use client';
 
-import { EndreUtfyllingRequest } from 'lib/types/types';
+import type { EndreUtfyllingRequest } from 'lib/types/types';
 import { mellomlagreMeldekortClient } from 'lib/client/clientApi';
 import { useParamsMedType } from 'lib/utils/url';
 import { useState } from 'react';

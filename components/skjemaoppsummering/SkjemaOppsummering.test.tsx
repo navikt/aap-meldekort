@@ -11,7 +11,7 @@ import {
   meldekortUtenAvtalteAktiviteter,
   minimaltMeldekortFørBrukermeldtFravær,
 } from 'lib/utils/test/testdata';
-import { UtfyllingResponse } from 'lib/types/types';
+import type { UtfyllingResponse } from 'lib/types/types';
 
 describe('skjema oppsummering', () => {
   it('skal ha et felt for å vise hva som er besvart på om innbygger har vært i arbeid siste 14 dager', () => {
@@ -82,6 +82,7 @@ describe('skjema oppsummering', () => {
   it('lister ut alle dager med registrert fravær', () => {
     const dagerMedFravær = meldekortMedFravær.tilstand.svar.dager.filter((dag) => dag.fravær).map((dag) => dag.dato);
     render(<SkjemaOppsummering utfylling={meldekortMedFravær} visLenkeTilbakeTilSteg={false} />);
+    // biome-ignore lint/suspicious/useIterableCallbackReturn: kan leve med denne i en test
     dagerMedFravær.map((dag) => {
       expect(screen.getByText(storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag)))).toBeVisible();
     });
@@ -95,6 +96,7 @@ describe('skjema oppsummering', () => {
     if (sykdomsgruppe) {
       meldekortMedFravær.tilstand.svar.dager
         .filter((dag) => dag.fravær === 'SYKDOM_ELLER_SKADE')
+        // biome-ignore lint/suspicious/useIterableCallbackReturn: kan leve med denne i en test
         .map((dag) => {
           expect(
             within(sykdomsgruppe).getByText(storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag.dato)))
@@ -107,6 +109,7 @@ describe('skjema oppsummering', () => {
     if (skolegruppe) {
       meldekortMedFravær.tilstand.svar.dager
         .filter((dag) => dag.fravær === 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN')
+        // biome-ignore lint/suspicious/useIterableCallbackReturn: kan leve med denne i en test
         .map((dag) => {
           expect(
             within(skolegruppe).getByText(storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag.dato)))
