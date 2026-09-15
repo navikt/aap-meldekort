@@ -9,8 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome ci .",
-    "gentypes": "openapi-typescript http://localhost:8080/openapi.json -o lib/types/schema.d.ts",
-    "prepare": "husky && husky install"
+    "gentypes": "openapi-typescript http://localhost:8080/openapi.json -o lib/types/schema.d.ts"
   },
   "dependencies": {
     "@grafana/faro-web-sdk": "2.11.0",
