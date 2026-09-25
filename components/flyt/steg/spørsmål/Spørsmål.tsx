@@ -103,7 +103,7 @@ export const Spørsmål = ({ utfylling }: Props) => {
                   {t.rich('client.steg.spørsmål.siste14.readmore.body', {
                     br: () => <br />,
                     a: (chunks) => (
-                      <Link href="https://www.nav.no/send-meldekort-aap#arbeid" target="_blank">
+                      <Link href="https://www.nav.no/send-meldekort-aap#slik-fyller-du-ut-det-nye-meldekortet" target="_blank">
                         {chunks}
                       </Link>
                     ),
