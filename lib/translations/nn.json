@@ -29,7 +29,7 @@
     },
     "oversikt": {
       "ingenMeldekort": "Kunne ikkje finna nokre meldeperioder",
-      "mottaAAP": "For at du skal kunne få AAP, må du sende inn meldekort kvar 14. dag. På meldekortet må du fylle ut kor mange timar du har jobba.",
+      "mottaAAP": "For at du skal kunne få AAP, må du sende inn meldekort kvar 14. dag. Du kan levere det frå og med den første måndagen etter kvar meldeperiode. På meldekortet må du fylle ut kor mange timar du har jobba.",
       "infoAlert": "Du kan fylle ut meldekortet no, men det kan ikkje sendast inn før tidlegast {dato}.",
       "sendMeldekort": {
         "heading": "Send meldekort",
