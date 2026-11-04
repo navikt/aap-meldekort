@@ -1,4 +1,9 @@
-import { HistoriskMeldeperiode, KommendeMeldekort, UtfyllingResponse } from 'lib/types/types';
+import {
+  AnsvarligeMeldekortLøsningerDto,
+  HistoriskMeldeperiode,
+  KommendeMeldekort,
+  UtfyllingResponse,
+} from 'lib/types/types';
 
 export const mockHentUtfylling: UtfyllingResponse = {
   metadata: {
@@ -35,3 +40,12 @@ export const mockHentKommendeMeldeperioder: KommendeMeldekort = {
 
 export const mockHentInnsendteMeldeperioder: HistoriskMeldeperiode[] = [];
 export const mockHentAnsvarligSystem = 'AAP';
+export const mockHentAnsvarligSystemV2: AnsvarligeMeldekortLøsningerDto = {
+  aap: {
+    saksnummer: '1234',
+    rettighetsperiode: {
+      fom: '2026-10-01',
+      tom: '2027-09-30',
+    },
+  },
+};
