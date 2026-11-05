@@ -10,17 +10,7 @@ import { isError, isSuccess } from 'lib/utils/api';
 import { Alert } from '@navikt/ds-react';
 import { isProduction } from 'lib/utils/environments';
 import { getUnleashService } from 'lib/services/unleash/unleashService';
-import { AnsvarligeMeldekortLøsningerDto } from 'lib/types/types';
-
-type Visning =
-  | { type: 'AAP' }
-  | { type: 'FELLES' }
-  | {
-      type: 'BEGGE';
-      aap: NonNullable<AnsvarligeMeldekortLøsningerDto['aap']>;
-      felles: NonNullable<AnsvarligeMeldekortLøsningerDto['felles']>;
-    }
-  | { type: 'INGEN' };
+import { Visning } from 'lib/types/types';
 
 async function hentVisning(): Promise<Visning> {
   const unleashService = getUnleashService();
@@ -72,15 +62,10 @@ export default async function Page() {
 
   return (
     <>
-      {visning.type === 'BEGGE' && (
-        <div>
-          For meldekort i perioden {visning.felles.rettighetsperiode?.fom} - {visning.felles.rettighetsperiode?.tom},
-          klikk her
-        </div>
-      )}
       <Oversikt
         kommendeMeldeperiode={kommendeMeldeperiode.data}
         harInnsendteMeldeperioder={innsendteMeldeperioder.data.length > 0}
+        visning={visning}
       />
     </>
   );

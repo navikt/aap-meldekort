@@ -28,3 +28,13 @@ export type Fravær = DagSvar['fravær'];
 
 export type AnsvarligeMeldekortLøsningerDto =
   components['schemas']['no.nav.aap.meldekort.AnsvarligeMeldekortl\u00F8sningerDto'];
+
+export type Visning =
+  | { type: 'AAP' } // Kelvin
+  | { type: 'FELLES' } // Redirect til fellesløsningen for meldekort
+  | {
+      type: 'BEGGE';
+      aap: NonNullable<AnsvarligeMeldekortLøsningerDto['aap']>;
+      felles: NonNullable<AnsvarligeMeldekortLøsningerDto['felles']>;
+    }
+  | { type: 'INGEN' };
