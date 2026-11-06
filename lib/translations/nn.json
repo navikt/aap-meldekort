@@ -33,12 +33,14 @@
       "infoAlert": "Du kan fylle ut meldekortet no, men det kan ikkje sendast inn før tidlegast {dato}.",
       "sendMeldekort": {
         "heading": "Send meldekort",
+        "headingV2": "Send meldekort for sak {saksnummer}",
         "antallKlareMeldekort": "Du har {antallMeldekort} meldekort å sende inn",
         "klarTilUtfylling": "Fyll ut meldekort for veke {periode}",
         "ingenMeldekort": "Du har ingen meldekort å sende inn."
       },
       "innsendteMeldekort": {
         "heading": "Sjå innsende meldekort",
+        "headingV2": "Sjå innsende meldekort for sak {saksnummer}",
         "title": "Sjå og endre meldekort"
       }
     },
