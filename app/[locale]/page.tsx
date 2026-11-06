@@ -15,12 +15,12 @@ import { Visning } from 'lib/types/types';
 async function hentVisning(): Promise<Visning> {
   const unleashService = getUnleashService();
   const ansvarligSystemV2Enabled = unleashService.isEnabled('AnsvarligSystemV2');
+
   if (!ansvarligSystemV2Enabled) {
     const ansvarligSystem = await hentAnsvarligSystem();
     return isSuccess(ansvarligSystem) && ansvarligSystem.data === 'FELLES' ? { type: 'FELLES' } : { type: 'AAP' };
   } else {
     const ansvarligSystem = await hentAnsvarligSystemV2();
-    console.log(ansvarligSystem);
     if (!isSuccess(ansvarligSystem)) {
       return { type: 'AAP' };
     }

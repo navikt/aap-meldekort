@@ -71,25 +71,22 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
       <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>
 
       {visning?.type === 'BEGGE' && (
-        <LinkCard>
-          <Box asChild>
-            <LinkCard.Icon>
-              <FileTextIcon title="a11y-title" fontSize="1.5rem" />
-            </LinkCard.Icon>
-          </Box>
-          <LinkCard.Title>
-            <LinkCard.Anchor href={fellesMeldekortLenke()}>
-              Meldekort sak {visning.felles.saksnummer} fra{' '}
-              {formaterDatoMedÅrForFrontend(visning.felles.rettighetsperiode?.fom)} til{' '}
-              {formaterDatoMedÅrForFrontend(visning.felles.rettighetsperiode?.tom)}
-            </LinkCard.Anchor>
-          </LinkCard.Title>
-        </LinkCard>
+        <NavigationPanel
+          type="link"
+          title={`
+              Meldekort for sak ${visning.felles.saksnummer}, fra ${formaterDatoMedÅrForFrontend(visning.felles.rettighetsperiode?.fom)} til ${formaterDatoMedÅrForFrontend(visning.felles.rettighetsperiode?.tom)}
+              `}
+          rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
+          leftIcon={erLitenSkjerm ? undefined : <TasklistIcon fontSize={'2rem'} />}
+          href={fellesMeldekortLenke()}
+        />
       )}
 
       <VStack gap={'space-16'}>
         <Heading level={'2'} size={'medium'}>
-          {t('client.oversikt.sendMeldekort.heading')}
+          {visning?.type === 'BEGGE' &&
+            t('client.oversikt.sendMeldekort.headingV2', { saksnummer: visning.aap.saksnummer ?? '' })}
+          {visning?.type !== 'BEGGE' && t('client.oversikt.sendMeldekort.heading')}
         </Heading>
         {kommendeMeldeperiode?.nesteMeldeperiode ? (
           <>
@@ -118,7 +115,9 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
       {harInnsendteMeldeperioder && (
         <VStack gap={'space-16'}>
           <Heading level={'2'} size={'medium'}>
-            {t('client.oversikt.innsendteMeldekort.heading')}
+            {visning?.type === 'BEGGE'
+              ? t('client.oversikt.innsendteMeldekort.headingV2', { saksnummer: visning.aap.saksnummer ?? '' })
+              : t('client.oversikt.innsendteMeldekort.heading')}
           </Heading>
           <NavigationPanel
             type={'link'}
