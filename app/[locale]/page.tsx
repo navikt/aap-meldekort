@@ -25,18 +25,18 @@ async function hentVisning(): Promise<Visning> {
       return { type: 'AAP' };
     }
 
-    const { aap, felles } = ansvarligSystem.data;
-    if (aap && felles) {
+    const { kelvin, arena } = ansvarligSystem.data;
+    if (kelvin && arena) {
       return {
         type: 'BEGGE',
-        aap,
-        felles,
+        kelvin,
+        arena,
       };
     }
-    if (aap) {
+    if (kelvin) {
       return { type: 'AAP' };
     }
-    if (felles) {
+    if (arena) {
       return { type: 'FELLES' };
     }
     return { type: 'INGEN' };

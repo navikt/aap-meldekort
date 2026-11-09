@@ -34,7 +34,7 @@ export type Visning =
   | { type: 'FELLES' } // Redirect til fellesløsningen for meldekort
   | {
       type: 'BEGGE';
-      aap: NonNullable<AnsvarligeMeldekortLøsningerDto['aap']>;
-      felles: NonNullable<AnsvarligeMeldekortLøsningerDto['felles']>;
+      kelvin: NonNullable<AnsvarligeMeldekortLøsningerDto['kelvin']>;
+      arena: NonNullable<AnsvarligeMeldekortLøsningerDto['arena']>;
     }
   | { type: 'INGEN' };

@@ -1,13 +1,13 @@
 'use client';
 
 import { KommendeMeldekort, Visning } from 'lib/types/types';
-import { Alert, BodyShort, Box, Heading, LinkCard, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { useTranslations } from 'next-intl';
 import { startInnsendingClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
 import { formaterDatoMedMånedIBokstaver, formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
-import { ChevronRightIcon, FileTextIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons';
+import { ChevronRightIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons';
 import { InnsendingType } from 'lib/utils/url';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { useMemo } from 'react';
@@ -74,7 +74,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
         <NavigationPanel
           type="link"
           title={`
-              Meldekort for sak ${visning.felles.saksnummer}, fra ${formaterDatoMedÅrForFrontend(visning.felles.rettighetsperiode?.fom)} til ${formaterDatoMedÅrForFrontend(visning.felles.rettighetsperiode?.tom)}
+              Meldekort for sak ${visning.arena.saksnummer}, fra ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.fom)} til ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.tom)}
               `}
           rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
           leftIcon={erLitenSkjerm ? undefined : <TasklistIcon fontSize={'2rem'} />}
@@ -85,7 +85,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
       <VStack gap={'space-16'}>
         <Heading level={'2'} size={'medium'}>
           {visning?.type === 'BEGGE' &&
-            t('client.oversikt.sendMeldekort.headingV2', { saksnummer: visning.aap.saksnummer ?? '' })}
+            t('client.oversikt.sendMeldekort.headingV2', { saksnummer: visning.kelvin.saksnummer ?? '' })}
           {visning?.type !== 'BEGGE' && t('client.oversikt.sendMeldekort.heading')}
         </Heading>
         {kommendeMeldeperiode?.nesteMeldeperiode ? (
@@ -116,7 +116,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
         <VStack gap={'space-16'}>
           <Heading level={'2'} size={'medium'}>
             {visning?.type === 'BEGGE'
-              ? t('client.oversikt.innsendteMeldekort.headingV2', { saksnummer: visning.aap.saksnummer ?? '' })
+              ? t('client.oversikt.innsendteMeldekort.headingV2', { saksnummer: visning.kelvin.saksnummer ?? '' })
               : t('client.oversikt.innsendteMeldekort.heading')}
           </Heading>
           <NavigationPanel

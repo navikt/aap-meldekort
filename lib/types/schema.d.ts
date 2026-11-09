@@ -1073,8 +1073,8 @@ export interface components {
             status?: "AVSLUTTET" | "LØPENDE" | "UTREDES" | null;
         };
         "no.nav.aap.meldekort.AnsvarligeMeldekortl\u00F8sningerDto": {
-            aap?: components["schemas"]["no.nav.aap.meldekort.Meldekortl\u00F8sningDto"];
-            felles?: components["schemas"]["no.nav.aap.meldekort.Meldekortl\u00F8sningDto"];
+            arena?: components["schemas"]["no.nav.aap.meldekort.Meldekortl\u00F8sningDto"];
+            kelvin?: components["schemas"]["no.nav.aap.meldekort.Meldekortl\u00F8sningDto"];
         };
         "no.nav.aap.meldekort.DagSvarDto": {
             /**
@@ -1121,8 +1121,8 @@ export interface components {
             kanSendesFra: string;
         };
         "no.nav.aap.meldekort.Meldekortl\u00F8sningDto": {
-            rettighetsperiode?: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
-            saksnummer?: string | null;
+            rettighetsperiode: components["schemas"]["no.nav.aap.meldekort.PeriodeDto"];
+            saksnummer: string;
         };
         "no.nav.aap.meldekort.MeldekortstatusDto": {
             harInnsendteMeldekort: boolean;
