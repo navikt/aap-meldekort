@@ -64,7 +64,14 @@ export const Introduksjon = ({ utfylling }: Props) => {
           <List size={'medium'}>
             {innsendingtype === InnsendingType.INNSENDING &&
               utfylling.metadata.fristForInnsending &&
-              utfylling.metadata.tidligsteInnsendingstidspunkt && (
+              utfylling.metadata.tidligsteInnsendingstidspunkt &&
+              // Infotekst som dekker julen 2026
+              (hentUkeNummerForPeriode(fraDato, tilDato) === '50 og 51' && new Date().getFullYear() === 2026 ? (
+                <>
+                  <List.Item>{t('client.steg.introduksjon.bulletListJulen2026.item.1')}</List.Item>
+                  <List.Item>{t('client.steg.introduksjon.bulletListJulen2026.item.2')}</List.Item>
+                </>
+              ) : (
                 <>
                   <List.Item>
                     {t('client.steg.introduksjon.bulletList.item.1', {
@@ -78,7 +85,7 @@ export const Introduksjon = ({ utfylling }: Props) => {
                     <List.Item>{t('client.steg.introduksjon.bulletList.item.2')}</List.Item>
                   )}
                 </>
-              )}
+              ))}
           </List>
         </VStack>
 

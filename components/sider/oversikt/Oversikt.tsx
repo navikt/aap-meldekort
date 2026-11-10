@@ -101,9 +101,19 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
 
             {kommendeMeldeperiode.antallUbesvarteMeldeperioder === 0 && kommendeMeldeperiode.nesteMeldeperiode && (
               <Alert variant={'info'}>
-                {t('client.oversikt.infoAlert', {
-                  dato: formaterDatoMedMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
-                })}
+                {
+                  // Infotekst som dekker julen 2026
+                  hentUkeNummerForPeriode(
+                    new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
+                    new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
+                  ) === '50 og 51' && new Date().getFullYear() === 2026
+                    ? t('client.oversikt.infoAlertJulen2026')
+                    : t('client.oversikt.infoAlert', {
+                        dato: formaterDatoMedMånedIBokstaver(
+                          kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom
+                        ),
+                      })
+                }
               </Alert>
             )}
           </>
