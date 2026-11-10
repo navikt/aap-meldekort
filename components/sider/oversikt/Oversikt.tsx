@@ -13,6 +13,7 @@ import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { useMemo } from 'react';
 import { isSuccess } from 'lib/utils/api';
 import { isProduction } from 'lib/utils/environments';
+import { useFeatureFlag } from 'context/UnleashContext';
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
@@ -23,6 +24,7 @@ interface Props {
 export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visning }: Props) => {
   const t = useTranslations();
   const router = useRouter();
+  const visJuletekst = useFeatureFlag('InformerOmTidligMeldedag16Des26IMeldekortflaten');
 
   const { erLitenSkjerm } = useSkjermBredde();
 
@@ -106,7 +108,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
                   hentUkeNummerForPeriode(
                     new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
                     new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
-                  ) === '50 og 51' && new Date().getFullYear() === 2026
+                  ) === '50 og 51' && new Date().getFullYear() === 2026 && visJuletekst
                     ? t('client.oversikt.infoAlertJulen2026')
                     : t('client.oversikt.infoAlert', {
                         dato: formaterDatoMedMånedIBokstaver(
