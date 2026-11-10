@@ -1,11 +1,13 @@
 import { fetcher } from 'lib/services/fetchProxy';
 import {
   mockHentAnsvarligSystem,
+  mockHentAnsvarligSystemV2,
   mockHentInnsendteMeldeperioder,
   mockHentKommendeMeldeperioder,
   mockHentUtfylling,
 } from 'lib/services/mockData';
 import {
+  AnsvarligeMeldekortLøsningerDto,
   EndreUtfyllingRequest,
   HistoriskMeldeperiode,
   KommendeMeldekort,
@@ -95,4 +97,12 @@ export async function hentAnsvarligSystem(): Promise<FetchResponse<'AAP' | 'FELL
   }
   const url = `${meldeKortBaseUrl}/api/ansvarlig-system`;
   return await fetcher<'AAP' | 'FELLES'>(url, 'GET');
+}
+
+export async function hentAnsvarligSystemV2(): Promise<FetchResponse<AnsvarligeMeldekortLøsningerDto>> {
+  if (isFunctionalTest()) {
+    return { type: 'SUCCESS', data: mockHentAnsvarligSystemV2, status: 200 };
+  }
+  const url = `${meldeKortBaseUrl}/api/v2/ansvarlig-system`;
+  return await fetcher<AnsvarligeMeldekortLøsningerDto>(url, 'GET');
 }

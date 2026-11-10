@@ -25,3 +25,16 @@ export type UtfyllingTilstandDto = components['schemas']['no.nav.aap.meldekort.U
 export type Steg = UtfyllingResponse['tilstand']['aktivtSteg'];
 
 export type Fravær = DagSvar['fravær'];
+
+export type AnsvarligeMeldekortLøsningerDto =
+  components['schemas']['no.nav.aap.meldekort.AnsvarligeMeldekortl\u00F8sningerDto'];
+
+export type Visning =
+  | { type: 'AAP' } // Kelvin
+  | { type: 'FELLES' } // Redirect til fellesløsningen for meldekort
+  | {
+      type: 'BEGGE';
+      kelvin: NonNullable<AnsvarligeMeldekortLøsningerDto['kelvin']>;
+      arena: NonNullable<AnsvarligeMeldekortLøsningerDto['arena']>;
+    }
+  | { type: 'INGEN' };

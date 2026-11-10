@@ -1,6 +1,6 @@
 'use client';
 
-import { KommendeMeldekort } from 'lib/types/types';
+import { KommendeMeldekort, Visning } from 'lib/types/types';
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { useTranslations } from 'next-intl';
@@ -12,13 +12,15 @@ import { InnsendingType } from 'lib/utils/url';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { useMemo } from 'react';
 import { isSuccess } from 'lib/utils/api';
+import { isProduction } from 'lib/utils/environments';
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
   harInnsendteMeldeperioder: boolean;
+  visning?: Visning;
 }
 
-export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Props) => {
+export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visning }: Props) => {
   const t = useTranslations();
   const router = useRouter();
 
@@ -56,13 +58,35 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
     }
   }, [kommendeMeldeperiode]);
 
+  const fellesMeldekortLenke = () => {
+    if (!isProduction()) {
+      return 'https://meldekort-frontend-q2.intern.dev.nav.no/felles-meldekort';
+    } else {
+      return 'https://www.nav.no/felles-meldekort';
+    }
+  };
+
   return (
     <VStack gap={'space-32'}>
       <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>
 
+      {visning?.type === 'BEGGE' && (
+        <NavigationPanel
+          type="link"
+          title={`
+              Meldekort for sak ${visning.arena.saksnummer}, fra ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.fom)} til ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.tom)}
+              `}
+          rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
+          leftIcon={erLitenSkjerm ? undefined : <TasklistIcon fontSize={'2rem'} />}
+          href={fellesMeldekortLenke()}
+        />
+      )}
+
       <VStack gap={'space-16'}>
         <Heading level={'2'} size={'medium'}>
-          {t('client.oversikt.sendMeldekort.heading')}
+          {visning?.type === 'BEGGE' &&
+            t('client.oversikt.sendMeldekort.headingV2', { saksnummer: visning.kelvin.saksnummer ?? '' })}
+          {visning?.type !== 'BEGGE' && t('client.oversikt.sendMeldekort.heading')}
         </Heading>
         {kommendeMeldeperiode?.nesteMeldeperiode ? (
           <>
@@ -91,7 +115,9 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder }: Pr
       {harInnsendteMeldeperioder && (
         <VStack gap={'space-16'}>
           <Heading level={'2'} size={'medium'}>
-            {t('client.oversikt.innsendteMeldekort.heading')}
+            {visning?.type === 'BEGGE'
+              ? t('client.oversikt.innsendteMeldekort.headingV2', { saksnummer: visning.kelvin.saksnummer ?? '' })
+              : t('client.oversikt.innsendteMeldekort.heading')}
           </Heading>
           <NavigationPanel
             type={'link'}
