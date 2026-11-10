@@ -108,7 +108,10 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
                   hentUkeNummerForPeriode(
                     new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
                     new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
-                  ) === '50 og 51' && new Date().getFullYear() === 2026 && visJuletekst
+                  ) === '50 og 51' &&
+                  new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom).getFullYear() === 2026 &&
+                  new Date().getFullYear() === 2026 &&
+                  visJuletekst
                     ? t('client.oversikt.infoAlertJulen2026')
                     : t('client.oversikt.infoAlert', {
                         dato: formaterDatoMedMånedIBokstaver(

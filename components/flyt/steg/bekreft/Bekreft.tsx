@@ -97,7 +97,9 @@ export const Bekreft = ({ utfylling }: Props) => {
                 hentUkeNummerForPeriode(
                   new Date(utfylling.metadata.periode.fom),
                   new Date(utfylling.metadata.periode.tom)
-                ) === '50 og 51' && new Date().getFullYear() === 2026 && visJuletekst ? (
+                ) === '50 og 51' &&
+                new Date(utfylling.metadata.periode.fom).getFullYear() === 2026 &&
+                new Date().getFullYear() === 2026 && visJuletekst ? (
                   <>{t('client.steg.bekreft.kanIkkeSendesInnJulen2026')}</>
                 ) : (
                   <>

@@ -69,6 +69,7 @@ export const Introduksjon = ({ utfylling }: Props) => {
               utfylling.metadata.tidligsteInnsendingstidspunkt &&
               // Infotekst som dekker julen 2026
               (hentUkeNummerForPeriode(fraDato, tilDato) === '50 og 51' &&
+              fraDato.getFullYear() === 2026 &&
               new Date().getFullYear() === 2026 &&
               visJuletekst ? (
                 <>
