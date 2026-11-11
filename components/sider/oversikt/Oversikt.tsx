@@ -13,6 +13,7 @@ import { useSkjermBredde } from 'hooks/skjermbreddeHook';
 import { useMemo } from 'react';
 import { isSuccess } from 'lib/utils/api';
 import { isProduction } from 'lib/utils/environments';
+import { useFeatureFlag } from 'context/UnleashContext';
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
@@ -23,6 +24,7 @@ interface Props {
 export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visning }: Props) => {
   const t = useTranslations();
   const router = useRouter();
+  const visJuletekst = useFeatureFlag('InformerOmTidligMeldedag16Des26IMeldekortflaten');
 
   const { erLitenSkjerm } = useSkjermBredde();
 
@@ -101,9 +103,22 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
 
             {kommendeMeldeperiode.antallUbesvarteMeldeperioder === 0 && kommendeMeldeperiode.nesteMeldeperiode && (
               <Alert variant={'info'}>
-                {t('client.oversikt.infoAlert', {
-                  dato: formaterDatoMedMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
-                })}
+                {
+                  // Infotekst som dekker julen 2026
+                  hentUkeNummerForPeriode(
+                    new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
+                    new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
+                  ) === '50 og 51' &&
+                  new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom).getFullYear() === 2026 &&
+                  new Date().getFullYear() === 2026 &&
+                  visJuletekst
+                    ? t('client.oversikt.infoAlertJulen2026')
+                    : t('client.oversikt.infoAlert', {
+                        dato: formaterDatoMedMånedIBokstaver(
+                          kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom
+                        ),
+                      })
+                }
               </Alert>
             )}
           </>

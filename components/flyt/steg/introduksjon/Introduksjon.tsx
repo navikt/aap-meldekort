@@ -9,6 +9,7 @@ import { Form } from 'components/form/Form';
 import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { Opplysningsinformasjon } from 'components/Opplysningsinformasjon/Opplysningsinformasjon';
+import { useFeatureFlag } from 'context/UnleashContext';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -16,6 +17,7 @@ interface Props {
 
 export const Introduksjon = ({ utfylling }: Props) => {
   const t = useTranslations();
+  const visJuletekst = useFeatureFlag('InformerOmTidligMeldedag16Des26IMeldekortflaten');
   const { innsendingtype, referanse } = useParamsMedType();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
 
@@ -64,7 +66,17 @@ export const Introduksjon = ({ utfylling }: Props) => {
           <List size={'medium'}>
             {innsendingtype === InnsendingType.INNSENDING &&
               utfylling.metadata.fristForInnsending &&
-              utfylling.metadata.tidligsteInnsendingstidspunkt && (
+              utfylling.metadata.tidligsteInnsendingstidspunkt &&
+              // Infotekst som dekker julen 2026
+              (hentUkeNummerForPeriode(fraDato, tilDato) === '50 og 51' &&
+              fraDato.getFullYear() === 2026 &&
+              new Date().getFullYear() === 2026 &&
+              visJuletekst ? (
+                <>
+                  <List.Item>{t('client.steg.introduksjon.bulletListJulen2026.item.1')}</List.Item>
+                  <List.Item>{t('client.steg.introduksjon.bulletListJulen2026.item.2')}</List.Item>
+                </>
+              ) : (
                 <>
                   <List.Item>
                     {t('client.steg.introduksjon.bulletList.item.1', {
@@ -78,7 +90,7 @@ export const Introduksjon = ({ utfylling }: Props) => {
                     <List.Item>{t('client.steg.introduksjon.bulletList.item.2')}</List.Item>
                   )}
                 </>
-              )}
+              ))}
           </List>
         </VStack>
 

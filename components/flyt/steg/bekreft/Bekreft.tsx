@@ -11,6 +11,7 @@ import { InnsendingType, useParamsMedType } from 'lib/utils/url';
 import { useTranslations } from 'next-intl';
 import { Link } from 'i18n/routing';
 import { ConfirmationPanel } from 'components/confirmationpanel/ConfirmationPanel';
+import { useFeatureFlag } from 'context/UnleashContext';
 
 interface Props {
   utfylling: UtfyllingResponse;
@@ -18,6 +19,7 @@ interface Props {
 
 export const Bekreft = ({ utfylling }: Props) => {
   const t = useTranslations();
+  const visJuletekst = useFeatureFlag('InformerOmTidligMeldedag16Des26IMeldekortflaten');
   const { referanse, innsendingtype } = useParamsMedType();
   const { løsStegOgGåTilNeste, isLoading, errorMessage } = useLøsStegOgGåTilNesteSteg(referanse);
   const [stemmerOpplysningene, setStemmerOpplysningene] = useState(false);
@@ -91,11 +93,21 @@ export const Bekreft = ({ utfylling }: Props) => {
           <Alert variant={'info'}>
             <BodyShort>
               {
-                <>
-                  {t('client.steg.bekreft.kanIkkeSendesInn', {
-                    dato: formaterDatoMedMånedIBokstaver(utfylling.metadata.tidligsteInnsendingstidspunkt!),
-                  })}
-                </>
+                // Infotekst som dekker julen 2026
+                hentUkeNummerForPeriode(
+                  new Date(utfylling.metadata.periode.fom),
+                  new Date(utfylling.metadata.periode.tom)
+                ) === '50 og 51' &&
+                new Date(utfylling.metadata.periode.fom).getFullYear() === 2026 &&
+                new Date().getFullYear() === 2026 && visJuletekst ? (
+                  <>{t('client.steg.bekreft.kanIkkeSendesInnJulen2026')}</>
+                ) : (
+                  <>
+                    {t('client.steg.bekreft.kanIkkeSendesInn', {
+                      dato: formaterDatoMedMånedIBokstaver(utfylling.metadata.tidligsteInnsendingstidspunkt!),
+                    })}
+                  </>
+                )
               }
             </BodyShort>
 
