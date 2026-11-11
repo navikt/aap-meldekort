@@ -53,8 +53,10 @@ export default async function Page() {
     }
   }
 
-  const innsendteMeldeperioder = await hentInnsendteMeldeperioder();
-  const kommendeMeldeperiode = await hentKommendeMeldeperiode();
+  const [innsendteMeldeperioder, kommendeMeldeperiode] = await Promise.all([
+    hentInnsendteMeldeperioder(),
+    hentKommendeMeldeperiode(),
+  ]);
 
   if (isError(innsendteMeldeperioder) || isError(kommendeMeldeperiode)) {
     return <Alert variant="error">En ukjent feil oppsto</Alert>;
