@@ -52,7 +52,7 @@ describe('Oversikt', () => {
       />
     );
 
-    const alert = screen.getByText('Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn 17. februar.');
+    const alert = screen.getByText('Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn onsdag 17. februar.');
     expect(alert).toBeVisible();
   });
 
@@ -71,7 +71,7 @@ describe('Oversikt', () => {
       />
     );
 
-    const alert = screen.queryByText('Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn 17. februar.');
+    const alert = screen.queryByText('Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn onsdag 17. februar.');
     expect(alert).not.toBeInTheDocument();
   });
 });
