@@ -6,7 +6,11 @@ import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { useTranslations } from 'next-intl';
 import { startInnsendingClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
-import { formaterDatoMedMånedIBokstaver, formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import {
+  formaterDatoMedDagOgMånedIBokstaver,
+  formaterDatoMedÅrForFrontend,
+  hentUkeNummerForPeriode,
+} from 'lib/utils/date';
 import { ChevronRightIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons';
 import { InnsendingType } from 'lib/utils/url';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
@@ -127,10 +131,10 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
               <Alert variant={'info'}>
                 {erJulevarselAktuelt(kommendeMeldeperiode.nesteMeldeperiode)
                   ? t('client.oversikt.infoAlertJulen', {
-                      dato: formaterDatoMedMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
+                      dato: formaterDatoMedDagOgMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
                     })
                   : t('client.oversikt.infoAlert', {
-                      dato: formaterDatoMedMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
+                      dato: formaterDatoMedDagOgMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
                     })}
               </Alert>
             )}
