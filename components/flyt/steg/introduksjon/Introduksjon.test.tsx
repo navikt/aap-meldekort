@@ -68,3 +68,32 @@ describe('generelt', () => {
     expect(kulepunkt2).toBeVisible();
   });
 });
+
+describe('julevarsel', () => {
+  const julUtfylling: UtfyllingResponse = {
+    ...utfylling,
+    metadata: {
+      ...utfylling.metadata,
+      periode: { fom: '2026-12-07', tom: '2026-12-20' },
+      tidligsteInnsendingstidspunkt: '2026-12-16',
+      fristForInnsending: '2026-12-29',
+    },
+  };
+
+  it('viser kulepunkter om tidligere innsending når flagget er på', () => {
+    render(<Introduksjon utfylling={julUtfylling} />, {
+      flags: { InformerOmTidligMeldedag16Des26IMeldekortflaten: true },
+    });
+    expect(screen.getByText(/åpnet for tidligere innsending/)).toBeVisible();
+    expect(
+      screen.getByText(
+        'Du kan sende dette meldekortet fra onsdag 16. desember, men senest 29. desember for å unngå trekk i utbetalingen.'
+      )
+    ).toBeVisible();
+  });
+
+  it('viser vanlige kulepunkter når flagget er av', () => {
+    render(<Introduksjon utfylling={julUtfylling} />);
+    expect(screen.queryByText(/åpnet for tidligere innsending/)).not.toBeInTheDocument();
+  });
+});
