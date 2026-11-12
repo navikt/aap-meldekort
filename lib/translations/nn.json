@@ -73,7 +73,8 @@
         "bulletListJulen2026": {
           "item": {
             "1": "For denne perioden er det opna for tidlegare innsending, slik at du kan få utbetaling før jul.",
-            "2": "Du kan sende dette meldekortet frå onsdag 16. desember, og seinast 28. desember for å unngå trekk i utbetalinga."
+            "2": "Du fyller også ut forventa arbeid for dagane fram i tid, det vil seie 16.–20. desember.",
+            "3": "Du kan sende dette meldekortet frå onsdag 16. desember, men seinast 28. desember for å unngå trekk i utbetalinga."
           }
         },
         "opplysninger": {
@@ -257,8 +258,8 @@
           "heading": "Sjå over og send inn meldekort",
           "nesteStegKnappTekst": "Send inn"
         },
-        "kanIkkeSendesInn": "Det tidlegaste du kan sende inn meldekortet er {dato}. Kom tilbake seinare for å sende inn meldekortet, vi lagrar svara dine så lenge.",
-        "kanIkkeSendesInnJulen2026": "Det tidlegaste du kan sende inn meldekortet er onsdag 16. desember. Kom tilbake seinare for å sende inn meldekortet, vi lagrar svara dine i mellomtida.",
+        "kanIkkeSendesInn": "Det tidlegaste du kan sende inn meldekortet er {dato}. Kom tilbake seinare for å sende inn meldekortet. Vi lagrar svara dine så lenge.",
+        "kanIkkeSendesInnJulen2026": "Det tidlegaste du kan sende inn meldekortet er onsdag 16. desember. Kom tilbake seinare for å sende inn meldekortet. I mellomtida lagrar vi svara dine.",
         "link": "<a>Gå tilbake til oversikta</a>",
         "periode": "Veke {uker} ({periode})",
         "oppsummering": {
