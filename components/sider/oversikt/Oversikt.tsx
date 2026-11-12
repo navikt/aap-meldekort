@@ -14,9 +14,9 @@ import { useMemo } from 'react';
 import { isSuccess } from 'lib/utils/api';
 import { isProduction } from 'lib/utils/environments';
 import { useFeatureFlag } from 'context/UnleashContext';
+import { addDays, isBefore, parseISO } from 'date-fns';
 
-const MELDEPERIODEUKER_MED_MELDEDAGUNNTAK_FOR_PROD = ['50 og 51'];
-const MELDEPERIODEUKER_MED_MELDEDAGUNNTAK_FOR_TEST = ['47 og 48', '48 og 49'];
+type NesteMeldeperiode = NonNullable<KommendeMeldekort['nesteMeldeperiode']>;
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
@@ -71,17 +71,23 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
     }
   };
 
-  function erJulevarselAktuelt(fom: string, tom: string) {
-    const gyldigePerioder = isProduction()
-      ? MELDEPERIODEUKER_MED_MELDEDAGUNNTAK_FOR_PROD
-      : [...MELDEPERIODEUKER_MED_MELDEDAGUNNTAK_FOR_PROD, ...MELDEPERIODEUKER_MED_MELDEDAGUNNTAK_FOR_TEST];
+  /**
+   * Justering av helligdagsunntak gjøres i aap-meldekort-backend
+   *
+   * Når Helligdagunntak.kt i backend oppdateres med nye meldedagunntak vil
+   * nesteMeldeperiode.innsendingsvindu.fom bli justert til unntaket
+   *
+   * Det samme vil skje i påsken, så her kan det generaliseres til erTidligVarselAktuelt() og benytte samme logikk,
+   * men dropper aktuellMånde-sjekk. Noen er tekstene nevner jul, men det burde antagelig også generaliseres.
+   * Slik at alle tidligere utbetalinger kan legges til i back-end og vi minimerer manuelle tilpasninger i frontend.
+   */
+  function erJulevarselAktuelt(nesteMeldeperiode: NesteMeldeperiode) {
+    const tidligsteInnsendingsdag = parseISO(nesteMeldeperiode.innsendingsvindu.fom);
+    const normalInnsendingsdag = addDays(parseISO(nesteMeldeperiode.meldeperiode.tom), 1);
+    const aktuellMåned = tidligsteInnsendingsdag.getMonth();
+    const erNovemberEllerDesember = aktuellMåned === 10 || aktuellMåned === 11;
 
-    return (
-      gyldigePerioder.includes(hentUkeNummerForPeriode(new Date(fom), new Date(tom))) &&
-      new Date(fom).getFullYear() === 2026 &&
-      new Date().getFullYear() === 2026 &&
-      visJuletekst
-    );
+    return visJuletekst && erNovemberEllerDesember && isBefore(tidligsteInnsendingsdag, normalInnsendingsdag);
   }
 
   return (
@@ -119,11 +125,10 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
 
             {kommendeMeldeperiode.antallUbesvarteMeldeperioder === 0 && kommendeMeldeperiode.nesteMeldeperiode && (
               <Alert variant={'info'}>
-                {erJulevarselAktuelt(
-                  kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom,
-                  kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom
-                )
-                  ? t('client.oversikt.infoAlertJulen2026')
+                {erJulevarselAktuelt(kommendeMeldeperiode.nesteMeldeperiode)
+                  ? t('client.oversikt.infoAlertJulen', {
+                      dato: formaterDatoMedMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
+                    })
                   : t('client.oversikt.infoAlert', {
                       dato: formaterDatoMedMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
                     })}

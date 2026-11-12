@@ -5,11 +5,13 @@ export const DATO_FORMATER = {
   ddMM: 'dd.MM',
   ddMMyyyy: 'dd.MM.yyyy',
   dMMMM: 'd. MMMM',
+  uddMMMM: 'ud d. MMMM',
   ddMMMyyyy: 'dd. MMM yyyy',
   dMMMMyyyy: 'd. MMMM yyyy',
   ddMMyyyy_HHmm: 'dd.MM.yyyy HH:mm',
   ddMMyyyy_HHmmss: 'dd.MM.yyyy HH:mm:ss',
   EEEEddMMMMyyyy: 'EEEE dd. MMMM yyyy',
+  EEEEdMMMM: 'EEEE d. MMMM',
 };
 
 export function formaterDatoMedÅrForFrontend(dato?: Date | string): string {
@@ -31,8 +33,12 @@ export function formaterDatoMedTidspunktForFrontend(dato: Date | string): string
   return format(dato, DATO_FORMATER.ddMMyyyy_HHmm, { locale: nb });
 }
 
-export function formaterDatoMedDagOgMåndedIBokstaver(dato: Date | string): string {
+export function formaterFullDatoMedDagOgMåndedIBokstaver(dato: Date | string): string {
   return format(dato, DATO_FORMATER.EEEEddMMMMyyyy, { locale: nb });
+}
+
+export function formaterDatoMedDagOgMånedIBokstaver(dato: Date | string): string {
+  return format(dato, DATO_FORMATER.EEEEdMMMM, { locale: nb });
 }
 
 export const formaterDatoForBackend = (dato: Date) => {

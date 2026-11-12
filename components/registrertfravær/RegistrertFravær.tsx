@@ -1,6 +1,6 @@
 import { BodyShort, Button, HStack, Tag, VStack } from '@navikt/ds-react';
 import { FraværDag } from 'components/flyt/steg/fraværutfylling/FraværUtfylling';
-import { formaterDatoMedDagOgMåndedIBokstaver } from 'lib/utils/date';
+import { formaterFullDatoMedDagOgMåndedIBokstaver } from 'lib/utils/date';
 import { storForbokstav } from 'lib/utils/string';
 
 import styles from './RegistrertFravær.module.css';
@@ -50,7 +50,7 @@ export const RegistrertFravær = ({ felt, slettFravær, timerArbeidet, visTrekkT
     <HStack justify={'space-between'} align={'center'} className={styles.fravær}>
       <VStack gap={'space-4'}>
         <HStack gap={'space-8'}>
-          <BodyShort weight={'semibold'}>{storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(felt.dato))}</BodyShort>
+          <BodyShort weight={'semibold'}>{storForbokstav(formaterFullDatoMedDagOgMåndedIBokstaver(felt.dato))}</BodyShort>
           {visTrekkTag && (
             <div>
               <Tag variant={'outline'} data-color="warning" size="small">
