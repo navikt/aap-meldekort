@@ -141,7 +141,7 @@ describe('Stemmer opplysningene', () => {
 
     render(<Bekreft utfylling={meldekortIkkeKlarTilInnsending} />);
     const infoboks = screen.getByText(
-      'Du kan tidligst sende inn meldekortet 3. desember. Kom tilbake senere for å sende inn meldekortet, i mellomtiden lagrer vi svarene dine.'
+      'Du kan tidligst sende inn meldekortet 3. desember. Kom tilbake senere for å sende inn meldekortet. I mellomtiden lagrer vi svarene dine.'
     );
     expect(infoboks).toBeVisible();
   });
