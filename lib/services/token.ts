@@ -36,7 +36,8 @@ const hentLocalToken = async () => {
     return 'functionalTest-token';
   }
   try {
-    const url = 'https://fakedings.intern.dev.nav.no/fake/idporten?pid=11111111111&acr=idporten-loa-substantial';
+    const TEST_IDENT = process.env.LOKAL_TEST_IDENT || '11111111111';
+    const url = `https://fakedings.intern.dev.nav.no/fake/idporten?pid=${TEST_IDENT}&acr=idporten-loa-substantial`;
     return fetch(url, { method: 'GET', next: { revalidate: 0 } }).then((token) => token.text());
   } catch (error) {
     logError('hentLocalToken feilet', error);
