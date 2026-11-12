@@ -15,6 +15,9 @@ import { isSuccess } from 'lib/utils/api';
 import { isProduction } from 'lib/utils/environments';
 import { useFeatureFlag } from 'context/UnleashContext';
 
+const MELDEPERIODEUKER_MED_MELDEDAGUNNTAK_FOR_PROD = ['50 og 51'];
+const MELDEPERIODEUKER_MED_MELDEDAGUNNTAK_FOR_TEST = ['47 og 48', '48 og 49'];
+
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
   harInnsendteMeldeperioder: boolean;
@@ -68,6 +71,19 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
     }
   };
 
+  function erJulevarselAktuelt(fom: string, tom: string) {
+    const gyldigePerioder = isProduction()
+      ? MELDEPERIODEUKER_MED_MELDEDAGUNNTAK_FOR_PROD
+      : [...MELDEPERIODEUKER_MED_MELDEDAGUNNTAK_FOR_PROD, ...MELDEPERIODEUKER_MED_MELDEDAGUNNTAK_FOR_TEST];
+
+    return (
+      gyldigePerioder.includes(hentUkeNummerForPeriode(new Date(fom), new Date(tom))) &&
+      new Date(fom).getFullYear() === 2026 &&
+      new Date().getFullYear() === 2026 &&
+      visJuletekst
+    );
+  }
+
   return (
     <VStack gap={'space-32'}>
       <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>
@@ -103,22 +119,14 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
 
             {kommendeMeldeperiode.antallUbesvarteMeldeperioder === 0 && kommendeMeldeperiode.nesteMeldeperiode && (
               <Alert variant={'info'}>
-                {
-                  // Infotekst som dekker julen 2026
-                  hentUkeNummerForPeriode(
-                    new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
-                    new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
-                  ) === '50 og 51' &&
-                  new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom).getFullYear() === 2026 &&
-                  new Date().getFullYear() === 2026 &&
-                  visJuletekst
-                    ? t('client.oversikt.infoAlertJulen2026')
-                    : t('client.oversikt.infoAlert', {
-                        dato: formaterDatoMedMånedIBokstaver(
-                          kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom
-                        ),
-                      })
-                }
+                {erJulevarselAktuelt(
+                  kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom,
+                  kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom
+                )
+                  ? t('client.oversikt.infoAlertJulen2026')
+                  : t('client.oversikt.infoAlert', {
+                      dato: formaterDatoMedMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
+                    })}
               </Alert>
             )}
           </>
