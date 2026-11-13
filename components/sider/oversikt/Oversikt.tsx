@@ -6,7 +6,11 @@ import { NavigationPanel } from 'components/navigationpanel/NavigationPanel';
 import { useTranslations } from 'next-intl';
 import { startInnsendingClient } from 'lib/client/clientApi';
 import { useRouter } from 'i18n/routing';
-import { formaterDatoMedMånedIBokstaver, formaterDatoMedÅrForFrontend, hentUkeNummerForPeriode } from 'lib/utils/date';
+import {
+  formaterDatoMedDagOgMånedIBokstaver,
+  formaterDatoMedÅrForFrontend,
+  hentUkeNummerForPeriode,
+} from 'lib/utils/date';
 import { ChevronRightIcon, PencilIcon, TasklistIcon } from '@navikt/aksel-icons';
 import { InnsendingType } from 'lib/utils/url';
 import { useSkjermBredde } from 'hooks/skjermbreddeHook';
@@ -14,6 +18,9 @@ import { useMemo } from 'react';
 import { isSuccess } from 'lib/utils/api';
 import { isProduction } from 'lib/utils/environments';
 import { useFeatureFlag } from 'context/UnleashContext';
+import { addDays, isBefore, parseISO } from 'date-fns';
+
+type NesteMeldeperiode = NonNullable<KommendeMeldekort['nesteMeldeperiode']>;
 
 interface Props {
   kommendeMeldeperiode?: KommendeMeldekort;
@@ -68,6 +75,25 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
     }
   };
 
+  /**
+   * Justering av helligdagsunntak gjøres i aap-meldekort-backend
+   *
+   * Når Helligdagunntak.kt i backend oppdateres med nye meldedagunntak vil
+   * nesteMeldeperiode.innsendingsvindu.fom bli justert til unntaket
+   *
+   * Det samme vil skje i påsken, så her kan det generaliseres til erTidligVarselAktuelt() og benytte samme logikk,
+   * men dropper aktuellMånde-sjekk. Noen er tekstene nevner jul, men det burde antagelig også generaliseres.
+   * Slik at alle tidligere utbetalinger kan legges til i back-end og vi minimerer manuelle tilpasninger i frontend.
+   */
+  function erJulevarselAktuelt(nesteMeldeperiode: NesteMeldeperiode) {
+    const tidligsteInnsendingsdag = parseISO(nesteMeldeperiode.innsendingsvindu.fom);
+    const normalInnsendingsdag = addDays(parseISO(nesteMeldeperiode.meldeperiode.tom), 1);
+    const aktuellMåned = tidligsteInnsendingsdag.getMonth();
+    const erNovemberEllerDesember = aktuellMåned === 10 || aktuellMåned === 11;
+
+    return visJuletekst && erNovemberEllerDesember && isBefore(tidligsteInnsendingsdag, normalInnsendingsdag);
+  }
+
   return (
     <VStack gap={'space-32'}>
       <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>
@@ -103,22 +129,13 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
 
             {kommendeMeldeperiode.antallUbesvarteMeldeperioder === 0 && kommendeMeldeperiode.nesteMeldeperiode && (
               <Alert variant={'info'}>
-                {
-                  // Infotekst som dekker julen 2026
-                  hentUkeNummerForPeriode(
-                    new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom),
-                    new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.tom)
-                  ) === '50 og 51' &&
-                  new Date(kommendeMeldeperiode.nesteMeldeperiode.meldeperiode.fom).getFullYear() === 2026 &&
-                  new Date().getFullYear() === 2026 &&
-                  visJuletekst
-                    ? t('client.oversikt.infoAlertJulen2026')
-                    : t('client.oversikt.infoAlert', {
-                        dato: formaterDatoMedMånedIBokstaver(
-                          kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom
-                        ),
-                      })
-                }
+                {erJulevarselAktuelt(kommendeMeldeperiode.nesteMeldeperiode)
+                  ? t('client.oversikt.infoAlertJulen', {
+                      dato: formaterDatoMedDagOgMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
+                    })
+                  : t('client.oversikt.infoAlert', {
+                      dato: formaterDatoMedDagOgMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
+                    })}
               </Alert>
             )}
           </>

@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   formaterDatoForBackend,
+  formaterDatoMedDagOgMånedIBokstaver,
   hentUkeNummerForPeriode,
   parseDatoFraDatePicker,
   sorterEtterNyesteDatoString,
@@ -111,5 +112,11 @@ describe('hentUkenummerForPeriode', () => {
     const res = hentUkeNummerForPeriode(periodestart, periodeslutt);
 
     expect(res).toEqual('9, 10, 11, 12, 13 og 14');
+  });
+});
+
+describe('formaterDatoMedDagOgMånedIBokstaver', () => {
+  it('formaterer dato med ukedag og måned i bokstaver', () => {
+    expect(formaterDatoMedDagOgMånedIBokstaver('2026-12-16')).toEqual('onsdag 16. desember');
   });
 });

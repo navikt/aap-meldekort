@@ -52,7 +52,9 @@ describe('Oversikt', () => {
       />
     );
 
-    const alert = screen.getByText('Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn 17. februar.');
+    const alert = screen.getByText(
+      'Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn mandag 17. februar.'
+    );
     expect(alert).toBeVisible();
   });
 
@@ -71,7 +73,47 @@ describe('Oversikt', () => {
       />
     );
 
-    const alert = screen.queryByText('Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn 17. februar.');
+    const alert = screen.queryByText(
+      'Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn mandag 17. februar.'
+    );
     expect(alert).not.toBeInTheDocument();
+  });
+
+  describe('julevarsel', () => {
+    const FLAGG_PÅ = { flags: { InformerOmTidligMeldedag16Des26IMeldekortflaten: true } };
+    const lagKommende = (fom: string, tom: string): KommendeMeldekort => ({
+      antallUbesvarteMeldeperioder: 0,
+      nesteMeldeperiode: {
+        meldeperiode: { fom: '2026-12-07', tom },
+        innsendingsvindu: { fom, tom: '2026-12-28' },
+      },
+    });
+    const julTekst =
+      'Du kan fylle ut meldekortet nå. Denne perioden kan du sende inn allerede fra onsdag 16. desember for å få utbetaling før jul.';
+    const normalTekst = 'Du kan fylle ut meldekortet nå, men det kan tidligst sendes inn onsdag 16. desember.';
+
+    it('viser julevarsel når flagget er på og innsending åpner før normal dato', () => {
+      render(
+        <Oversikt harInnsendteMeldeperioder={false} kommendeMeldeperiode={lagKommende('2026-12-16', '2026-12-20')} />,
+        FLAGG_PÅ
+      );
+      expect(screen.getByText(julTekst)).toBeVisible();
+    });
+
+    it('viser vanlig varsel når flagget er av', () => {
+      render(
+        <Oversikt harInnsendteMeldeperioder={false} kommendeMeldeperiode={lagKommende('2026-12-16', '2026-12-20')} />
+      );
+      expect(screen.getByText(normalTekst)).toBeVisible();
+    });
+
+    it('viser vanlig varsel når innsending ikke åpner før normal dato', () => {
+      render(
+        <Oversikt harInnsendteMeldeperioder={false} kommendeMeldeperiode={lagKommende('2026-12-16', '2026-12-15')} />,
+        FLAGG_PÅ
+      );
+      expect(screen.getByText(normalTekst)).toBeVisible();
+      expect(screen.queryByText(julTekst)).not.toBeInTheDocument();
+    });
   });
 });

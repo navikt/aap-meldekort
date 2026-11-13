@@ -5,7 +5,7 @@ import { RegistrerFraværDialog } from 'components/flyt/steg/fraværutfylling/Re
 import { Form } from 'components/form/Form';
 import { DagSvar, Fravær, UtfyllingResponse } from 'lib/types/types';
 import {
-  formaterDatoMedDagOgMåndedIBokstaver,
+  formaterFullDatoMedDagOgMåndedIBokstaver,
   formaterDatoMedÅrForFrontend,
   hentUkeNummerForPeriode,
   sorterEtterEldsteDatoDate,
@@ -185,7 +185,7 @@ export const FraværUtfylling = ({ utfylling, tidligereRegistrertFravær }: Prop
               <ul>
                 {dagerMedFraværOgRegistrertArbeid.map((dag) => (
                   <li key={dag.dato}>
-                    {storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag.dato))},{' '}
+                    {storForbokstav(formaterFullDatoMedDagOgMåndedIBokstaver(dag.dato))},{' '}
                     {`${dag.timerArbeidet} ${dag.timerArbeidet === 1 ? 'time' : 'timer'}`}
                   </li>
                 ))}

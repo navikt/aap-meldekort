@@ -1,7 +1,7 @@
 import { render, screen } from 'lib/utils/test/customRender';
 import { RegistrertFravær } from 'components/registrertfravær/RegistrertFravær';
 import { describe, expect, it } from 'vitest';
-import { formaterDatoMedDagOgMåndedIBokstaver } from 'lib/utils/date';
+import { formaterFullDatoMedDagOgMåndedIBokstaver } from 'lib/utils/date';
 
 describe('RegistrertFravær', () => {
   const dato = new Date();
@@ -9,7 +9,7 @@ describe('RegistrertFravær', () => {
     render(
       <RegistrertFravær felt={{ dato: dato, fravær: 'SYKDOM_ELLER_SKADE' }} slettFravær={() => {}} timerArbeidet={0} />
     );
-    const forventetTekst = formaterDatoMedDagOgMåndedIBokstaver(dato);
+    const forventetTekst = formaterFullDatoMedDagOgMåndedIBokstaver(dato);
     expect(screen.getByText(new RegExp(forventetTekst, 'i'))).toBeVisible();
   });
 

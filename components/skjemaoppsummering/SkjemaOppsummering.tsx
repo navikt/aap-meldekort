@@ -4,7 +4,7 @@ import { MeldekortLenke } from 'components/meldekortlenke/MeldekortLenke';
 import { endOfWeek, format, getISOWeek, startOfWeek } from 'date-fns';
 import { useGåTilSteg } from 'lib/utils/url';
 import {
-  formaterDatoMedDagOgMåndedIBokstaver,
+  formaterFullDatoMedDagOgMåndedIBokstaver,
   formaterDatoMedÅrForFrontend,
   hentUkeNummerForDato,
 } from 'lib/utils/date';
@@ -189,7 +189,7 @@ export const SkjemaOppsummering = ({ utfylling, visLenkeTilbakeTilSteg = false }
                           <VStack gap={'space-8'} key={`fravær-${dag.dato}`}>
                             <FormSummary.Value>
                               <HStack gap={'space-8'}>
-                                {storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag.dato))}
+                                {storForbokstav(formaterFullDatoMedDagOgMåndedIBokstaver(dag.dato))}
                                 {skalViseTrekkTag(dag, utfylling.tilstand.svar.dager) && (
                                   <Tag variant={'outline'} data-color="warning" size="small">
                                     {t('client.steg.fraværutfylling.trekk.tag')}

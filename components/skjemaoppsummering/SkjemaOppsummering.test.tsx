@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen, within } from 'lib/utils/test/customRender';
 import { SkjemaOppsummering } from 'components/skjemaoppsummering/SkjemaOppsummering';
-import { formaterDatoMedDagOgMåndedIBokstaver } from 'lib/utils/date';
+import { formaterFullDatoMedDagOgMåndedIBokstaver } from 'lib/utils/date';
 import { storForbokstav } from 'lib/utils/string';
 import {
   meldekortMedArbeid,
@@ -83,7 +83,7 @@ describe('skjema oppsummering', () => {
     const dagerMedFravær = meldekortMedFravær.tilstand.svar.dager.filter((dag) => dag.fravær).map((dag) => dag.dato);
     render(<SkjemaOppsummering utfylling={meldekortMedFravær} visLenkeTilbakeTilSteg={false} />);
     dagerMedFravær.map((dag) => {
-      expect(screen.getByText(storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag)))).toBeVisible();
+      expect(screen.getByText(storForbokstav(formaterFullDatoMedDagOgMåndedIBokstaver(dag)))).toBeVisible();
     });
   });
 
@@ -97,7 +97,7 @@ describe('skjema oppsummering', () => {
         .filter((dag) => dag.fravær === 'SYKDOM_ELLER_SKADE')
         .map((dag) => {
           expect(
-            within(sykdomsgruppe).getByText(storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag.dato)))
+            within(sykdomsgruppe).getByText(storForbokstav(formaterFullDatoMedDagOgMåndedIBokstaver(dag.dato)))
           ).toBeVisible();
         });
     }
@@ -109,7 +109,7 @@ describe('skjema oppsummering', () => {
         .filter((dag) => dag.fravær === 'OMSORG_FØRSTE_SKOLEDAG_TILVENNING_ELLER_ANNEN_OPPFØLGING_BARN')
         .map((dag) => {
           expect(
-            within(skolegruppe).getByText(storForbokstav(formaterDatoMedDagOgMåndedIBokstaver(dag.dato)))
+            within(skolegruppe).getByText(storForbokstav(formaterFullDatoMedDagOgMåndedIBokstaver(dag.dato)))
           ).toBeVisible();
         });
     }
