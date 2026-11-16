@@ -102,7 +102,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
         <NavigationPanel
           type="link"
           title={`
-              Meldekort for sak ${visning.arena.saksnummer}, fra ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.fom)} til ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.tom)}
+              Meldekort fra ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.fom)} til ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.tom)}
               `}
           rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
           leftIcon={erLitenSkjerm ? undefined : <TasklistIcon fontSize={'2rem'} />}
@@ -131,10 +131,14 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
               <Alert variant={'info'}>
                 {erJulevarselAktuelt(kommendeMeldeperiode.nesteMeldeperiode)
                   ? t('client.oversikt.infoAlertJulen', {
-                      dato: formaterDatoMedDagOgMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
+                      dato: formaterDatoMedDagOgMånedIBokstaver(
+                        kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom
+                      ),
                     })
                   : t('client.oversikt.infoAlert', {
-                      dato: formaterDatoMedDagOgMånedIBokstaver(kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom),
+                      dato: formaterDatoMedDagOgMånedIBokstaver(
+                        kommendeMeldeperiode.nesteMeldeperiode.innsendingsvindu.fom
+                      ),
                     })}
               </Alert>
             )}
