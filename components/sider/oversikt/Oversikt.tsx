@@ -102,7 +102,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
         <NavigationPanel
           type="link"
           title={`
-              Meldekort fra ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.fom)} til ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.tom)}
+              Meldekort for sak ${visning.arena.saksnummer} fra ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.fom)} til ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.tom)}
               `}
           rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
           leftIcon={erLitenSkjerm ? undefined : <TasklistIcon fontSize={'2rem'} />}
