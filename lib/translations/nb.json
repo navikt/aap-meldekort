@@ -73,7 +73,7 @@
         "bulletListJulen": {
           "item": {
             "1": "For denne perioden er det åpnet for tidligere innsending, slik at du kan få utbetaling før jul.",
-            "2": "Du fyller i så fall ut forventet arbeid for dagene fram i tid, det vil si {tidligsteDato} til {periodeTomDato}.",
+            "2": "Du fyller i så fall ut forventet arbeid for dagene fram i tid, det vil si fra og med {tidligsteDato} til og med {periodeTomDato}.",
             "3": "Du kan sende dette meldekortet fra {tidligsteDato}, men senest {senesteDato} for å unngå trekk i utbetalingen."
           }
         },
