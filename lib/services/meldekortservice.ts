@@ -1,6 +1,5 @@
 import { fetcher } from 'lib/services/fetchProxy';
 import {
-  mockHentAnsvarligSystem,
   mockHentAnsvarligSystemV2,
   mockHentInnsendteMeldeperioder,
   mockHentKommendeMeldeperioder,
@@ -86,17 +85,6 @@ export async function hentInnsendteMeldeperioder(): Promise<FetchResponse<Histor
   }
   const url = `${meldeKortBaseUrl}/api/meldeperiode/historiske`;
   return await fetcher<HistoriskMeldeperiode[]>(url, 'GET');
-}
-
-/**
- * Redirect til gammel meldekortløsning eller kelvin-meldekort
- */
-export async function hentAnsvarligSystem(): Promise<FetchResponse<'AAP' | 'FELLES'>> {
-  if (isFunctionalTest()) {
-    return { type: 'SUCCESS', data: mockHentAnsvarligSystem, status: 200 };
-  }
-  const url = `${meldeKortBaseUrl}/api/ansvarlig-system`;
-  return await fetcher<'AAP' | 'FELLES'>(url, 'GET');
 }
 
 export async function hentAnsvarligSystemV2(): Promise<FetchResponse<AnsvarligeMeldekortLøsningerDto>> {
