@@ -98,23 +98,11 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
     <VStack gap={'space-32'}>
       <BodyShort spacing>{t('client.oversikt.mottaAAP')}</BodyShort>
 
-      {visning?.type === 'BEGGE' && (
-        <NavigationPanel
-          type="link"
-          title={`
-              Meldekort for sak ${visning.arena.saksnummer} fra ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.fom)} til ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode?.tom)}
-              `}
-          rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
-          leftIcon={erLitenSkjerm ? undefined : <TasklistIcon fontSize={'2rem'} />}
-          href={fellesMeldekortLenke()}
-        />
-      )}
-
       <VStack gap={'space-16'}>
         <Heading level={'2'} size={'medium'}>
-          {visning?.type === 'BEGGE' &&
-            t('client.oversikt.sendMeldekort.headingV2', { saksnummer: visning.kelvin.saksnummer ?? '' })}
-          {visning?.type !== 'BEGGE' && t('client.oversikt.sendMeldekort.heading')}
+          {visning?.type === 'BEGGE'
+            ? `Meldekort fra og med ${formaterDatoMedÅrForFrontend(visning?.kelvin.rettighetsperiode?.fom)}`
+            : t('client.oversikt.sendMeldekort.heading')}
         </Heading>
         {kommendeMeldeperiode?.nesteMeldeperiode ? (
           <>
@@ -150,11 +138,11 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
 
       {harInnsendteMeldeperioder && (
         <VStack gap={'space-16'}>
-          <Heading level={'2'} size={'medium'}>
-            {visning?.type === 'BEGGE'
-              ? t('client.oversikt.innsendteMeldekort.headingV2', { saksnummer: visning.kelvin.saksnummer ?? '' })
-              : t('client.oversikt.innsendteMeldekort.heading')}
-          </Heading>
+          {visning?.type === 'AAP' && (
+            <Heading level={'2'} size={'medium'}>
+              {t('client.oversikt.innsendteMeldekort.heading')}
+            </Heading>
+          )}
           <NavigationPanel
             type={'link'}
             title={t('client.oversikt.innsendteMeldekort.title')}
@@ -163,6 +151,24 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
             rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
           />
         </VStack>
+      )}
+
+      {visning?.type === 'BEGGE' && (
+        <>
+          <Heading level={'2'} size={'medium'}>
+            {visning?.type === 'BEGGE' && (
+              <span>{`Meldekort før ${formaterDatoMedÅrForFrontend(visning.arena.rettighetsperiode.tom)}`}</span>
+            )}
+          </Heading>
+          <NavigationPanel
+            type="link"
+            title={t('client.oversikt.arenaMeldekort.title')}
+            description={t('client.oversikt.arenaMeldekort.description')}
+            rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
+            leftIcon={erLitenSkjerm ? undefined : <TasklistIcon fontSize={'2rem'} />}
+            href={fellesMeldekortLenke()}
+          />
+        </>
       )}
     </VStack>
   );
