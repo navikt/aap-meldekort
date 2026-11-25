@@ -21,6 +21,7 @@ interface NavigationPanelButton extends BaseNavigationPanel {
 interface NavigationPanelLink extends BaseNavigationPanel {
   type: 'link';
   href: string;
+  åpneINyFane?: boolean;
 }
 
 const NavigationPanelContent = ({ title, description, leftIcon, rightIcon }: BaseNavigationPanel) => {
@@ -42,7 +43,12 @@ const NavigationPanelContent = ({ title, description, leftIcon, rightIcon }: Bas
 
 export const NavigationPanel = (props: Props) => {
   return props.type === 'link' ? (
-    <Link href={props.href} className={styles.link}>
+    <Link
+      href={props.href}
+      className={styles.link}
+      target={props.åpneINyFane ? '_blank' : undefined}
+      rel={props.åpneINyFane ? 'noopener' : undefined}
+    >
       <NavigationPanelContent {...props} />
     </Link>
   ) : (

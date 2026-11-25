@@ -167,6 +167,7 @@ export const Oversikt = ({ kommendeMeldeperiode, harInnsendteMeldeperioder, visn
             rightIcon={<ChevronRightIcon fontSize={'1.6rem'} aria-hidden="true" />}
             leftIcon={erLitenSkjerm ? undefined : <TasklistIcon fontSize={'2rem'} />}
             href={fellesMeldekortLenke()}
+            åpneINyFane
           />
         </>
       )}
